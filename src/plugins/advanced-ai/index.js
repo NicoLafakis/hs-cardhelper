@@ -28,7 +28,7 @@ const advancedAIPlugin = createPlugin({
       // Generate card from natural language
       generateFromDescription: async (description, objectType = 'contact') => {
         try {
-          const { aiAPI } = await import('../../../api/api')
+          const { aiAPI } = await import('../../api/api')
           const response = await aiAPI.suggest(description, objectType, [])
           return response.data
         } catch (error) {
@@ -53,7 +53,7 @@ const advancedAIPlugin = createPlugin({
 
       // Generate component recommendations
       recommendComponents: async (objectType, purpose) => {
-        const { aiAPI } = await import('../../../api/api')
+        const { aiAPI } = await import('../../api/api')
         const prompt = `Recommend components for a ${objectType} card designed for: ${purpose}`
 
         try {
@@ -128,9 +128,15 @@ const advancedAIPlugin = createPlugin({
     console.log('Advanced AI Features plugin initialized!')
 
     // Check if OpenAI API key is configured
+    // Use a timeout to avoid blocking initialization if server is not available
     try {
-      const { settingsAPI } = await import('../../../api/api')
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+
+      const { settingsAPI } = await import('../../api/api')
       const status = await settingsAPI.getKeyStatus('openai')
+
+      clearTimeout(timeoutId)
 
       if (!status.data.hasKey) {
         console.warn('Advanced AI: OpenAI API key not configured. Some features may not work.')
@@ -138,7 +144,8 @@ const advancedAIPlugin = createPlugin({
         console.log('Advanced AI: OpenAI API key configured ✓')
       }
     } catch (error) {
-      console.error('Advanced AI: Failed to check API key status', error)
+      // Silently fail during initialization - the API check can happen later when needed
+      console.debug('Advanced AI: API key check skipped (server may not be available yet)')
     }
 
     // Set feature flag

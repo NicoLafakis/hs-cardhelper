@@ -1,18 +1,24 @@
 import express from 'express'
 import OpenAI from 'openai'
-import db from '../utils/database.js'
+import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'
 import { decrypt } from '../utils/encryption.js'
 
 const router = express.Router()
 
 // Get OpenAI key for user
-function getOpenAIKey(userId) {
-  const result = db.prepare('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?').get(userId, 'openai')
-  if (!result) {
-    throw new Error('OpenAI API key not found')
+async function getOpenAIKey(userId) {
+  const connection = await pool.getConnection()
+  try {
+    const [results] = await connection.execute('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?', [userId, 'openai'])
+    const result = results[0]
+    if (!result) {
+      throw new Error('OpenAI API key not found')
+    }
+    return decrypt(result.encrypted_key)
+  } finally {
+    connection.release()
   }
-  return decrypt(result.encrypted_key)
 }
 
 // Generate card configuration suggestions
@@ -24,7 +30,7 @@ router.post('/suggest', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Prompt is required' })
     }
 
-    const apiKey = getOpenAIKey(req.user.userId)
+    const apiKey = await getOpenAIKey(req.user.userId)
     const openai = new OpenAI({ apiKey })
 
     const systemPrompt = `You are an AI assistant that helps create HubSpot CRM card configurations.
@@ -90,7 +96,7 @@ router.post('/table-wizard', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Description and object type are required' })
     }
 
-    const apiKey = getOpenAIKey(req.user.userId)
+    const apiKey = await getOpenAIKey(req.user.userId)
     const openai = new OpenAI({ apiKey })
 
     const systemPrompt = `You are an AI assistant that creates HubSpot data table configurations.

@@ -1,18 +1,24 @@
 import express from 'express'
 import axios from 'axios'
-import db from '../utils/database.js'
+import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'
 import { decrypt } from '../utils/encryption.js'
 
 const router = express.Router()
 
 // Get HubSpot API key for user
-function getHubSpotKey(userId) {
-  const result = db.prepare('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?').get(userId, 'hubspot')
-  if (!result) {
-    throw new Error('HubSpot API key not found')
+async function getHubSpotKey(userId) {
+  const connection = await pool.getConnection()
+  try {
+    const [results] = await connection.execute('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?', [userId, 'hubspot'])
+    const result = results[0]
+    if (!result) {
+      throw new Error('HubSpot API key not found')
+    }
+    return decrypt(result.encrypted_key)
+  } finally {
+    connection.release()
   }
-  return decrypt(result.encrypted_key)
 }
 
 // Validate HubSpot API key
@@ -43,7 +49,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
 // Get available CRM objects
 router.get('/objects', authenticateToken, async (req, res) => {
   try {
-    const apiKey = getHubSpotKey(req.user.userId)
+    await getHubSpotKey(req.user.userId)
 
     const objects = [
       { id: 'contacts', name: 'Contacts' },
@@ -66,7 +72,7 @@ router.get('/objects', authenticateToken, async (req, res) => {
 router.get('/properties/:objectType', authenticateToken, async (req, res) => {
   try {
     const { objectType } = req.params
-    const apiKey = getHubSpotKey(req.user.userId)
+    const apiKey = await getHubSpotKey(req.user.userId)
 
     const response = await axios.get(`https://api.hubapi.com/crm/v3/properties/${objectType}`, {
       headers: { Authorization: `Bearer ${apiKey}` }

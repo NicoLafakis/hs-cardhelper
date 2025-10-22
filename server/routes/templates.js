@@ -1,14 +1,19 @@
 import express from 'express'
-import db from '../utils/database.js'
+import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'
 
 const router = express.Router()
 
 // Get all templates for user
-router.get('/', authenticateToken, (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
-    const templates = db.prepare('SELECT id, name, config, created_at FROM templates WHERE user_id = ? ORDER BY created_at DESC').all(req.user.userId)
-    res.json(templates)
+    const connection = await pool.getConnection()
+    try {
+      const [templates] = await connection.execute('SELECT id, name, config, created_at FROM templates WHERE user_id = ? ORDER BY created_at DESC', [req.user.userId])
+      res.json(templates)
+    } finally {
+      connection.release()
+    }
   } catch (error) {
     console.error('Get templates error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -16,15 +21,21 @@ router.get('/', authenticateToken, (req, res) => {
 })
 
 // Get single template
-router.get('/:id', authenticateToken, (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
   try {
-    const template = db.prepare('SELECT id, name, config, created_at FROM templates WHERE id = ? AND user_id = ?').get(req.params.id, req.user.userId)
+    const connection = await pool.getConnection()
+    try {
+      const [templates] = await connection.execute('SELECT id, name, config, created_at FROM templates WHERE id = ? AND user_id = ?', [req.params.id, req.user.userId])
+      const template = templates[0]
 
-    if (!template) {
-      return res.status(404).json({ error: 'Template not found' })
+      if (!template) {
+        return res.status(404).json({ error: 'Template not found' })
+      }
+
+      res.json(template)
+    } finally {
+      connection.release()
     }
-
-    res.json(template)
   } catch (error) {
     console.error('Get template error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -32,7 +43,7 @@ router.get('/:id', authenticateToken, (req, res) => {
 })
 
 // Save template
-router.post('/', authenticateToken, (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
   try {
     const { name, config } = req.body
 
@@ -40,18 +51,23 @@ router.post('/', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Name and config are required' })
     }
 
-    const result = db.prepare('INSERT INTO templates (user_id, name, config) VALUES (?, ?, ?)').run(
-      req.user.userId,
-      name,
-      JSON.stringify(config)
-    )
+    const connection = await pool.getConnection()
+    try {
+      const [result] = await connection.execute('INSERT INTO templates (user_id, name, config) VALUES (?, ?, ?)', [
+        req.user.userId,
+        name,
+        JSON.stringify(config)
+      ])
 
-    res.json({
-      id: result.lastInsertRowid,
-      name,
-      config,
-      message: 'Template saved successfully'
-    })
+      res.json({
+        id: result.insertId,
+        name,
+        config,
+        message: 'Template saved successfully'
+      })
+    } finally {
+      connection.release()
+    }
   } catch (error) {
     console.error('Save template error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -59,15 +75,20 @@ router.post('/', authenticateToken, (req, res) => {
 })
 
 // Delete template
-router.delete('/:id', authenticateToken, (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
   try {
-    const result = db.prepare('DELETE FROM templates WHERE id = ? AND user_id = ?').run(req.params.id, req.user.userId)
+    const connection = await pool.getConnection()
+    try {
+      const [result] = await connection.execute('DELETE FROM templates WHERE id = ? AND user_id = ?', [req.params.id, req.user.userId])
 
-    if (result.changes === 0) {
-      return res.status(404).json({ error: 'Template not found' })
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Template not found' })
+      }
+
+      res.json({ message: 'Template deleted successfully' })
+    } finally {
+      connection.release()
     }
-
-    res.json({ message: 'Template deleted successfully' })
   } catch (error) {
     console.error('Delete template error:', error)
     res.status(500).json({ error: 'Internal server error' })

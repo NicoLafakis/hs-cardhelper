@@ -1,12 +1,12 @@
 import express from 'express'
-import db from '../utils/database.js'
+import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'
 import { encrypt, decrypt } from '../utils/encryption.js'
 
 const router = express.Router()
 
 // Save API key
-router.post('/:service', authenticateToken, (req, res) => {
+router.post('/:service', authenticateToken, async (req, res) => {
   try {
     const { service } = req.params
     const { apiKey } = req.body
@@ -21,15 +21,20 @@ router.post('/:service', authenticateToken, (req, res) => {
 
     const encryptedKey = encrypt(apiKey)
 
-    const existing = db.prepare('SELECT id FROM api_keys WHERE user_id = ? AND service = ?').get(req.user.userId, service)
+    const connection = await pool.getConnection()
+    try {
+      const [existing] = await connection.execute('SELECT id FROM api_keys WHERE user_id = ? AND service = ?', [req.user.userId, service])
 
-    if (existing) {
-      db.prepare('UPDATE api_keys SET encrypted_key = ? WHERE user_id = ? AND service = ?').run(encryptedKey, req.user.userId, service)
-    } else {
-      db.prepare('INSERT INTO api_keys (user_id, service, encrypted_key) VALUES (?, ?, ?)').run(req.user.userId, service, encryptedKey)
+      if (existing.length > 0) {
+        await connection.execute('UPDATE api_keys SET encrypted_key = ? WHERE user_id = ? AND service = ?', [encryptedKey, req.user.userId, service])
+      } else {
+        await connection.execute('INSERT INTO api_keys (user_id, service, encrypted_key) VALUES (?, ?, ?)', [req.user.userId, service, encryptedKey])
+      }
+
+      res.json({ message: `${service} API key saved successfully` })
+    } finally {
+      connection.release()
     }
-
-    res.json({ message: `${service} API key saved successfully` })
   } catch (error) {
     console.error('Save API key error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -37,7 +42,7 @@ router.post('/:service', authenticateToken, (req, res) => {
 })
 
 // Get API key status
-router.get('/:service', authenticateToken, (req, res) => {
+router.get('/:service', authenticateToken, async (req, res) => {
   try {
     const { service } = req.params
 
@@ -45,9 +50,14 @@ router.get('/:service', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Invalid service' })
     }
 
-    const apiKey = db.prepare('SELECT id FROM api_keys WHERE user_id = ? AND service = ?').get(req.user.userId, service)
+    const connection = await pool.getConnection()
+    try {
+      const [apiKeys] = await connection.execute('SELECT id FROM api_keys WHERE user_id = ? AND service = ?', [req.user.userId, service])
 
-    res.json({ hasKey: !!apiKey })
+      res.json({ hasKey: apiKeys.length > 0 })
+    } finally {
+      connection.release()
+    }
   } catch (error) {
     console.error('Get API key status error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -55,7 +65,7 @@ router.get('/:service', authenticateToken, (req, res) => {
 })
 
 // Get decrypted API key (internal use)
-router.get('/:service/key', authenticateToken, (req, res) => {
+router.get('/:service/key', authenticateToken, async (req, res) => {
   try {
     const { service } = req.params
 
@@ -63,14 +73,20 @@ router.get('/:service/key', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Invalid service' })
     }
 
-    const result = db.prepare('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?').get(req.user.userId, service)
+    const connection = await pool.getConnection()
+    try {
+      const [results] = await connection.execute('SELECT encrypted_key FROM api_keys WHERE user_id = ? AND service = ?', [req.user.userId, service])
+      const result = results[0]
 
-    if (!result) {
-      return res.status(404).json({ error: 'API key not found' })
+      if (!result) {
+        return res.status(404).json({ error: 'API key not found' })
+      }
+
+      const apiKey = decrypt(result.encrypted_key)
+      res.json({ apiKey })
+    } finally {
+      connection.release()
     }
-
-    const apiKey = decrypt(result.encrypted_key)
-    res.json({ apiKey })
   } catch (error) {
     console.error('Get API key error:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -78,7 +94,7 @@ router.get('/:service/key', authenticateToken, (req, res) => {
 })
 
 // Delete API key
-router.delete('/:service', authenticateToken, (req, res) => {
+router.delete('/:service', authenticateToken, async (req, res) => {
   try {
     const { service } = req.params
 
@@ -86,13 +102,18 @@ router.delete('/:service', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Invalid service' })
     }
 
-    const result = db.prepare('DELETE FROM api_keys WHERE user_id = ? AND service = ?').run(req.user.userId, service)
+    const connection = await pool.getConnection()
+    try {
+      const [result] = await connection.execute('DELETE FROM api_keys WHERE user_id = ? AND service = ?', [req.user.userId, service])
 
-    if (result.changes === 0) {
-      return res.status(404).json({ error: 'API key not found' })
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'API key not found' })
+      }
+
+      res.json({ message: `${service} API key deleted successfully` })
+    } finally {
+      connection.release()
     }
-
-    res.json({ message: `${service} API key deleted successfully` })
   } catch (error) {
     console.error('Delete API key error:', error)
     res.status(500).json({ error: 'Internal server error' })
