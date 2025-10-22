@@ -3,6 +3,7 @@ import useAuthStore from './store/authStore'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import BuilderPage from './pages/BuilderPage'
+import { PluginProvider } from './core/PluginManager'
 
 export default function App() {
   const [authMode, setAuthMode] = useState('login') // 'login' or 'signup'
@@ -12,11 +13,9 @@ export default function App() {
     init()
   }, [])
 
-  if (isAuthenticated) {
-    return <BuilderPage />
-  }
-
-  return authMode === 'login' ? (
+  const content = isAuthenticated ? (
+    <BuilderPage />
+  ) : authMode === 'login' ? (
     <Login
       onToggleMode={() => setAuthMode('signup')}
       onLoginSuccess={() => {}}
@@ -26,5 +25,11 @@ export default function App() {
       onToggleMode={() => setAuthMode('login')}
       onSignupSuccess={() => {}}
     />
+  )
+
+  return (
+    <PluginProvider>
+      {content}
+    </PluginProvider>
   )
 }

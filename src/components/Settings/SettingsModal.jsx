@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { settingsAPI } from '../../api/api'
-import { X, Save, Key, Trash2, AlertCircle, CheckCircle } from 'lucide-react'
+import { X, Save, Key, Trash2, AlertCircle, CheckCircle, Puzzle } from 'lucide-react'
+import PluginSettings from './PluginSettings'
 
 export default function SettingsModal({ onClose }) {
+  const [activeTab, setActiveTab] = useState('api-keys')
   const [hubspotKey, setHubspotKey] = useState('')
   const [openaiKey, setOpenaiKey] = useState('')
   const [hasHubspotKey, setHasHubspotKey] = useState(false)
@@ -100,9 +102,14 @@ export default function SettingsModal({ onClose }) {
     }
   }
 
+  const tabs = [
+    { id: 'api-keys', label: 'API Keys', icon: Key },
+    { id: 'plugins', label: 'Plugins', icon: Puzzle }
+  ]
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[85vh] overflow-hidden">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-2xl font-bold text-gray-800">Settings</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg">
@@ -110,7 +117,32 @@ export default function SettingsModal({ onClose }) {
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[calc(80vh-180px)] space-y-6">
+        {/* Tabs */}
+        <div className="border-b border-gray-200 px-6">
+          <div className="flex gap-4">
+            {tabs.map((tab) => {
+              const Icon = tab.icon
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+                    activeTab === tab.id
+                      ? 'border-blue-600 text-blue-600 font-medium'
+                      : 'border-transparent text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="p-6 overflow-y-auto max-h-[calc(85vh-180px)]">
+          {activeTab === 'api-keys' && (
+            <div className="space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center gap-2">
               <AlertCircle className="w-5 h-5" />
@@ -201,12 +233,18 @@ export default function SettingsModal({ onClose }) {
             </p>
           </div>
 
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <h4 className="font-semibold text-blue-800 mb-2">Security Note</h4>
-            <p className="text-sm text-blue-700">
-              All API keys are encrypted before storage and never exposed in API responses.
-            </p>
-          </div>
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 className="font-semibold text-blue-800 mb-2">Security Note</h4>
+                <p className="text-sm text-blue-700">
+                  All API keys are encrypted before storage and never exposed in API responses.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'plugins' && (
+            <PluginSettings />
+          )}
         </div>
       </div>
     </div>

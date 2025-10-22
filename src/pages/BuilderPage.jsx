@@ -4,6 +4,7 @@ import Header from '../components/Builder/Header'
 import ComponentPalette from '../components/Builder/ComponentPalette'
 import Canvas from '../components/Builder/Canvas'
 import PropertyPanel from '../components/Builder/PropertyPanel'
+import WelcomeBanner from '../plugins/welcome-banner/components/WelcomeBanner'
 
 export default function BuilderPage() {
   const { undo, redo } = useBuilderStore()
@@ -35,6 +36,7 @@ export default function BuilderPage() {
 
   return (
     <div className="h-screen flex flex-col">
+      <WelcomeBanner />
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <ComponentPalette />

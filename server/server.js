@@ -7,6 +7,7 @@ import templateRoutes from './routes/templates.js'
 import settingsRoutes from './routes/settings.js'
 import hubspotRoutes from './routes/hubspot.js'
 import aiRoutes from './routes/ai.js'
+import featureFlagsRoutes from './routes/featureFlags.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use('/api/templates', templateRoutes)
 app.use('/api/settings', settingsRoutes)
 app.use('/api/hubspot', hubspotRoutes)
 app.use('/api/ai', aiRoutes)
+app.use('/api/feature-flags', featureFlagsRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
