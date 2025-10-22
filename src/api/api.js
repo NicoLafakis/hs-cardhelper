@@ -84,4 +84,13 @@ export const aiAPI = {
     api.post('/ai/table-wizard', { description, objectType, availableProperties })
 }
 
+// Feature Flags API
+export const featureFlagsAPI = {
+  getAll: () => api.get('/feature-flags'),
+  set: (key, value) => api.post('/feature-flags', { key, value }),
+  setBulk: (flags) => api.post('/feature-flags/bulk', { flags }),
+  delete: (key) => api.delete(`/feature-flags/${key}`),
+  reset: () => api.post('/feature-flags/reset')
+}
+
 export default api
