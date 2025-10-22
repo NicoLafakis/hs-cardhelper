@@ -30,7 +30,10 @@
     "better-sqlite3": "^11.3.0",
     "dotenv": "^16.4.5",
     "openai": "^4.63.0",
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "recharts": "^2.12.0",
+    "date-fns": "^3.3.1",
+    "react-player": "^2.16.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
