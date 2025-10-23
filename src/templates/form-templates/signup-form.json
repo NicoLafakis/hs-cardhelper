@@ -1,0 +1,234 @@
+{
+  "templateId": "tmpl-form-signup-012",
+  "name": "Signup Form",
+  "description": "User registration form with password strength indicator, social login options, and terms acceptance. Ideal for user onboarding.",
+  "category": "form-templates",
+  "thumbnailUrl": "/templates/thumbnails/signup-form.png",
+  "previewHtml": "<div class='signup-form-preview'><h2>Create Account</h2><form><input placeholder='Email'/><input type='password' placeholder='Password'/><button>Sign Up</button><div class='social'><button>Google</button><button>GitHub</button></div></form></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "40px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 24px rgba(0,0,0,0.12)",
+      "backgroundColor": "#ffffff",
+      "maxWidth": "480px"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "28px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "vertical", "textAlign": "center" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Form Title",
+                  "placeholder": "Create Your Account",
+                  "value": "",
+                  "fontSize": "32px",
+                  "fontWeight": "700",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Join thousands of users already using our platform",
+                  "fontSize": "15px",
+                  "color": "#666",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Email Address",
+                  "placeholder": "you@example.com",
+                  "type": "email",
+                  "value": "",
+                  "required": true,
+                  "validation": {
+                    "type": "email"
+                  },
+                  "icon": "mail"
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Password",
+                  "placeholder": "Create a strong password",
+                  "type": "password",
+                  "value": "",
+                  "required": true,
+                  "validation": {
+                    "minLength": 8,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
+                  },
+                  "icon": "lock"
+                }
+              },
+              {
+                "type": "ProgressBar",
+                "props": {
+                  "label": "Password Strength",
+                  "value": 0,
+                  "max": 100,
+                  "variant": "info",
+                  "height": "4px"
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Full Name",
+                  "placeholder": "John Doe",
+                  "value": "",
+                  "required": true,
+                  "icon": "user"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Checkbox",
+                "props": {
+                  "label": "I agree to the Terms of Service and Privacy Policy",
+                  "value": false,
+                  "required": true
+                }
+              },
+              {
+                "type": "Checkbox",
+                "props": {
+                  "label": "Send me product updates and announcements",
+                  "value": false
+                }
+              }
+            ]
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "Create Account",
+              "variant": "primary",
+              "size": "large",
+              "fullWidth": true
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+            "children": [
+              {
+                "type": "Divider",
+                "props": { "flex": 1 }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "OR",
+                  "fontSize": "13px",
+                  "color": "#999",
+                  "fontWeight": "500"
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "flex": 1 }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Google",
+                  "variant": "secondary",
+                  "size": "medium",
+                  "fullWidth": true,
+                  "icon": "google"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "GitHub",
+                  "variant": "secondary",
+                  "size": "medium",
+                  "fullWidth": true,
+                  "icon": "github"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Text",
+            "props": {
+              "value": "Already have an account? Sign in",
+              "fontSize": "14px",
+              "color": "#0066cc",
+              "textAlign": "center",
+              "cursor": "pointer"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#333333",
+      "border": "#e0e0e0",
+      "primary": "#0066cc",
+      "secondary": "#666666"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "32px",
+      "body": "15px"
+    },
+    "spacing": {
+      "card": "40px",
+      "section": "28px"
+    }
+  },
+  "defaultValues": {
+    "formTitle": "Create Your Account",
+    "subtitle": "Join thousands of users already using our platform",
+    "email": "",
+    "password": "",
+    "fullName": ""
+  },
+  "tags": ["signup", "registration", "onboarding", "account", "auth"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "24px" },
+    "sm": { "cardPadding": "32px" },
+    "md": { "cardPadding": "40px" }
+  },
+  "animations": {
+    "entrance": "slideInUp",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Password strength indicator. Clear labels. Social login options. Keyboard accessible.",
+  "seoKeywords": "signup form, registration, create account, user onboarding, authentication"
+}

@@ -1,0 +1,205 @@
+{
+  "templateId": "tmpl-form-contact-011",
+  "name": "Contact Form",
+  "description": "Professional contact form with validation, field groups, and success messaging. Perfect for landing pages and contact pages.",
+  "category": "form-templates",
+  "thumbnailUrl": "/templates/thumbnails/contact-form.png",
+  "previewHtml": "<div class='contact-form-preview'><h2>Get In Touch</h2><form><input placeholder='Name'/><input placeholder='Email'/><textarea placeholder='Message'></textarea><button>Send Message</button></form></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "40px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.1)",
+      "backgroundColor": "#ffffff",
+      "maxWidth": "600px"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "32px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "vertical", "textAlign": "center" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Form Title",
+                  "placeholder": "Get In Touch",
+                  "value": "",
+                  "fontSize": "32px",
+                  "fontWeight": "700",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+                  "fontSize": "16px",
+                  "color": "#666",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "20px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Full Name",
+                  "placeholder": "John Doe",
+                  "value": "",
+                  "required": true,
+                  "validation": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 100
+                  },
+                  "error": ""
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Email Address",
+                  "placeholder": "john@example.com",
+                  "type": "email",
+                  "value": "",
+                  "required": true,
+                  "validation": {
+                    "type": "email"
+                  },
+                  "error": ""
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Phone Number (Optional)",
+                  "placeholder": "(555) 123-4567",
+                  "type": "tel",
+                  "value": "",
+                  "formatting": {
+                    "type": "phone"
+                  }
+                }
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "Subject",
+                  "placeholder": "Select a subject",
+                  "options": [
+                    { "value": "general", "label": "General Inquiry" },
+                    { "value": "support", "label": "Support Request" },
+                    { "value": "sales", "label": "Sales Question" },
+                    { "value": "feedback", "label": "Feedback" },
+                    { "value": "other", "label": "Other" }
+                  ],
+                  "value": "",
+                  "required": true
+                }
+              },
+              {
+                "type": "TextArea",
+                "props": {
+                  "label": "Message",
+                  "placeholder": "Tell us more about your inquiry...",
+                  "value": "",
+                  "required": true,
+                  "rows": 5,
+                  "maxLength": 1000,
+                  "validation": {
+                    "minLength": 10,
+                    "maxLength": 1000
+                  }
+                }
+              },
+              {
+                "type": "Checkbox",
+                "props": {
+                  "label": "I agree to the privacy policy and terms of service",
+                  "value": false,
+                  "required": true
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Send Message",
+                  "variant": "primary",
+                  "size": "large",
+                  "fullWidth": true,
+                  "icon": "send"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "We typically respond within 24 hours",
+                  "fontSize": "13px",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#333333",
+      "border": "#e0e0e0",
+      "primary": "#0066cc",
+      "error": "#ef4444"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "32px",
+      "label": "14px",
+      "body": "16px"
+    },
+    "spacing": {
+      "card": "40px",
+      "section": "32px",
+      "field": "20px"
+    }
+  },
+  "defaultValues": {
+    "formTitle": "Get In Touch",
+    "subtitle": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "fullName": "",
+    "email": "",
+    "phone": "",
+    "subject": "",
+    "message": ""
+  },
+  "tags": ["form", "contact", "inquiry", "support", "communication"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "24px", "titleSize": "24px" },
+    "sm": { "cardPadding": "32px", "titleSize": "28px" },
+    "md": { "cardPadding": "40px", "titleSize": "32px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. All form fields have labels. Required fields marked. Error messages displayed clearly. Keyboard navigable.",
+  "seoKeywords": "contact form, inquiry form, support form, lead generation, contact us"
+}

@@ -1,0 +1,147 @@
+{
+  "templateId": "tmpl-dashboard-kpi-007",
+  "name": "KPI Stat Card",
+  "description": "Single metric dashboard widget with value, trend indicator, and sparkline. Perfect for tracking key performance indicators at a glance.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/kpi-stat-card.png",
+  "previewHtml": "<div class='kpi-card-preview'><div class='label'>Total Revenue</div><div class='value'>$127,450</div><div class='trend success'>↑ 12.5% from last month</div><div class='sparkline'>📈</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "24px",
+      "borderRadius": "12px",
+      "boxShadow": "0 2px 12px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff",
+      "border": "1px solid #e0e0e0"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "16px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Metric Label",
+                  "placeholder": "Total Revenue",
+                  "value": "",
+                  "fontSize": "14px",
+                  "fontWeight": "500",
+                  "color": "#666",
+                  "textTransform": "uppercase",
+                  "letterSpacing": "0.5px"
+                }
+              },
+              {
+                "type": "Icon",
+                "props": {
+                  "name": "dollar-sign",
+                  "size": "20px",
+                  "color": "#10b981"
+                }
+              }
+            ]
+          },
+          {
+            "type": "TextInput",
+            "props": {
+              "label": "Value",
+              "placeholder": "$127,450",
+              "value": "",
+              "required": true,
+              "fontSize": "36px",
+              "fontWeight": "700",
+              "color": "#1a1a1a",
+              "formatting": { "type": "currency" }
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+            "children": [
+              {
+                "type": "Icon",
+                "props": {
+                  "name": "trending-up",
+                  "size": "16px",
+                  "color": "#10b981"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "12.5%",
+                  "fontSize": "14px",
+                  "fontWeight": "600",
+                  "color": "#10b981"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "from last month",
+                  "fontSize": "14px",
+                  "color": "#666"
+                }
+              }
+            ]
+          },
+          {
+            "type": "ProgressBar",
+            "props": {
+              "value": 75,
+              "max": 100,
+              "variant": "success",
+              "height": "4px",
+              "showLabel": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "border": "#e0e0e0",
+      "success": "#10b981",
+      "danger": "#ef4444",
+      "warning": "#f59e0b"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "label": "14px",
+      "value": "36px",
+      "trend": "14px"
+    },
+    "spacing": {
+      "card": "24px"
+    }
+  },
+  "defaultValues": {
+    "metricLabel": "Total Revenue",
+    "value": "$127,450",
+    "trendPercentage": "12.5%",
+    "trendDirection": "up",
+    "trendLabel": "from last month",
+    "progressValue": 75
+  },
+  "tags": ["dashboard", "kpi", "metrics", "stats", "analytics"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "16px", "valueSize": "28px" },
+    "sm": { "cardPadding": "20px", "valueSize": "32px" },
+    "md": { "cardPadding": "24px", "valueSize": "36px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Clear metric labels. Trend indicators with icons and text. High contrast values.",
+  "seoKeywords": "kpi card, dashboard widget, metrics, analytics, statistics"
+}

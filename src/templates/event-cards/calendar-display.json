@@ -1,0 +1,408 @@
+{
+  "templateId": "tmpl-event-calendar-020",
+  "name": "Calendar Display Card",
+  "description": "Mini calendar widget with event highlights, date navigation, and quick event list. Perfect for event dashboards and schedules.",
+  "category": "event-cards",
+  "thumbnailUrl": "/templates/thumbnails/calendar-display.png",
+  "previewHtml": "<div class='calendar-preview'><div class='header'>March 2025</div><div class='calendar-grid'>[Calendar Grid]</div><div class='events'><div>• Team Meeting</div><div>• Product Launch</div></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "24px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 16px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff",
+      "maxWidth": "400px"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "20px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "chevron-left"
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Month/Year",
+                  "placeholder": "March 2025",
+                  "value": "",
+                  "fontSize": "18px",
+                  "fontWeight": "600",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "chevron-right"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 7, "gap": "4px" },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "S",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "M",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "T",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "W",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "T",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "F",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "S",
+                  "fontSize": "12px",
+                  "fontWeight": "600",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 7, "gap": "4px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": {
+                  "width": "40px",
+                  "height": "40px",
+                  "borderRadius": "8px",
+                  "align": "center",
+                  "justify": "center",
+                  "cursor": "pointer",
+                  "hover": { "backgroundColor": "#f0f0f0" }
+                },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "1",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "width": "40px",
+                  "height": "40px",
+                  "borderRadius": "8px",
+                  "align": "center",
+                  "justify": "center",
+                  "cursor": "pointer"
+                },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "2",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "width": "40px",
+                  "height": "40px",
+                  "borderRadius": "8px",
+                  "backgroundColor": "#0066cc",
+                  "align": "center",
+                  "justify": "center",
+                  "cursor": "pointer",
+                  "position": "relative"
+                },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "15",
+                      "fontSize": "14px",
+                      "fontWeight": "600",
+                      "color": "#ffffff"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": {
+                      "width": "6px",
+                      "height": "6px",
+                      "borderRadius": "50%",
+                      "backgroundColor": "#10b981",
+                      "position": "absolute",
+                      "top": "4px",
+                      "right": "4px"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "props": { "color": "#e0e0e0" }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Upcoming Events",
+                  "fontSize": "14px",
+                  "fontWeight": "600"
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "10px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center", "padding": "12px", "borderRadius": "8px", "backgroundColor": "#f9fafb", "cursor": "pointer" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "width": "8px",
+                          "height": "8px",
+                          "borderRadius": "50%",
+                          "backgroundColor": "#10b981"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "2px", "direction": "vertical", "flex": 1 },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Team Meeting",
+                              "fontSize": "14px",
+                              "fontWeight": "500"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "10:00 AM",
+                              "fontSize": "12px",
+                              "color": "#666"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center", "padding": "12px", "borderRadius": "8px", "backgroundColor": "#f9fafb", "cursor": "pointer" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "width": "8px",
+                          "height": "8px",
+                          "borderRadius": "50%",
+                          "backgroundColor": "#3b82f6"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "2px", "direction": "vertical", "flex": 1 },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Product Launch",
+                              "fontSize": "14px",
+                              "fontWeight": "500"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "2:00 PM",
+                              "fontSize": "12px",
+                              "color": "#666"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center", "padding": "12px", "borderRadius": "8px", "backgroundColor": "#f9fafb", "cursor": "pointer" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": {
+                          "width": "8px",
+                          "height": "8px",
+                          "borderRadius": "50%",
+                          "backgroundColor": "#f59e0b"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "2px", "direction": "vertical", "flex": 1 },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Client Call",
+                              "fontSize": "14px",
+                              "fontWeight": "500"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "4:30 PM",
+                              "fontSize": "12px",
+                              "color": "#666"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "View All Events",
+                  "variant": "secondary",
+                  "size": "small",
+                  "fullWidth": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "selected": "#0066cc",
+      "eventDot": "#10b981",
+      "eventBg": "#f9fafb"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "monthYear": "18px",
+      "dayLabel": "12px",
+      "dayNumber": "14px",
+      "eventTitle": "14px"
+    },
+    "spacing": {
+      "card": "24px",
+      "grid": "4px"
+    }
+  },
+  "defaultValues": {
+    "currentMonth": "March 2025",
+    "selectedDate": 15,
+    "events": [
+      { "title": "Team Meeting", "time": "10:00 AM", "color": "#10b981" },
+      { "title": "Product Launch", "time": "2:00 PM", "color": "#3b82f6" },
+      { "title": "Client Call", "time": "4:30 PM", "color": "#f59e0b" }
+    ]
+  },
+  "tags": ["calendar", "events", "schedule", "dates", "agenda"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "20px", "daySize": "36px" },
+    "sm": { "cardPadding": "22px", "daySize": "38px" },
+    "md": { "cardPadding": "24px", "daySize": "40px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Calendar keyboard navigable. Event list accessible. Date selection clear. Color-coded events with text labels.",
+  "seoKeywords": "calendar widget, event calendar, schedule, agenda, date picker"
+}

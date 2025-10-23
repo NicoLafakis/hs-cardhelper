@@ -1,0 +1,172 @@
+{
+  "templateId": "tmpl-landing-cta-015",
+  "name": "Call-to-Action Card",
+  "description": "Conversion-focused CTA card with compelling copy, urgency indicators, and prominent action button. Great for mid-page conversions.",
+  "category": "landing-page-cards",
+  "thumbnailUrl": "/templates/thumbnails/cta-card.png",
+  "previewHtml": "<div class='cta-card-preview'><div class='badge'>Limited Time Offer</div><h3>Ready to Transform Your Business?</h3><p>Join 10,000+ teams already using our platform</p><button>Start Free Trial →</button><small>No credit card required • Cancel anytime</small></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "48px",
+      "borderRadius": "20px",
+      "boxShadow": "0 8px 32px rgba(0,0,0,0.12)",
+      "backgroundColor": "#0066cc",
+      "backgroundImage": "linear-gradient(135deg, #0066cc 0%, #0052a3 100%)",
+      "textAlign": "center"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical", "align": "center" },
+        "children": [
+          {
+            "type": "Badge",
+            "props": {
+              "text": "🔥 Limited Time Offer",
+              "variant": "warning",
+              "size": "large"
+            }
+          },
+          {
+            "type": "TextInput",
+            "props": {
+              "label": "CTA Headline",
+              "placeholder": "Ready to Transform Your Business?",
+              "value": "",
+              "required": true,
+              "fontSize": "36px",
+              "fontWeight": "700",
+              "color": "#ffffff",
+              "textAlign": "center"
+            }
+          },
+          {
+            "type": "TextArea",
+            "props": {
+              "label": "Supporting Text",
+              "placeholder": "Join 10,000+ teams already using our platform to streamline their workflows and boost productivity.",
+              "value": "",
+              "maxLength": 150,
+              "rows": 2,
+              "fontSize": "18px",
+              "color": "rgba(255,255,255,0.9)",
+              "textAlign": "center"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "32px", "direction": "vertical", "align": "center", "marginTop": "8px" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Start Free Trial →",
+                  "variant": "primary",
+                  "size": "xlarge",
+                  "backgroundColor": "#ffffff",
+                  "color": "#0066cc",
+                  "paddingX": "48px"
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "✓ No credit card required",
+                      "fontSize": "14px",
+                      "color": "rgba(255,255,255,0.95)"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "•",
+                      "fontSize": "14px",
+                      "color": "rgba(255,255,255,0.5)"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "✓ Cancel anytime",
+                      "fontSize": "14px",
+                      "color": "rgba(255,255,255,0.95)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "marginTop": "20px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "⭐⭐⭐⭐⭐",
+                      "fontSize": "16px"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "4.9/5 from 2,500+ reviews",
+                      "fontSize": "13px",
+                      "color": "rgba(255,255,255,0.9)"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "linear-gradient(135deg, #0066cc 0%, #0052a3 100%)",
+      "text": "#ffffff",
+      "button": "#ffffff",
+      "buttonText": "#0066cc"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "headline": "36px",
+      "body": "18px",
+      "small": "14px"
+    },
+    "spacing": {
+      "card": "48px",
+      "section": "24px"
+    }
+  },
+  "defaultValues": {
+    "badgeText": "🔥 Limited Time Offer",
+    "headline": "Ready to Transform Your Business?",
+    "supportingText": "Join 10,000+ teams already using our platform to streamline their workflows and boost productivity.",
+    "ctaText": "Start Free Trial →",
+    "reviews": "4.9/5 from 2,500+ reviews"
+  },
+  "tags": ["cta", "conversion", "landing-page", "action", "trial"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "32px 24px", "headlineSize": "28px" },
+    "sm": { "cardPadding": "40px 32px", "headlineSize": "32px" },
+    "md": { "cardPadding": "48px", "headlineSize": "36px" }
+  },
+  "animations": {
+    "entrance": "zoomIn",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. High contrast CTA button. Clear value proposition. Urgency indicator.",
+  "seoKeywords": "call-to-action, cta card, conversion, landing page, trial signup"
+}

@@ -1,0 +1,217 @@
+{
+  "templateId": "tmpl-product-pricing-006",
+  "name": "Pricing Tier Card",
+  "description": "Clean pricing card with plan details, features list, and CTA button. Ideal for SaaS pricing pages and subscription models.",
+  "category": "product-cards",
+  "thumbnailUrl": "/templates/thumbnails/pricing-card.png",
+  "previewHtml": "<div class='pricing-card-preview'><div class='badge'>Most Popular</div><h3>Professional</h3><div class='price'><span>$</span>49<span>/mo</span></div><ul><li>✓ Unlimited projects</li><li>✓ 10 team members</li><li>✓ Advanced analytics</li></ul><button>Start Free Trial</button></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "20px",
+      "boxShadow": "0 8px 24px rgba(0,0,0,0.12)",
+      "border": "3px solid #0066cc",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": {
+              "padding": "12px",
+              "backgroundColor": "#0066cc",
+              "align": "center",
+              "justify": "center"
+            },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Most Popular",
+                  "fontSize": "14px",
+                  "fontWeight": "600",
+                  "color": "#ffffff",
+                  "textTransform": "uppercase",
+                  "letterSpacing": "0.5px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "24px", "direction": "vertical", "padding": "32px", "align": "center" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Plan Name",
+                  "placeholder": "Professional",
+                  "value": "",
+                  "required": true,
+                  "fontSize": "32px",
+                  "fontWeight": "700",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "0", "direction": "horizontal", "align": "baseline" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "$",
+                      "fontSize": "32px",
+                      "fontWeight": "600",
+                      "color": "#0066cc"
+                    }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Price",
+                      "placeholder": "49",
+                      "value": "",
+                      "fontSize": "64px",
+                      "fontWeight": "800",
+                      "color": "#0066cc",
+                      "formatting": { "type": "number" }
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "/mo",
+                      "fontSize": "20px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TextArea",
+                "props": {
+                  "label": "Plan Description",
+                  "placeholder": "Perfect for growing teams and businesses",
+                  "value": "",
+                  "maxLength": 100,
+                  "rows": 1,
+                  "textAlign": "center",
+                  "color": "#666"
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e0e0e0", "width": "100%" }
+              },
+              {
+                "type": "List",
+                "props": {
+                  "items": [
+                    {
+                      "icon": "check",
+                      "text": "Unlimited projects",
+                      "iconColor": "#10b981"
+                    },
+                    {
+                      "icon": "check",
+                      "text": "10 team members",
+                      "iconColor": "#10b981"
+                    },
+                    {
+                      "icon": "check",
+                      "text": "Advanced analytics",
+                      "iconColor": "#10b981"
+                    },
+                    {
+                      "icon": "check",
+                      "text": "Priority support",
+                      "iconColor": "#10b981"
+                    },
+                    {
+                      "icon": "check",
+                      "text": "Custom integrations",
+                      "iconColor": "#10b981"
+                    }
+                  ],
+                  "spacing": "16px",
+                  "align": "left"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Start Free Trial",
+                  "variant": "primary",
+                  "size": "large",
+                  "fullWidth": true,
+                  "icon": "arrow-right"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "No credit card required",
+                  "fontSize": "13px",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "border": "#0066cc",
+      "text": "#333333",
+      "badge": "#0066cc",
+      "check": "#10b981"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "planName": "32px",
+      "price": "64px",
+      "body": "16px"
+    },
+    "spacing": {
+      "card": "32px",
+      "section": "24px"
+    }
+  },
+  "defaultValues": {
+    "planName": "Professional",
+    "price": "49",
+    "billingPeriod": "mo",
+    "description": "Perfect for growing teams and businesses",
+    "features": [
+      "Unlimited projects",
+      "10 team members",
+      "Advanced analytics",
+      "Priority support",
+      "Custom integrations"
+    ],
+    "ctaText": "Start Free Trial"
+  },
+  "tags": ["pricing", "subscription", "saas", "plans", "payment"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "20px", "priceSize": "48px" },
+    "sm": { "cardPadding": "24px", "priceSize": "56px" },
+    "md": { "cardPadding": "32px", "priceSize": "64px" }
+  },
+  "animations": {
+    "entrance": "zoomIn",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Clear pricing information. Features list with checkmarks. High contrast CTA button.",
+  "seoKeywords": "pricing card, subscription, saas pricing, plans, payment tiers"
+}

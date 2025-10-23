@@ -1,0 +1,172 @@
+{
+  "templateId": "tmpl-landing-hero-014",
+  "name": "Hero Section Card",
+  "description": "Impactful hero section with headline, subheadline, CTA buttons, and background image. Perfect for landing page above-the-fold content.",
+  "category": "landing-page-cards",
+  "thumbnailUrl": "/templates/thumbnails/hero-section.png",
+  "previewHtml": "<div class='hero-preview'><h1>Build Amazing Products Faster</h1><p>The all-in-one platform for modern teams</p><div class='cta'><button>Get Started Free</button><button>Watch Demo</button></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "80px 40px",
+      "borderRadius": "0",
+      "backgroundColor": "#1a1a1a",
+      "backgroundImage": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "minHeight": "600px",
+      "display": "flex",
+      "alignItems": "center",
+      "justifyContent": "center"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "32px", "direction": "vertical", "align": "center", "maxWidth": "900px" },
+        "children": [
+          {
+            "type": "Badge",
+            "props": {
+              "text": "🚀 New: AI-Powered Features",
+              "variant": "info",
+              "size": "medium"
+            }
+          },
+          {
+            "type": "TextInput",
+            "props": {
+              "label": "Headline",
+              "placeholder": "Build Amazing Products Faster",
+              "value": "",
+              "required": true,
+              "fontSize": "56px",
+              "fontWeight": "800",
+              "color": "#ffffff",
+              "textAlign": "center",
+              "lineHeight": "1.1"
+            }
+          },
+          {
+            "type": "TextArea",
+            "props": {
+              "label": "Subheadline",
+              "placeholder": "The all-in-one platform for modern teams to collaborate, build, and ship products that customers love.",
+              "value": "",
+              "maxLength": 200,
+              "rows": 2,
+              "fontSize": "20px",
+              "color": "rgba(255,255,255,0.9)",
+              "textAlign": "center"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "justify": "center" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Get Started Free",
+                  "variant": "primary",
+                  "size": "large",
+                  "icon": "arrow-right"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Watch Demo",
+                  "variant": "secondary",
+                  "size": "large",
+                  "icon": "play"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "24px", "direction": "horizontal", "align": "center", "marginTop": "40px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "check-circle", "size": "20px", "color": "#10b981" }
+                  },
+                  {
+                    "type": "Text",
+                    "props": { "value": "No credit card required", "color": "#ffffff", "fontSize": "14px" }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "check-circle", "size": "20px", "color": "#10b981" }
+                  },
+                  {
+                    "type": "Text",
+                    "props": { "value": "14-day free trial", "color": "#ffffff", "fontSize": "14px" }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "check-circle", "size": "20px", "color": "#10b981" }
+                  },
+                  {
+                    "type": "Text",
+                    "props": { "value": "Cancel anytime", "color": "#ffffff", "fontSize": "14px" }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "text": "#ffffff",
+      "primary": "#ffffff",
+      "secondary": "rgba(255,255,255,0.2)"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "headline": "56px",
+      "subheadline": "20px",
+      "body": "16px"
+    },
+    "spacing": {
+      "card": "80px 40px",
+      "section": "32px"
+    }
+  },
+  "defaultValues": {
+    "headline": "Build Amazing Products Faster",
+    "subheadline": "The all-in-one platform for modern teams to collaborate, build, and ship products that customers love.",
+    "ctaPrimary": "Get Started Free",
+    "ctaSecondary": "Watch Demo"
+  },
+  "tags": ["hero", "landing-page", "cta", "headline", "above-fold"],
+  "responsiveConfig": {
+    "xs": { "padding": "60px 20px", "headlineSize": "32px", "ctaDirection": "vertical" },
+    "sm": { "padding": "70px 30px", "headlineSize": "40px", "ctaDirection": "vertical" },
+    "md": { "padding": "80px 40px", "headlineSize": "56px", "ctaDirection": "horizontal" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. High contrast text on gradient. Clear CTA buttons. Semantic HTML structure.",
+  "seoKeywords": "hero section, landing page, headline, call-to-action, above-fold"
+}

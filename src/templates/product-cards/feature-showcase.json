@@ -1,0 +1,155 @@
+{
+  "templateId": "tmpl-product-feature-005",
+  "name": "Feature Showcase Card",
+  "description": "Highlight product features with icons, descriptions, and visual emphasis. Great for landing pages and product tours.",
+  "category": "product-cards",
+  "thumbnailUrl": "/templates/thumbnails/feature-showcase.png",
+  "previewHtml": "<div class='feature-card-preview'><div class='icon'>🚀</div><h3>Lightning Fast Performance</h3><p>Process data 10x faster with our optimized engine</p><ul><li>Sub-100ms response time</li><li>Real-time updates</li><li>Global CDN</li></ul></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.08)",
+      "border": "2px solid #f0f0f0"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": {
+              "width": "80px",
+              "height": "80px",
+              "borderRadius": "50%",
+              "backgroundColor": "#e3f2fd",
+              "align": "center",
+              "justify": "center"
+            },
+            "children": [
+              {
+                "type": "Icon",
+                "props": {
+                  "name": "zap",
+                  "size": "40px",
+                  "color": "#0066cc"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Feature Title",
+                  "placeholder": "Lightning Fast Performance",
+                  "value": "",
+                  "required": true,
+                  "fontSize": "28px",
+                  "fontWeight": "700"
+                }
+              },
+              {
+                "type": "TextArea",
+                "props": {
+                  "label": "Feature Description",
+                  "placeholder": "Process data 10x faster with our optimized engine. Built for speed and reliability.",
+                  "value": "",
+                  "maxLength": 150,
+                  "rows": 2,
+                  "fontSize": "16px",
+                  "color": "#666"
+                }
+              }
+            ]
+          },
+          {
+            "type": "List",
+            "props": {
+              "items": [
+                {
+                  "icon": "check",
+                  "text": "Sub-100ms response time",
+                  "iconColor": "#10b981"
+                },
+                {
+                  "icon": "check",
+                  "text": "Real-time data updates",
+                  "iconColor": "#10b981"
+                },
+                {
+                  "icon": "check",
+                  "text": "Global CDN coverage",
+                  "iconColor": "#10b981"
+                },
+                {
+                  "icon": "check",
+                  "text": "99.99% uptime SLA",
+                  "iconColor": "#10b981"
+                }
+              ],
+              "spacing": "12px"
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "Learn More",
+              "variant": "primary",
+              "size": "large",
+              "fullWidth": true,
+              "icon": "arrow-right"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "iconBg": "#e3f2fd",
+      "text": "#333333",
+      "check": "#10b981",
+      "border": "#f0f0f0"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "titleSize": "28px",
+      "bodySize": "16px"
+    },
+    "spacing": {
+      "card": "32px",
+      "section": "24px"
+    }
+  },
+  "defaultValues": {
+    "featureTitle": "Lightning Fast Performance",
+    "featureDescription": "Process data 10x faster with our optimized engine. Built for speed and reliability.",
+    "benefits": [
+      "Sub-100ms response time",
+      "Real-time data updates",
+      "Global CDN coverage",
+      "99.99% uptime SLA"
+    ]
+  },
+  "tags": ["feature", "showcase", "product", "benefits", "landing-page"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "20px", "iconSize": "60px" },
+    "sm": { "cardPadding": "24px", "iconSize": "70px" },
+    "md": { "cardPadding": "32px", "iconSize": "80px" }
+  },
+  "animations": {
+    "entrance": "slideInUp",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Icons have semantic meaning. List items clearly structured. High contrast ratios.",
+  "seoKeywords": "feature card, product benefits, showcase, landing page, features list"
+}

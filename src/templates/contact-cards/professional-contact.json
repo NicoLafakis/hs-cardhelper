@@ -1,0 +1,181 @@
+{
+  "templateId": "tmpl-contact-professional-001",
+  "name": "Professional Contact Card",
+  "description": "Clean, professional contact card with social links and business info. Perfect for team directories and business networking.",
+  "category": "contact-cards",
+  "thumbnailUrl": "/templates/thumbnails/professional-contact.png",
+  "previewHtml": "<div class='professional-contact-preview'><div class='contact-header'><img src='https://via.placeholder.com/80' alt='Profile'/><h3>John Doe</h3><p>Senior Sales Manager</p></div><div class='contact-info'><p>Email: john.doe@company.com</p><p>Phone: (555) 123-4567</p></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "24px",
+      "borderRadius": "12px",
+      "boxShadow": "0 2px 8px rgba(0,0,0,0.1)"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "20px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "align": "center" },
+            "children": [
+              {
+                "type": "Image",
+                "props": {
+                  "src": "https://via.placeholder.com/80",
+                  "alt": "Profile Photo",
+                  "width": "80px",
+                  "height": "80px",
+                  "borderRadius": "50%"
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Full Name",
+                      "placeholder": "John Doe",
+                      "value": "",
+                      "required": true,
+                      "fontSize": "24px",
+                      "fontWeight": "600"
+                    }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Job Title",
+                      "placeholder": "Senior Sales Manager",
+                      "value": "",
+                      "fontSize": "16px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "props": { "color": "#e0e0e0" }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Email Address",
+                  "placeholder": "john.doe@company.com",
+                  "type": "email",
+                  "required": true,
+                  "validation": { "type": "email" }
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Phone Number",
+                  "placeholder": "(555) 123-4567",
+                  "type": "tel",
+                  "formatting": { "type": "phone" }
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Company",
+                  "placeholder": "Acme Corporation"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "LinkedIn",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "linkedin"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Twitter",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "twitter"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Website",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "globe"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "border": "#e0e0e0",
+      "text": "#333333"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "headingSize": "24px",
+      "bodySize": "16px",
+      "smallSize": "14px"
+    },
+    "spacing": {
+      "card": "24px",
+      "section": "20px",
+      "element": "12px"
+    },
+    "borderRadius": {
+      "card": "12px",
+      "image": "50%",
+      "button": "6px"
+    }
+  },
+  "defaultValues": {
+    "fullName": "John Doe",
+    "jobTitle": "Senior Sales Manager",
+    "email": "john.doe@company.com",
+    "phone": "(555) 123-4567",
+    "company": "Acme Corporation"
+  },
+  "tags": ["contact", "professional", "business", "networking", "simple"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "16px", "imageSize": "60px" },
+    "sm": { "cardPadding": "20px", "imageSize": "70px" },
+    "md": { "cardPadding": "24px", "imageSize": "80px" },
+    "lg": { "cardPadding": "24px", "imageSize": "80px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. All form fields have proper labels. Image has alt text. Keyboard navigable.",
+  "seoKeywords": "contact card, business card, professional profile, team member, networking"
+}

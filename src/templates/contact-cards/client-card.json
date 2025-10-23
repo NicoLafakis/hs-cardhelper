@@ -1,0 +1,273 @@
+{
+  "templateId": "tmpl-contact-client-003",
+  "name": "Client Contact Card",
+  "description": "Comprehensive client card with contact info, company details, and activity timeline. Perfect for CRM and client management.",
+  "category": "contact-cards",
+  "thumbnailUrl": "/templates/thumbnails/client-card.png",
+  "previewHtml": "<div class='client-card-preview'><div class='client-header'><div class='avatar'>MJ</div><div><h3>Michael Johnson</h3><p>Acme Corp • CEO</p></div></div><div class='stats'><span>12 Deals</span><span>$45K Value</span></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "24px",
+      "borderRadius": "12px",
+      "boxShadow": "0 2px 12px rgba(0,0,0,0.1)"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "20px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": {
+                  "width": "60px",
+                  "height": "60px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#0066cc",
+                  "align": "center",
+                  "justify": "center"
+                },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "MJ",
+                      "fontSize": "24px",
+                      "fontWeight": "600",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical", "flex": 1 },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Client Name",
+                      "placeholder": "Michael Johnson",
+                      "value": "",
+                      "required": true,
+                      "fontSize": "20px",
+                      "fontWeight": "600"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "horizontal" },
+                    "children": [
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Company",
+                          "placeholder": "Acme Corp",
+                          "value": "",
+                          "fontSize": "14px",
+                          "color": "#666"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": { "value": "•", "color": "#999" }
+                      },
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Position",
+                          "placeholder": "CEO",
+                          "value": "",
+                          "fontSize": "14px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "Active",
+                  "variant": "success"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 3, "gap": "12px" },
+            "children": [
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Total Deals",
+                  "value": "12",
+                  "icon": "briefcase",
+                  "size": "small"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Total Value",
+                  "value": "$45K",
+                  "icon": "dollar",
+                  "size": "small"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Last Contact",
+                  "value": "2d ago",
+                  "icon": "clock",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "props": { "color": "#e0e0e0" }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "10px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "mail", "size": "16px", "color": "#666" }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Email",
+                      "placeholder": "michael@acmecorp.com",
+                      "type": "email",
+                      "value": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "phone", "size": "16px", "color": "#666" }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Phone",
+                      "placeholder": "(555) 987-6543",
+                      "type": "tel",
+                      "value": "",
+                      "formatting": { "type": "phone" }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": { "name": "map-pin", "size": "16px", "color": "#666" }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Location",
+                      "placeholder": "San Francisco, CA",
+                      "value": ""
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Send Email",
+                  "variant": "primary",
+                  "size": "medium",
+                  "fullWidth": true
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Schedule Call",
+                  "variant": "secondary",
+                  "size": "medium",
+                  "fullWidth": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "border": "#e0e0e0",
+      "text": "#333333",
+      "avatarBg": "#0066cc",
+      "success": "#10b981"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "headingSize": "20px",
+      "bodySize": "14px",
+      "smallSize": "12px"
+    },
+    "spacing": {
+      "card": "24px",
+      "section": "20px",
+      "element": "10px"
+    }
+  },
+  "defaultValues": {
+    "clientName": "Michael Johnson",
+    "company": "Acme Corp",
+    "position": "CEO",
+    "email": "michael@acmecorp.com",
+    "phone": "(555) 987-6543",
+    "location": "San Francisco, CA",
+    "status": "Active"
+  },
+  "tags": ["client", "crm", "contact", "business", "hubspot"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "16px", "statColumns": 1 },
+    "sm": { "cardPadding": "20px", "statColumns": 3 },
+    "md": { "cardPadding": "24px", "statColumns": 3 }
+  },
+  "animations": {
+    "entrance": "slideInUp",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. All icons have labels. Contact information clearly structured. Keyboard navigable.",
+  "seoKeywords": "client card, crm card, contact management, hubspot card, client profile"
+}

@@ -1,0 +1,214 @@
+{
+  "templateId": "tmpl-form-feedback-013",
+  "name": "Feedback Form",
+  "description": "User feedback collection form with rating, categories, and file upload. Perfect for gathering customer insights and testimonials.",
+  "category": "form-templates",
+  "thumbnailUrl": "/templates/thumbnails/feedback-form.png",
+  "previewHtml": "<div class='feedback-form-preview'><h2>We Value Your Feedback</h2><div class='rating'>★★★★★</div><select><option>Product Feedback</option></select><textarea placeholder='Share your thoughts...'></textarea><button>Submit Feedback</button></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "36px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.1)",
+      "backgroundColor": "#ffffff",
+      "maxWidth": "640px"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "28px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical", "textAlign": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": {
+                  "width": "60px",
+                  "height": "60px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#e3f2fd",
+                  "align": "center",
+                  "justify": "center",
+                  "margin": "0 auto"
+                },
+                "children": [
+                  {
+                    "type": "Icon",
+                    "props": {
+                      "name": "message-circle",
+                      "size": "28px",
+                      "color": "#0066cc"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Form Title",
+                  "placeholder": "We Value Your Feedback",
+                  "value": "",
+                  "fontSize": "28px",
+                  "fontWeight": "700",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Help us improve by sharing your experience",
+                  "fontSize": "16px",
+                  "color": "#666",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "20px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "vertical", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "How would you rate your experience?",
+                      "fontSize": "16px",
+                      "fontWeight": "500"
+                    }
+                  },
+                  {
+                    "type": "Rating",
+                    "props": {
+                      "value": 0,
+                      "max": 5,
+                      "size": "large",
+                      "interactive": true
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "Feedback Category",
+                  "placeholder": "Select a category",
+                  "options": [
+                    { "value": "product", "label": "Product Feedback" },
+                    { "value": "bug", "label": "Bug Report" },
+                    { "value": "feature", "label": "Feature Request" },
+                    { "value": "service", "label": "Customer Service" },
+                    { "value": "other", "label": "Other" }
+                  ],
+                  "value": "",
+                  "required": true
+                }
+              },
+              {
+                "type": "TextArea",
+                "props": {
+                  "label": "Your Feedback",
+                  "placeholder": "Please share your thoughts, suggestions, or any issues you've encountered...",
+                  "value": "",
+                  "required": true,
+                  "rows": 6,
+                  "maxLength": 1500
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Email (Optional)",
+                  "placeholder": "your@email.com",
+                  "type": "email",
+                  "value": "",
+                  "helperText": "We'll only use this to follow up if needed"
+                }
+              },
+              {
+                "type": "FileUpload",
+                "props": {
+                  "label": "Attach Screenshots (Optional)",
+                  "accept": "image/*,.pdf",
+                  "multiple": true,
+                  "maxSize": 5242880,
+                  "helperText": "Max file size: 5MB. PNG, JPG, or PDF"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Submit Feedback",
+                  "variant": "primary",
+                  "size": "large",
+                  "fullWidth": true,
+                  "icon": "send"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Your feedback is anonymous unless you provide your email",
+                  "fontSize": "13px",
+                  "color": "#999",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#333333",
+      "border": "#e0e0e0",
+      "primary": "#0066cc",
+      "iconBg": "#e3f2fd"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "28px",
+      "body": "16px"
+    },
+    "spacing": {
+      "card": "36px",
+      "section": "28px"
+    }
+  },
+  "defaultValues": {
+    "formTitle": "We Value Your Feedback",
+    "subtitle": "Help us improve by sharing your experience",
+    "rating": 0,
+    "category": "",
+    "feedback": "",
+    "email": ""
+  },
+  "tags": ["feedback", "survey", "testimonial", "review", "customer-input"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "24px" },
+    "sm": { "cardPadding": "30px" },
+    "md": { "cardPadding": "36px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Star rating keyboard accessible. File upload with size limits. Clear labels and helper text.",
+  "seoKeywords": "feedback form, survey, customer feedback, testimonial, review form"
+}
