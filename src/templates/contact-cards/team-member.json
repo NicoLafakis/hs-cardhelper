@@ -1,0 +1,175 @@
+{
+  "templateId": "tmpl-contact-team-002",
+  "name": "Team Member Profile",
+  "description": "Engaging team member profile with photo, bio, skills, and social links. Ideal for about pages and team directories.",
+  "category": "contact-cards",
+  "thumbnailUrl": "/templates/thumbnails/team-member.png",
+  "previewHtml": "<div class='team-member-preview'><img src='https://via.placeholder.com/120' alt='Team member'/><h3>Sarah Johnson</h3><p class='role'>Product Designer</p><p class='bio'>Passionate about creating user-centered designs...</p><div class='skills'><span>UI Design</span><span>UX Research</span></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 12px rgba(0,0,0,0.08)",
+      "textAlign": "center"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical", "align": "center" },
+        "children": [
+          {
+            "type": "Image",
+            "props": {
+              "src": "https://via.placeholder.com/120",
+              "alt": "Team Member Photo",
+              "width": "120px",
+              "height": "120px",
+              "borderRadius": "50%",
+              "border": "4px solid #f0f0f0"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Name",
+                  "placeholder": "Sarah Johnson",
+                  "value": "",
+                  "required": true,
+                  "fontSize": "28px",
+                  "fontWeight": "700",
+                  "textAlign": "center"
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Role",
+                  "placeholder": "Product Designer",
+                  "value": "",
+                  "fontSize": "18px",
+                  "color": "#0066cc",
+                  "textAlign": "center"
+                }
+              }
+            ]
+          },
+          {
+            "type": "TextArea",
+            "props": {
+              "label": "Bio",
+              "placeholder": "Passionate about creating user-centered designs that solve real problems. 5+ years of experience in SaaS products.",
+              "value": "",
+              "maxLength": 200,
+              "rows": 3
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "wrap": true, "justify": "center" },
+            "children": [
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "UI Design",
+                  "variant": "info"
+                }
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "UX Research",
+                  "variant": "info"
+                }
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "Figma",
+                  "variant": "info"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "props": { "color": "#e0e0e0", "width": "80%" }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "center" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Email",
+                  "variant": "primary",
+                  "size": "medium",
+                  "icon": "mail"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "LinkedIn",
+                  "variant": "secondary",
+                  "size": "medium",
+                  "icon": "linkedin"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "border": "#f0f0f0",
+      "text": "#333333",
+      "badge": "#e3f2fd"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "headingSize": "28px",
+      "roleSize": "18px",
+      "bodySize": "16px"
+    },
+    "spacing": {
+      "card": "32px",
+      "section": "24px",
+      "element": "8px"
+    },
+    "borderRadius": {
+      "card": "16px",
+      "image": "50%",
+      "badge": "16px"
+    }
+  },
+  "defaultValues": {
+    "name": "Sarah Johnson",
+    "role": "Product Designer",
+    "bio": "Passionate about creating user-centered designs that solve real problems. 5+ years of experience in SaaS products.",
+    "skills": ["UI Design", "UX Research", "Figma"]
+  },
+  "tags": ["team", "profile", "about", "bio", "skills"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "20px", "imageSize": "90px" },
+    "sm": { "cardPadding": "24px", "imageSize": "100px" },
+    "md": { "cardPadding": "32px", "imageSize": "120px" },
+    "lg": { "cardPadding": "32px", "imageSize": "120px" }
+  },
+  "animations": {
+    "entrance": "zoomIn",
+    "hover": "hoverScale"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Centered layout with clear hierarchy. Keyboard navigable. Screen reader friendly.",
+  "seoKeywords": "team member, profile, bio, about us, employee card"
+}

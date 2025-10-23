@@ -1,0 +1,187 @@
+{
+  "templateId": "tmpl-dashboard-multi-009",
+  "name": "Multi-Metric Dashboard",
+  "description": "Comprehensive dashboard showing multiple KPIs in a grid layout with color-coded status indicators. Perfect for executive summaries.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/multi-metric.png",
+  "previewHtml": "<div class='multi-metric-preview'><h2>Business Overview</h2><div class='metrics-grid'><div class='metric'>Revenue: $127K ↑</div><div class='metric'>Customers: 1,234 ↑</div><div class='metric'>MRR: $45K ↑</div><div class='metric'>Churn: 2.1% ↓</div></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.1)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Dashboard Title",
+                      "placeholder": "Business Overview",
+                      "value": "",
+                      "fontSize": "28px",
+                      "fontWeight": "700"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Last updated: 2 minutes ago",
+                      "fontSize": "13px",
+                      "color": "#999"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "Period",
+                  "options": [
+                    { "value": "today", "label": "Today" },
+                    { "value": "week", "label": "This Week" },
+                    { "value": "month", "label": "This Month" },
+                    { "value": "quarter", "label": "This Quarter" }
+                  ],
+                  "value": "month",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 2, "gap": "16px" },
+            "children": [
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Total Revenue",
+                  "value": "$127,450",
+                  "trend": "+12.5%",
+                  "trendDirection": "up",
+                  "icon": "dollar-sign",
+                  "variant": "success"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Active Customers",
+                  "value": "1,234",
+                  "trend": "+8.2%",
+                  "trendDirection": "up",
+                  "icon": "users",
+                  "variant": "info"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Monthly Recurring Revenue",
+                  "value": "$45,230",
+                  "trend": "+15.8%",
+                  "trendDirection": "up",
+                  "icon": "repeat",
+                  "variant": "success"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Churn Rate",
+                  "value": "2.1%",
+                  "trend": "-0.5%",
+                  "trendDirection": "down",
+                  "icon": "alert-circle",
+                  "variant": "success"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Average Deal Size",
+                  "value": "$3,245",
+                  "trend": "+5.3%",
+                  "trendDirection": "up",
+                  "icon": "trending-up",
+                  "variant": "info"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Support Tickets",
+                  "value": "47",
+                  "trend": "-12.0%",
+                  "trendDirection": "down",
+                  "icon": "help-circle",
+                  "variant": "success"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "success": "#10b981",
+      "info": "#3b82f6",
+      "warning": "#f59e0b",
+      "danger": "#ef4444"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "28px",
+      "statValue": "24px",
+      "statLabel": "14px"
+    },
+    "spacing": {
+      "card": "32px",
+      "grid": "16px"
+    }
+  },
+  "defaultValues": {
+    "dashboardTitle": "Business Overview",
+    "period": "month",
+    "metrics": [
+      { "label": "Total Revenue", "value": "$127,450", "trend": "+12.5%" },
+      { "label": "Active Customers", "value": "1,234", "trend": "+8.2%" },
+      { "label": "Monthly Recurring Revenue", "value": "$45,230", "trend": "+15.8%" },
+      { "label": "Churn Rate", "value": "2.1%", "trend": "-0.5%" },
+      { "label": "Average Deal Size", "value": "$3,245", "trend": "+5.3%" },
+      { "label": "Support Tickets", "value": "47", "trend": "-12.0%" }
+    ]
+  },
+  "tags": ["dashboard", "metrics", "kpi", "analytics", "overview"],
+  "responsiveConfig": {
+    "xs": { "gridColumns": 1 },
+    "sm": { "gridColumns": 2 },
+    "md": { "gridColumns": 2 },
+    "lg": { "gridColumns": 3 }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Clear metric labels. Trend indicators with direction. Color-coded status.",
+  "seoKeywords": "dashboard, multi-metric, kpi dashboard, business metrics, analytics overview"
+}

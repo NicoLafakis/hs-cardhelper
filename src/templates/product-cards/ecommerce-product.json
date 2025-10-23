@@ -1,0 +1,203 @@
+{
+  "templateId": "tmpl-product-ecommerce-004",
+  "name": "E-commerce Product Card",
+  "description": "Modern product showcase card with image, pricing, ratings, and add-to-cart functionality. Perfect for online stores and product catalogs.",
+  "category": "product-cards",
+  "thumbnailUrl": "/templates/thumbnails/ecommerce-product.png",
+  "previewHtml": "<div class='product-card-preview'><img src='https://via.placeholder.com/300x200' alt='Product'/><h3>Premium Wireless Headphones</h3><div class='rating'>★★★★★ (127)</div><div class='price'><span class='old'>$299</span><span class='new'>$249</span></div><button>Add to Cart</button></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 16px rgba(0,0,0,0.1)",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Image",
+            "props": {
+              "src": "https://via.placeholder.com/400x300",
+              "alt": "Product Image",
+              "width": "100%",
+              "height": "300px",
+              "objectFit": "cover"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "vertical", "padding": "24px" },
+            "children": [
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "Best Seller",
+                  "variant": "success",
+                  "size": "small"
+                }
+              },
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Product Name",
+                  "placeholder": "Premium Wireless Headphones",
+                  "value": "",
+                  "required": true,
+                  "fontSize": "24px",
+                  "fontWeight": "600"
+                }
+              },
+              {
+                "type": "Rating",
+                "props": {
+                  "value": 4.5,
+                  "max": 5,
+                  "reviewCount": 127,
+                  "size": "medium"
+                }
+              },
+              {
+                "type": "TextArea",
+                "props": {
+                  "label": "Description",
+                  "placeholder": "Experience crystal-clear audio with active noise cancellation. 30-hour battery life and premium comfort.",
+                  "value": "",
+                  "maxLength": 200,
+                  "rows": 2
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "$299",
+                      "fontSize": "20px",
+                      "color": "#999",
+                      "textDecoration": "line-through"
+                    }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Price",
+                      "placeholder": "$249",
+                      "value": "",
+                      "fontSize": "32px",
+                      "fontWeight": "700",
+                      "color": "#0066cc",
+                      "formatting": { "type": "currency" }
+                    }
+                  },
+                  {
+                    "type": "Badge",
+                    "props": {
+                      "text": "17% OFF",
+                      "variant": "danger",
+                      "size": "medium"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal", "wrap": true },
+                "children": [
+                  {
+                    "type": "Badge",
+                    "props": { "text": "Free Shipping", "variant": "info" }
+                  },
+                  {
+                    "type": "Badge",
+                    "props": { "text": "30-Day Returns", "variant": "info" }
+                  },
+                  {
+                    "type": "Badge",
+                    "props": { "text": "In Stock", "variant": "success" }
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e0e0e0" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Add to Cart",
+                      "variant": "primary",
+                      "size": "large",
+                      "fullWidth": true,
+                      "icon": "shopping-cart"
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "",
+                      "variant": "secondary",
+                      "size": "large",
+                      "icon": "heart"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "primary": "#0066cc",
+      "secondary": "#666666",
+      "background": "#ffffff",
+      "border": "#e0e0e0",
+      "text": "#333333",
+      "discount": "#ef4444",
+      "success": "#10b981"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "productName": "24px",
+      "price": "32px",
+      "body": "16px"
+    },
+    "spacing": {
+      "card": "24px",
+      "section": "16px"
+    }
+  },
+  "defaultValues": {
+    "productName": "Premium Wireless Headphones",
+    "description": "Experience crystal-clear audio with active noise cancellation. 30-hour battery life and premium comfort.",
+    "originalPrice": "$299",
+    "salePrice": "$249",
+    "rating": 4.5,
+    "reviewCount": 127,
+    "imageUrl": "https://via.placeholder.com/400x300"
+  },
+  "tags": ["ecommerce", "product", "shopping", "pricing", "retail"],
+  "responsiveConfig": {
+    "xs": { "imageHeight": "200px", "padding": "16px" },
+    "sm": { "imageHeight": "250px", "padding": "20px" },
+    "md": { "imageHeight": "300px", "padding": "24px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": "hoverScale"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Product images have alt text. Price and discount clearly labeled. Keyboard accessible buttons.",
+  "seoKeywords": "product card, ecommerce, shopping cart, product showcase, pricing"
+}

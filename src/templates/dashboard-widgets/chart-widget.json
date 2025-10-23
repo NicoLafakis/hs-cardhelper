@@ -1,0 +1,189 @@
+{
+  "templateId": "tmpl-dashboard-chart-008",
+  "name": "Chart Dashboard Widget",
+  "description": "Data visualization widget with charts (bar/line), filters, and export options. Ideal for displaying trends and analytics.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/chart-widget.png",
+  "previewHtml": "<div class='chart-widget-preview'><div class='header'><h3>Sales Performance</h3><select><option>Last 7 days</option></select></div><div class='chart'>[Bar Chart Visualization]</div><div class='footer'><span>Total: $45,230</span><span>Avg: $6,461/day</span></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "24px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 16px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "20px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Chart Title",
+                      "placeholder": "Sales Performance",
+                      "value": "",
+                      "fontSize": "20px",
+                      "fontWeight": "600"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Track your sales metrics over time",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "Time Range",
+                  "options": [
+                    { "value": "7d", "label": "Last 7 days" },
+                    { "value": "30d", "label": "Last 30 days" },
+                    { "value": "90d", "label": "Last 90 days" },
+                    { "value": "1y", "label": "Last year" }
+                  ],
+                  "value": "7d",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": {
+              "height": "300px",
+              "backgroundColor": "#f9fafb",
+              "borderRadius": "8px",
+              "padding": "16px",
+              "align": "center",
+              "justify": "center"
+            },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "📊 Chart Placeholder",
+                  "fontSize": "16px",
+                  "color": "#999"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 3, "gap": "16px" },
+            "children": [
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Total Sales",
+                  "value": "$45,230",
+                  "icon": "dollar-sign",
+                  "variant": "success",
+                  "size": "small"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Avg Per Day",
+                  "value": "$6,461",
+                  "icon": "trending-up",
+                  "variant": "info",
+                  "size": "small"
+                }
+              },
+              {
+                "type": "StatCard",
+                "props": {
+                  "label": "Growth",
+                  "value": "+15.2%",
+                  "icon": "arrow-up",
+                  "variant": "success",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "flex-end" },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "text": "Export CSV",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "download"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "View Details",
+                  "variant": "primary",
+                  "size": "small",
+                  "icon": "arrow-right"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "chartBg": "#f9fafb",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "primary": "#0066cc",
+      "success": "#10b981"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "20px",
+      "body": "14px"
+    },
+    "spacing": {
+      "card": "24px",
+      "section": "20px"
+    }
+  },
+  "defaultValues": {
+    "chartTitle": "Sales Performance",
+    "subtitle": "Track your sales metrics over time",
+    "timeRange": "7d",
+    "totalSales": "$45,230",
+    "avgPerDay": "$6,461",
+    "growth": "+15.2%"
+  },
+  "tags": ["dashboard", "chart", "analytics", "visualization", "metrics"],
+  "responsiveConfig": {
+    "xs": { "chartHeight": "200px", "statColumns": 1 },
+    "sm": { "chartHeight": "250px", "statColumns": 3 },
+    "md": { "chartHeight": "300px", "statColumns": 3 }
+  },
+  "animations": {
+    "entrance": "slideInUp",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Chart has descriptive title. Data available in stat cards. Export option for raw data.",
+  "seoKeywords": "chart widget, dashboard, data visualization, analytics chart, metrics"
+}

@@ -1,0 +1,317 @@
+{
+  "templateId": "tmpl-event-listing-019",
+  "name": "Event Listing Card",
+  "description": "Detailed event card with date, time, location, speakers, and registration. Perfect for conferences and webinars.",
+  "category": "event-cards",
+  "thumbnailUrl": "/templates/thumbnails/event-listing.png",
+  "previewHtml": "<div class='event-listing-preview'><div class='date'>MAR 15</div><h3>Product Launch Webinar</h3><div class='time'>2:00 PM EST</div><div class='location'>📍 Online</div><button>Register Now</button></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.1)",
+      "backgroundColor": "#ffffff",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": {
+              "height": "200px",
+              "backgroundColor": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              "position": "relative",
+              "align": "center",
+              "justify": "center"
+            },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "MAR",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "rgba(255,255,255,0.9)",
+                      "textTransform": "uppercase",
+                      "letterSpacing": "1px"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "15",
+                      "fontSize": "56px",
+                      "fontWeight": "800",
+                      "color": "#ffffff",
+                      "lineHeight": "1"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "2025",
+                      "fontSize": "16px",
+                      "fontWeight": "500",
+                      "color": "rgba(255,255,255,0.8)"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "Upcoming",
+                  "variant": "success",
+                  "position": "absolute",
+                  "top": "16px",
+                  "right": "16px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "24px", "direction": "vertical", "padding": "28px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Badge",
+                    "props": {
+                      "text": "Webinar",
+                      "variant": "info",
+                      "size": "small"
+                    }
+                  },
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Event Title",
+                      "placeholder": "Product Launch Webinar: Next-Gen Features",
+                      "value": "",
+                      "required": true,
+                      "fontSize": "24px",
+                      "fontWeight": "700"
+                    }
+                  },
+                  {
+                    "type": "TextArea",
+                    "props": {
+                      "label": "Description",
+                      "placeholder": "Join us for an exclusive first look at our revolutionary new features. Learn how they can transform your workflow.",
+                      "value": "",
+                      "maxLength": 200,
+                      "rows": 2,
+                      "fontSize": "15px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Icon",
+                        "props": { "name": "clock", "size": "20px", "color": "#666" }
+                      },
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Time",
+                          "placeholder": "2:00 PM - 3:30 PM EST",
+                          "value": "",
+                          "fontSize": "15px"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Icon",
+                        "props": { "name": "map-pin", "size": "20px", "color": "#666" }
+                      },
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Location",
+                          "placeholder": "Online via Zoom",
+                          "value": "",
+                          "fontSize": "15px"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Icon",
+                        "props": { "name": "users", "size": "20px", "color": "#666" }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "245 registered • 55 spots left",
+                          "fontSize": "15px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e0e0e0" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Speakers",
+                      "fontSize": "14px",
+                      "fontWeight": "600",
+                      "color": "#333"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "horizontal" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Image",
+                            "props": {
+                              "src": "https://via.placeholder.com/40",
+                              "alt": "Speaker 1",
+                              "width": "40px",
+                              "height": "40px",
+                              "borderRadius": "50%"
+                            }
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "2px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Sarah Johnson",
+                                  "fontSize": "14px",
+                                  "fontWeight": "500"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "CEO",
+                                  "fontSize": "12px",
+                                  "color": "#999"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Register Now",
+                      "variant": "primary",
+                      "size": "large",
+                      "fullWidth": true,
+                      "icon": "calendar"
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "",
+                      "variant": "secondary",
+                      "size": "large",
+                      "icon": "share"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "dateBg": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "primary": "#0066cc"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "24px",
+      "body": "15px",
+      "date": "56px"
+    },
+    "spacing": {
+      "content": "28px"
+    }
+  },
+  "defaultValues": {
+    "eventTitle": "Product Launch Webinar: Next-Gen Features",
+    "description": "Join us for an exclusive first look at our revolutionary new features. Learn how they can transform your workflow.",
+    "date": "MAR 15, 2025",
+    "time": "2:00 PM - 3:30 PM EST",
+    "location": "Online via Zoom",
+    "registered": 245,
+    "spotsLeft": 55,
+    "type": "Webinar"
+  },
+  "tags": ["event", "webinar", "conference", "registration", "calendar"],
+  "responsiveConfig": {
+    "xs": { "contentPadding": "20px", "dateSize": "40px" },
+    "sm": { "contentPadding": "24px", "dateSize": "48px" },
+    "md": { "contentPadding": "28px", "dateSize": "56px" }
+  },
+  "animations": {
+    "entrance": "slideInUp",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Date clearly visible. Time and location with icons. Registration count displayed. Keyboard navigable.",
+  "seoKeywords": "event card, webinar, conference, registration, event listing"
+}

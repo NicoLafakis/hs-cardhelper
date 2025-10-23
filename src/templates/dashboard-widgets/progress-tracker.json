@@ -1,0 +1,277 @@
+{
+  "templateId": "tmpl-dashboard-progress-010",
+  "name": "Progress Tracker Widget",
+  "description": "Goal tracking widget with progress bars, milestones, and completion status. Great for tracking objectives and KRs.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/progress-tracker.png",
+  "previewHtml": "<div class='progress-tracker-preview'><h3>Q1 Goals</h3><div class='goal'><span>Revenue Target</span><div class='bar'>75%</div></div><div class='goal'><span>Customer Acquisition</span><div class='bar'>60%</div></div><div class='status'>3 of 5 goals on track</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "28px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 16px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "label": "Goal Period",
+                  "placeholder": "Q1 2025 Goals",
+                  "value": "",
+                  "fontSize": "24px",
+                  "fontWeight": "700"
+                }
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "In Progress",
+                  "variant": "info"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "20px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "10px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Revenue Target",
+                          "fontSize": "16px",
+                          "fontWeight": "500"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "75%",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "color": "#10b981"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ProgressBar",
+                    "props": {
+                      "value": 75,
+                      "max": 100,
+                      "variant": "success",
+                      "height": "8px"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "$375K of $500K",
+                      "fontSize": "13px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "10px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Customer Acquisition",
+                          "fontSize": "16px",
+                          "fontWeight": "500"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "60%",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "color": "#3b82f6"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ProgressBar",
+                    "props": {
+                      "value": 60,
+                      "max": 100,
+                      "variant": "info",
+                      "height": "8px"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "600 of 1,000 customers",
+                      "fontSize": "13px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "10px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Product Launch",
+                          "fontSize": "16px",
+                          "fontWeight": "500"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "45%",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "color": "#f59e0b"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "ProgressBar",
+                    "props": {
+                      "value": 45,
+                      "max": 100,
+                      "variant": "warning",
+                      "height": "8px"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "9 of 20 tasks completed",
+                      "fontSize": "13px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "props": { "color": "#e0e0e0" }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "3 of 5 goals on track",
+                  "fontSize": "14px",
+                  "fontWeight": "500",
+                  "color": "#666"
+                }
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "text": "View All Goals",
+                  "variant": "secondary",
+                  "size": "small",
+                  "icon": "arrow-right"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "success": "#10b981",
+      "info": "#3b82f6",
+      "warning": "#f59e0b",
+      "danger": "#ef4444"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "24px",
+      "goalLabel": "16px",
+      "detail": "13px"
+    },
+    "spacing": {
+      "card": "28px",
+      "goal": "20px"
+    }
+  },
+  "defaultValues": {
+    "goalPeriod": "Q1 2025 Goals",
+    "status": "In Progress",
+    "goals": [
+      {
+        "name": "Revenue Target",
+        "progress": 75,
+        "current": "$375K",
+        "target": "$500K"
+      },
+      {
+        "name": "Customer Acquisition",
+        "progress": 60,
+        "current": "600",
+        "target": "1,000 customers"
+      },
+      {
+        "name": "Product Launch",
+        "progress": 45,
+        "current": "9",
+        "target": "20 tasks"
+      }
+    ]
+  },
+  "tags": ["dashboard", "progress", "goals", "okr", "tracking"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "20px" },
+    "sm": { "cardPadding": "24px" },
+    "md": { "cardPadding": "28px" }
+  },
+  "animations": {
+    "entrance": "slideInLeft",
+    "hover": null
+  },
+  "accessibilityNotes": "WCAG AA compliant. Progress bars with percentage labels. Clear goal descriptions. Status summary provided.",
+  "seoKeywords": "progress tracker, goal tracking, okr, milestones, objectives"
+}

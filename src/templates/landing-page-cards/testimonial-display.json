@@ -1,0 +1,175 @@
+{
+  "templateId": "tmpl-landing-testimonial-016",
+  "name": "Testimonial Display Card",
+  "description": "Customer testimonial card with quote, author details, company logo, and star rating. Perfect for social proof sections.",
+  "category": "landing-page-cards",
+  "thumbnailUrl": "/templates/thumbnails/testimonial.png",
+  "previewHtml": "<div class='testimonial-preview'><div class='stars'>★★★★★</div><blockquote>This platform changed our workflow completely!</blockquote><div class='author'><img src='avatar.jpg'/><div><strong>Jane Smith</strong><span>CEO at TechCorp</span></div></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "40px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff",
+      "border": "1px solid #f0f0f0"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Rating",
+                "props": {
+                  "value": 5,
+                  "max": 5,
+                  "size": "medium",
+                  "readonly": true
+                }
+              },
+              {
+                "type": "Image",
+                "props": {
+                  "src": "https://via.placeholder.com/80x30",
+                  "alt": "Company Logo",
+                  "height": "30px",
+                  "opacity": 0.7
+                }
+              }
+            ]
+          },
+          {
+            "type": "TextArea",
+            "props": {
+              "label": "Testimonial Quote",
+              "placeholder": "\"This platform has completely transformed how our team collaborates. The intuitive interface and powerful features have increased our productivity by 40%. Highly recommended!\"",
+              "value": "",
+              "required": true,
+              "rows": 4,
+              "fontSize": "20px",
+              "fontWeight": "500",
+              "color": "#1a1a1a",
+              "lineHeight": "1.6",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "align": "center" },
+            "children": [
+              {
+                "type": "Image",
+                "props": {
+                  "src": "https://via.placeholder.com/56",
+                  "alt": "Author Photo",
+                  "width": "56px",
+                  "height": "56px",
+                  "borderRadius": "50%"
+                }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Author Name",
+                      "placeholder": "Jane Smith",
+                      "value": "",
+                      "required": true,
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "horizontal" },
+                    "children": [
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Title",
+                          "placeholder": "CEO",
+                          "value": "",
+                          "fontSize": "14px",
+                          "color": "#666"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "at",
+                          "fontSize": "14px",
+                          "color": "#999"
+                        }
+                      },
+                      {
+                        "type": "TextInput",
+                        "props": {
+                          "label": "Company",
+                          "placeholder": "TechCorp",
+                          "value": "",
+                          "fontSize": "14px",
+                          "color": "#0066cc",
+                          "fontWeight": "500"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "quote": "#1a1a1a",
+      "author": "#666666",
+      "company": "#0066cc",
+      "border": "#f0f0f0"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "quote": "20px",
+      "authorName": "16px",
+      "authorTitle": "14px"
+    },
+    "spacing": {
+      "card": "40px",
+      "section": "24px"
+    }
+  },
+  "defaultValues": {
+    "rating": 5,
+    "quote": "This platform has completely transformed how our team collaborates. The intuitive interface and powerful features have increased our productivity by 40%. Highly recommended!",
+    "authorName": "Jane Smith",
+    "authorTitle": "CEO",
+    "company": "TechCorp",
+    "authorPhoto": "https://via.placeholder.com/56",
+    "companyLogo": "https://via.placeholder.com/80x30"
+  },
+  "tags": ["testimonial", "review", "social-proof", "customer", "quote"],
+  "responsiveConfig": {
+    "xs": { "cardPadding": "28px", "quoteSize": "18px" },
+    "sm": { "cardPadding": "32px", "quoteSize": "19px" },
+    "md": { "cardPadding": "40px", "quoteSize": "20px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": "hoverLift"
+  },
+  "accessibilityNotes": "WCAG AA compliant. Quote clearly marked as blockquote. Author details structured. Company logo has alt text.",
+  "seoKeywords": "testimonial, customer review, social proof, quote, recommendation"
+}

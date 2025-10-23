@@ -1,0 +1,260 @@
+{
+  "templateId": "tmpl-gallery-photo-017",
+  "name": "Photo Gallery Card",
+  "description": "Responsive image gallery with grid layout, lightbox support, and captions. Perfect for portfolios and photo showcases.",
+  "category": "gallery-cards",
+  "thumbnailUrl": "/templates/thumbnails/photo-gallery.png",
+  "previewHtml": "<div class='gallery-preview'><h3>Project Gallery</h3><div class='grid'><img/><img/><img/><img/><img/><img/></div><button>View All Photos</button></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 16px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Gallery Title",
+                      "placeholder": "Project Gallery",
+                      "value": "",
+                      "fontSize": "24px",
+                      "fontWeight": "700"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "24 photos",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "Sort By",
+                  "options": [
+                    { "value": "recent", "label": "Most Recent" },
+                    { "value": "popular", "label": "Most Popular" },
+                    { "value": "oldest", "label": "Oldest First" }
+                  ],
+                  "value": "recent",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 3, "gap": "12px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                },
+                "children": [
+                  {
+                    "type": "Image",
+                    "props": {
+                      "src": "https://via.placeholder.com/400",
+                      "alt": "Gallery Photo 1",
+                      "width": "100%",
+                      "height": "100%",
+                      "objectFit": "cover",
+                      "cursor": "pointer"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                },
+                "children": [
+                  {
+                    "type": "Image",
+                    "props": {
+                      "src": "https://via.placeholder.com/400",
+                      "alt": "Gallery Photo 2",
+                      "width": "100%",
+                      "height": "100%",
+                      "objectFit": "cover",
+                      "cursor": "pointer"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                },
+                "children": [
+                  {
+                    "type": "Image",
+                    "props": {
+                      "src": "https://via.placeholder.com/400",
+                      "alt": "Gallery Photo 3",
+                      "width": "100%",
+                      "height": "100%",
+                      "objectFit": "cover",
+                      "cursor": "pointer"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                },
+                "children": [
+                  {
+                    "type": "Image",
+                    "props": {
+                      "src": "https://via.placeholder.com/400",
+                      "alt": "Gallery Photo 4",
+                      "width": "100%",
+                      "height": "100%",
+                      "objectFit": "cover",
+                      "cursor": "pointer"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden"
+                },
+                "children": [
+                  {
+                    "type": "Image",
+                    "props": {
+                      "src": "https://via.placeholder.com/400",
+                      "alt": "Gallery Photo 5",
+                      "width": "100%",
+                      "height": "100%",
+                      "objectFit": "cover",
+                      "cursor": "pointer"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": {
+                  "position": "relative",
+                  "aspectRatio": "1",
+                  "borderRadius": "8px",
+                  "overflow": "hidden",
+                  "backgroundColor": "rgba(0,0,0,0.7)",
+                  "align": "center",
+                  "justify": "center",
+                  "cursor": "pointer"
+                },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "+18 more",
+                      "fontSize": "20px",
+                      "fontWeight": "600",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Button",
+            "props": {
+              "text": "View All Photos",
+              "variant": "secondary",
+              "size": "medium",
+              "fullWidth": true,
+              "icon": "grid"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "overlay": "rgba(0,0,0,0.7)"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "24px",
+      "body": "14px"
+    },
+    "spacing": {
+      "card": "32px",
+      "grid": "12px"
+    }
+  },
+  "defaultValues": {
+    "galleryTitle": "Project Gallery",
+    "photoCount": 24,
+    "sortBy": "recent",
+    "images": [
+      "https://via.placeholder.com/400",
+      "https://via.placeholder.com/400",
+      "https://via.placeholder.com/400",
+      "https://via.placeholder.com/400",
+      "https://via.placeholder.com/400",
+      "https://via.placeholder.com/400"
+    ]
+  },
+  "tags": ["gallery", "photos", "portfolio", "images", "showcase"],
+  "responsiveConfig": {
+    "xs": { "gridColumns": 2, "gap": "8px" },
+    "sm": { "gridColumns": 3, "gap": "10px" },
+    "md": { "gridColumns": 3, "gap": "12px" }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "hover": "hoverScale"
+  },
+  "accessibilityNotes": "WCAG AA compliant. All images have alt text. Grid keyboard navigable. Lightbox support for enlarged view.",
+  "seoKeywords": "photo gallery, image grid, portfolio, showcase, lightbox"
+}
