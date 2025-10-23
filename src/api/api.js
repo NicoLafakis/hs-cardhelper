@@ -93,4 +93,41 @@ export const featureFlagsAPI = {
   reset: () => api.post('/feature-flags/reset')
 }
 
+// Component Library API
+export const componentAPI = {
+  // Component management
+  getComponents: (filters = {}) => api.get('/component-library/components', { params: filters }),
+  getComponent: (componentId) => api.get(`/component-library/components/${componentId}`),
+  getComponentsByType: (type) => api.get(`/component-library/components/type/${type}`),
+  getComponentsByCategory: (category) => api.get(`/component-library/components/category/${category}`),
+  createComponent: (componentData) => api.post('/component-library/components', componentData),
+  getPopularComponents: (limit = 10) => api.get('/component-library/popular', { params: { limit } }),
+
+  // Component instances
+  getCardComponents: (cardId) => api.get(`/component-library/instances/card/${cardId}`),
+  createComponentInstance: (cardId, componentId, props) =>
+    api.post('/component-library/instances', { cardId, componentId, props }),
+  updateComponentInstance: (instanceId, updates) =>
+    api.put(`/component-library/instances/${instanceId}`, updates),
+  deleteComponentInstance: (instanceId) => api.delete(`/component-library/instances/${instanceId}`),
+
+  // Analytics
+  getComponentAnalytics: (componentId) => api.get(`/component-library/analytics/${componentId}`),
+  trackComponentUsage: (componentId, cardId) =>
+    api.post('/component-library/track-usage', { componentId, cardId }),
+
+  // Marketplace
+  getMarketplaceComponents: (filters = {}) =>
+    api.get('/component-library/marketplace', { params: filters }),
+  publishComponentToMarketplace: (componentId, marketplaceData) =>
+    api.post('/component-library/marketplace/publish', { componentId, marketplaceData }),
+
+  // Versioning
+  createComponentVersion: (componentId, versionData) =>
+    api.post('/component-library/versions', { componentId, versionData }),
+
+  // Health
+  checkHealth: () => api.get('/component-library/health')
+}
+
 export default api
