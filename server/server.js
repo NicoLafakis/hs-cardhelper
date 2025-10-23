@@ -10,6 +10,8 @@ import hubspotRoutes from './routes/hubspot.js'
 import aiRoutes from './routes/ai.js'
 import featureFlagsRoutes from './routes/featureFlags.js'
 import smartBuilderRoutes from './routes/smartBuilder.js'
+import analyticsRoutes from './routes/analytics.js'
+import dataBindingsRoutes from './routes/dataBindings.js'
 import setupWebSocketServer from './websocket/server.js'
 
 dotenv.config()
@@ -33,6 +35,8 @@ initializeDatabase()
     app.use('/api/ai', aiRoutes)
     app.use('/api/feature-flags', featureFlagsRoutes)
     app.use('/api/smart-builder', smartBuilderRoutes)
+    app.use('/api/analytics', analyticsRoutes)
+    app.use('/api/data-bindings', dataBindingsRoutes)
 
     // Health check
     app.get('/api/health', (req, res) => {
