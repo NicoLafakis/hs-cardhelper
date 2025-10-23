@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCollaborationStore } from '../../store/collaborationStore'
 import './CollaboratorsPanel.css'
 
-export function CollaboratorsPanel({ cardId }) {
+export function CollaboratorsPanel() {
   const {
     cardCollaborators,
     userCursors,

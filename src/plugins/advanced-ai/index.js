@@ -38,7 +38,7 @@ const advancedAIPlugin = createPlugin({
       },
 
       // Get smart suggestions for current card
-      getSuggestions: async (currentCard) => {
+      getSuggestions: async () => {
         // This would call an AI endpoint to analyze the card
         // For now, return mock suggestions
         return [
@@ -77,7 +77,7 @@ const advancedAIPlugin = createPlugin({
       },
 
       // Smart field mapping suggestions
-      suggestFieldMapping: (sourceFields, targetComponent) => {
+      suggestFieldMapping: (sourceFields) => {
         // Suggest which fields to map to component properties
         const suggestions = {}
 
@@ -113,12 +113,12 @@ const advancedAIPlugin = createPlugin({
   },
 
   hooks: {
-    'component:added': async function(component) {
+    'component:added': async function() {
       // When a component is added, could suggest related components
       console.log('Advanced AI: Component added, analyzing for suggestions...')
     },
 
-    'card:saved': async function(card) {
+    'card:saved': async function() {
       // When card is saved, could generate metadata or suggestions
       console.log('Advanced AI: Card saved, generating metadata...')
     }

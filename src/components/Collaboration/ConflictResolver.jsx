@@ -66,7 +66,7 @@ export function ConflictResolver() {
                     <div className="conflict-info">
                       <div className="conflict-message">
                         <strong>Edit conflict:</strong> Your change conflicts with{' '}
-                        <strong>{conflict.userId}</strong>'s concurrent edit
+                        <strong>{conflict.userId}</strong>&rsquo;s concurrent edit
                       </div>
                       <div className="conflict-details">
                         <div className="detail-box">

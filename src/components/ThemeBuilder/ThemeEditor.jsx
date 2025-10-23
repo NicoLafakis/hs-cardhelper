@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useThemeStore, ColorPaletteGenerator, THEME_TEMPLATES } from '../../core/ThemeEngine'
+import { useThemeStore, ColorPaletteGenerator } from '../../core/ThemeEngine'
 import './ThemeEditor.css'
 
 export function ThemeEditor({ onClose, onSave }) {
@@ -20,7 +20,6 @@ export function ThemeEditor({ onClose, onSave }) {
   const [activeTab, setActiveTab] = useState('colors')
   const [themeName, setThemeName] = useState(currentTheme.name)
   const [isSaving, setIsSaving] = useState(false)
-  const [colorMode, setColorMode] = useState('manual')
   const [baseColor, setBaseColor] = useState(currentTheme.colors.primary)
 
   // Apply theme changes in real-time

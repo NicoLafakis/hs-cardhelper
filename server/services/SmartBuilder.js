@@ -10,7 +10,7 @@ const CLAUDE_MODEL = 'claude-haiku-4-5-20251001'
 /**
  * Generate card layout from natural language description
  */
-export async function generateCardLayoutFromDescription(description, userId) {
+export async function generateCardLayoutFromDescription(description) {
   const claudeKey = process.env.CLAUDE_API_KEY
 
   if (!claudeKey) {

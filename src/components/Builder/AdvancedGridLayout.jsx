@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import GridLayout from 'react-grid-layout'
 import { motion } from 'framer-motion'
-import { LayoutEngine, CSSEngine, BREAKPOINTS } from '../../core/LayoutEngine'
+import { LayoutEngine, CSSEngine } from '../../core/LayoutEngine'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import './AdvancedGridLayout.css'
@@ -14,8 +14,6 @@ import './AdvancedGridLayout.css'
 export const AdvancedGridLayout = ({
   items = [],
   onLayoutChange,
-  onItemAdd,
-  onItemRemove,
   isDraggable = true,
   isResizable = true,
   config = {}
@@ -23,11 +21,9 @@ export const AdvancedGridLayout = ({
   const [layout, setLayout] = useState([])
   const [currentBreakpoint, setCurrentBreakpoint] = useState('md')
   const [containerWidth, setContainerWidth] = useState(window.innerWidth)
-  const [breakpointConfig, setBreakpointConfig] = useState({})
 
   // Initialize layout engine
   const layoutEngine = React.useRef(new LayoutEngine(config))
-  const cssEngine = React.useRef(new CSSEngine())
 
   // Convert items to grid layout format
   useEffect(() => {
@@ -53,15 +49,6 @@ export const AdvancedGridLayout = ({
 
       const breakpoint = layoutEngine.current.getCurrentBreakpoint(width)
       setCurrentBreakpoint(breakpoint)
-
-      const bpConfig = {
-        xs: { cols: 1 },
-        sm: { cols: 2 },
-        md: { cols: 3 },
-        lg: { cols: 4 },
-        xl: { cols: 6 }
-      }
-      setBreakpointConfig(bpConfig)
     }
 
     window.addEventListener('resize', handleResize)

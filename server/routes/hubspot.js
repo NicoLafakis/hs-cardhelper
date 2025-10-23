@@ -30,7 +30,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'API key is required' })
     }
 
-    const response = await axios.get('https://api.hubapi.com/crm/v3/objects/contacts', {
+    await axios.get('https://api.hubapi.com/crm/v3/objects/contacts', {
       headers: { Authorization: `Bearer ${apiKey}` },
       params: { limit: 1 }
     })

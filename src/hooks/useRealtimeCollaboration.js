@@ -71,7 +71,7 @@ export function useRealtimeConnection() {
  */
 export function useCollaborativeCursor(cardId) {
   const socket = useRealtimeConnection()
-  const { updateUserCursor, removeUserCursor } = useCollaborationStore()
+  const { updateUserCursor } = useCollaborationStore()
   const lastMousePos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {

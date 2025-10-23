@@ -209,7 +209,6 @@ export class CollaborationManager extends EventEmitter {
       transformedOp = this.transform(transformedOp, session.operations[i])
     }
 
-    const user = this.activeUsers.get(userId)
     this.io.to(`card:${cardId}`).emit('operation:transformed', {
       cardId,
       operation: transformedOp,
@@ -237,7 +236,6 @@ export class CollaborationManager extends EventEmitter {
 
     this.conflicts.get(cardId).push(conflictData)
 
-    const user = this.activeUsers.get(userId)
     this.io.to(`user:${userId}`).emit('conflict:detected', {
       cardId,
       conflict: conflictData,
