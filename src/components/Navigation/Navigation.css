@@ -1,0 +1,404 @@
+/**
+ * Navigation & Layout Components Styling
+ * Tabs, Accordion, Breadcrumb, Stepper
+ */
+
+/* Tabs Component */
+
+.tabs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tabs-vertical {
+  flex-direction: row;
+  gap: 0;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  gap: 0;
+}
+
+.tabs-vertical .tabs-header {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 2px solid #e5e7eb;
+  min-width: 12rem;
+}
+
+.tabs-underline .tabs-header {
+  border-bottom-color: #3b82f6;
+}
+
+.tabs-pills .tabs-header {
+  border-bottom: none;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid transparent;
+  position: relative;
+}
+
+.tabs-vertical .tab-button {
+  border-bottom: none;
+  border-right: 2px solid transparent;
+  border-radius: 0.375rem 0 0 0.375rem;
+  justify-content: flex-start;
+}
+
+.tab-button:hover {
+  color: #1f2937;
+}
+
+.tab-button.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+.tabs-vertical .tab-button.active {
+  border-bottom-color: transparent;
+  border-right-color: #3b82f6;
+  background-color: #dbeafe;
+}
+
+.tabs-pills .tab-button {
+  border-bottom: none;
+  border-radius: 0.375rem;
+  padding: 0.625rem 1rem;
+  background-color: transparent;
+}
+
+.tabs-pills .tab-button.active {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-icon {
+  font-size: 1rem;
+}
+
+.tabs-content {
+  position: relative;
+}
+
+.tabs-vertical .tabs-content {
+  flex: 1;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Accordion Component */
+
+.accordion-wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1f2937;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.accordion-header:hover {
+  background-color: #f3f4f6;
+}
+
+.accordion-title {
+  flex: 1;
+}
+
+.accordion-icon {
+  font-size: 0.75rem;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.accordion-content-wrapper {
+  overflow: hidden;
+}
+
+.accordion-content {
+  padding: 1rem;
+  color: #374151;
+  background-color: white;
+  line-height: 1.6;
+}
+
+/* Breadcrumb Component */
+
+.breadcrumb-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumb-link,
+.breadcrumb-current {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  color: #3b82f6;
+}
+
+.breadcrumb-link {
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+.breadcrumb-current {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  color: #d1d5db;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-icon {
+  font-size: 1rem;
+}
+
+/* Stepper Component */
+
+.stepper-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.stepper-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.stepper-step-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  flex: 1;
+}
+
+.stepper-vertical .stepper-step-wrapper {
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.stepper-step.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.stepper-step.completed {
+  background-color: #22c55e;
+  color: white;
+}
+
+.stepper-step.clickable {
+  cursor: pointer;
+}
+
+.stepper-step.clickable:hover:not(.completed) {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.stepper-check {
+  font-size: 1.25rem;
+}
+
+.stepper-number {
+  font-size: 0.9375rem;
+}
+
+.stepper-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.stepper-vertical .stepper-label {
+  margin-left: 3.5rem;
+}
+
+.stepper-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.stepper-description {
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+
+.stepper-connector {
+  flex: 1;
+  height: 2px;
+  background-color: #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.stepper-vertical .stepper-connector {
+  width: 2px;
+  height: 1.5rem;
+  position: absolute;
+  left: 1.25rem;
+  top: 2.5rem;
+}
+
+.stepper-vertical .stepper-step-wrapper:last-child .stepper-connector {
+  display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+  .tabs-header {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+  .tab-button {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .accordion-header {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .accordion-content {
+    padding: 0.75rem;
+  }
+
+  .breadcrumb-list {
+    font-size: 0.8125rem;
+  }
+
+  .stepper-step {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8125rem;
+  }
+
+  .stepper-step-wrapper {
+    gap: 0.75rem;
+  }
+
+  .stepper-connector {
+    height: 1px;
+  }
+
+  .stepper-label {
+    display: none;
+  }
+
+  .stepper-vertical .stepper-label {
+    display: flex;
+  }
+
+  .stepper-vertical .stepper-label {
+    margin-left: 2.5rem;
+  }
+}
