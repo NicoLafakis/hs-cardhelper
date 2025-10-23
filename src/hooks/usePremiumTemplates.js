@@ -28,7 +28,7 @@ export const usePremiumTemplates = () => {
         featured: filters.featured ? 'true' : 'false'
       })
 
-      const response = await api.get(`/api/templates?${params}`)
+      const response = await api.get(`/api/premium-templates?${params}`)
       setTemplates(response.data.templates)
     } catch (err) {
       setError(err.message)
@@ -95,7 +95,7 @@ export const useTemplateClone = () => {
     setCloning(true)
     setError(null)
     try {
-      const response = await api.post(`/api/templates/${templateId}/clone`, {
+      const response = await api.post(`/api/premium-templates/${templateId}/clone`, {
         cardId,
         customizationData
       })
@@ -140,7 +140,7 @@ export const useTemplateRating = (templateId) => {
     setSuccess(false)
 
     try {
-      await api.post(`/api/templates/${templateId}/rate`, {
+      await api.post(`/api/premium-templates/${templateId}/rate`, {
         rating,
         reviewText: review
       })
@@ -189,7 +189,7 @@ export const useTemplateSearch = (delay = 500) => {
     setError(null)
 
     try {
-      const response = await api.get(`/api/templates?search=${encodeURIComponent(query)}`)
+      const response = await api.get(`/api/premium-templates?search=${encodeURIComponent(query)}`)
       setSearchResults(response.data.templates)
     } catch (err) {
       setError(err.message)
@@ -248,7 +248,7 @@ export const usePopularTemplates = (limit = 10) => {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.get(`/api/templates/popular?limit=${limit}`)
+        const response = await api.get(`/api/premium-templates/popular?limit=${limit}`)
         setTemplates(response.data.templates)
       } catch (err) {
         setError(err.message)
@@ -278,7 +278,7 @@ export const useFeaturedTemplates = (limit = 12) => {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.get(`/api/templates/featured?limit=${limit}`)
+        const response = await api.get(`/api/premium-templates/featured?limit=${limit}`)
         setTemplates(response.data.templates)
       } catch (err) {
         setError(err.message)
@@ -308,7 +308,7 @@ export const useTemplatePreview = (templateId) => {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.get(`/api/templates/${templateId}`)
+        const response = await api.get(`/api/premium-templates/${templateId}`)
         const template = response.data.template
         setPreview({
           html: template.previewHtml,
@@ -345,7 +345,7 @@ export const useTemplateInstances = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await api.put(`/api/templates/instances/${instanceId}`, {
+      const response = await api.put(`/api/premium-templates/instances/${instanceId}`, {
         customizationData
       })
       setInstances((prev) =>
@@ -365,7 +365,7 @@ export const useTemplateInstances = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await api.post(`/api/templates/instances/${instanceId}/publish`)
+      const response = await api.post(`/api/premium-templates/instances/${instanceId}/publish`)
       return response.data
     } catch (err) {
       setError(err.message)

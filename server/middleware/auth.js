@@ -18,3 +18,6 @@ export function authenticateToken(req, res, next) {
     next()
   })
 }
+
+// Export as authMiddleware for consistency
+export const authMiddleware = authenticateToken

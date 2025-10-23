@@ -6,19 +6,10 @@
 import express from 'express'
 import { authMiddleware } from '../middleware/auth.js'
 import ComponentLibraryService from '../services/ComponentLibraryService.js'
-import { getDatabase } from '../utils/database.js'
+import pool from '../utils/database.js'
 
 const router = express.Router()
-let componentLibraryService
-
-// Initialize service
-async function initializeService() {
-  if (!componentLibraryService) {
-    const db = await getDatabase()
-    componentLibraryService = new ComponentLibraryService(db)
-  }
-  return componentLibraryService
-}
+const componentLibraryService = new ComponentLibraryService(pool)
 
 // ============================================================
 // Component Management Endpoints
@@ -30,8 +21,7 @@ async function initializeService() {
  */
 router.post('/components', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
-    const component = await service.createComponent(req.body, req.user.id)
+    const component = await componentLibraryService.createComponent(req.body, req.user.id)
     res.json({ success: true, component })
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -44,8 +34,7 @@ router.post('/components', authMiddleware, async (req, res) => {
  */
 router.get('/components/:componentId', async (req, res) => {
   try {
-    const service = await initializeService()
-    const component = await service.getComponent(req.params.componentId)
+    const component = await componentLibraryService.getComponent(req.params.componentId)
     res.json(component)
   } catch (error) {
     res.status(404).json({ error: error.message })
@@ -58,13 +47,13 @@ router.get('/components/:componentId', async (req, res) => {
  */
 router.get('/components', async (req, res) => {
   try {
-    const service = await initializeService()
+    // Service initialized at module level
     const filters = {
       type: req.query.type,
       category: req.query.category,
       search: req.query.search
     }
-    const components = await service.getAllComponents(filters)
+    const components = await componentLibraryService.getAllComponents(filters)
     res.json(components)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -77,8 +66,8 @@ router.get('/components', async (req, res) => {
  */
 router.get('/components/type/:type', async (req, res) => {
   try {
-    const service = await initializeService()
-    const components = await service.getComponentsByType(req.params.type)
+    // Service initialized at module level
+    const components = await componentLibraryService.getComponentsByType(req.params.type)
     res.json(components)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -91,8 +80,8 @@ router.get('/components/type/:type', async (req, res) => {
  */
 router.get('/components/category/:category', async (req, res) => {
   try {
-    const service = await initializeService()
-    const components = await service.getComponentsByCategory(req.params.category)
+    // Service initialized at module level
+    const components = await componentLibraryService.getComponentsByCategory(req.params.category)
     res.json(components)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -105,9 +94,9 @@ router.get('/components/category/:category', async (req, res) => {
  */
 router.get('/popular', async (req, res) => {
   try {
-    const service = await initializeService()
+    // Service initialized at module level
     const limit = req.query.limit || 10
-    const components = await service.getPopularComponents(limit)
+    const components = await componentLibraryService.getPopularComponents(limit)
     res.json(components)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -124,14 +113,14 @@ router.get('/popular', async (req, res) => {
  */
 router.post('/instances', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
+    // Service initialized at module level
     const { cardId, componentId, props } = req.body
 
     if (!cardId || !componentId) {
       return res.status(400).json({ error: 'cardId and componentId are required' })
     }
 
-    const instance = await service.createComponentInstance(cardId, componentId, props)
+    const instance = await componentLibraryService.createComponentInstance(cardId, componentId, props)
     res.json({ success: true, instance })
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -144,8 +133,8 @@ router.post('/instances', authMiddleware, async (req, res) => {
  */
 router.get('/instances/card/:cardId', async (req, res) => {
   try {
-    const service = await initializeService()
-    const instances = await service.getCardComponents(req.params.cardId)
+    // Service initialized at module level
+    const instances = await componentLibraryService.getCardComponents(req.params.cardId)
     res.json(instances)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -158,8 +147,8 @@ router.get('/instances/card/:cardId', async (req, res) => {
  */
 router.put('/instances/:instanceId', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
-    const result = await service.updateComponentInstance(req.params.instanceId, req.body)
+    // Service initialized at module level
+    const result = await componentLibraryService.updateComponentInstance(req.params.instanceId, req.body)
     res.json(result)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -172,8 +161,8 @@ router.put('/instances/:instanceId', authMiddleware, async (req, res) => {
  */
 router.delete('/instances/:instanceId', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
-    const result = await service.deleteComponentInstance(req.params.instanceId)
+    // Service initialized at module level
+    const result = await componentLibraryService.deleteComponentInstance(req.params.instanceId)
     res.json(result)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -190,8 +179,8 @@ router.delete('/instances/:instanceId', authMiddleware, async (req, res) => {
  */
 router.get('/analytics/:componentId', async (req, res) => {
   try {
-    const service = await initializeService()
-    const analytics = await service.getComponentAnalytics(req.params.componentId)
+    // Service initialized at module level
+    const analytics = await componentLibraryService.getComponentAnalytics(req.params.componentId)
     res.json(analytics)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -204,9 +193,9 @@ router.get('/analytics/:componentId', async (req, res) => {
  */
 router.post('/track-usage', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
+    // Service initialized at module level
     const { componentId, cardId } = req.body
-    await service.trackComponentUsage(componentId, cardId, req.user.id)
+    await componentLibraryService.trackComponentUsage(componentId, cardId, req.user.id)
     res.json({ success: true })
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -223,14 +212,14 @@ router.post('/track-usage', authMiddleware, async (req, res) => {
  */
 router.get('/marketplace', async (req, res) => {
   try {
-    const service = await initializeService()
+    // Service initialized at module level
     const filters = {
       search: req.query.search,
       sort: req.query.sort,
       limit: req.query.limit,
       offset: req.query.offset
     }
-    const components = await service.getMarketplaceComponents(filters)
+    const components = await componentLibraryService.getMarketplaceComponents(filters)
     res.json(components)
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -243,8 +232,8 @@ router.get('/marketplace', async (req, res) => {
  */
 router.post('/marketplace/publish', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
-    const result = await service.publishComponentToMarketplace(
+    // Service initialized at module level
+    const result = await componentLibraryService.publishComponentToMarketplace(
       req.body.componentId,
       req.body.marketplaceData,
       req.user.id
@@ -265,8 +254,8 @@ router.post('/marketplace/publish', authMiddleware, async (req, res) => {
  */
 router.post('/versions', authMiddleware, async (req, res) => {
   try {
-    const service = await initializeService()
-    const result = await service.createComponentVersion(
+    // Service initialized at module level
+    const result = await componentLibraryService.createComponentVersion(
       req.body.componentId,
       req.body.versionData,
       req.user.id
@@ -287,7 +276,7 @@ router.post('/versions', authMiddleware, async (req, res) => {
  */
 router.get('/health', async (req, res) => {
   try {
-    await initializeService()
+    // Service initialized at module level
     res.json({
       status: 'healthy',
       message: 'Component Library service is running',
