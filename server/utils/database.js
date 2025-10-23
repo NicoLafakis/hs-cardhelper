@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
+import { migrate as premiumTemplatesMigrate } from '../migrations/006_premium_templates.js'
 
 dotenv.config()
 
@@ -66,10 +67,15 @@ export async function initializeDatabase() {
       )
     `)
 
+    // Run Feature #9 migrations (Premium Templates)
+    await premiumTemplatesMigrate(connection)
+
     connection.release()
-    console.log('MySQL database initialized successfully')
+    console.log('✅ Core tables initialized successfully')
+    console.log('✅ Premium Templates tables created successfully')
+    console.log('✅ All database migrations completed successfully')
   } catch (error) {
-    console.error('Failed to initialize database:', error)
+    console.error('❌ Failed to initialize database:', error)
     throw error
   }
 }
