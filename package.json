@@ -52,6 +52,7 @@
     "react-i18next": "^13.5.0",
     "react-player": "^2.16.0",
     "recharts": "^2.12.0",
+    "socket.io": "^4.8.1",
     "socket.io-client": "^4.7.2",
     "uuid": "^13.0.0",
     "zustand": "^4.5.2"
