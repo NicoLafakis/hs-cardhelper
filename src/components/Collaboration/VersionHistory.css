@@ -1,0 +1,347 @@
+/**
+ * Version History Styling
+ */
+
+.version-history-panel {
+  background-color: var(--color-background, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  background-color: var(--color-surface, #f9fafb);
+}
+
+.history-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text, #111);
+}
+
+.minimize-btn {
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-textLight, #6b7280);
+  font-size: 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.minimize-btn:hover {
+  background-color: var(--color-border, #e5e7eb);
+  color: var(--color-text, #111);
+}
+
+/* Timeline */
+.history-timeline {
+  padding: 8px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--color-textLight, #6b7280);
+  font-size: 13px;
+}
+
+.timeline-items {
+  position: relative;
+  padding: 8px 0;
+}
+
+.timeline-items::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-accent, #3b82f6), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  position: relative;
+}
+
+/* Timeline dot */
+.timeline-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-accent, #3b82f6);
+  border: 2px solid var(--color-background, #fff);
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-item:hover .timeline-dot {
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.1);
+}
+
+/* Content */
+.timeline-content {
+  flex: 1;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.timeline-content:hover {
+  background-color: var(--color-surface, #f9fafb);
+}
+
+.version-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.version-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.version-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text, #111);
+  background-color: var(--color-border, #e5e7eb);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.operation-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-accent, #3b82f6);
+}
+
+.version-time {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text, #111);
+}
+
+.date {
+  font-size: 11px;
+  color: var(--color-textLight, #6b7280);
+}
+
+/* User badge */
+.version-user {
+  margin-bottom: 6px;
+}
+
+.user-badge {
+  display: inline-block;
+  font-size: 11px;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--color-accent, #3b82f6);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+/* Operation Details */
+.operation-details {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: var(--color-surface, #f9fafb);
+  border-radius: 4px;
+  border-left: 3px solid var(--color-accent, #3b82f6);
+}
+
+.detail-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--color-text, #111);
+  min-width: 50px;
+}
+
+.detail-value {
+  color: var(--color-textLight, #6b7280);
+  font-family: 'Courier New', monospace;
+  word-break: break-word;
+}
+
+.detail-value.old {
+  color: #ef4444;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.detail-value.new {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.revert-btn {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 8px;
+  background-color: var(--color-accent, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.revert-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.history-footer {
+  padding: 8px 12px;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+  background-color: var(--color-surface, #f9fafb);
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-textLight, #6b7280);
+}
+
+.history-count {
+  font-weight: 500;
+}
+
+/* Scrollbar */
+.history-timeline::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history-timeline::-webkit-scrollbar-track {
+  background-color: var(--color-surface, #f9fafb);
+}
+
+.history-timeline::-webkit-scrollbar-thumb {
+  background-color: var(--color-border, #e5e7eb);
+  border-radius: 3px;
+}
+
+.history-timeline::-webkit-scrollbar-thumb:hover {
+  background-color: #d1d5db;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .version-history-panel {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+
+  .history-header,
+  .history-footer,
+  .operation-details {
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+
+  .history-header h3,
+  .time,
+  .detail-label,
+  .version-number {
+    color: #f3f4f6;
+  }
+
+  .minimize-btn {
+    color: #d1d5db;
+  }
+
+  .minimize-btn:hover {
+    background-color: #4b5563;
+    color: #f3f4f6;
+  }
+
+  .timeline-content:hover {
+    background-color: #4b5563;
+  }
+
+  .date,
+  .history-count,
+  .detail-value {
+    color: #9ca3af;
+  }
+
+  .operation-details {
+    background-color: #1f2937;
+  }
+
+  .timeline-dot {
+    border-color: #1f2937;
+  }
+
+  .history-timeline::-webkit-scrollbar-track {
+    background-color: #374151;
+  }
+
+  .history-timeline::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+  }
+
+  .history-timeline::-webkit-scrollbar-thumb:hover {
+    background-color: #6b7280;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .version-history-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .history-timeline {
+    max-height: 200px;
+  }
+}

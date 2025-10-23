@@ -1,0 +1,243 @@
+/**
+ * Theme Presets Styling
+ */
+
+.theme-presets-container {
+  padding: 24px;
+  background-color: var(--color-surface, #f9fafb);
+}
+
+.presets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.presets-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text, #111);
+}
+
+.create-theme-btn {
+  padding: 10px 20px;
+  background-color: var(--color-accent, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-theme-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.preset-card {
+  background-color: var(--color-background, #fff);
+  border: 2px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.preset-card:hover {
+  border-color: var(--color-accent, #3b82f6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.preset-card.active {
+  border-color: var(--color-accent, #3b82f6);
+  background-color: rgba(59, 130, 246, 0.02);
+}
+
+/* Color Palette Preview */
+.preset-colors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.color-swatch {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  transition: all 0.2s ease;
+}
+
+.preset-card:hover .color-swatch {
+  transform: scale(1.05);
+}
+
+/* Theme Info */
+.preset-info {
+  flex: 1;
+}
+
+.preset-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text, #111);
+}
+
+.preset-info p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-textLight, #6b7280);
+  line-height: 1.4;
+}
+
+/* Actions */
+.preset-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+.action-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--color-background, #fff);
+  color: var(--color-text, #111);
+}
+
+.action-btn:hover {
+  background-color: var(--color-surface, #f9fafb);
+  border-color: var(--color-accent, #3b82f6);
+  color: var(--color-accent, #3b82f6);
+}
+
+.action-btn.edit-btn {
+  background-color: var(--color-accent, #3b82f6);
+  color: white;
+  border-color: var(--color-accent, #3b82f6);
+}
+
+.action-btn.edit-btn:hover {
+  opacity: 0.9;
+  background-color: #2563eb;
+}
+
+.action-btn.delete-btn {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.action-btn.delete-btn:hover {
+  background-color: #fecaca;
+  border-color: #ef4444;
+}
+
+/* Active Badge */
+.active-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--color-success, #10b981);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .presets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .preset-colors {
+    gap: 4px;
+  }
+
+  .preset-info h3 {
+    font-size: 14px;
+  }
+
+  .preset-info p {
+    font-size: 12px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .theme-presets-container {
+    background-color: #111827;
+  }
+
+  .presets-header h2 {
+    color: #f3f4f6;
+  }
+
+  .preset-card {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+
+  .preset-card:hover {
+    background-color: #374151;
+  }
+
+  .preset-card.active {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .preset-info h3 {
+    color: #f3f4f6;
+  }
+
+  .preset-info p {
+    color: #d1d5db;
+  }
+
+  .action-btn {
+    background-color: #374151;
+    color: #f3f4f6;
+    border-color: #4b5563;
+  }
+
+  .action-btn:hover {
+    background-color: #4b5563;
+  }
+
+  .action-btn.delete-btn {
+    background-color: #7f1d1d;
+    color: #fecaca;
+    border-color: #991b1b;
+  }
+
+  .action-btn.delete-btn:hover {
+    background-color: #991b1b;
+    border-color: #dc2626;
+  }
+}

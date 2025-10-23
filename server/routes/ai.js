@@ -1,4 +1,5 @@
 import express from 'express'
+import Anthropic from '@anthropic-ai/sdk'
 import OpenAI from 'openai'
 import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'
@@ -6,7 +7,16 @@ import { decrypt } from '../utils/encryption.js'
 
 const router = express.Router()
 
-// Get OpenAI key for user
+// Get Claude API key (primary)
+function getClaudeKey() {
+  const claudeKey = process.env.CLAUDE_API_KEY
+  if (!claudeKey) {
+    throw new Error('Claude API key not configured')
+  }
+  return claudeKey
+}
+
+// Get OpenAI key (backup)
 async function getOpenAIKey(userId) {
   const connection = await pool.getConnection()
   try {
@@ -21,6 +31,63 @@ async function getOpenAIKey(userId) {
   }
 }
 
+// AI Provider wrapper - tries Claude first, falls back to GPT-5 Mini
+async function callAIProvider(systemPrompt, userPrompt, userId) {
+  let claudeError = null
+  let openaiError = null
+
+  // Try Claude Haiku first
+  try {
+    const claudeKey = getClaudeKey()
+    const client = new Anthropic({ apiKey: claudeKey })
+
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2048,
+      system: systemPrompt,
+      messages: [
+        {
+          role: 'user',
+          content: userPrompt
+        }
+      ]
+    })
+
+    return {
+      content: response.content[0].type === 'text' ? response.content[0].text : '',
+      provider: 'claude-haiku'
+    }
+  } catch (error) {
+    claudeError = error
+    console.warn('Claude Haiku request failed, attempting fallback to GPT-5 Mini:', error.message)
+  }
+
+  // Fallback to GPT-5 Mini
+  try {
+    const openaiKey = await getOpenAIKey(userId)
+    const client = new OpenAI({ apiKey: openaiKey })
+
+    const completion = await client.chat.completions.create({
+      model: 'gpt-5-mini-2025-08-07',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      temperature: 0.7,
+      max_tokens: 2048
+    })
+
+    return {
+      content: completion.choices[0].message.content,
+      provider: 'gpt-5-mini-fallback'
+    }
+  } catch (error) {
+    openaiError = error
+    console.error('Both Claude and GPT-5 Mini failed:', { claudeError: claudeError?.message, openaiError: openaiError?.message })
+    throw new Error(`AI provider failed: Claude - ${claudeError?.message}, GPT-5 Mini - ${openaiError?.message}`)
+  }
+}
+
 // Generate card configuration suggestions
 router.post('/suggest', authenticateToken, async (req, res) => {
   try {
@@ -29,9 +96,6 @@ router.post('/suggest', authenticateToken, async (req, res) => {
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' })
     }
-
-    const apiKey = await getOpenAIKey(req.user.userId)
-    const openai = new OpenAI({ apiKey })
 
     const systemPrompt = `You are an AI assistant that helps create HubSpot CRM card configurations.
 Given a user's description and available HubSpot object properties, generate a JSON configuration for a card component.
@@ -60,30 +124,17 @@ Return ONLY a valid JSON object with this structure:
   ]
 }`
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 1500
-    })
-
-    const suggestion = completion.choices[0].message.content
+    const result = await callAIProvider(systemPrompt, prompt, req.user.userId)
 
     try {
-      const parsed = JSON.parse(suggestion)
-      res.json({ suggestion: parsed })
+      const parsed = JSON.parse(result.content)
+      res.json({ suggestion: parsed, provider: result.provider })
     } catch (parseError) {
-      res.json({ suggestion, raw: true })
+      res.json({ suggestion: result.content, raw: true, provider: result.provider })
     }
   } catch (error) {
-    if (error.message === 'OpenAI API key not found') {
-      return res.status(404).json({ error: 'OpenAI API key not configured' })
-    }
     console.error('AI suggestion error:', error)
-    res.status(500).json({ error: 'Failed to generate suggestions' })
+    res.status(500).json({ error: 'Failed to generate suggestions', details: error.message })
   }
 })
 
@@ -95,9 +146,6 @@ router.post('/table-wizard', authenticateToken, async (req, res) => {
     if (!description || !objectType) {
       return res.status(400).json({ error: 'Description and object type are required' })
     }
-
-    const apiKey = await getOpenAIKey(req.user.userId)
-    const openai = new OpenAI({ apiKey })
 
     const systemPrompt = `You are an AI assistant that creates HubSpot data table configurations.
 The user wants to create a table for ${objectType} objects.
@@ -123,30 +171,17 @@ Return ONLY a valid JSON object:
   "sortOrder": "asc|desc"
 }`
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: description }
-      ],
-      temperature: 0.7,
-      max_tokens: 1000
-    })
-
-    const suggestion = completion.choices[0].message.content
+    const result = await callAIProvider(systemPrompt, description, req.user.userId)
 
     try {
-      const parsed = JSON.parse(suggestion)
-      res.json({ tableConfig: parsed })
+      const parsed = JSON.parse(result.content)
+      res.json({ tableConfig: parsed, provider: result.provider })
     } catch (parseError) {
-      res.json({ tableConfig: suggestion, raw: true })
+      res.json({ tableConfig: result.content, raw: true, provider: result.provider })
     }
   } catch (error) {
-    if (error.message === 'OpenAI API key not found') {
-      return res.status(404).json({ error: 'OpenAI API key not configured' })
-    }
     console.error('Table wizard error:', error)
-    res.status(500).json({ error: 'Failed to generate table configuration' })
+    res.status(500).json({ error: 'Failed to generate table configuration', details: error.message })
   }
 })
 
