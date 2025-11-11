@@ -28,7 +28,7 @@ class AnalyticsService {
 
       // Store in database
       const connection = await this.db.getConnection()
-      await connection.query(
+      await connection.execute(
         `INSERT INTO analytics_events 
          (card_id, user_id, event_type, metadata, created_at) 
          VALUES (?, ?, ?, ?, ?)`,
@@ -63,7 +63,7 @@ class AnalyticsService {
   async trackComponentUsage(cardId, componentType, count = 1) {
     try {
       const connection = await this.db.getConnection()
-      await connection.query(
+      await connection.execute(
         `INSERT INTO component_usage 
          (card_id, component_type, count, created_at) 
          VALUES (?, ?, ?, NOW())`,
@@ -89,7 +89,7 @@ class AnalyticsService {
   async trackPerformanceMetric(cardId, renderTime, componentCount, fieldCount) {
     try {
       const connection = await this.db.getConnection()
-      await connection.query(
+      await connection.execute(
         `INSERT INTO performance_metrics 
          (card_id, render_time_ms, component_count, field_count, created_at) 
          VALUES (?, ?, ?, ?, NOW())`,
@@ -117,7 +117,7 @@ class AnalyticsService {
       startDate.setDate(startDate.getDate() - days)
 
       // Get event counts
-      const [events] = await connection.query(
+      const [events] = await connection.execute(
         `SELECT event_type, COUNT(*) as count 
          FROM analytics_events 
          WHERE card_id = ? AND created_at >= ?
@@ -126,7 +126,7 @@ class AnalyticsService {
       )
 
       // Get component usage
-      const [components] = await connection.query(
+      const [components] = await connection.execute(
         `SELECT component_type, SUM(count) as total_count 
          FROM component_usage 
          WHERE card_id = ? AND created_at >= ?
@@ -136,7 +136,7 @@ class AnalyticsService {
       )
 
       // Get performance data
-      const [performance] = await connection.query(
+      const [performance] = await connection.execute(
         `SELECT 
            AVG(render_time_ms) as avg_render_time,
            MAX(render_time_ms) as max_render_time,
@@ -183,7 +183,7 @@ class AnalyticsService {
       startDate.setDate(startDate.getDate() - days)
 
       // Get user's activity
-      const [events] = await connection.query(
+      const [events] = await connection.execute(
         `SELECT 
            COUNT(*) as total_events,
            COUNT(DISTINCT card_id) as cards_edited,
@@ -196,7 +196,7 @@ class AnalyticsService {
       )
 
       // Most active cards
-      const [topCards] = await connection.query(
+      const [topCards] = await connection.execute(
         `SELECT card_id, COUNT(*) as activity_count
          FROM analytics_events 
          WHERE user_id = ? AND created_at >= ?
@@ -239,7 +239,7 @@ class AnalyticsService {
       const startDate = new Date()
       startDate.setDate(startDate.getDate() - days)
 
-      const [data] = await connection.query(
+      const [data] = await connection.execute(
         `SELECT 
            component_type,
            SUM(count) as total_uses,
@@ -278,7 +278,7 @@ class AnalyticsService {
       const startDate = new Date()
       startDate.setDate(startDate.getDate() - days)
 
-      const [data] = await connection.query(
+      const [data] = await connection.execute(
         `SELECT 
            card_id,
            COUNT(*) as total_events,
@@ -318,7 +318,7 @@ class AnalyticsService {
       const startDate = new Date()
       startDate.setDate(startDate.getDate() - days)
 
-      const [stats] = await connection.query(
+      const [stats] = await connection.execute(
         `SELECT 
            COUNT(*) as total_metrics,
            AVG(render_time_ms) as avg_render_time,
@@ -397,17 +397,17 @@ class AnalyticsService {
       const cutoffDate = new Date()
       cutoffDate.setDate(cutoffDate.getDate() - daysOld)
 
-      await connection.query(
+      await connection.execute(
         `DELETE FROM analytics_events WHERE created_at < ?`,
         [cutoffDate]
       )
 
-      await connection.query(
+      await connection.execute(
         `DELETE FROM component_usage WHERE created_at < ?`,
         [cutoffDate]
       )
 
-      await connection.query(
+      await connection.execute(
         `DELETE FROM performance_metrics WHERE created_at < ?`,
         [cutoffDate]
       )

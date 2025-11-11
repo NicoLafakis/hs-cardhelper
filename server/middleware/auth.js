@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'cardhelper_jwt_secret_key_dev_only_change_in_production_12345'
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required but not set')
+}
+const JWT_SECRET = process.env.JWT_SECRET
 
 export function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']

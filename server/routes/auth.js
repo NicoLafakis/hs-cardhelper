@@ -5,7 +5,10 @@ import pool from '../utils/database.js'
 
 const router = express.Router()
 
-const JWT_SECRET = process.env.JWT_SECRET || 'cardhelper_jwt_secret_key_dev_only_change_in_production_12345'
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required but not set')
+}
+const JWT_SECRET = process.env.JWT_SECRET
 const JWT_EXPIRATION = parseInt(process.env.JWT_EXPIRATION) || 3600
 const REFRESH_TOKEN_EXPIRATION = parseInt(process.env.REFRESH_TOKEN_EXPIRATION) || 604800
 
