@@ -14,6 +14,7 @@ import smartBuilderRoutes from './routes/smartBuilder.js'
 import analyticsRoutes from './routes/analytics.js'
 import dataBindingsRoutes from './routes/dataBindings.js'
 import componentLibraryRoutes from './routes/componentLibrary.js'
+import bulkOperationsRoutes from './routes/bulkOperations.js'
 import setupWebSocketServer from './websocket/server.js'
 
 dotenv.config()
@@ -63,6 +64,7 @@ initializeDatabase()
     app.use('/api/analytics', analyticsRoutes)
     app.use('/api/data-bindings', dataBindingsRoutes)
     app.use('/api/component-library', componentLibraryRoutes)
+    app.use('/api/bulk-operations', bulkOperationsRoutes)
 
     // Health check
     app.get('/api/health', (req, res) => {
