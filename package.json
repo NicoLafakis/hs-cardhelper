@@ -13,7 +13,8 @@
     "start": "node server/server.js",
     "lint": "eslint src --ext js,jsx",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
-    "db:init": "node server/utils/initDb.js"
+    "migrate": "node server/utils/migrationRunner.js",
+    "migrate:status": "node server/utils/migrationRunner.js status"
   },
   "keywords": [
     "hubspot",

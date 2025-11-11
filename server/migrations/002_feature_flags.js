@@ -1,17 +1,13 @@
 /**
- * Feature Flags Migration
- * Creates the feature_flags table
+ * Migration 002: Feature Flags
+ * Creates the feature_flags table for managing feature toggles per user
  */
 
-import pool from '../utils/database.js'
-
-export async function up() {
-  console.log('Running migration: 002_feature_flags')
-
-  const connection = await pool.getConnection()
+export async function migrate(db) {
   try {
-    // Create feature_flags table
-    await connection.execute(`
+    console.log('    Creating feature_flags table...')
+
+    await db.execute(`
       CREATE TABLE IF NOT EXISTS feature_flags (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -20,42 +16,26 @@ export async function up() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-        UNIQUE KEY unique_user_flag (user_id, flag_key)
-      )
+        UNIQUE KEY unique_user_flag (user_id, flag_key),
+        INDEX idx_user_id (user_id),
+        INDEX idx_flag_key (flag_key)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
 
-    // Create index for faster lookups
-    await connection.execute(`
-      CREATE INDEX IF NOT EXISTS idx_feature_flags_user_id
-      ON feature_flags(user_id)
-    `)
-
-    console.log('✓ Feature flags table created')
-  } finally {
-    connection.release()
+    console.log('    Feature flags table created successfully')
+  } catch (error) {
+    console.error('    Failed to create feature_flags table:', error.message)
+    throw error
   }
 }
 
-export async function down() {
-  console.log('Rolling back migration: 002_feature_flags')
-
-  const connection = await pool.getConnection()
+export async function rollback(db) {
   try {
-    await connection.execute('DROP TABLE IF EXISTS feature_flags')
-    await connection.execute('DROP INDEX IF EXISTS idx_feature_flags_user_id ON feature_flags')
-
-    console.log('✓ Feature flags table dropped')
-  } finally {
-    connection.release()
+    console.log('    Rolling back feature_flags table...')
+    await db.execute('DROP TABLE IF EXISTS feature_flags')
+    console.log('    Feature flags table rolled back successfully')
+  } catch (error) {
+    console.error('    Failed to rollback feature_flags table:', error.message)
+    throw error
   }
 }
-
-// Run migration if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  up().catch(err => {
-    console.error('Migration failed:', err)
-    process.exit(1)
-  })
-}
-
-export default { up, down }
