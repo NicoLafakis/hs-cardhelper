@@ -17,7 +17,8 @@ import {
   GitBranch,
   Palette,
   Database,
-  Zap
+  Zap,
+  Download
 } from 'lucide-react'
 import TemplatesModal from '../Templates/TemplatesModal'
 import SettingsModal from '../Settings/SettingsModal'
@@ -28,6 +29,8 @@ import ConditionBuilder from '../ConditionalLogic/ConditionBuilder'
 import ThemeEditor from '../ThemeBuilder/ThemeEditor'
 import DataBindingBuilder from '../DataBindings/DataBindingBuilder'
 import BulkOperationsPanel from '../BulkOperations/BulkOperationsPanel'
+import ExportPanel from './ExportPanel'
+import PropertyMapper from '../PropertyMapper/PropertyMapper'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -39,6 +42,8 @@ export default function Header() {
   const [showAIWizard, setShowAIWizard] = useState(false)
   const [showFeaturesMenu, setShowFeaturesMenu] = useState(false)
   const [activeFeature, setActiveFeature] = useState(null)
+  const [showExport, setShowExport] = useState(false)
+  const [showPropertyMapper, setShowPropertyMapper] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -54,7 +59,13 @@ export default function Header() {
     setShowFeaturesMenu(false)
   }
 
+  const openPropertyMapper = () => {
+    setShowPropertyMapper(true)
+    setShowFeaturesMenu(false)
+  }
+
   const features = [
+    { id: 'property-mapper', name: 'Property Mapper', icon: Database, description: 'Bind HubSpot properties to components', action: openPropertyMapper },
     { id: 'analytics', name: 'Analytics', icon: BarChart, description: 'View card performance metrics' },
     { id: 'formulas', name: 'Formula Builder', icon: Calculator, description: 'Create custom formulas with AI' },
     { id: 'conditions', name: 'Conditional Logic', icon: GitBranch, description: 'Build if-then rules visually' },
@@ -134,7 +145,7 @@ export default function Header() {
                       {features.map((feature) => (
                         <button
                           key={feature.id}
-                          onClick={() => openFeature(feature.id)}
+                          onClick={() => feature.action ? feature.action() : openFeature(feature.id)}
                           className="w-full flex items-start gap-3 p-3 rounded hover:bg-gray-50 transition-colors text-left"
                         >
                           <feature.icon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -156,6 +167,15 @@ export default function Header() {
             >
               <FolderOpen className="w-4 h-4" />
               Templates
+            </button>
+
+            <button
+              onClick={() => setShowExport(true)}
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition-colors text-sm"
+              title="Export to HubSpot"
+            >
+              <Download className="w-4 h-4" />
+              <span className="hidden md:inline">Export</span>
             </button>
 
             <button
@@ -184,6 +204,8 @@ export default function Header() {
       {showTemplates && <TemplatesModal onClose={() => setShowTemplates(false)} />}
       {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
       {showAIWizard && <AIWizardModal onClose={() => setShowAIWizard(false)} />}
+      {showExport && <ExportPanel isOpen={showExport} onClose={() => setShowExport(false)} />}
+      {showPropertyMapper && <PropertyMapper isOpen={showPropertyMapper} onClose={() => setShowPropertyMapper(false)} />}
 
       {/* Advanced Features */}
       {activeFeature === 'analytics' && (
