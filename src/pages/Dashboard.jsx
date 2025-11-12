@@ -12,8 +12,7 @@ import {
   LogOut,
   Settings,
   BarChart,
-  Layers,
-  Sparkles
+  Layers
 } from 'lucide-react'
 
 export default function Dashboard() {
@@ -99,7 +98,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-2 sm:gap-3">
               <button
                 onClick={() => navigate('/settings')}
-                className="p-2 rounded-lg hover:bg-gray-100 hidden sm:block"
+                className="p-2 rounded hover:bg-gray-100 hidden sm:block"
                 title="Settings"
               >
                 <Settings className="w-5 h-5 text-gray-600" />
@@ -109,7 +108,7 @@ export default function Dashboard() {
                 <span className="text-sm text-gray-600 hidden sm:block">{user?.email}</span>
                 <button
                   onClick={handleLogout}
-                  className="p-2 rounded-lg hover:bg-gray-100 text-red-600"
+                  className="p-2 rounded hover:bg-gray-100 text-red-600"
                   title="Logout"
                 >
                   <LogOut className="w-5 h-5" />
@@ -125,10 +124,10 @@ export default function Dashboard() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.name || user?.email?.split('@')[0] || 'there'}!
+            Dashboard
           </h2>
           <p className="text-gray-600">
-            Create and manage your HubSpot custom cards with our no-code builder
+            Create and manage HubSpot custom cards
           </p>
         </div>
 
@@ -141,22 +140,22 @@ export default function Dashboard() {
               placeholder="Search cards..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
 
           <button
             onClick={handleCreateNew}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors shadow-sm"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 text-white rounded font-medium transition-colors shadow-sm"
           >
             <Plus className="w-5 h-5" />
-            Create New Card
+            Create Card
           </button>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
             {error}
           </div>
         )}
@@ -172,31 +171,24 @@ export default function Dashboard() {
         ) : filteredCards.length === 0 ? (
           <div className="text-center py-20">
             <div className="mb-6 flex justify-center">
-              {searchQuery ? (
-                <FileText className="w-20 h-20 text-gray-300" />
-              ) : (
-                <div className="relative">
-                  <FileText className="w-20 h-20 text-gray-300" />
-                  <Sparkles className="w-10 h-10 text-primary absolute -top-2 -right-2" />
-                </div>
-              )}
+              <FileText className="w-20 h-20 text-gray-300" />
             </div>
             <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-              {searchQuery ? 'No cards found' : 'No cards yet'}
+              {searchQuery ? 'No cards found' : 'No cards'}
             </h3>
             <p className="text-gray-500 mb-6 max-w-md mx-auto">
               {searchQuery
                 ? `No cards match "${searchQuery}". Try a different search term.`
-                : 'Get started by creating your first custom HubSpot card. Use our drag-and-drop builder to design beautiful, functional cards without any code.'
+                : 'Create your first custom HubSpot card using the drag-and-drop builder.'
               }
             </p>
             {!searchQuery && (
               <button
                 onClick={handleCreateNew}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded font-medium transition-colors shadow-sm"
               >
                 <Plus className="w-5 h-5" />
-                Create Your First Card
+                Create Card
               </button>
             )}
           </div>
@@ -205,7 +197,7 @@ export default function Dashboard() {
             {filteredCards.map((card) => (
               <div
                 key={card.id}
-                className="bg-white rounded-lg border border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-200 overflow-hidden group"
+                className="bg-white rounded border border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-200 overflow-hidden group"
               >
                 {/* Card Preview */}
                 <div className="h-40 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center border-b border-gray-100">
@@ -226,7 +218,7 @@ export default function Dashboard() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEditCard(card)}
-                      className="flex-1 px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                      className="flex-1 px-3 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors text-sm font-medium"
                     >
                       Edit
                     </button>
@@ -235,7 +227,7 @@ export default function Dashboard() {
                         e.stopPropagation()
                         handleDeleteCard(card.id)
                       }}
-                      className="p-2 bg-gray-100 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                      className="p-2 bg-gray-100 text-red-600 rounded hover:bg-red-50 transition-colors"
                       title="Delete card"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -251,9 +243,9 @@ export default function Dashboard() {
         {!loading && cards.length > 0 && (
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="bg-white rounded border border-gray-200 p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-primary/10 rounded-lg">
+                  <div className="p-3 bg-primary/10 rounded">
                     <FileText className="w-6 h-6 text-primary" />
                   </div>
                   <div>
@@ -263,9 +255,9 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="bg-white rounded border border-gray-200 p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-green-100 rounded-lg">
+                  <div className="p-3 bg-green-100 rounded">
                     <Calendar className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
@@ -277,14 +269,14 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="bg-white rounded border border-gray-200 p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-purple-100 rounded-lg">
-                    <Sparkles className="w-6 h-6 text-purple-600" />
+                  <div className="p-3 bg-blue-100 rounded">
+                    <Layers className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">AI Powered</p>
-                    <p className="text-lg font-semibold text-gray-900">Builder Ready</p>
+                    <p className="text-sm text-gray-500">Components</p>
+                    <p className="text-lg font-semibold text-gray-900">32 Available</p>
                   </div>
                 </div>
               </div>

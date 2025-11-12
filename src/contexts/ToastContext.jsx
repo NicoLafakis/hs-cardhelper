@@ -76,7 +76,7 @@ function Toast({ toast, onClose }) {
     <div
       className={`
         ${styles[toast.type] || styles.info}
-        flex items-start gap-3 p-4 rounded-lg border shadow-lg
+        flex items-start gap-3 p-4 rounded border shadow-lg
         min-w-[320px] max-w-md
         pointer-events-auto
         animate-in slide-in-from-right duration-300

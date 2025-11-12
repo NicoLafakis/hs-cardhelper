@@ -122,7 +122,7 @@ export default function ComponentPalette() {
       <div className="w-12 bg-white border-r border-gray-200 flex flex-col items-center py-4">
         <button
           onClick={() => setIsPaletteCollapsed(false)}
-          className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
+          className="p-2 hover:bg-gray-100 rounded text-gray-600"
           title="Expand Component Palette"
         >
           <ChevronRight className="w-5 h-5" />
@@ -139,7 +139,7 @@ export default function ComponentPalette() {
           <h2 className="text-lg font-bold text-gray-800">Components</h2>
           <button
             onClick={() => setIsPaletteCollapsed(true)}
-            className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-600"
+            className="p-1.5 hover:bg-gray-100 rounded text-gray-600"
             title="Collapse"
           >
             <ChevronDown className="w-4 h-4 rotate-90" />
@@ -154,7 +154,7 @@ export default function ComponentPalette() {
             placeholder="Search components..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
           />
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function ComponentPalette() {
                 {/* Category Header */}
                 <button
                   onClick={() => toggleCategory(category.name)}
-                  className="w-full flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors group"
+                  className="w-full flex items-center justify-between p-2 hover:bg-gray-50 rounded transition-colors group"
                 >
                   <div className="flex items-center gap-2">
                     <CategoryIcon className="w-4 h-4 text-primary" />
@@ -205,7 +205,7 @@ export default function ComponentPalette() {
                           draggable
                           onDragStart={(e) => handleDragStart(e, component)}
                           onClick={() => addComponent(component)}
-                          className="flex items-center gap-2.5 p-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg cursor-move border border-gray-200 hover:border-primary transition-all group"
+                          className="flex items-center gap-2.5 p-2.5 bg-gray-50 hover:bg-gray-100 rounded cursor-move border border-gray-200 hover:border-primary transition-all group"
                           title={`Drag or click to add ${component.label}`}
                         >
                           <div className="p-1.5 bg-white rounded group-hover:bg-primary/10 transition-colors">
@@ -227,9 +227,9 @@ export default function ComponentPalette() {
 
       {/* Footer Hint */}
       <div className="p-4 border-t border-gray-200 flex-shrink-0">
-        <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-xs text-blue-800">
-            💡 Drag components to the canvas or click to add instantly
+        <div className="p-3 bg-blue-50 rounded border border-blue-200">
+          <p className="text-xs text-blue-800 font-medium">
+            Drag components to canvas or click to add
           </p>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default function Header() {
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={handleBackToDashboard}
-              className="p-2 rounded-lg hover:bg-gray-100"
+              className="p-2 rounded hover:bg-gray-100"
               title="Back to Dashboard"
             >
               <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -87,7 +87,7 @@ export default function Header() {
               <button
                 onClick={undo}
                 disabled={!canUndo()}
-                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Undo (Ctrl+Z)"
               >
                 <Undo className="w-4 h-4" />
@@ -95,7 +95,7 @@ export default function Header() {
               <button
                 onClick={redo}
                 disabled={!canRedo()}
-                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Redo (Ctrl+Shift+Z)"
               >
                 <Redo className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowAIWizard(true)}
-              className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm"
+              className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded transition-colors text-sm"
             >
               <Wand2 className="w-4 h-4" />
               <span className="hidden md:inline">AI Wizard</span>
@@ -116,7 +116,7 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setShowFeaturesMenu(!showFeaturesMenu)}
-                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors text-sm"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors text-sm"
                 title="Advanced Features"
               >
                 <Menu className="w-4 h-4" />
@@ -129,13 +129,13 @@ export default function Header() {
                     className="fixed inset-0 z-10"
                     onClick={() => setShowFeaturesMenu(false)}
                   ></div>
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-20">
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded shadow-xl border border-gray-200 z-20">
                     <div className="p-2">
                       {features.map((feature) => (
                         <button
                           key={feature.id}
                           onClick={() => openFeature(feature.id)}
-                          className="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+                          className="w-full flex items-start gap-3 p-3 rounded hover:bg-gray-50 transition-colors text-left"
                         >
                           <feature.icon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                           <div>
@@ -152,7 +152,7 @@ export default function Header() {
 
             <button
               onClick={() => setShowTemplates(true)}
-              className="hidden lg:flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors text-sm"
+              className="hidden lg:flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors text-sm"
             >
               <FolderOpen className="w-4 h-4" />
               Templates
@@ -160,7 +160,7 @@ export default function Header() {
 
             <button
               onClick={() => navigate('/settings')}
-              className="p-2 rounded-lg hover:bg-gray-100 hidden sm:block"
+              className="p-2 rounded hover:bg-gray-100 hidden sm:block"
               title="Settings"
             >
               <Settings className="w-4 h-4" />
@@ -170,7 +170,7 @@ export default function Header() {
               <span className="text-xs sm:text-sm text-gray-600 hidden md:block">{user?.email}</span>
               <button
                 onClick={handleLogout}
-                className="p-2 rounded-lg hover:bg-gray-100 text-red-600"
+                className="p-2 rounded hover:bg-gray-100 text-red-600"
                 title="Logout"
               >
                 <LogOut className="w-4 h-4" />
@@ -188,17 +188,17 @@ export default function Header() {
       {/* Advanced Features */}
       {activeFeature === 'analytics' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-white rounded shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <AnalyticsDashboard onClose={() => setActiveFeature(null)} />
           </div>
         </div>
       )}
       {activeFeature === 'formulas' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-auto p-6">
+          <div className="bg-white rounded shadow-xl max-w-4xl w-full max-h-[90vh] overflow-auto p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Formula Builder</h2>
-              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded">
                 ×
               </button>
             </div>
@@ -212,10 +212,10 @@ export default function Header() {
       )}
       {activeFeature === 'conditions' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
+          <div className="bg-white rounded shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Conditional Logic Builder</h2>
-              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded">
                 ×
               </button>
             </div>
@@ -230,24 +230,24 @@ export default function Header() {
       )}
       {activeFeature === 'themes' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-white rounded shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <ThemeEditor onClose={() => setActiveFeature(null)} />
           </div>
         </div>
       )}
       {activeFeature === 'bindings' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-white rounded shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <DataBindingBuilder onClose={() => setActiveFeature(null)} />
           </div>
         </div>
       )}
       {activeFeature === 'bulk' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
+          <div className="bg-white rounded shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Bulk Operations</h2>
-              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded">
                 ×
               </button>
             </div>
