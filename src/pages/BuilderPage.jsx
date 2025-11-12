@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import useBuilderStore from '../store/builderStore'
 import Header from '../components/Builder/Header'
 import ComponentPalette from '../components/Builder/ComponentPalette'
@@ -7,6 +8,7 @@ import PropertyPanel from '../components/Builder/PropertyPanel'
 import WelcomeBanner from '../plugins/welcome-banner/components/WelcomeBanner'
 
 export default function BuilderPage() {
+  const { cardId } = useParams()
   const { undo, redo } = useBuilderStore()
 
   useEffect(() => {
@@ -35,13 +37,24 @@ export default function BuilderPage() {
   }, [undo, redo])
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-gray-50">
       <WelcomeBanner />
       <Header />
       <div className="flex flex-1 overflow-hidden">
-        <ComponentPalette />
-        <Canvas />
-        <PropertyPanel />
+        {/* Component Palette - Hidden on mobile, visible on md+ */}
+        <div className="hidden md:block">
+          <ComponentPalette />
+        </div>
+
+        {/* Canvas - Full width on mobile */}
+        <div className="flex-1 overflow-hidden">
+          <Canvas />
+        </div>
+
+        {/* Property Panel - Hidden on mobile/tablet, visible on lg+ */}
+        <div className="hidden lg:block">
+          <PropertyPanel />
+        </div>
       </div>
     </div>
   )

@@ -1,38 +1,96 @@
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import useBuilderStore from '../../store/builderStore'
 import useAuthStore from '../../store/authStore'
-import { Undo, Redo, Save, FolderOpen, Settings, Wand2, LogOut } from 'lucide-react'
+import {
+  Undo,
+  Redo,
+  Save,
+  FolderOpen,
+  Settings,
+  Wand2,
+  LogOut,
+  ArrowLeft,
+  Menu,
+  BarChart,
+  Calculator,
+  GitBranch,
+  Palette,
+  Database,
+  Zap
+} from 'lucide-react'
 import TemplatesModal from '../Templates/TemplatesModal'
 import SettingsModal from '../Settings/SettingsModal'
 import AIWizardModal from '../AI/AIWizardModal'
+import AnalyticsDashboard from '../Analytics/AnalyticsDashboard'
+import FormulaBuilder from '../FormulaBuilder/FormulaBuilder'
+import ConditionBuilder from '../ConditionalLogic/ConditionBuilder'
+import ThemeEditor from '../ThemeBuilder/ThemeEditor'
+import DataBindingBuilder from '../DataBindings/DataBindingBuilder'
+import BulkOperationsPanel from '../BulkOperations/BulkOperationsPanel'
 
 export default function Header() {
+  const navigate = useNavigate()
+  const { cardId } = useParams()
   const { canUndo, canRedo, undo, redo, components } = useBuilderStore()
   const { user, logout } = useAuthStore()
   const [showTemplates, setShowTemplates] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showAIWizard, setShowAIWizard] = useState(false)
+  const [showFeaturesMenu, setShowFeaturesMenu] = useState(false)
+  const [activeFeature, setActiveFeature] = useState(null)
 
   const handleLogout = () => {
     logout()
-    window.location.reload()
+    navigate('/login')
   }
+
+  const handleBackToDashboard = () => {
+    navigate('/dashboard')
+  }
+
+  const openFeature = (feature) => {
+    setActiveFeature(feature)
+    setShowFeaturesMenu(false)
+  }
+
+  const features = [
+    { id: 'analytics', name: 'Analytics', icon: BarChart, description: 'View card performance metrics' },
+    { id: 'formulas', name: 'Formula Builder', icon: Calculator, description: 'Create custom formulas with AI' },
+    { id: 'conditions', name: 'Conditional Logic', icon: GitBranch, description: 'Build if-then rules visually' },
+    { id: 'themes', name: 'Theme Editor', icon: Palette, description: 'Customize colors and styling' },
+    { id: 'bindings', name: 'Data Bindings', icon: Database, description: 'Connect to HubSpot data' },
+    { id: 'bulk', name: 'Bulk Operations', icon: Zap, description: 'Process multiple records' }
+  ]
 
   return (
     <>
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-bold text-primary">CardHelper</h1>
+          {/* Left Section */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              onClick={handleBackToDashboard}
+              className="p-2 rounded-lg hover:bg-gray-100"
+              title="Back to Dashboard"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
+            </button>
 
-            <div className="flex items-center gap-2">
+            <div className="hidden sm:block w-px h-6 bg-gray-300"></div>
+
+            <h1 className="text-lg sm:text-2xl font-bold text-primary">
+              CardHelper
+            </h1>
+
+            <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={undo}
                 disabled={!canUndo()}
                 className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Undo (Ctrl+Z)"
               >
-                <Undo className="w-5 h-5" />
+                <Undo className="w-4 h-4" />
               </button>
               <button
                 onClick={redo}
@@ -40,53 +98,166 @@ export default function Header() {
                 className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Redo (Ctrl+Shift+Z)"
               >
-                <Redo className="w-5 h-5" />
+                <Redo className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Right Section */}
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setShowAIWizard(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+              className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm"
             >
-              <Wand2 className="w-5 h-5" />
-              AI Wizard
+              <Wand2 className="w-4 h-4" />
+              <span className="hidden md:inline">AI Wizard</span>
             </button>
+
+            <div className="relative">
+              <button
+                onClick={() => setShowFeaturesMenu(!showFeaturesMenu)}
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors text-sm"
+                title="Advanced Features"
+              >
+                <Menu className="w-4 h-4" />
+                <span className="hidden md:inline">Features</span>
+              </button>
+
+              {showFeaturesMenu && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setShowFeaturesMenu(false)}
+                  ></div>
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-20">
+                    <div className="p-2">
+                      {features.map((feature) => (
+                        <button
+                          key={feature.id}
+                          onClick={() => openFeature(feature.id)}
+                          className="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+                        >
+                          <feature.icon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <div>
+                            <div className="font-medium text-gray-900 text-sm">{feature.name}</div>
+                            <div className="text-xs text-gray-500">{feature.description}</div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
 
             <button
               onClick={() => setShowTemplates(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors"
+              className="hidden lg:flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors text-sm"
             >
-              <FolderOpen className="w-5 h-5" />
+              <FolderOpen className="w-4 h-4" />
               Templates
             </button>
 
             <button
-              onClick={() => setShowSettings(true)}
-              className="p-2 rounded-lg hover:bg-gray-100"
+              onClick={() => navigate('/settings')}
+              className="p-2 rounded-lg hover:bg-gray-100 hidden sm:block"
               title="Settings"
             >
-              <Settings className="w-5 h-5" />
+              <Settings className="w-4 h-4" />
             </button>
 
-            <div className="border-l border-gray-300 pl-3 ml-3 flex items-center gap-3">
-              <span className="text-sm text-gray-600">{user?.email}</span>
+            <div className="border-l border-gray-300 pl-2 sm:pl-3 ml-2 sm:ml-3 flex items-center gap-2">
+              <span className="text-xs sm:text-sm text-gray-600 hidden md:block">{user?.email}</span>
               <button
                 onClick={handleLogout}
                 className="p-2 rounded-lg hover:bg-gray-100 text-red-600"
                 title="Logout"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
       </header>
 
+      {/* Modals and Feature Panels */}
       {showTemplates && <TemplatesModal onClose={() => setShowTemplates(false)} />}
       {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
       {showAIWizard && <AIWizardModal onClose={() => setShowAIWizard(false)} />}
+
+      {/* Advanced Features */}
+      {activeFeature === 'analytics' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <AnalyticsDashboard onClose={() => setActiveFeature(null)} />
+          </div>
+        </div>
+      )}
+      {activeFeature === 'formulas' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-auto p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Formula Builder</h2>
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+                ×
+              </button>
+            </div>
+            <FormulaBuilder
+              value=""
+              onChange={(formula) => console.log('Formula:', formula)}
+              availableFields={[]}
+            />
+          </div>
+        </div>
+      )}
+      {activeFeature === 'conditions' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Conditional Logic Builder</h2>
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+                ×
+              </button>
+            </div>
+            <ConditionBuilder
+              conditions={[]}
+              onChange={(conds) => console.log('Conditions:', conds)}
+              availableFields={[]}
+              availableComponents={[]}
+            />
+          </div>
+        </div>
+      )}
+      {activeFeature === 'themes' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <ThemeEditor onClose={() => setActiveFeature(null)} />
+          </div>
+        </div>
+      )}
+      {activeFeature === 'bindings' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <DataBindingBuilder onClose={() => setActiveFeature(null)} />
+          </div>
+        </div>
+      )}
+      {activeFeature === 'bulk' && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-[90vh] overflow-auto p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Bulk Operations</h2>
+              <button onClick={() => setActiveFeature(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+                ×
+              </button>
+            </div>
+            <BulkOperationsPanel
+              availableFields={[]}
+              onExecute={(data) => console.log('Bulk op:', data)}
+            />
+          </div>
+        </div>
+      )}
     </>
   )
 }
