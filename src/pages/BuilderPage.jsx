@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import useBuilderStore from '../store/builderStore'
 import Header from '../components/Builder/Header'
 import ComponentPalette from '../components/Builder/ComponentPalette'
-import Canvas from '../components/Builder/Canvas'
+import AdvancedCanvas from '../components/Builder/AdvancedCanvas'
 import PropertyPanel from '../components/Builder/PropertyPanel'
 import WelcomeBanner from '../plugins/welcome-banner/components/WelcomeBanner'
 
@@ -48,7 +48,7 @@ export default function BuilderPage() {
 
         {/* Canvas - Full width on mobile */}
         <div className="flex-1 overflow-hidden">
-          <Canvas />
+          <AdvancedCanvas />
         </div>
 
         {/* Property Panel - Hidden on mobile/tablet, visible on lg+ */}
