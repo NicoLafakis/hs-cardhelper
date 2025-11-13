@@ -18,7 +18,10 @@ import {
   Palette,
   Database,
   Zap,
-  Download
+  Download,
+  Clock,
+  CheckCircle,
+  Boxes
 } from 'lucide-react'
 import TemplatesModal from '../Templates/TemplatesModal'
 import SettingsModal from '../Settings/SettingsModal'
@@ -31,6 +34,9 @@ import DataBindingBuilder from '../DataBindings/DataBindingBuilder'
 import BulkOperationsPanel from '../BulkOperations/BulkOperationsPanel'
 import ExportPanel from './ExportPanel'
 import PropertyMapper from '../PropertyMapper/PropertyMapper'
+import VersionControlPanel from '../VersionControl/VersionControlPanel'
+import ValidationSuite from '../Validation/ValidationSuite'
+import DesignSystemManager from '../DesignSystem/DesignSystemManager'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -44,6 +50,9 @@ export default function Header() {
   const [activeFeature, setActiveFeature] = useState(null)
   const [showExport, setShowExport] = useState(false)
   const [showPropertyMapper, setShowPropertyMapper] = useState(false)
+  const [showVersionControl, setShowVersionControl] = useState(false)
+  const [showValidation, setShowValidation] = useState(false)
+  const [showDesignSystem, setShowDesignSystem] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -64,8 +73,26 @@ export default function Header() {
     setShowFeaturesMenu(false)
   }
 
+  const openVersionControl = () => {
+    setShowVersionControl(true)
+    setShowFeaturesMenu(false)
+  }
+
+  const openValidation = () => {
+    setShowValidation(true)
+    setShowFeaturesMenu(false)
+  }
+
+  const openDesignSystem = () => {
+    setShowDesignSystem(true)
+    setShowFeaturesMenu(false)
+  }
+
   const features = [
     { id: 'property-mapper', name: 'Property Mapper', icon: Database, description: 'Bind HubSpot properties to components', action: openPropertyMapper },
+    { id: 'version-control', name: 'Version Control', icon: Clock, description: 'Manage snapshots and track changes', action: openVersionControl },
+    { id: 'validation', name: 'Validation Suite', icon: CheckCircle, description: 'Test compatibility and performance', action: openValidation },
+    { id: 'design-system', name: 'Design System', icon: Boxes, description: 'Manage design tokens and themes', action: openDesignSystem },
     { id: 'analytics', name: 'Analytics', icon: BarChart, description: 'View card performance metrics' },
     { id: 'formulas', name: 'Formula Builder', icon: Calculator, description: 'Create custom formulas with AI' },
     { id: 'conditions', name: 'Conditional Logic', icon: GitBranch, description: 'Build if-then rules visually' },
@@ -206,6 +233,9 @@ export default function Header() {
       {showAIWizard && <AIWizardModal onClose={() => setShowAIWizard(false)} />}
       {showExport && <ExportPanel isOpen={showExport} onClose={() => setShowExport(false)} />}
       {showPropertyMapper && <PropertyMapper isOpen={showPropertyMapper} onClose={() => setShowPropertyMapper(false)} />}
+      {showVersionControl && <VersionControlPanel isOpen={showVersionControl} onClose={() => setShowVersionControl(false)} />}
+      {showValidation && <ValidationSuite isOpen={showValidation} onClose={() => setShowValidation(false)} />}
+      {showDesignSystem && <DesignSystemManager isOpen={showDesignSystem} onClose={() => setShowDesignSystem(false)} />}
 
       {/* Advanced Features */}
       {activeFeature === 'analytics' && (
