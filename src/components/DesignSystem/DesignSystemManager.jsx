@@ -12,7 +12,7 @@ import {
   Plus,
   Trash2
 } from 'lucide-react'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 
 // Default design tokens
 const DEFAULT_TOKENS = {

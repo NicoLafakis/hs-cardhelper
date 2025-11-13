@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { X, Search, Link2, UnlinkIcon, Database, Info } from 'lucide-react'
 import { useMockData } from '../../contexts/MockDataContext'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 
 export default function PropertyMapper({ isOpen, onClose }) {
   const { recordType, setRecordType, getRecordTypes, getPropertyMetadata, getProperties } = useMockData()

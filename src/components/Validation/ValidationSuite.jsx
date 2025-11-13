@@ -10,7 +10,7 @@ import {
   Code,
   RefreshCw
 } from 'lucide-react'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 import { useMockData } from '../../contexts/MockDataContext'
 
 const SEVERITY_COLORS = {

@@ -16,7 +16,7 @@ import {
   Check
 } from 'lucide-react'
 import useVersionStore from '../../store/versionStore'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 
 export default function VersionControlPanel({ isOpen, onClose }) {
   const [snapshotName, setSnapshotName] = useState('')

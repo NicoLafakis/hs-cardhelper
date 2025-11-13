@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Monitor, Smartphone, Tablet, User, Building2, DollarSign, Ticket, Mail, RefreshCw } from 'lucide-react'
 import { useMockData } from '../../contexts/MockDataContext'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 
 const DEVICE_SIZES = {
   desktop: { width: '100%', label: 'Desktop', icon: Monitor },

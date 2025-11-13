@@ -21,7 +21,10 @@ import {
   Download,
   Clock,
   CheckCircle,
-  Boxes
+  Boxes,
+  Package,
+  Lightbulb,
+  Rocket
 } from 'lucide-react'
 import TemplatesModal from '../Templates/TemplatesModal'
 import SettingsModal from '../Settings/SettingsModal'
@@ -37,6 +40,9 @@ import PropertyMapper from '../PropertyMapper/PropertyMapper'
 import VersionControlPanel from '../VersionControl/VersionControlPanel'
 import ValidationSuite from '../Validation/ValidationSuite'
 import DesignSystemManager from '../DesignSystem/DesignSystemManager'
+import CustomComponentBuilder from '../CustomComponents/CustomComponentBuilder'
+import AIDesignSuggestions from '../AIDesignSuggestions/AIDesignSuggestions'
+import DeploymentWizard from '../Deployment/DeploymentWizard'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -53,6 +59,9 @@ export default function Header() {
   const [showVersionControl, setShowVersionControl] = useState(false)
   const [showValidation, setShowValidation] = useState(false)
   const [showDesignSystem, setShowDesignSystem] = useState(false)
+  const [showCustomComponents, setShowCustomComponents] = useState(false)
+  const [showAISuggestions, setShowAISuggestions] = useState(false)
+  const [showDeployment, setShowDeployment] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -88,11 +97,29 @@ export default function Header() {
     setShowFeaturesMenu(false)
   }
 
+  const openCustomComponents = () => {
+    setShowCustomComponents(true)
+    setShowFeaturesMenu(false)
+  }
+
+  const openAISuggestions = () => {
+    setShowAISuggestions(true)
+    setShowFeaturesMenu(false)
+  }
+
+  const openDeployment = () => {
+    setShowDeployment(true)
+    setShowFeaturesMenu(false)
+  }
+
   const features = [
     { id: 'property-mapper', name: 'Property Mapper', icon: Database, description: 'Bind HubSpot properties to components', action: openPropertyMapper },
     { id: 'version-control', name: 'Version Control', icon: Clock, description: 'Manage snapshots and track changes', action: openVersionControl },
     { id: 'validation', name: 'Validation Suite', icon: CheckCircle, description: 'Test compatibility and performance', action: openValidation },
     { id: 'design-system', name: 'Design System', icon: Boxes, description: 'Manage design tokens and themes', action: openDesignSystem },
+    { id: 'custom-components', name: 'Custom Components', icon: Package, description: 'Create reusable component groups', action: openCustomComponents },
+    { id: 'ai-suggestions', name: 'AI Suggestions', icon: Lightbulb, description: 'Get intelligent design recommendations', action: openAISuggestions },
+    { id: 'deploy', name: 'Deploy to HubSpot', icon: Rocket, description: 'Deploy your card with guided wizard', action: openDeployment },
     { id: 'analytics', name: 'Analytics', icon: BarChart, description: 'View card performance metrics' },
     { id: 'formulas', name: 'Formula Builder', icon: Calculator, description: 'Create custom formulas with AI' },
     { id: 'conditions', name: 'Conditional Logic', icon: GitBranch, description: 'Build if-then rules visually' },
@@ -236,6 +263,9 @@ export default function Header() {
       {showVersionControl && <VersionControlPanel isOpen={showVersionControl} onClose={() => setShowVersionControl(false)} />}
       {showValidation && <ValidationSuite isOpen={showValidation} onClose={() => setShowValidation(false)} />}
       {showDesignSystem && <DesignSystemManager isOpen={showDesignSystem} onClose={() => setShowDesignSystem(false)} />}
+      {showCustomComponents && <CustomComponentBuilder isOpen={showCustomComponents} onClose={() => setShowCustomComponents(false)} />}
+      {showAISuggestions && <AIDesignSuggestions isOpen={showAISuggestions} onClose={() => setShowAISuggestions(false)} />}
+      {showDeployment && <DeploymentWizard isOpen={showDeployment} onClose={() => setShowDeployment(false)} />}
 
       {/* Advanced Features */}
       {activeFeature === 'analytics' && (

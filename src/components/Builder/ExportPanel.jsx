@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Download, Copy, Check, Code, FileJson, Zap, X } from 'lucide-react'
-import { useBuilderStore } from '../../store/builderStore'
+import useBuilderStore from '../../store/builderStore'
 import { generateReactCode } from '../../utils/exportGenerators/reactGenerator'
 import { generateJSONFormat } from '../../utils/exportGenerators/jsonGenerator'
 import { generateServerlessFunction } from '../../utils/exportGenerators/serverlessGenerator'
