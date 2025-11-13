@@ -31,7 +31,10 @@ export function setupWebSocketServer(httpServer, database) {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret')
+      if (!process.env.JWT_SECRET) {
+        return next(new Error('Server configuration error: JWT_SECRET not set'))
+      }
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)
       socket.userId = decoded.id
       socket.userEmail = decoded.email
       next()
@@ -46,7 +49,7 @@ export function setupWebSocketServer(httpServer, database) {
 
     try {
       // Get user data from database
-      const connection = await database.pool.getConnection()
+      const connection = await database.getConnection()
       try {
         const [users] = await connection.execute(
           'SELECT id, name, email, avatar FROM users WHERE id = ? LIMIT 1',
@@ -78,7 +81,7 @@ export function setupWebSocketServer(httpServer, database) {
         })
 
       } finally {
-        await connection.release()
+        connection.release()
       }
     } catch (error) {
       console.error('[WebSocket] Error on connection:', error)

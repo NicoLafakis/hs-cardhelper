@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { authAPI } from '../../api/api'
 import useAuthStore from '../../store/authStore'
 import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react'
 
 export default function Login({ onToggleMode, onLoginSuccess }) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -19,7 +21,8 @@ export default function Login({ onToggleMode, onLoginSuccess }) {
       const response = await authAPI.login(email, password)
       const { user, accessToken, refreshToken } = response.data
       setAuth(user, accessToken, refreshToken)
-      onLoginSuccess()
+      if (onLoginSuccess) onLoginSuccess()
+      navigate('/dashboard')
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed')
     } finally {
@@ -87,7 +90,7 @@ export default function Login({ onToggleMode, onLoginSuccess }) {
           <p className="text-gray-600">
             Don't have an account?{' '}
             <button
-              onClick={onToggleMode}
+              onClick={() => onToggleMode ? onToggleMode() : navigate('/signup')}
               className="text-primary hover:underline font-medium"
             >
               Sign up

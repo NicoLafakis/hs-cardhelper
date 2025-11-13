@@ -101,6 +101,16 @@ class PremiumTemplatesService {
       offset = 0
     } = filters
 
+    // Whitelist allowed sort columns to prevent SQL injection
+    const allowedSortColumns = [
+      'created_at', 'updated_at', 'name', 'category',
+      'rating', 'download_count', 'clone_count'
+    ]
+    const validSortBy = allowedSortColumns.includes(sortBy) ? sortBy : 'created_at'
+
+    // Validate sort order
+    const validSortOrder = sortOrder.toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+
     let query = 'SELECT * FROM premium_templates WHERE deleted_at IS NULL'
     const params = []
 
@@ -118,7 +128,7 @@ class PremiumTemplatesService {
       query += ' AND is_featured = TRUE'
     }
 
-    query += ` ORDER BY ${sortBy} ${sortOrder} LIMIT ? OFFSET ?`
+    query += ` ORDER BY ${validSortBy} ${validSortOrder} LIMIT ? OFFSET ?`
     params.push(limit, offset)
 
     const [rows] = await this.db.execute(query, params)

@@ -185,4 +185,73 @@ Return ONLY a valid JSON object:
   }
 })
 
+// Generate formula from natural language
+router.post('/generate-formula', authenticateToken, async (req, res) => {
+  try {
+    const { description, availableFields = [] } = req.body
+
+    if (!description) {
+      return res.status(400).json({ error: 'Formula description is required' })
+    }
+
+    const systemPrompt = `You are an AI assistant that converts natural language descriptions into mathematical formulas.
+
+Available formula functions:
+- SUM(...) - Add numbers together
+- AVG(...) - Calculate average
+- MAX(...) - Find maximum value
+- MIN(...) - Find minimum value
+- COUNT(...) - Count items
+- ROUND(number, decimals) - Round to decimals
+- ABS(number) - Absolute value
+- CONCAT(...) - Combine text
+- UPPER(text) - Convert to uppercase
+- LOWER(text) - Convert to lowercase
+- LEN(text) - Get text length
+- IF(condition, trueValue, falseValue) - Conditional logic
+
+Available fields: ${availableFields.join(', ')}
+
+Rules:
+1. Reference fields using \${fieldName} syntax
+2. Use operators: +, -, *, /
+3. Combine functions and fields naturally
+4. Return ONLY a valid formula string, no explanation
+5. For conditional logic, use IF(condition, trueValue, falseValue)
+
+Examples:
+- "Calculate 10% commission on deal value" → \${deal_value} * 0.10
+- "Combine first and last name" → CONCAT(\${first_name}, " ", \${last_name})
+- "Apply 20% discount if amount over 100" → IF(\${amount} > 100, \${amount} * 0.8, \${amount})
+
+Return a JSON object:
+{
+  "formula": "your formula here",
+  "explanation": "brief explanation of what the formula does"
+}`
+
+    const result = await callAIProvider(systemPrompt, description, req.user.userId)
+
+    try {
+      const parsed = JSON.parse(result.content)
+      res.json({
+        formula: parsed.formula,
+        explanation: parsed.explanation,
+        provider: result.provider
+      })
+    } catch (parseError) {
+      // If AI doesn't return JSON, try to extract formula from text
+      const formulaMatch = result.content.match(/formula["\s:]+([^"}\n]+)/i)
+      res.json({
+        formula: formulaMatch ? formulaMatch[1].trim() : result.content,
+        explanation: 'Formula generated from description',
+        provider: result.provider
+      })
+    }
+  } catch (error) {
+    console.error('Formula generation error:', error)
+    res.status(500).json({ error: 'Failed to generate formula', details: error.message })
+  }
+})
+
 export default router

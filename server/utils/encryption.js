@@ -1,7 +1,10 @@
 import crypto from 'crypto'
 
 const ALGORITHM = 'aes-256-cbc'
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'cardhelper_encryption_key_dev_12345'
+if (!process.env.ENCRYPTION_KEY) {
+  throw new Error('ENCRYPTION_KEY environment variable is required but not set')
+}
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY
 const KEY = crypto.createHash('sha256').update(ENCRYPTION_KEY).digest()
 
 export function encrypt(text) {

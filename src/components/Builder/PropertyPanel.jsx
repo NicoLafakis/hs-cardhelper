@@ -1,13 +1,13 @@
 import useBuilderStore from '../../store/builderStore'
-import { Settings } from 'lucide-react'
+import { Settings, Move, Maximize2 } from 'lucide-react'
 
 export default function PropertyPanel() {
-  const { components, selectedComponentId, updateComponent } = useBuilderStore()
+  const { components, selectedComponentId, updateComponent, moveComponent, resizeComponent } = useBuilderStore()
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   if (!selectedComponent) {
     return (
-      <div className="w-80 bg-white border-l border-gray-200 p-4">
+      <div className="w-80 bg-white border-l border-gray-200 p-4 overflow-y-auto">
         <div className="flex items-center gap-2 mb-4">
           <Settings className="w-5 h-5 text-gray-500" />
           <h2 className="text-lg font-bold text-gray-800">Properties</h2>
@@ -28,7 +28,25 @@ export default function PropertyPanel() {
     })
   }
 
-  const renderProperties = () => {
+  const handlePositionChange = (axis, value) => {
+    const numValue = parseInt(value) || 0
+    if (axis === 'x') {
+      moveComponent(selectedComponentId, numValue, selectedComponent.y, false)
+    } else {
+      moveComponent(selectedComponentId, selectedComponent.x, numValue, false)
+    }
+  }
+
+  const handleSizeChange = (dimension, value) => {
+    const numValue = parseInt(value) || 50
+    if (dimension === 'width') {
+      resizeComponent(selectedComponentId, numValue, selectedComponent.height, false)
+    } else {
+      resizeComponent(selectedComponentId, selectedComponent.width, numValue, false)
+    }
+  }
+
+  const renderComponentProperties = () => {
     switch (selectedComponent.type) {
       case 'table':
         return (
@@ -107,25 +125,106 @@ export default function PropertyPanel() {
           </div>
         )
 
+      case 'container':
+        return (
+          <div className="space-y-4">
+            <div className="text-sm text-gray-600">
+              Drop components inside this container to nest them.
+            </div>
+          </div>
+        )
+
       default:
-        return null
+        return (
+          <div className="text-sm text-gray-500">
+            No additional properties for this component
+          </div>
+        )
     }
   }
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 p-4">
+    <div className="w-80 bg-white border-l border-gray-200 p-4 overflow-y-auto">
       <div className="flex items-center gap-2 mb-4">
         <Settings className="w-5 h-5 text-primary" />
         <h2 className="text-lg font-bold text-gray-800">Properties</h2>
       </div>
 
-      <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="mb-4 p-3 bg-blue-50 rounded border border-blue-200">
         <p className="text-sm font-medium text-blue-800">
-          {selectedComponent.label}
+          {selectedComponent.label || selectedComponent.type}
         </p>
       </div>
 
-      {renderProperties()}
+      {/* Position Section */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Move className="w-4 h-4 text-gray-600" />
+          <h3 className="text-sm font-semibold text-gray-700">Position</h3>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              X
+            </label>
+            <input
+              type="number"
+              value={selectedComponent.x || 0}
+              onChange={(e) => handlePositionChange('x', e.target.value)}
+              className="input-field text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              Y
+            </label>
+            <input
+              type="number"
+              value={selectedComponent.y || 0}
+              onChange={(e) => handlePositionChange('y', e.target.value)}
+              className="input-field text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Size Section */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Maximize2 className="w-4 h-4 text-gray-600" />
+          <h3 className="text-sm font-semibold text-gray-700">Size</h3>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              Width
+            </label>
+            <input
+              type="number"
+              value={selectedComponent.width || 200}
+              onChange={(e) => handleSizeChange('width', e.target.value)}
+              className="input-field text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              Height
+            </label>
+            <input
+              type="number"
+              value={selectedComponent.height || 100}
+              onChange={(e) => handleSizeChange('height', e.target.value)}
+              className="input-field text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Component-specific Properties */}
+      <div className="mb-6 pb-6 border-t border-gray-200 pt-4">
+        <h3 className="text-sm font-semibold text-gray-700 mb-3">Content</h3>
+        {renderComponentProperties()}
+      </div>
     </div>
   )
 }

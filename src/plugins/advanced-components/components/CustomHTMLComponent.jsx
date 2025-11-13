@@ -4,6 +4,7 @@
  */
 
 import { Code } from 'lucide-react'
+import DOMPurify from 'dompurify'
 
 export function CustomHTMLComponent({ config }) {
   const {
@@ -23,19 +24,21 @@ export function CustomHTMLComponent({ config }) {
     )
   }
 
-  // Basic XSS protection - remove script tags unless explicitly allowed
-  const sanitizeHTML = (htmlContent) => {
-    if (allowScripts) {
-      return htmlContent
-    }
-
-    return htmlContent
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/on\w+="[^"]*"/gi, '')
-      .replace(/on\w+='[^']*'/gi, '')
-  }
-
-  const sanitized = sanitizeHTML(html)
+  // Use DOMPurify for robust XSS protection
+  const sanitized = DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: allowScripts
+      ? undefined // Allow all tags if scripts are explicitly enabled
+      : [
+          'div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'ul', 'ol', 'li', 'a', 'strong', 'em', 'b', 'i', 'u',
+          'table', 'thead', 'tbody', 'tr', 'td', 'th',
+          'img', 'br', 'hr', 'blockquote', 'pre', 'code'
+        ],
+    ALLOWED_ATTR: allowScripts
+      ? undefined
+      : ['class', 'id', 'style', 'href', 'src', 'alt', 'title', 'target'],
+    ALLOW_DATA_ATTR: false
+  })
 
   return (
     <div className="p-4 bg-white rounded-lg border border-gray-200">

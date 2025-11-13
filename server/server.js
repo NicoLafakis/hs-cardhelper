@@ -14,9 +14,32 @@ import smartBuilderRoutes from './routes/smartBuilder.js'
 import analyticsRoutes from './routes/analytics.js'
 import dataBindingsRoutes from './routes/dataBindings.js'
 import componentLibraryRoutes from './routes/componentLibrary.js'
+import bulkOperationsRoutes from './routes/bulkOperations.js'
 import setupWebSocketServer from './websocket/server.js'
 
 dotenv.config()
+
+// Validate required environment variables
+const requiredEnvVars = [
+  'JWT_SECRET',
+  'ENCRYPTION_KEY',
+  'DB_HOST',
+  'DB_USER',
+  'DB_PASS',
+  'DB_NAME'
+]
+
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName])
+
+if (missingEnvVars.length > 0) {
+  console.error('[Server] Missing required environment variables:')
+  missingEnvVars.forEach(varName => {
+    console.error(`  - ${varName}`)
+  })
+  console.error('\nPlease create a .env file with all required variables.')
+  console.error('See .env.example for reference.')
+  process.exit(1)
+}
 
 const app = express()
 const httpServer = createServer(app)
@@ -41,6 +64,7 @@ initializeDatabase()
     app.use('/api/analytics', analyticsRoutes)
     app.use('/api/data-bindings', dataBindingsRoutes)
     app.use('/api/component-library', componentLibraryRoutes)
+    app.use('/api/bulk-operations', bulkOperationsRoutes)
 
     // Health check
     app.get('/api/health', (req, res) => {

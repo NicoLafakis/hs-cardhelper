@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import DOMPurify from 'dompurify';
 import './TemplatePreview.css';
 
 const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
@@ -75,7 +76,7 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
                 {previewHtml ? (
                   <div
                     className="preview-html"
-                    dangerouslySetInnerHTML={{ __html: previewHtml }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewHtml) }}
                   />
                 ) : (
                   <div className="preview-placeholder">

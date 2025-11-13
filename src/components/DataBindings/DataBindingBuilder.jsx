@@ -503,3 +503,5 @@ function getBindingPreview(binding) {
       return 'Custom binding'
   }
 }
+
+export default DataBindingBuilder

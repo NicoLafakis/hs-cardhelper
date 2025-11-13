@@ -33,9 +33,9 @@ class DataBindingsService {
 
       const connection = await this.db.getConnection()
 
-      await connection.query(
-        `INSERT INTO data_bindings 
-         (card_id, binding_id, field_id, type, source_field, condition, 
+      await connection.execute(
+        `INSERT INTO data_bindings
+         (card_id, binding_id, field_id, type, source_field, condition,
           formula, lookup_table, match_field, return_field, depends_on, metadata, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
         [
@@ -78,7 +78,7 @@ class DataBindingsService {
 
       if (!binding) {
         const connection = await this.db.getConnection()
-        const [results] = await connection.query(
+        const [results] = await connection.execute(
           `SELECT * FROM data_bindings WHERE card_id = ? AND binding_id = ?`,
           [cardId, bindingId]
         )
@@ -212,7 +212,7 @@ class DataBindingsService {
       const connection = await this.db.getConnection()
 
       // Fetch lookup data
-      const [results] = await connection.query(
+      const [results] = await connection.execute(
         `SELECT ?? FROM ?? WHERE ?? = ?`,
         [returnField, lookupTable, matchField, data[sourceField]]
       )
@@ -253,7 +253,7 @@ class DataBindingsService {
     try {
       const connection = await this.db.getConnection()
 
-      const [bindings] = await connection.query(
+      const [bindings] = await connection.execute(
         `SELECT * FROM data_bindings WHERE card_id = ? ORDER BY created_at ASC`,
         [cardId]
       )
@@ -305,7 +305,7 @@ class DataBindingsService {
     try {
       const connection = await this.db.getConnection()
 
-      const [bindings] = await connection.query(
+      const [bindings] = await connection.execute(
         `SELECT * FROM data_bindings WHERE card_id = ? ORDER BY created_at ASC`,
         [cardId]
       )
@@ -349,7 +349,7 @@ class DataBindingsService {
 
       updateValues.push(cardId, bindingId)
 
-      await connection.query(
+      await connection.execute(
         `UPDATE data_bindings SET ${updateFields.join(', ')} WHERE card_id = ? AND binding_id = ?`,
         updateValues
       )
@@ -374,7 +374,7 @@ class DataBindingsService {
     try {
       const connection = await this.db.getConnection()
 
-      await connection.query(
+      await connection.execute(
         `DELETE FROM data_bindings WHERE card_id = ? AND binding_id = ?`,
         [cardId, bindingId]
       )
