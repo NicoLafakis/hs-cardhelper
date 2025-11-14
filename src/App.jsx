@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import useAuthStore from './store/authStore'
 import Login from './components/Auth/Login'
@@ -22,7 +22,6 @@ function AuthRoute({ children }) {
 }
 
 export default function App() {
-  const [authMode, setAuthMode] = useState('login')
   const { init } = useAuthStore()
 
   useEffect(() => {
@@ -39,10 +38,7 @@ export default function App() {
               path="/login"
               element={
                 <AuthRoute>
-                  <Login
-                    onToggleMode={() => setAuthMode('signup')}
-                    onLoginSuccess={() => {}}
-                  />
+                  <Login onLoginSuccess={() => {}} />
                 </AuthRoute>
               }
             />
@@ -50,10 +46,7 @@ export default function App() {
               path="/signup"
               element={
                 <AuthRoute>
-                  <Signup
-                    onToggleMode={() => setAuthMode('login')}
-                    onSignupSuccess={() => {}}
-                  />
+                  <Signup onSignupSuccess={() => {}} />
                 </AuthRoute>
               }
             />

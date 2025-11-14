@@ -4,7 +4,7 @@ import { authAPI } from '../../api/api'
 import useAuthStore from '../../store/authStore'
 import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react'
 
-export default function Login({ onToggleMode, onLoginSuccess }) {
+export default function Login({ onLoginSuccess }) {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -90,7 +90,7 @@ export default function Login({ onToggleMode, onLoginSuccess }) {
           <p className="text-gray-600">
             Don't have an account?{' '}
             <button
-              onClick={() => onToggleMode ? onToggleMode() : navigate('/signup')}
+              onClick={() => navigate('/signup')}
               className="text-primary hover:underline font-medium"
             >
               Sign up
