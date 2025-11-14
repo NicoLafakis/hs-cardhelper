@@ -14,7 +14,7 @@ export async function migrate(db) {
         field_id VARCHAR(255) NOT NULL,
         type ENUM('conditional', 'computed', 'formula', 'lookup', 'dependency') NOT NULL,
         source_field VARCHAR(255),
-        condition JSON,
+        \`condition\` JSON,
         formula LONGTEXT,
         lookup_table VARCHAR(255),
         match_field VARCHAR(255),
