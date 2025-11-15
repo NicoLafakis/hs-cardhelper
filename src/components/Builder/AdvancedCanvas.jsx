@@ -129,7 +129,6 @@ export default function AdvancedCanvas() {
         if (newX !== componentStart.x || newY !== componentStart.y) {
           moveComponent(resizingId, newX, newY, e.shiftKey ? false : true)
         }
-        setComponentStart({ x: newX, y: newY, width: newWidth, height: newHeight })
       }
     }
 
@@ -172,7 +171,6 @@ export default function AdvancedCanvas() {
         className={`
           absolute border-2 transition-shadow
           ${isSelected ? 'border-primary bg-primary/5 shadow-lg' : 'border-gray-300 bg-white'}
-          ${isDragging || isResizing ? 'opacity-70' : ''}
         `}
         onMouseDown={(e) => handleMouseDownDrag(e, component.id)}
         onClick={(e) => {
@@ -223,21 +221,21 @@ export default function AdvancedCanvas() {
             </div>
 
             {/* Resize handles */}
-            <div className="resize-handle absolute -top-1 -left-1 w-2 h-2 bg-primary border border-white cursor-nw-resize"
+            <div className="resize-handle absolute -top-1 -left-1 w-3 h-3 bg-primary border border-white cursor-nw-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'nw')} />
-            <div className="resize-handle absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary border border-white cursor-n-resize"
+            <div className="resize-handle absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-n-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'n')} />
-            <div className="resize-handle absolute -top-1 -right-1 w-2 h-2 bg-primary border border-white cursor-ne-resize"
+            <div className="resize-handle absolute -top-1 -right-1 w-3 h-3 bg-primary border border-white cursor-ne-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'ne')} />
-            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -left-1 w-2 h-2 bg-primary border border-white cursor-w-resize"
+            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -left-1 w-3 h-3 bg-primary border border-white cursor-w-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'w')} />
-            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -right-1 w-2 h-2 bg-primary border border-white cursor-e-resize"
+            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -right-1 w-3 h-3 bg-primary border border-white cursor-e-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'e')} />
-            <div className="resize-handle absolute -bottom-1 -left-1 w-2 h-2 bg-primary border border-white cursor-sw-resize"
+            <div className="resize-handle absolute -bottom-1 -left-1 w-3 h-3 bg-primary border border-white cursor-sw-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'sw')} />
-            <div className="resize-handle absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary border border-white cursor-s-resize"
+            <div className="resize-handle absolute -bottom-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-s-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 's')} />
-            <div className="resize-handle absolute -bottom-1 -right-1 w-2 h-2 bg-primary border border-white cursor-se-resize"
+            <div className="resize-handle absolute -bottom-1 -right-1 w-3 h-3 bg-primary border border-white cursor-se-resize"
               onMouseDown={(e) => handleMouseDownResize(e, component.id, 'se')} />
           </>
         )}
