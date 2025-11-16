@@ -1,0 +1,372 @@
+{
+  "templateId": "tmpl-dashboard-network-014",
+  "name": "Relationship Network Graph",
+  "description": "Interactive force-directed network graph showing connections between contacts, companies, and deals. Nodes represent entities, edges show relationships. Perfect for visualizing organizational structures, deal networks, or customer ecosystems.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/network-graph.png",
+  "previewHtml": "<div class='network-graph-preview'><h2>Account Ecosystem</h2><div class='graph-container'>[Interactive node graph with connections]</div><div class='legend'>[■ Contact] [■ Company] [■ Deal]</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 24px rgba(0,0,0,0.10)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Network Title",
+                      "placeholder": "Account Relationship Network",
+                      "value": "",
+                      "fontSize": "26px",
+                      "fontWeight": "700",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "47 nodes • 83 connections • 3 clusters",
+                      "fontSize": "13px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Zoom In",
+                      "variant": "secondary",
+                      "size": "small",
+                      "icon": "zoom-in"
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Zoom Out",
+                      "variant": "secondary",
+                      "size": "small",
+                      "icon": "zoom-out"
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Reset",
+                      "variant": "secondary",
+                      "size": "small",
+                      "icon": "refresh-cw"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "CustomComponent",
+            "component": "NetworkGraph",
+            "props": {
+              "nodes": [
+                {
+                  "id": "company-1",
+                  "type": "company",
+                  "label": "Acme Corp",
+                  "value": "$2.4M",
+                  "size": 50,
+                  "color": "#3b82f6"
+                },
+                {
+                  "id": "contact-1",
+                  "type": "contact",
+                  "label": "John Smith",
+                  "role": "CEO",
+                  "size": 30,
+                  "color": "#10b981"
+                },
+                {
+                  "id": "contact-2",
+                  "type": "contact",
+                  "label": "Jane Doe",
+                  "role": "CTO",
+                  "size": 30,
+                  "color": "#10b981"
+                },
+                {
+                  "id": "deal-1",
+                  "type": "deal",
+                  "label": "Enterprise Contract",
+                  "amount": "$500K",
+                  "stage": "negotiation",
+                  "size": 40,
+                  "color": "#f59e0b"
+                }
+              ],
+              "edges": [
+                { "source": "company-1", "target": "contact-1", "relationship": "employee", "strength": 1 },
+                { "source": "company-1", "target": "contact-2", "relationship": "employee", "strength": 1 },
+                { "source": "contact-1", "target": "deal-1", "relationship": "owner", "strength": 0.8 },
+                { "source": "company-1", "target": "deal-1", "relationship": "associated", "strength": 1 }
+              ],
+              "height": 500,
+              "width": "100%",
+              "interactive": true,
+              "draggable": true,
+              "zoomEnabled": true,
+              "panEnabled": true,
+              "physics": {
+                "enabled": true,
+                "forceStrength": -200,
+                "linkDistance": 150,
+                "charge": -300
+              },
+              "nodeOnClick": "handleNodeClick",
+              "nodeOnHover": "handleNodeHover",
+              "showLabels": true,
+              "labelSize": 11,
+              "linkWidth": 2,
+              "linkColor": "#e0e0e0"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Legend:",
+                      "fontSize": "13px",
+                      "fontWeight": "600",
+                      "color": "#666"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "16px", "direction": "horizontal" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#3b82f6", "borderRadius": "50%" } },
+                          { "type": "Text", "props": { "value": "Company", "fontSize": "12px", "color": "#666" } }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#10b981", "borderRadius": "50%" } },
+                          { "type": "Text", "props": { "value": "Contact", "fontSize": "12px", "color": "#666" } }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#f59e0b", "borderRadius": "50%" } },
+                          { "type": "Text", "props": { "value": "Deal", "fontSize": "12px", "color": "#666" } }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "6px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#8b5cf6", "borderRadius": "50%" } },
+                          { "type": "Text", "props": { "value": "Ticket", "fontSize": "12px", "color": "#666" } }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "20px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "47",
+                          "fontSize": "20px",
+                          "fontWeight": "700",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Total Nodes",
+                          "fontSize": "11px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "83",
+                          "fontSize": "20px",
+                          "fontWeight": "700",
+                          "color": "#3b82f6"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Connections",
+                          "fontSize": "11px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "3",
+                          "fontSize": "20px",
+                          "fontWeight": "700",
+                          "color": "#10b981"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Clusters",
+                          "fontSize": "11px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "chartLibrary": "react-force-graph or vis-network or d3-force",
+    "installation": "npm install react-force-graph-2d",
+    "codeExample": "import ForceGraph2D from 'react-force-graph-2d';\n\nconst graphData = {\n  nodes: [\n    { id: 'company-1', name: 'Acme Corp', type: 'company', val: 50, color: '#3b82f6' },\n    { id: 'contact-1', name: 'John Smith', type: 'contact', val: 30, color: '#10b981' },\n    { id: 'deal-1', name: 'Enterprise Deal', type: 'deal', val: 40, color: '#f59e0b' }\n  ],\n  links: [\n    { source: 'company-1', target: 'contact-1', value: 1 },\n    { source: 'contact-1', target: 'deal-1', value: 0.8 }\n  ]\n};\n\n<ForceGraph2D\n  graphData={graphData}\n  nodeLabel=\"name\"\n  nodeVal=\"val\"\n  nodeColor=\"color\"\n  linkWidth={link => link.value * 2}\n  linkColor={() => '#e0e0e0'}\n  onNodeClick={handleNodeClick}\n  onNodeHover={handleNodeHover}\n  enableNodeDrag={true}\n  enableZoomInteraction={true}\n  enablePanInteraction={true}\n  d3VelocityDecay={0.3}\n/>",
+    "features": [
+      "Force-directed graph layout (D3.js physics simulation)",
+      "Interactive draggable nodes",
+      "Zoom and pan navigation",
+      "Hover tooltips showing node/edge details",
+      "Click on nodes to drill into details",
+      "Color-coded by entity type (company, contact, deal, ticket)",
+      "Node size represents importance/value",
+      "Edge thickness represents relationship strength",
+      "Automatic clustering of related entities",
+      "Search to highlight specific nodes",
+      "Filter by entity type or relationship",
+      "Export as PNG or SVG"
+    ],
+    "dataBinding": {
+      "hubspotApi": "Use HubSpot CRM Associations API",
+      "endpoints": [
+        "/crm/v4/associations/contacts/companies",
+        "/crm/v4/associations/contacts/deals",
+        "/crm/v4/associations/deals/tickets"
+      ],
+      "processing": "Build graph data structure from association responses. Nodes = entities, Edges = associations. Calculate centrality metrics for node sizing."
+    },
+    "algorithms": {
+      "layout": "Force-directed (D3 force simulation)",
+      "clustering": "Community detection or Louvain algorithm",
+      "centrality": "Degree centrality for node importance",
+      "pathfinding": "Shortest path between two nodes (optional)"
+    }
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "nodeCompany": "#3b82f6",
+      "nodeContact": "#10b981",
+      "nodeDeal": "#f59e0b",
+      "nodeTicket": "#8b5cf6",
+      "linkDefault": "#e0e0e0",
+      "linkActive": "#3b82f6"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "26px",
+      "subtitle": "13px",
+      "nodeLabel": "11px",
+      "legend": "12px",
+      "stat": "20px"
+    },
+    "graph": {
+      "height": 500,
+      "nodeMinSize": 20,
+      "nodeMaxSize": 60,
+      "linkWidth": 2,
+      "forceStrength": -200
+    }
+  },
+  "defaultValues": {
+    "title": "Account Relationship Network",
+    "subtitle": "47 nodes • 83 connections • 3 clusters",
+    "totalNodes": 47,
+    "totalConnections": 83,
+    "clusters": 3,
+    "physicsEnabled": true,
+    "interactionMode": "drag"
+  },
+  "tags": ["network", "graph", "relationships", "connections", "force-directed", "interactive", "d3js", "visualization"],
+  "responsiveConfig": {
+    "xs": { "graphHeight": 350, "nodeLabelSize": 9, "hideStats": true },
+    "sm": { "graphHeight": 450, "nodeLabelSize": 10, "hideStats": false },
+    "md": { "graphHeight": 500, "nodeLabelSize": 11, "hideStats": false }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "nodePhysics": "force-simulation",
+    "duration": 2000
+  },
+  "accessibilityNotes": "WCAG AA compliant. Node labels readable. Keyboard navigation for focusing nodes. Screen reader announces node counts and types. Alternative table view available.",
+  "seoKeywords": "network graph, relationship visualization, force-directed graph, connection mapping, crm network, entity relationships"
+}

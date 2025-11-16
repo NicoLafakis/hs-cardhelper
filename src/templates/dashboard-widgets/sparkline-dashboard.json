@@ -1,0 +1,269 @@
+{
+  "templateId": "tmpl-dashboard-sparkline-013",
+  "name": "Sparkline Metrics Dashboard",
+  "description": "Compact dashboard with inline sparkline charts next to each metric. Shows trends at a glance without taking up much space. Perfect for executive dashboards showing many metrics simultaneously.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/sparkline-dashboard.png",
+  "previewHtml": "<div class='sparkline-dashboard'><h2>Key Metrics</h2><div class='metrics'><div>Revenue $127K [mini line chart]</div><div>Users 1.2K [mini line chart]</div></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "24px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "8px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Dashboard Title",
+                      "placeholder": "Key Performance Metrics",
+                      "value": "",
+                      "fontSize": "26px",
+                      "fontWeight": "700",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Real-time data • Updated 2 min ago",
+                      "fontSize": "13px",
+                      "color": "#999"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Badge",
+                "props": {
+                  "text": "Live",
+                  "variant": "success",
+                  "icon": "circle"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Total Revenue",
+                  "value": "$127,450",
+                  "change": "+12.5%",
+                  "changeDirection": "up",
+                  "sparklineData": [45, 52, 48, 65, 58, 72, 68, 85, 78, 92, 88, 105, 98, 127],
+                  "sparklineColor": "#10b981",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#f0f0f0" }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Active Users",
+                  "value": "1,234",
+                  "change": "+8.2%",
+                  "changeDirection": "up",
+                  "sparklineData": [980, 1020, 995, 1050, 1100, 1085, 1150, 1180, 1165, 1210, 1195, 1234],
+                  "sparklineColor": "#3b82f6",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#f0f0f0" }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Conversion Rate",
+                  "value": "3.8%",
+                  "change": "-0.4%",
+                  "changeDirection": "down",
+                  "sparklineData": [4.2, 4.1, 3.9, 4.3, 4.0, 3.8, 4.1, 3.9, 3.7, 3.9, 3.8],
+                  "sparklineColor": "#f59e0b",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#f0f0f0" }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Customer Lifetime Value",
+                  "value": "$4,567",
+                  "change": "+15.8%",
+                  "changeDirection": "up",
+                  "sparklineData": [3200, 3450, 3600, 3800, 3950, 4100, 4250, 4400, 4567],
+                  "sparklineColor": "#8b5cf6",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#f0f0f0" }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Support Tickets",
+                  "value": "47",
+                  "change": "-12.0%",
+                  "changeDirection": "down",
+                  "sparklineData": [65, 58, 62, 55, 50, 48, 52, 49, 47],
+                  "sparklineColor": "#10b981",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#f0f0f0" }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "SparklineMetricRow",
+                "props": {
+                  "label": "Page Load Time",
+                  "value": "1.2s",
+                  "change": "-8.5%",
+                  "changeDirection": "down",
+                  "sparklineData": [1.8, 1.6, 1.5, 1.4, 1.3, 1.3, 1.2, 1.2],
+                  "sparklineColor": "#10b981",
+                  "sparklineHeight": 40,
+                  "sparklineWidth": 120,
+                  "showArea": true,
+                  "showDots": false,
+                  "animated": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "chartLibrary": "react-sparklines or recharts (TinyLineChart)",
+    "installation": "npm install react-sparklines",
+    "codeExample": "import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';\n\nfunction SparklineMetricRow({ label, value, change, sparklineData, color }) {\n  return (\n    <div className=\"flex items-center justify-between py-3\">\n      <div className=\"flex flex-col\">\n        <span className=\"text-sm text-gray-600\">{label}</span>\n        <div className=\"flex items-baseline gap-2\">\n          <span className=\"text-2xl font-bold\">{value}</span>\n          <span className={`text-sm ${change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>\n            {change}\n          </span>\n        </div>\n      </div>\n      <Sparklines data={sparklineData} width={120} height={40}>\n        <SparklinesLine color={color} style={{ strokeWidth: 2, fill: \"none\" }} />\n        <SparklinesSpots />\n      </Sparklines>\n    </div>\n  );\n}",
+    "features": [
+      "Compact inline sparkline charts (40-50px height)",
+      "Shows trend direction without taking much space",
+      "Multiple metrics visible simultaneously",
+      "Color-coded by metric type or performance",
+      "Animated line drawing on load",
+      "Optional area fill under line",
+      "Percentage change indicators with up/down arrows",
+      "Dividers between metrics for clarity",
+      "Responsive layout adapting to container width"
+    ],
+    "dataBinding": {
+      "hubspotApi": "Fetch time-series data for each metric",
+      "endpoints": [
+        "/analytics/v2/reports",
+        "/crm/v3/objects/deals",
+        "/engagements/v1/engagements/paged"
+      ],
+      "aggregation": "Time-series arrays with last 14-30 data points per metric"
+    }
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "divider": "#f0f0f0",
+      "sparklineRevenue": "#10b981",
+      "sparklineUsers": "#3b82f6",
+      "sparklineConversion": "#f59e0b",
+      "sparklineLTV": "#8b5cf6",
+      "sparklineTickets": "#10b981",
+      "sparklineSpeed": "#10b981"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "26px",
+      "subtitle": "13px",
+      "metricLabel": "14px",
+      "metricValue": "24px",
+      "change": "14px"
+    },
+    "sparkline": {
+      "height": 40,
+      "width": 120,
+      "strokeWidth": 2
+    }
+  },
+  "defaultValues": {
+    "title": "Key Performance Metrics",
+    "subtitle": "Real-time data • Updated 2 min ago",
+    "metrics": [
+      { "label": "Total Revenue", "value": "$127,450", "change": "+12.5%", "trend": "up" },
+      { "label": "Active Users", "value": "1,234", "change": "+8.2%", "trend": "up" },
+      { "label": "Conversion Rate", "value": "3.8%", "change": "-0.4%", "trend": "down" },
+      { "label": "Customer Lifetime Value", "value": "$4,567", "change": "+15.8%", "trend": "up" },
+      { "label": "Support Tickets", "value": "47", "change": "-12.0%", "trend": "down" },
+      { "label": "Page Load Time", "value": "1.2s", "change": "-8.5%", "trend": "down" }
+    ]
+  },
+  "tags": ["sparkline", "metrics", "dashboard", "compact", "inline-charts", "executive", "kpi"],
+  "responsiveConfig": {
+    "xs": { "sparklineWidth": 80, "sparklineHeight": 30, "hideChange": true },
+    "sm": { "sparklineWidth": 100, "sparklineHeight": 35, "hideChange": false },
+    "md": { "sparklineWidth": 120, "sparklineHeight": 40, "hideChange": false }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "sparklineAnimation": "draw-line",
+    "duration": 1000
+  },
+  "accessibilityNotes": "WCAG AA compliant. Metric labels clearly visible. Values announced by screen readers. Trends indicated by text and icons, not just color.",
+  "seoKeywords": "sparkline dashboard, inline charts, executive dashboard, compact metrics, mini charts"
+}

@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import useBuilderStore from '../../store/builderStore'
-import { Trash2, Move, Maximize2, ArrowUp, ArrowDown } from 'lucide-react'
+import { Trash2, Move, Maximize2, ArrowUp, ArrowDown, Monitor, Sidebar, Maximize } from 'lucide-react'
+
+// HubSpot card dimension constraints based on placement
+const CARD_VIEWS = {
+  sidebar: { width: 400, height: 600, label: 'Sidebar', icon: Sidebar },
+  middlePane: { width: 600, height: 700, label: 'Middle Pane', icon: Monitor },
+  full: { width: 800, height: 800, label: 'Full Width', icon: Maximize }
+}
 
 export default function AdvancedCanvas() {
   const {
@@ -23,6 +30,7 @@ export default function AdvancedCanvas() {
   const [resizeDirection, setResizeDirection] = useState(null)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [componentStart, setComponentStart] = useState({ x: 0, y: 0, width: 0, height: 0 })
+  const [cardView, setCardView] = useState('middlePane')
 
   // Handle drop from component palette
   const handleDrop = (e) => {
@@ -298,45 +306,98 @@ export default function AdvancedCanvas() {
     }
   }
 
-  return (
-    <div
-      ref={canvasRef}
-      className="flex-1 bg-gray-50 overflow-auto relative"
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      onClick={() => selectComponent(null)}
-    >
-      {/* Grid background */}
-      {showGrid && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(0deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px),
-              repeating-linear-gradient(90deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px)
-            `,
-            backgroundSize: `${gridSize}px ${gridSize}px`
-          }}
-        />
-      )}
+  const currentView = CARD_VIEWS[cardView]
 
-      {/* Canvas area */}
-      <div className="relative min-h-full" style={{ minWidth: '1200px', minHeight: '800px' }}>
-        {components.length === 0 ? (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            <Move className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg font-medium">
-              Drag components here to start designing
-            </p>
-            <p className="text-gray-400 text-sm mt-2">
-              Click and drag to position • Drag corners to resize
-            </p>
+  return (
+    <div className="flex-1 flex flex-col bg-gray-100 overflow-hidden">
+      {/* View Selector */}
+      <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-gray-700">Card View:</span>
+          <div className="flex gap-1 bg-gray-100 p-1 rounded">
+            {Object.entries(CARD_VIEWS).map(([key, view]) => {
+              const Icon = view.icon
+              return (
+                <button
+                  key={key}
+                  onClick={() => setCardView(key)}
+                  className={`
+                    flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors
+                    ${cardView === key
+                      ? 'bg-white text-primary shadow-sm font-medium'
+                      : 'text-gray-600 hover:text-gray-900'}
+                  `}
+                  title={view.label}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{view.label}</span>
+                </button>
+              )
+            })}
           </div>
-        ) : (
-          components
-            .sort((a, b) => a.zIndex - b.zIndex)
-            .map(renderComponent)
-        )}
+        </div>
+        <div className="text-xs text-gray-500">
+          {currentView.width} × {currentView.height}px (HubSpot {currentView.label})
+        </div>
+      </div>
+
+      {/* Canvas Container */}
+      <div className="flex-1 overflow-auto bg-gray-100 p-8">
+        <div className="mx-auto" style={{ width: 'fit-content' }}>
+          {/* HubSpot Card Boundary */}
+          <div
+            ref={canvasRef}
+            className="bg-white rounded-lg shadow-xl border border-gray-300 relative overflow-hidden"
+            style={{
+              width: `${currentView.width}px`,
+              height: `${currentView.height}px`
+            }}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onClick={() => selectComponent(null)}
+          >
+            {/* Grid background */}
+            {showGrid && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: `
+                    repeating-linear-gradient(0deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px),
+                    repeating-linear-gradient(90deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px)
+                  `,
+                  backgroundSize: `${gridSize}px ${gridSize}px`
+                }}
+              />
+            )}
+
+            {/* Card Content Area */}
+            <div className="relative w-full h-full">
+              {components.length === 0 ? (
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                  <Move className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-lg font-medium">
+                    Drag components here to start designing
+                  </p>
+                  <p className="text-gray-400 text-sm mt-2">
+                    Click and drag to position • Drag corners to resize
+                  </p>
+                  <p className="text-gray-400 text-xs mt-4">
+                    Building for HubSpot {currentView.label}
+                  </p>
+                </div>
+              ) : (
+                components
+                  .sort((a, b) => a.zIndex - b.zIndex)
+                  .map(renderComponent)
+              )}
+            </div>
+
+            {/* Card boundary indicator */}
+            <div className="absolute top-2 right-2 bg-gray-900/75 text-white text-xs px-2 py-1 rounded pointer-events-none">
+              HubSpot Card
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
