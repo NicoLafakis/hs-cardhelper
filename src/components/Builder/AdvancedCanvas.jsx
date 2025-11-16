@@ -344,57 +344,92 @@ export default function AdvancedCanvas() {
       {/* Canvas Container */}
       <div className="flex-1 overflow-auto bg-gray-100 p-8">
         <div className="mx-auto" style={{ width: 'fit-content' }}>
-          {/* HubSpot Card Boundary */}
-          <div
-            ref={canvasRef}
-            className="bg-white rounded-lg shadow-xl border border-gray-300 relative overflow-hidden"
-            style={{
-              width: `${currentView.width}px`,
-              height: `${currentView.height}px`
-            }}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onClick={() => selectComponent(null)}
-          >
-            {/* Grid background */}
-            {showGrid && (
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage: `
-                    repeating-linear-gradient(0deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px),
-                    repeating-linear-gradient(90deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px)
-                  `,
-                  backgroundSize: `${gridSize}px ${gridSize}px`
-                }}
-              />
-            )}
-
-            {/* Card Content Area */}
-            <div className="relative w-full h-full">
-              {components.length === 0 ? (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                  <Move className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500 text-lg font-medium">
-                    Drag components here to start designing
-                  </p>
-                  <p className="text-gray-400 text-sm mt-2">
-                    Click and drag to position • Drag corners to resize
-                  </p>
-                  <p className="text-gray-400 text-xs mt-4">
-                    Building for HubSpot {currentView.label}
-                  </p>
+          {/* HubSpot CRM UI Mockup */}
+          <div className="bg-white rounded-lg shadow-2xl border border-gray-300 overflow-hidden" style={{ width: `${currentView.width}px` }}>
+            {/* HubSpot Record Header */}
+            <div className="bg-white border-b border-gray-200 px-4 py-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-semibold text-lg">
+                  JD
                 </div>
-              ) : (
-                components
-                  .sort((a, b) => a.zIndex - b.zIndex)
-                  .map(renderComponent)
-              )}
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">John Doe</h2>
+                  <p className="text-sm text-gray-500">Contact • john.doe@example.com</p>
+                </div>
+              </div>
             </div>
 
-            {/* Card boundary indicator */}
-            <div className="absolute top-2 right-2 bg-gray-900/75 text-white text-xs px-2 py-1 rounded pointer-events-none">
-              HubSpot Card
+            {/* HubSpot Tab Navigation */}
+            <div className="bg-white border-b border-gray-200 px-4">
+              <div className="flex gap-0">
+                <button className="px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                  Overview
+                </button>
+                <button className="px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                  Activities
+                </button>
+                <button className="px-4 py-3 text-sm font-medium text-orange-600 border-b-2 border-orange-600 transition-colors">
+                  Custom Card
+                </button>
+                <button className="px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                  Sales
+                </button>
+              </div>
+            </div>
+
+            {/* Card Content Area - This is where the user's card lives */}
+            <div
+              ref={canvasRef}
+              className="bg-gray-50 relative"
+              style={{
+                width: `${currentView.width}px`,
+                height: `${currentView.height}px`
+              }}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onClick={() => selectComponent(null)}
+            >
+              {/* Grid background */}
+              {showGrid && (
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: `
+                      repeating-linear-gradient(0deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px),
+                      repeating-linear-gradient(90deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px)
+                    `,
+                    backgroundSize: `${gridSize}px ${gridSize}px`
+                  }}
+                />
+              )}
+
+              {/* User's Card Components */}
+              <div className="relative w-full h-full">
+                {components.length === 0 ? (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+                    <Move className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <p className="text-gray-500 text-lg font-medium">
+                      Drag components here to start designing
+                    </p>
+                    <p className="text-gray-400 text-sm mt-2">
+                      Your custom card will appear on the "Custom Card" tab
+                    </p>
+                    <p className="text-gray-400 text-xs mt-4">
+                      Building for HubSpot {currentView.label}
+                    </p>
+                  </div>
+                ) : (
+                  components
+                    .sort((a, b) => a.zIndex - b.zIndex)
+                    .map(renderComponent)
+                )}
+              </div>
+
+              {/* Preview mode indicator */}
+              <div className="absolute top-2 right-2 bg-orange-600 text-white text-xs px-2 py-1 rounded pointer-events-none flex items-center gap-1">
+                <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+                Preview Mode
+              </div>
             </div>
           </div>
         </div>
