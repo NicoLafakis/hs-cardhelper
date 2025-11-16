@@ -61,7 +61,6 @@ const COMPONENT_CATEGORIES = [
     components: [
       { type: 'table', label: 'Data Table', icon: Table, defaultProps: { columns: [], data: [], title: 'New Table' } },
       { type: 'list', label: 'List', icon: List, defaultProps: { items: [], style: 'unordered' } },
-      { type: 'card', label: 'Card', icon: Box, defaultProps: { title: 'Card Title', content: 'Card content' } },
       { type: 'stat', label: 'Stat Card', icon: BarChart2, defaultProps: { label: 'Metric', value: '0', trend: '+0%' } },
       { type: 'badge', label: 'Badge', icon: Tag, defaultProps: { text: 'Badge', variant: 'primary' } },
       { type: 'rating', label: 'Rating', icon: Star, defaultProps: { value: 0, max: 5 } },

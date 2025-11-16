@@ -1,0 +1,169 @@
+{
+  "templateId": "tmpl-dashboard-radial-010",
+  "name": "Radial Progress Dashboard",
+  "description": "Stunning circular gauge dashboard with animated progress rings. Uses SVG-based radial progress bars to visualize completion percentages. Perfect for goals, quotas, and target tracking.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/radial-progress.png",
+  "previewHtml": "<div class='radial-dashboard'><h2>Q4 Goals Progress</h2><div class='radials'>[Circular Progress: 87%] [Circular Progress: 65%] [Circular Progress: 92%]</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "20px",
+      "boxShadow": "0 8px 32px rgba(0,0,0,0.12)",
+      "backgroundColor": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "32px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "TextInput",
+            "props": {
+              "label": "Dashboard Title",
+              "placeholder": "Q4 Goals Progress",
+              "value": "",
+              "fontSize": "32px",
+              "fontWeight": "800",
+              "color": "#ffffff",
+              "textAlign": "center"
+            }
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 3, "gap": "24px" },
+            "children": [
+              {
+                "type": "CustomComponent",
+                "component": "RadialProgress",
+                "props": {
+                  "value": 87,
+                  "max": 100,
+                  "size": 160,
+                  "strokeWidth": 12,
+                  "color": "#10b981",
+                  "trackColor": "rgba(255,255,255,0.2)",
+                  "label": "Revenue Target",
+                  "sublabel": "$437K / $500K",
+                  "animated": true,
+                  "duration": 1500,
+                  "easing": "easeOutCubic"
+                }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "RadialProgress",
+                "props": {
+                  "value": 65,
+                  "max": 100,
+                  "size": 160,
+                  "strokeWidth": 12,
+                  "color": "#f59e0b",
+                  "trackColor": "rgba(255,255,255,0.2)",
+                  "label": "New Customers",
+                  "sublabel": "325 / 500",
+                  "animated": true,
+                  "duration": 1500,
+                  "easing": "easeOutCubic"
+                }
+              },
+              {
+                "type": "CustomComponent",
+                "component": "RadialProgress",
+                "props": {
+                  "value": 92,
+                  "max": 100,
+                  "size": 160,
+                  "strokeWidth": 12,
+                  "color": "#06b6d4",
+                  "trackColor": "rgba(255,255,255,0.2)",
+                  "label": "Customer Satisfaction",
+                  "sublabel": "4.6 / 5.0",
+                  "animated": true,
+                  "duration": 1500,
+                  "easing": "easeOutCubic"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "center", "align": "center" },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "value": "Overall Progress:",
+                  "fontSize": "16px",
+                  "fontWeight": "500",
+                  "color": "rgba(255,255,255,0.9)"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "value": "81.3%",
+                  "fontSize": "28px",
+                  "fontWeight": "700",
+                  "color": "#ffffff"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "chartLibrary": "Custom SVG or react-circular-progressbar",
+    "installation": "npm install react-circular-progressbar",
+    "codeExample": "import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';\nimport 'react-circular-progressbar/dist/styles.css';\n\n<CircularProgressbarWithChildren\n  value={87}\n  styles={buildStyles({\n    pathColor: '#10b981',\n    trailColor: 'rgba(255,255,255,0.2)',\n    pathTransitionDuration: 1.5\n  })}\n>\n  <div style={{ fontSize: 32, fontWeight: 700 }}>87%</div>\n  <div style={{ fontSize: 14, marginTop: -5 }}>Revenue</div>\n</CircularProgressbarWithChildren>",
+    "features": [
+      "Animated circular progress bars with easing",
+      "Customizable colors and stroke widths",
+      "Center labels with value and description",
+      "Responsive sizing for different viewports",
+      "Gradient background for premium look",
+      "SVG-based for crisp rendering at any size"
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "text": "#ffffff",
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "info": "#06b6d4",
+      "track": "rgba(255,255,255,0.2)"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "32px",
+      "value": "28px",
+      "label": "16px"
+    }
+  },
+  "defaultValues": {
+    "title": "Q4 Goals Progress",
+    "metrics": [
+      { "label": "Revenue Target", "value": 87, "sublabel": "$437K / $500K", "color": "#10b981" },
+      { "label": "New Customers", "value": 65, "sublabel": "325 / 500", "color": "#f59e0b" },
+      { "label": "Customer Satisfaction", "value": 92, "sublabel": "4.6 / 5.0", "color": "#06b6d4" }
+    ],
+    "overallProgress": 81.3
+  },
+  "tags": ["dashboard", "radial", "circular", "progress", "goals", "targets", "animated", "premium"],
+  "responsiveConfig": {
+    "xs": { "gridColumns": 1, "circleSize": 140 },
+    "sm": { "gridColumns": 3, "circleSize": 160 },
+    "md": { "gridColumns": 3, "circleSize": 180 }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "progressAnimation": "ease-out-cubic",
+    "duration": 1500
+  },
+  "accessibilityNotes": "WCAG AA compliant. Progress values announced by screen readers. High contrast text. Clear metric labels.",
+  "seoKeywords": "radial progress, circular gauge, progress dashboard, goal tracking, animated chart"
+}

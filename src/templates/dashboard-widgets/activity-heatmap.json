@@ -1,0 +1,265 @@
+{
+  "templateId": "tmpl-dashboard-heatmap-012",
+  "name": "Activity Heatmap Calendar",
+  "description": "GitHub-style activity heatmap showing daily engagement patterns over time. Color intensity represents activity level. Perfect for tracking user engagement, support volume, or any time-series density data.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/activity-heatmap.png",
+  "previewHtml": "<div class='heatmap-preview'><h2>Customer Activity</h2><div class='heatmap-grid'>[Week grid with colored cells showing intensity]</div><div class='legend'>Less [■][■][■][■][■] More</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "32px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 20px rgba(0,0,0,0.08)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "28px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Heatmap Title",
+                      "placeholder": "Customer Activity Heatmap",
+                      "value": "",
+                      "fontSize": "24px",
+                      "fontWeight": "700",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "365 days of activity • 2,847 total events",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Select",
+                "props": {
+                  "label": "View",
+                  "options": [
+                    { "value": "year", "label": "Last Year" },
+                    { "value": "6months", "label": "6 Months" },
+                    { "value": "3months", "label": "3 Months" }
+                  ],
+                  "value": "year",
+                  "size": "small"
+                }
+              }
+            ]
+          },
+          {
+            "type": "CustomComponent",
+            "component": "HeatmapCalendar",
+            "props": {
+              "startDate": "2024-01-01",
+              "endDate": "2024-12-31",
+              "values": {},
+              "cellSize": 12,
+              "cellGap": 3,
+              "colorScale": ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+              "tooltipEnabled": true,
+              "tooltipFormat": "{date}: {count} events",
+              "weekStart": 0,
+              "monthLabels": true,
+              "weekdayLabels": true,
+              "interactive": true,
+              "onClick": "handleCellClick"
+            }
+          },
+          {
+            "type": "Stack",
+            "props": { "spacing": "16px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal", "align": "center" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Less",
+                      "fontSize": "12px",
+                      "color": "#666"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "horizontal" },
+                    "children": [
+                      { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#ebedf0", "borderRadius": "2px" } },
+                      { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#9be9a8", "borderRadius": "2px" } },
+                      { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#40c463", "borderRadius": "2px" } },
+                      { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#30a14e", "borderRadius": "2px" } },
+                      { "type": "Box", "props": { "width": "12px", "height": "12px", "backgroundColor": "#216e39", "borderRadius": "2px" } }
+                    ]
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "More",
+                      "fontSize": "12px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "20px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "287",
+                          "fontSize": "24px",
+                          "fontWeight": "700",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Active Days",
+                          "fontSize": "12px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "47",
+                          "fontSize": "24px",
+                          "fontWeight": "700",
+                          "color": "#10b981"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Best Streak",
+                          "fontSize": "12px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "4px", "direction": "vertical", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "9.8",
+                          "fontSize": "24px",
+                          "fontWeight": "700",
+                          "color": "#3b82f6"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Avg/Day",
+                          "fontSize": "12px",
+                          "color": "#666"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "chartLibrary": "react-calendar-heatmap or react-activity-calendar",
+    "installation": "npm install react-calendar-heatmap",
+    "codeExample": "import CalendarHeatmap from 'react-calendar-heatmap';\nimport 'react-calendar-heatmap/dist/styles.css';\n\nconst values = [\n  { date: '2024-01-01', count: 12 },\n  { date: '2024-01-02', count: 8 },\n  // ... more data\n];\n\n<CalendarHeatmap\n  startDate={new Date('2024-01-01')}\n  endDate={new Date('2024-12-31')}\n  values={values}\n  classForValue={(value) => {\n    if (!value) return 'color-empty';\n    return `color-scale-${Math.min(value.count, 4)}`;\n  }}\n  tooltipDataAttrs={(value) => {\n    return {\n      'data-tip': `${value.date}: ${value.count} events`\n    };\n  }}\n  showWeekdayLabels={true}\n/>",
+    "features": [
+      "365-day activity grid with color intensity",
+      "Hover tooltips showing exact counts per day",
+      "Click on cells to drill into daily details",
+      "Month and weekday labels for easy navigation",
+      "Responsive cell sizing for different viewports",
+      "Custom color scales (GitHub-style green or custom)",
+      "Summary statistics: active days, streaks, averages",
+      "Configurable date ranges (year, 6 months, 3 months)"
+    ],
+    "dataBinding": {
+      "hubspotApi": "Use HubSpot Engagements API or custom events",
+      "endpoint": "/engagements/v1/engagements/paged",
+      "properties": ["engagement.createdAt", "engagement.type"],
+      "aggregation": "Group engagements by date and count per day"
+    },
+    "cssRequired": ".react-calendar-heatmap .color-empty { fill: #ebedf0; }\n.react-calendar-heatmap .color-scale-1 { fill: #9be9a8; }\n.react-calendar-heatmap .color-scale-2 { fill: #40c463; }\n.react-calendar-heatmap .color-scale-3 { fill: #30a14e; }\n.react-calendar-heatmap .color-scale-4 { fill: #216e39; }"
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "scale0": "#ebedf0",
+      "scale1": "#9be9a8",
+      "scale2": "#40c463",
+      "scale3": "#30a14e",
+      "scale4": "#216e39"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "24px",
+      "subtitle": "14px",
+      "legend": "12px",
+      "stat": "24px"
+    }
+  },
+  "defaultValues": {
+    "title": "Customer Activity Heatmap",
+    "subtitle": "365 days of activity • 2,847 total events",
+    "activeDays": 287,
+    "bestStreak": 47,
+    "avgPerDay": 9.8,
+    "colorScale": "green",
+    "dateRange": "year"
+  },
+  "tags": ["heatmap", "calendar", "activity", "github-style", "time-series", "engagement", "visualization"],
+  "responsiveConfig": {
+    "xs": { "cellSize": 8, "cellGap": 2, "showLabels": false },
+    "sm": { "cellSize": 10, "cellGap": 3, "showLabels": true },
+    "md": { "cellSize": 12, "cellGap": 3, "showLabels": true }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "cellHover": "scale",
+    "duration": 800
+  },
+  "accessibilityNotes": "WCAG AA compliant. Tooltips provide exact data. Color intensity backed by count values. Keyboard navigable.",
+  "seoKeywords": "activity heatmap, calendar heatmap, github activity, engagement tracking, time series visualization"
+}

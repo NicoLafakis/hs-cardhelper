@@ -1,0 +1,271 @@
+{
+  "templateId": "tmpl-dashboard-funnel-011",
+  "name": "Interactive Sales Funnel",
+  "description": "Animated conversion funnel chart showing drop-off rates at each stage. Uses D3.js or Recharts for smooth funnel visualization with hover tooltips showing detailed metrics. Perfect for sales pipelines and conversion tracking.",
+  "category": "dashboard-widgets",
+  "thumbnailUrl": "/templates/thumbnails/sales-funnel.png",
+  "previewHtml": "<div class='funnel-viz'><h2>Sales Pipeline</h2><div class='funnel-stages'><div style='width:100%'>Leads: 10,000</div><div style='width:75%'>Qualified: 7,500</div><div style='width:45%'>Proposal: 4,500</div><div style='width:25%'>Negotiation: 2,500</div><div style='width:15%'>Closed: 1,500</div></div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "40px",
+      "borderRadius": "16px",
+      "boxShadow": "0 4px 24px rgba(0,0,0,0.10)",
+      "backgroundColor": "#ffffff"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "32px", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "spacing": "12px", "direction": "horizontal", "justify": "space-between", "align": "center" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "4px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "TextInput",
+                    "props": {
+                      "label": "Funnel Title",
+                      "placeholder": "Sales Pipeline Conversion",
+                      "value": "",
+                      "fontSize": "28px",
+                      "fontWeight": "700",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Last 30 days • 15% overall conversion rate",
+                      "fontSize": "14px",
+                      "color": "#666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "horizontal" },
+                "children": [
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "By Source",
+                      "variant": "secondary",
+                      "size": "small"
+                    }
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "By Rep",
+                      "variant": "secondary",
+                      "size": "small"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "CustomComponent",
+            "component": "FunnelChart",
+            "props": {
+              "data": [
+                { "stage": "Leads", "value": 10000, "color": "#3b82f6", "percentage": 100 },
+                { "stage": "Qualified", "value": 7500, "color": "#10b981", "percentage": 75, "dropOff": 25 },
+                { "stage": "Proposal Sent", "value": 4500, "color": "#f59e0b", "percentage": 45, "dropOff": 30 },
+                { "stage": "Negotiation", "value": 2500, "color": "#ef4444", "percentage": 25, "dropOff": 20 },
+                { "stage": "Closed Won", "value": 1500, "color": "#10b981", "percentage": 15, "dropOff": 10 }
+              ],
+              "height": 400,
+              "interactive": true,
+              "showPercentages": true,
+              "showDropOff": true,
+              "animated": true,
+              "animationDuration": 1200
+            }
+          },
+          {
+            "type": "Grid",
+            "props": { "columns": 4, "gap": "16px" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "vertical", "align": "center", "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "8px" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Conversion Rate",
+                      "fontSize": "12px",
+                      "fontWeight": "500",
+                      "color": "#666",
+                      "textTransform": "uppercase"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "15%",
+                      "fontSize": "28px",
+                      "fontWeight": "700",
+                      "color": "#10b981"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "vertical", "align": "center", "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "8px" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Total Revenue",
+                      "fontSize": "12px",
+                      "fontWeight": "500",
+                      "color": "#666",
+                      "textTransform": "uppercase"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "$2.4M",
+                      "fontSize": "28px",
+                      "fontWeight": "700",
+                      "color": "#3b82f6"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "vertical", "align": "center", "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "8px" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Avg Deal Size",
+                      "fontSize": "12px",
+                      "fontWeight": "500",
+                      "color": "#666",
+                      "textTransform": "uppercase"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "$1,600",
+                      "fontSize": "28px",
+                      "fontWeight": "700",
+                      "color": "#8b5cf6"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "8px", "direction": "vertical", "align": "center", "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "8px" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "Time to Close",
+                      "fontSize": "12px",
+                      "fontWeight": "500",
+                      "color": "#666",
+                      "textTransform": "uppercase"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "23 days",
+                      "fontSize": "28px",
+                      "fontWeight": "700",
+                      "color": "#f59e0b"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "chartLibrary": "Recharts or D3.js",
+    "installation": "npm install recharts",
+    "codeExample": "import { FunnelChart, Funnel, LabelList, Tooltip } from 'recharts';\n\nconst data = [\n  { name: 'Leads', value: 10000, fill: '#3b82f6' },\n  { name: 'Qualified', value: 7500, fill: '#10b981' },\n  { name: 'Proposal', value: 4500, fill: '#f59e0b' },\n  { name: 'Negotiation', value: 2500, fill: '#ef4444' },\n  { name: 'Closed Won', value: 1500, fill: '#10b981' }\n];\n\n<FunnelChart width={600} height={400}>\n  <Tooltip />\n  <Funnel\n    dataKey=\"value\"\n    data={data}\n    isAnimationActive\n  >\n    <LabelList position=\"right\" fill=\"#000\" stroke=\"none\" dataKey=\"name\" />\n  </Funnel>\n</FunnelChart>",
+    "features": [
+      "Animated funnel transitions",
+      "Hover tooltips with detailed stage metrics",
+      "Color-coded stages showing conversion health",
+      "Drop-off percentage calculations between stages",
+      "Interactive filtering by source or sales rep",
+      "Summary metrics below funnel",
+      "Responsive design adapting to container width"
+    ],
+    "dataBinding": {
+      "hubspotApi": "Use HubSpot Deals API to fetch pipeline stages",
+      "endpoint": "/crm/v3/objects/deals",
+      "properties": ["dealstage", "amount", "closedate", "hs_deal_stage_probability"],
+      "aggregation": "Group deals by stage and count/sum amounts"
+    }
+  },
+  "designTokens": {
+    "colors": {
+      "background": "#ffffff",
+      "text": "#1a1a1a",
+      "label": "#666666",
+      "stage1": "#3b82f6",
+      "stage2": "#10b981",
+      "stage3": "#f59e0b",
+      "stage4": "#ef4444",
+      "stage5": "#10b981",
+      "statBg": "#f9fafb"
+    },
+    "typography": {
+      "fontFamily": "'Inter', -apple-system, sans-serif",
+      "title": "28px",
+      "subtitle": "14px",
+      "statLabel": "12px",
+      "statValue": "28px"
+    }
+  },
+  "defaultValues": {
+    "title": "Sales Pipeline Conversion",
+    "subtitle": "Last 30 days • 15% overall conversion rate",
+    "stages": [
+      { "name": "Leads", "count": 10000, "percentage": 100 },
+      { "name": "Qualified", "count": 7500, "percentage": 75, "dropOff": 25 },
+      { "name": "Proposal Sent", "count": 4500, "percentage": 45, "dropOff": 30 },
+      { "name": "Negotiation", "count": 2500, "percentage": 25, "dropOff": 20 },
+      { "name": "Closed Won", "count": 1500, "percentage": 15, "dropOff": 10 }
+    ],
+    "conversionRate": 15,
+    "totalRevenue": "$2.4M",
+    "avgDealSize": "$1,600",
+    "timeToClose": "23 days"
+  },
+  "tags": ["funnel", "conversion", "sales", "pipeline", "visualization", "interactive", "animated"],
+  "responsiveConfig": {
+    "xs": { "funnelHeight": 300, "statColumns": 2 },
+    "sm": { "funnelHeight": 350, "statColumns": 4 },
+    "md": { "funnelHeight": 400, "statColumns": 4 }
+  },
+  "animations": {
+    "entrance": "fadeIn",
+    "funnelAnimation": "ease-out",
+    "duration": 1200
+  },
+  "accessibilityNotes": "WCAG AA compliant. Stage labels clearly visible. Tooltips provide detailed metrics. Color is not the only indicator (percentages shown).",
+  "seoKeywords": "sales funnel, conversion funnel, pipeline visualization, sales stages, deal flow"
+}

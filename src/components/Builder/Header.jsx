@@ -24,7 +24,8 @@ import {
   Boxes,
   Package,
   Lightbulb,
-  Rocket
+  Rocket,
+  Sparkles
 } from 'lucide-react'
 import TemplatesModal from '../Templates/TemplatesModal'
 import SettingsModal from '../Settings/SettingsModal'
@@ -43,6 +44,7 @@ import DesignSystemManager from '../DesignSystem/DesignSystemManager'
 import CustomComponentBuilder from '../CustomComponents/CustomComponentBuilder'
 import AIDesignSuggestions from '../AIDesignSuggestions/AIDesignSuggestions'
 import DeploymentWizard from '../Deployment/DeploymentWizard'
+import { AnimationBuilder } from '../Animations/AnimationBuilder'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -62,6 +64,7 @@ export default function Header() {
   const [showCustomComponents, setShowCustomComponents] = useState(false)
   const [showAISuggestions, setShowAISuggestions] = useState(false)
   const [showDeployment, setShowDeployment] = useState(false)
+  const [showAnimationBuilder, setShowAnimationBuilder] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -112,12 +115,18 @@ export default function Header() {
     setShowFeaturesMenu(false)
   }
 
+  const openAnimationBuilder = () => {
+    setShowAnimationBuilder(true)
+    setShowFeaturesMenu(false)
+  }
+
   const features = [
     { id: 'property-mapper', name: 'Property Mapper', icon: Database, description: 'Bind HubSpot properties to components', action: openPropertyMapper },
     { id: 'version-control', name: 'Version Control', icon: Clock, description: 'Manage snapshots and track changes', action: openVersionControl },
     { id: 'validation', name: 'Validation Suite', icon: CheckCircle, description: 'Test compatibility and performance', action: openValidation },
     { id: 'design-system', name: 'Design System', icon: Boxes, description: 'Manage design tokens and themes', action: openDesignSystem },
     { id: 'custom-components', name: 'Custom Components', icon: Package, description: 'Create reusable component groups', action: openCustomComponents },
+    { id: 'animation-library', name: 'Animation Library', icon: Sparkles, description: 'Add professional animations and effects', action: openAnimationBuilder },
     { id: 'ai-suggestions', name: 'AI Suggestions', icon: Lightbulb, description: 'Get intelligent design recommendations', action: openAISuggestions },
     { id: 'deploy', name: 'Deploy to HubSpot', icon: Rocket, description: 'Deploy your card with guided wizard', action: openDeployment },
     { id: 'analytics', name: 'Analytics', icon: BarChart, description: 'View card performance metrics' },
@@ -266,6 +275,19 @@ export default function Header() {
       {showCustomComponents && <CustomComponentBuilder isOpen={showCustomComponents} onClose={() => setShowCustomComponents(false)} />}
       {showAISuggestions && <AIDesignSuggestions isOpen={showAISuggestions} onClose={() => setShowAISuggestions(false)} />}
       {showDeployment && <DeploymentWizard isOpen={showDeployment} onClose={() => setShowDeployment(false)} />}
+      {showAnimationBuilder && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            <AnimationBuilder
+              onAnimationSelect={(animation) => {
+                console.log('Animation selected:', animation)
+                // TODO: Apply animation to selected component
+              }}
+              onClose={() => setShowAnimationBuilder(false)}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Advanced Features */}
       {activeFeature === 'analytics' && (
