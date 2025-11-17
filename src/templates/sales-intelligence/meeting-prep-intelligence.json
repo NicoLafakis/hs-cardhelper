@@ -1,0 +1,709 @@
+{
+  "templateId": "tmpl-sales-meeting-003",
+  "name": "Meeting Prep Intelligence Card",
+  "description": "The ultimate pre-call briefing: stakeholder influence map, conversation history, recent news/social activity, pain points mentioned, buying signals detected, competitor intel, and AI-generated talking points. Never go into a meeting unprepared again.",
+  "category": "sales-intelligence",
+  "thumbnailUrl": "/templates/thumbnails/meeting-prep.png",
+  "previewHtml": "<div class='meeting-prep'><div class='attendees'>3 attendees • 2 decision makers</div><div class='insights'>[Mentioned pricing 5x] [Budget concerns] [Competitor evaluation]</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "12px",
+      "backgroundColor": "#ffffff",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "padding": "24px", "background": "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", "spacing": "16px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "direction": "horizontal", "justify": "space-between", "align": "center" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "8px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "📞 Meeting Prep - Acme Corp Discovery Call",
+                          "fontSize": "20px",
+                          "fontWeight": "700",
+                          "color": "#ffffff"
+                        }
+                      },
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "Today at 2:00 PM PST • 45 minutes • Zoom",
+                          "fontSize": "14px",
+                          "color": "rgba(255,255,255,0.9)"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "horizontal", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "2 Decision Makers",
+                              "backgroundColor": "rgba(255,255,255,0.2)",
+                              "color": "#ffffff"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "High Intent",
+                              "backgroundColor": "#10b981",
+                              "color": "#ffffff"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Button",
+                    "props": {
+                      "text": "Join Zoom",
+                      "variant": "secondary",
+                      "icon": "video",
+                      "backgroundColor": "#ffffff",
+                      "color": "#1d4ed8"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "padding": "24px", "spacing": "24px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "👥 Meeting Attendees & Influence Map",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "StakeholderInfluenceGrid",
+                    "props": {
+                      "attendees": [
+                        {
+                          "name": "John Smith",
+                          "title": "CEO",
+                          "avatar": "JS",
+                          "role": "Economic Buyer",
+                          "influence": 95,
+                          "sentiment": "positive",
+                          "lastContact": "2 days ago",
+                          "keyInsights": [
+                            "Previously used Salesforce at last company - had issues with complexity",
+                            "Mentioned 'simplicity' 8 times in email thread",
+                            "Budget owner - can approve up to $500K without board",
+                            "LinkedIn: Shared article about CRM efficiency yesterday"
+                          ],
+                          "painPoints": ["Current system too complex", "Poor adoption rates"],
+                          "buyingSignals": ["Asked about implementation timeline", "Requested pricing 3x"]
+                        },
+                        {
+                          "name": "Jane Doe",
+                          "title": "CTO",
+                          "avatar": "JD",
+                          "role": "Technical Buyer",
+                          "influence": 85,
+                          "sentiment": "champion",
+                          "lastContact": "Yesterday",
+                          "keyInsights": [
+                            "Our internal champion - pushing this deal forward",
+                            "Attended 3 product demos, downloaded technical docs",
+                            "Mentioned API integration requirements in detail",
+                            "LinkedIn: Endorsed your solution to peers in private group"
+                          ],
+                          "painPoints": ["Need better API documentation", "Custom integration requirements"],
+                          "buyingSignals": ["Asked for POC access", "Wants to schedule technical deep-dive"]
+                        },
+                        {
+                          "name": "Bob Johnson",
+                          "title": "VP Sales",
+                          "avatar": "BJ",
+                          "role": "End User Champion",
+                          "influence": 60,
+                          "sentiment": "neutral",
+                          "lastContact": "1 week ago",
+                          "keyInsights": [
+                            "Main user of current system - worried about change management",
+                            "Needs to see clear ROI for his team's adoption",
+                            "Mentioned training concerns in last call",
+                            "Has final say on user experience requirements"
+                          ],
+                          "painPoints": ["Team resistance to new tools", "Training time"],
+                          "buyingSignals": ["Asked about training programs", "Wants customer success examples"]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Grid",
+                "props": { "columns": 2, "gap": "20px" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "🎯 Key Pain Points (Mentioned in Conversations)",
+                          "fontSize": "15px",
+                          "fontWeight": "600",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#fef2f2", "borderLeft": "3px solid #ef4444", "borderRadius": "6px", "spacing": "6px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Stack",
+                                "props": { "direction": "horizontal", "justify": "space-between" },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Current CRM too complex",
+                                      "fontSize": "13px",
+                                      "fontWeight": "600",
+                                      "color": "#991b1b"
+                                    }
+                                  },
+                                  {
+                                    "type": "Badge",
+                                    "props": {
+                                      "text": "Mentioned 12x",
+                                      "variant": "danger",
+                                      "size": "small"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "→ Talk about: Our 3-click workflows vs Salesforce's 15-click processes",
+                                  "fontSize": "12px",
+                                  "color": "#7f1d1d",
+                                  "fontStyle": "italic"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#fef2f2", "borderLeft": "3px solid #ef4444", "borderRadius": "6px", "spacing": "6px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Stack",
+                                "props": { "direction": "horizontal", "justify": "space-between" },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Poor sales team adoption (35%)",
+                                      "fontSize": "13px",
+                                      "fontWeight": "600",
+                                      "color": "#991b1b"
+                                    }
+                                  },
+                                  {
+                                    "type": "Badge",
+                                    "props": {
+                                      "text": "Mentioned 8x",
+                                      "variant": "danger",
+                                      "size": "small"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "→ Talk about: Our 92% average adoption rate + white-glove onboarding",
+                                  "fontSize": "12px",
+                                  "color": "#7f1d1d",
+                                  "fontStyle": "italic"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#fef2f2", "borderLeft": "3px solid #ef4444", "borderRadius": "6px", "spacing": "6px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Stack",
+                                "props": { "direction": "horizontal", "justify": "space-between" },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Integration challenges with tech stack",
+                                      "fontSize": "13px",
+                                      "fontWeight": "600",
+                                      "color": "#991b1b"
+                                    }
+                                  },
+                                  {
+                                    "type": "Badge",
+                                    "props": {
+                                      "text": "Mentioned 5x",
+                                      "variant": "danger",
+                                      "size": "small"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "→ Talk about: Pre-built integrations with their confirmed stack (Slack, Salesforce, Zendesk)",
+                                  "fontSize": "12px",
+                                  "color": "#7f1d1d",
+                                  "fontStyle": "italic"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "🚀 Buying Signals Detected",
+                          "fontSize": "15px",
+                          "fontWeight": "600",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#f0fdf4", "borderLeft": "3px solid #10b981", "borderRadius": "6px", "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "💰 Budget confirmed - $500K approved for Q4",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#166534"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "John mentioned board approved budget last week",
+                                  "fontSize": "11px",
+                                  "color": "#15803d"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#f0fdf4", "borderLeft": "3px solid #10b981", "borderRadius": "6px", "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "📅 Timeline pressure - Must decide by Dec 1st",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#166534"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Referenced Q4 deadline 3 times in emails",
+                                  "fontSize": "11px",
+                                  "color": "#15803d"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#f0fdf4", "borderLeft": "3px solid #10b981", "borderRadius": "6px", "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "🏆 Preferred vendor status confirmed",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#166534"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Jane (champion) said 'you're our top choice' yesterday",
+                                  "fontSize": "11px",
+                                  "color": "#15803d"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "padding": "12px", "backgroundColor": "#f0fdf4", "borderLeft": "3px solid #10b981", "borderRadius": "6px", "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "🤝 Legal review started on our MSA",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#166534"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Contract sent to their legal team 2 days ago",
+                                  "fontSize": "11px",
+                                  "color": "#15803d"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "🧠 AI-Generated Talking Points (Based on Conversation History)",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "padding": "20px", "backgroundColor": "#f9fafb", "borderRadius": "12px", "spacing": "16px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "10px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "8px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "1️⃣",
+                                  "fontSize": "16px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Open with John's Salesforce pain: 'John, I know you mentioned Salesforce was too complex at your last company. Let me show you how we achieve the same outcomes with 80% fewer clicks...'",
+                                  "fontSize": "14px",
+                                  "color": "#1a1a1a",
+                                  "lineHeight": "1.6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "8px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "2️⃣",
+                                  "fontSize": "16px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Address Bob's adoption concerns early: 'Bob, I heard training was a concern. We typically see 90%+ adoption within 2 weeks because our UI is designed around sales workflows your team already uses...'",
+                                  "fontSize": "14px",
+                                  "color": "#1a1a1a",
+                                  "lineHeight": "1.6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "8px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "3️⃣",
+                                  "fontSize": "16px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Demo the API integrations Jane cares about: 'Jane, you mentioned API requirements. Let me show you our pre-built Slack and Zendesk integrations running in production...'",
+                                  "fontSize": "14px",
+                                  "color": "#1a1a1a",
+                                  "lineHeight": "1.6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "8px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "4️⃣",
+                                  "fontSize": "16px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Create urgency around their timeline: 'You mentioned needing to decide by Dec 1st. If we start the POC this week, we can have you fully onboarded by your deadline...'",
+                                  "fontSize": "14px",
+                                  "color": "#1a1a1a",
+                                  "lineHeight": "1.6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "8px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "5️⃣",
+                                  "fontSize": "16px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Close with ROI focus: 'Based on your current 35% adoption and 50 sales reps, our customers typically see $400K in productivity gains in year one. Here's how that breaks down...'",
+                                  "fontSize": "14px",
+                                  "color": "#1a1a1a",
+                                  "lineHeight": "1.6"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Divider",
+                        "props": { "color": "#e5e5e5" }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "⚠️ Things to Avoid:",
+                              "fontSize": "14px",
+                              "fontWeight": "600",
+                              "color": "#ef4444"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "• Don't bring up pricing first - they haven't asked yet\n• Don't oversell features - they want simplicity, not complexity\n• Don't ignore Bob (VP Sales) - he's the adoption gatekeeper",
+                              "fontSize": "13px",
+                              "color": "#7f1d1d",
+                              "lineHeight": "1.8"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "📰 Recent Company News & Social Activity",
+                      "fontSize": "15px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "10px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "12px", "backgroundColor": "#eff6ff", "borderRadius": "8px", "spacing": "6px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "🏢 Acme Corp announced Series C ($50M) - TechCrunch, 3 days ago",
+                              "fontSize": "13px",
+                              "fontWeight": "600",
+                              "color": "#1e3a8a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Perfect time to invest in infrastructure. Mention how you help scaling companies.",
+                              "fontSize": "12px",
+                              "color": "#1e40af",
+                              "fontStyle": "italic"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "12px", "backgroundColor": "#eff6ff", "borderRadius": "8px", "spacing": "6px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "💼 John Smith posted on LinkedIn about CRM efficiency (yesterday)",
+                              "fontSize": "13px",
+                              "fontWeight": "600",
+                              "color": "#1e3a8a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "'Efficiency' is clearly top of mind - use this in your pitch",
+                              "fontSize": "12px",
+                              "color": "#1e40af",
+                              "fontStyle": "italic"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "dataAggregation": "Aggregates 10+ data sources including CRM, email, calendar, social media, news APIs",
+    "hubspotApis": [
+      "/crm/v3/objects/contacts",
+      "/crm/v3/objects/companies",
+      "/crm/v3/objects/deals",
+      "/engagements/v1/engagements/paged",
+      "/crm/v3/objects/meetings",
+      "/crm/v3/objects/emails",
+      "/crm/v3/objects/notes"
+    ],
+    "externalApis": [
+      "LinkedIn Sales Navigator API for social intelligence",
+      "Google News API for company news",
+      "Clearbit API for company enrichment",
+      "Email provider (Gmail/Outlook) for communication history"
+    ],
+    "aiFeatures": {
+      "nlp": "Extract pain points, buying signals, objections from all communications",
+      "sentimentAnalysis": "Score each stakeholder's sentiment towards your solution",
+      "talkingPointGeneration": "GPT-4 generates personalized talking points based on conversation history",
+      "influenceScoring": "ML model determines each stakeholder's influence on buying decision"
+    },
+    "features": [
+      "Stakeholder influence mapping with sentiment analysis",
+      "Pain point extraction from all communications (emails, calls, notes)",
+      "Buying signal detection with frequency tracking",
+      "AI-generated personalized talking points",
+      "Recent news and social activity aggregation",
+      "Competitor mention tracking",
+      "Meeting attendee profiles with key insights",
+      "Recommended conversation flow",
+      "Things to avoid based on past conversations"
+    ]
+  },
+  "tags": ["sales-enablement", "meeting-prep", "stakeholder-analysis", "ai-talking-points", "buying-signals"],
+  "seoKeywords": "meeting prep, sales intelligence, stakeholder mapping, talking points, buyer intent"
+}

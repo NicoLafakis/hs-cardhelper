@@ -1,0 +1,727 @@
+{
+  "templateId": "tmpl-sales-forecast-004",
+  "name": "Revenue Forecast Engine with Pipeline Health",
+  "description": "ML-powered revenue forecasting that analyzes historical close rates, deal velocity, seasonal trends, and rep performance to predict quarterly revenue with 90%+ accuracy. Shows pipeline coverage, at-risk revenue, and recommends which deals to focus on.",
+  "category": "sales-intelligence",
+  "thumbnailUrl": "/templates/thumbnails/revenue-forecast.png",
+  "previewHtml": "<div class='forecast-engine'><div class='forecast'>Q4 Forecast: $2.4M</div><div class='confidence'>87% confidence • Pipeline coverage: 3.2x</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "12px",
+      "backgroundColor": "#ffffff",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "Stack",
+            "props": { "padding": "28px", "background": "linear-gradient(135deg, #10b981 0%, #059669 100%)", "spacing": "20px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "direction": "horizontal", "justify": "space-between", "align": "flex-start" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "spacing": "12px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "📊 Q4 2025 Revenue Forecast",
+                          "fontSize": "18px",
+                          "fontWeight": "600",
+                          "color": "rgba(255,255,255,0.95)"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "horizontal", "align": "baseline" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "$2.43M",
+                              "fontSize": "48px",
+                              "fontWeight": "800",
+                              "color": "#ffffff",
+                              "letterSpacing": "-1px"
+                            }
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Badge",
+                                "props": {
+                                  "text": "↑ $240K vs last quarter",
+                                  "backgroundColor": "rgba(255,255,255,0.25)",
+                                  "color": "#ffffff"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "87% confidence (ML model)",
+                                  "fontSize": "12px",
+                                  "color": "rgba(255,255,255,0.9)"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "10px", "direction": "horizontal" },
+                        "children": [
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Target: $2.8M",
+                                  "fontSize": "13px",
+                                  "color": "rgba(255,255,255,0.85)"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Gap: $370K (13%)",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#ffffff"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "|",
+                              "fontSize": "20px",
+                              "color": "rgba(255,255,255,0.3)"
+                            }
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Pipeline: $7.8M",
+                                  "fontSize": "13px",
+                                  "color": "rgba(255,255,255,0.85)"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Coverage: 3.2x",
+                                  "fontSize": "13px",
+                                  "fontWeight": "600",
+                                  "color": "#ffffff"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "ForecastProgressRing",
+                    "props": {
+                      "currentForecast": 2430000,
+                      "target": 2800000,
+                      "size": 120,
+                      "strokeWidth": 12,
+                      "showPercentage": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "padding": "24px", "spacing": "24px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "direction": "horizontal", "justify": "space-between", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "📈 Forecast Breakdown by Stage",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "horizontal" },
+                        "children": [
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "Committed: $1.2M",
+                              "variant": "success"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "Best Case: $2.4M",
+                              "variant": "info"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "Pipeline: $7.8M",
+                              "variant": "secondary"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "WeightedPipelineWaterfall",
+                    "props": {
+                      "stages": [
+                        {
+                          "name": "Closed Won",
+                          "amount": 850000,
+                          "count": 12,
+                          "probability": 100,
+                          "weightedValue": 850000,
+                          "color": "#10b981"
+                        },
+                        {
+                          "name": "Commit (90-100%)",
+                          "amount": 450000,
+                          "count": 5,
+                          "probability": 95,
+                          "weightedValue": 427500,
+                          "color": "#059669"
+                        },
+                        {
+                          "name": "Best Case (70-89%)",
+                          "amount": 890000,
+                          "count": 8,
+                          "probability": 80,
+                          "weightedValue": 712000,
+                          "color": "#3b82f6"
+                        },
+                        {
+                          "name": "Likely (50-69%)",
+                          "amount": 1200000,
+                          "count": 14,
+                          "probability": 60,
+                          "weightedValue": 720000,
+                          "color": "#f59e0b"
+                        },
+                        {
+                          "name": "Pipeline (0-49%)",
+                          "amount": 4400000,
+                          "count": 38,
+                          "probability": 25,
+                          "weightedValue": 1100000,
+                          "color": "#94a3b8"
+                        }
+                      ],
+                      "totalForecast": 2430000,
+                      "height": 280
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "⚡ Deal Velocity Analysis",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Grid",
+                    "props": { "columns": 4, "gap": "16px" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "10px", "spacing": "10px", "direction": "vertical", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "⏱️",
+                              "fontSize": "28px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "42 days",
+                              "fontSize": "24px",
+                              "fontWeight": "700",
+                              "color": "#1a1a1a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Avg Sales Cycle",
+                              "fontSize": "12px",
+                              "color": "#666",
+                              "textAlign": "center"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "↓ 8 days faster",
+                              "variant": "success",
+                              "size": "small"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "10px", "spacing": "10px", "direction": "vertical", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "🎯",
+                              "fontSize": "28px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "28%",
+                              "fontSize": "24px",
+                              "fontWeight": "700",
+                              "color": "#1a1a1a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Win Rate",
+                              "fontSize": "12px",
+                              "color": "#666",
+                              "textAlign": "center"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "↑ 3% vs Q3",
+                              "variant": "success",
+                              "size": "small"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "10px", "spacing": "10px", "direction": "vertical", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "💰",
+                              "fontSize": "28px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "$31.5K",
+                              "fontSize": "24px",
+                              "fontWeight": "700",
+                              "color": "#1a1a1a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Avg Deal Size",
+                              "fontSize": "12px",
+                              "color": "#666",
+                              "textAlign": "center"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "↑ $2.5K vs Q3",
+                              "variant": "success",
+                              "size": "small"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f9fafb", "borderRadius": "10px", "spacing": "10px", "direction": "vertical", "align": "center" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "📊",
+                              "fontSize": "28px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "18 deals",
+                              "fontSize": "24px",
+                              "fontWeight": "700",
+                              "color": "#1a1a1a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Close This Month",
+                              "fontSize": "12px",
+                              "color": "#666",
+                              "textAlign": "center"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "4 at risk",
+                              "variant": "warning",
+                              "size": "small"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "direction": "horizontal", "justify": "space-between", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "🚨 At-Risk Revenue ($420K)",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "color": "#1a1a1a"
+                        }
+                      },
+                      {
+                        "type": "Badge",
+                        "props": {
+                          "text": "17% of forecast",
+                          "variant": "warning"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "AtRiskDealsList",
+                    "props": {
+                      "deals": [
+                        {
+                          "name": "Enterprise Deal - TechCorp",
+                          "amount": 180000,
+                          "closeDate": "2025-12-10",
+                          "daysStalled": 18,
+                          "riskScore": 72,
+                          "riskFactors": ["No executive engagement", "Competitor mentioned"],
+                          "recommendation": "Schedule exec call within 48 hours"
+                        },
+                        {
+                          "name": "Platform Upgrade - StartupCo",
+                          "amount": 125000,
+                          "closeDate": "2025-12-15",
+                          "daysStalled": 12,
+                          "riskScore": 65,
+                          "riskFactors": ["Budget concerns raised", "Technical blocker"],
+                          "recommendation": "Offer flexible payment terms + technical deep-dive"
+                        },
+                        {
+                          "name": "Multi-year Contract - GlobalInc",
+                          "amount": 115000,
+                          "closeDate": "2025-12-20",
+                          "daysStalled": 8,
+                          "riskScore": 58,
+                          "riskFactors": ["Legal review delays"],
+                          "recommendation": "Escalate to legal team + offer contract concessions"
+                        }
+                      ],
+                      "compact": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "16px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "💡 AI Recommendations to Hit Target",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Stack",
+                    "props": { "padding": "20px", "backgroundColor": "#eff6ff", "borderRadius": "12px", "spacing": "16px", "direction": "vertical" },
+                    "children": [
+                      {
+                        "type": "Text",
+                        "props": {
+                          "value": "To close the $370K gap to target, our AI model recommends:",
+                          "fontSize": "14px",
+                          "color": "#1e40af",
+                          "fontWeight": "500"
+                        }
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "12px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "10px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "1.",
+                                  "fontSize": "14px",
+                                  "fontWeight": "700",
+                                  "color": "#1e3a8a"
+                                }
+                              },
+                              {
+                                "type": "Stack",
+                                "props": { "spacing": "4px", "direction": "vertical", "flex": 1 },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Rescue the 4 at-risk deals ($420K) - 75% probability if acted on within 48 hours",
+                                      "fontSize": "14px",
+                                      "color": "#1e3a8a",
+                                      "fontWeight": "500"
+                                    }
+                                  },
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Expected value: $315K",
+                                      "fontSize": "12px",
+                                      "color": "#1e40af",
+                                      "fontStyle": "italic"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "10px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "2.",
+                                  "fontSize": "14px",
+                                  "fontWeight": "700",
+                                  "color": "#1e3a8a"
+                                }
+                              },
+                              {
+                                "type": "Stack",
+                                "props": { "spacing": "4px", "direction": "vertical", "flex": 1 },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Accelerate 6 'Likely' deals to 'Commit' stage - historical data shows 85% success rate with exec engagement",
+                                      "fontSize": "14px",
+                                      "color": "#1e3a8a",
+                                      "fontWeight": "500"
+                                    }
+                                  },
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Expected value: $180K",
+                                      "fontSize": "12px",
+                                      "color": "#1e40af",
+                                      "fontStyle": "italic"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "10px", "direction": "horizontal", "align": "flex-start" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "3.",
+                                  "fontSize": "14px",
+                                  "fontWeight": "700",
+                                  "color": "#1e3a8a"
+                                }
+                              },
+                              {
+                                "type": "Stack",
+                                "props": { "spacing": "4px", "direction": "vertical", "flex": 1 },
+                                "children": [
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Focus Sarah's pipeline on enterprise deals ($50K+) - she has 92% win rate vs team avg of 28%",
+                                      "fontSize": "14px",
+                                      "color": "#1e3a8a",
+                                      "fontWeight": "500"
+                                    }
+                                  },
+                                  {
+                                    "type": "Text",
+                                    "props": {
+                                      "value": "Expected value: $120K",
+                                      "fontSize": "12px",
+                                      "color": "#1e40af",
+                                      "fontStyle": "italic"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "12px", "backgroundColor": "#dbeafe", "borderRadius": "8px", "spacing": "6px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "💰 Total Expected Impact: $615K",
+                              "fontSize": "14px",
+                              "fontWeight": "700",
+                              "color": "#1e3a8a"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "If executed, forecast increases to $2.73M (98% of target)",
+                              "fontSize": "13px",
+                              "color": "#1e40af"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "mlModel": "XGBoost model trained on 3 years of historical deal data with 90% accuracy",
+    "dataAggregation": "Aggregates deal data, historical close rates, seasonal trends, rep performance",
+    "hubspotApis": [
+      "/crm/v3/objects/deals",
+      "/crm/v3/objects/line_items",
+      "/crm/v4/associations/deals/contacts",
+      "/engagements/v1/engagements/paged"
+    ],
+    "mlFeatures": [
+      "Historical close rate by stage",
+      "Deal age and velocity",
+      "Stakeholder engagement level",
+      "Competitor presence",
+      "Seasonal trends",
+      "Rep performance history",
+      "Deal size vs average",
+      "Time in current stage vs historical avg"
+    ],
+    "features": [
+      "ML-powered revenue forecasting (not rules-based)",
+      "Weighted pipeline waterfall visualization",
+      "Deal velocity analysis (cycle time, win rate, deal size)",
+      "At-risk revenue identification with recovery recommendations",
+      "AI recommendations to close forecast gap",
+      "Pipeline coverage ratio",
+      "Committed vs best case vs pipeline scenarios",
+      "Real-time forecast updates as deals progress",
+      "Rep-specific performance insights"
+    ]
+  },
+  "tags": ["revenue-forecast", "ml-powered", "pipeline-health", "sales-analytics", "predictive"],
+  "seoKeywords": "revenue forecast, pipeline analysis, sales forecast, ml prediction, deal velocity"
+}

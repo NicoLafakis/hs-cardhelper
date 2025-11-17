@@ -1,0 +1,424 @@
+{
+  "templateId": "tmpl-sales-risk-001",
+  "name": "Deal Risk Analyzer",
+  "description": "AI-powered deal health scoring that aggregates stakeholder engagement, stage velocity, competitor mentions, and sentiment analysis across all communications. Shows exactly WHY a deal is at risk with actionable recommendations.",
+  "category": "sales-intelligence",
+  "thumbnailUrl": "/templates/thumbnails/deal-risk-analyzer.png",
+  "previewHtml": "<div class='deal-risk'><div class='risk-score'>⚠️ 68/100 - MODERATE RISK</div><div class='issues'>[No executive engagement] [Stalled 14 days] [Competitor mentioned 3x]</div></div>",
+  "componentStructure": {
+    "type": "Card",
+    "props": {
+      "padding": "0",
+      "borderRadius": "12px",
+      "backgroundColor": "#ffffff",
+      "overflow": "hidden"
+    },
+    "children": [
+      {
+        "type": "Stack",
+        "props": { "spacing": "0", "direction": "vertical" },
+        "children": [
+          {
+            "type": "CustomComponent",
+            "component": "RiskScoreHeader",
+            "props": {
+              "riskScore": 68,
+              "riskLevel": "moderate",
+              "dealName": "Enterprise Contract - Acme Corp",
+              "dealAmount": "$450,000",
+              "closeDate": "2025-12-15",
+              "daysUntilClose": 28,
+              "gradient": "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)"
+            },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "padding": "24px", "direction": "vertical", "spacing": "12px", "background": "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)" },
+                "children": [
+                  {
+                    "type": "Stack",
+                    "props": { "direction": "horizontal", "justify": "space-between", "align": "center" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "align": "center", "direction": "horizontal" },
+                        "children": [
+                          {
+                            "type": "Box",
+                            "props": {
+                              "width": "80px",
+                              "height": "80px",
+                              "borderRadius": "50%",
+                              "background": "rgba(255,255,255,0.2)",
+                              "display": "flex",
+                              "alignItems": "center",
+                              "justifyContent": "center"
+                            },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "68",
+                                  "fontSize": "36px",
+                                  "fontWeight": "800",
+                                  "color": "#ffffff"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Stack",
+                            "props": { "spacing": "4px", "direction": "vertical" },
+                            "children": [
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "MODERATE RISK",
+                                  "fontSize": "20px",
+                                  "fontWeight": "700",
+                                  "color": "#ffffff",
+                                  "letterSpacing": "0.5px"
+                                }
+                              },
+                              {
+                                "type": "Text",
+                                "props": {
+                                  "value": "Action required within 48 hours",
+                                  "fontSize": "13px",
+                                  "color": "rgba(255,255,255,0.9)"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "spacing": "8px", "direction": "vertical", "align": "flex-end" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "$450,000",
+                              "fontSize": "28px",
+                              "fontWeight": "700",
+                              "color": "#ffffff"
+                            }
+                          },
+                          {
+                            "type": "Badge",
+                            "props": {
+                              "text": "28 days to close",
+                              "variant": "warning",
+                              "backgroundColor": "rgba(255,255,255,0.2)",
+                              "color": "#ffffff"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "props": { "padding": "24px", "spacing": "24px", "direction": "vertical" },
+            "children": [
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "⚠️ Risk Factors (4 detected)",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "RiskFactorList",
+                    "props": {
+                      "factors": [
+                        {
+                          "severity": "high",
+                          "icon": "👔",
+                          "title": "No Executive Engagement",
+                          "description": "No C-level contacts engaged in last 21 days",
+                          "impact": "-15 points",
+                          "recommendation": "Schedule exec meeting with CEO John Smith"
+                        },
+                        {
+                          "severity": "high",
+                          "icon": "⏸️",
+                          "title": "Deal Stalled in Negotiation",
+                          "description": "Stage unchanged for 14 days (avg: 7 days)",
+                          "impact": "-12 points",
+                          "recommendation": "Send proposal recap and schedule follow-up call"
+                        },
+                        {
+                          "severity": "medium",
+                          "icon": "🏢",
+                          "title": "Competitor Mentions Increasing",
+                          "description": "Salesforce mentioned 3x in last 5 emails",
+                          "impact": "-8 points",
+                          "recommendation": "Send competitive analysis and ROI comparison"
+                        },
+                        {
+                          "severity": "medium",
+                          "icon": "📉",
+                          "title": "Email Engagement Declining",
+                          "description": "Open rate down 45% in last 2 weeks",
+                          "impact": "-6 points",
+                          "recommendation": "Switch to phone/video outreach"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "✅ Positive Signals (3 detected)",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "Grid",
+                    "props": { "columns": 3, "gap": "12px" },
+                    "children": [
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f0fdf4", "borderRadius": "8px", "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "💰",
+                              "fontSize": "24px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Budget Approved",
+                              "fontSize": "13px",
+                              "fontWeight": "600",
+                              "color": "#166534"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Confirmed by CFO",
+                              "fontSize": "11px",
+                              "color": "#15803d"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f0fdf4", "borderRadius": "8px", "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "📊",
+                              "fontSize": "24px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Champion Active",
+                              "fontSize": "13px",
+                              "fontWeight": "600",
+                              "color": "#166534"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Jane (CTO) pushing internally",
+                              "fontSize": "11px",
+                              "color": "#15803d"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Stack",
+                        "props": { "padding": "16px", "backgroundColor": "#f0fdf4", "borderRadius": "8px", "spacing": "8px", "direction": "vertical" },
+                        "children": [
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "🎯",
+                              "fontSize": "24px"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Decision Timeline",
+                              "fontSize": "13px",
+                              "fontWeight": "600",
+                              "color": "#166534"
+                            }
+                          },
+                          {
+                            "type": "Text",
+                            "props": {
+                              "value": "Q4 priority confirmed",
+                              "fontSize": "11px",
+                              "color": "#15803d"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Divider",
+                "props": { "color": "#e5e5e5" }
+              },
+              {
+                "type": "Stack",
+                "props": { "spacing": "12px", "direction": "vertical" },
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "value": "🎯 Recommended Actions (Priority Order)",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "color": "#1a1a1a"
+                    }
+                  },
+                  {
+                    "type": "CustomComponent",
+                    "component": "ActionChecklistCard",
+                    "props": {
+                      "actions": [
+                        {
+                          "priority": 1,
+                          "action": "Book exec meeting with John Smith (CEO)",
+                          "reason": "Critical: No C-level engagement in 21 days",
+                          "dueIn": "24 hours",
+                          "assignTo": "Sarah Johnson (AE)"
+                        },
+                        {
+                          "priority": 2,
+                          "action": "Send competitive battle card vs Salesforce",
+                          "reason": "Counter increasing competitor mentions",
+                          "dueIn": "48 hours",
+                          "assignTo": "Sales Engineer"
+                        },
+                        {
+                          "priority": 3,
+                          "action": "Phone call to Jane (CTO) - leverage champion",
+                          "reason": "Activate champion to push deal forward",
+                          "dueIn": "Today",
+                          "assignTo": "Sarah Johnson (AE)"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "implementationNotes": {
+    "dataAggregation": "This template pulls data from multiple HubSpot objects and applies ML-based scoring",
+    "hubspotApis": [
+      "/crm/v3/objects/deals/{dealId}",
+      "/crm/v4/associations/deals/{dealId}/contacts",
+      "/crm/v4/associations/deals/{dealId}/companies",
+      "/engagements/v1/engagements/paged?dealId={dealId}",
+      "/crm/v3/objects/emails?associations=deal"
+    ],
+    "scoringAlgorithm": {
+      "baseScore": 100,
+      "deductions": {
+        "noExecutiveEngagement": -15,
+        "stalledStage": -12,
+        "competitorMentions": -8,
+        "emailEngagementDrop": -6,
+        "missedFollowUps": -10,
+        "longSalesCycle": -5
+      },
+      "additions": {
+        "budgetApproved": +10,
+        "championActive": +8,
+        "decisionTimelineSet": +7,
+        "recentPositiveEmail": +5
+      }
+    },
+    "aiComponents": {
+      "sentimentAnalysis": "Analyze email/call transcripts for sentiment trends",
+      "competitorDetection": "NLP to detect competitor mentions in communications",
+      "engagementScoring": "ML model predicting deal outcome based on engagement patterns",
+      "nextBestAction": "AI recommendations based on successful deal patterns"
+    },
+    "realTimeUpdates": "WebSocket connection for live score updates as new activities occur",
+    "features": [
+      "Cross-object data aggregation (deal + contacts + company + engagements)",
+      "AI-powered risk scoring with explainable factors",
+      "Competitor mention detection via NLP",
+      "Stakeholder engagement tracking (who's engaged, who's not)",
+      "Stage velocity analysis vs historical data",
+      "Email sentiment analysis across all threads",
+      "Actionable recommendations ranked by impact",
+      "One-click to create tasks from recommendations"
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "riskHigh": "#ef4444",
+      "riskModerate": "#f59e0b",
+      "riskLow": "#10b981",
+      "positive": "#f0fdf4",
+      "positiveDark": "#166534",
+      "negative": "#fef2f2",
+      "negativeDark": "#991b1b"
+    }
+  },
+  "defaultValues": {
+    "dealName": "Enterprise Contract - Acme Corp",
+    "dealAmount": "$450,000",
+    "riskScore": 68,
+    "riskLevel": "moderate",
+    "daysToClose": 28,
+    "riskFactors": 4,
+    "positiveSignals": 3,
+    "recommendedActions": 3
+  },
+  "tags": ["sales", "deal-intelligence", "risk-analysis", "ai-powered", "cross-object", "actionable"],
+  "responsiveConfig": {
+    "xs": { "gridColumns": 1, "hideFactor Details": true },
+    "sm": { "gridColumns": 3, "hideFactorDetails": false }
+  },
+  "seoKeywords": "deal risk, sales intelligence, ai deal scoring, engagement tracking, win probability"
+}
