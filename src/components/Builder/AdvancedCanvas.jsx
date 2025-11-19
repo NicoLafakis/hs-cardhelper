@@ -162,6 +162,26 @@ export default function AdvancedCanvas() {
     const isDragging = component.id === draggingId
     const isResizing = component.id === resizingId
 
+    // Build comprehensive styles from PropertyPanel settings
+    const componentStyles = component.style || {}
+
+    // Spacing helpers
+    const spacingMap = {
+      none: '0px',
+      small: '4px',
+      medium: '8px',
+      large: '16px',
+      xl: '24px'
+    }
+
+    const shadowMap = {
+      none: 'none',
+      small: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+      medium: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+      large: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+      xl: '0 20px 25px -5px rgb(0 0 0 / 0.1)'
+    }
+
     const style = {
       position: 'absolute',
       left: `${component.x}px`,
@@ -169,16 +189,49 @@ export default function AdvancedCanvas() {
       width: `${component.width}px`,
       height: `${component.height}px`,
       zIndex: component.zIndex,
-      cursor: isDragging ? 'grabbing' : 'grab'
+      cursor: isDragging ? 'grabbing' : 'grab',
+
+      // Apply styling from PropertyPanel
+      backgroundColor: componentStyles.backgroundColor || (isSelected ? 'rgba(var(--primary-rgb), 0.05)' : '#ffffff'),
+
+      // Border
+      borderWidth: componentStyles.borderWidth ? `${componentStyles.borderWidth}px` : '2px',
+      borderStyle: componentStyles.borderStyle || 'solid',
+      borderColor: componentStyles.borderColor || (isSelected ? 'var(--primary)' : '#d1d5db'),
+      borderRadius: componentStyles.borderRadius === 'pill' ? '9999px' :
+                     componentStyles.borderRadius ? `${componentStyles.borderRadius}px` : '0px',
+
+      // Shadow
+      boxShadow: componentStyles.shadow ? shadowMap[componentStyles.shadow] :
+                 (isSelected ? '0 10px 15px -3px rgb(0 0 0 / 0.1)' : 'none'),
+
+      // Spacing
+      padding: componentStyles.padding ? spacingMap[componentStyles.padding] || componentStyles.padding : '12px',
+      margin: componentStyles.margin ? spacingMap[componentStyles.margin] || componentStyles.margin : '0px'
     }
+
+    // Animation classes and custom duration/delay
+    const animationClasses = []
+    if (component.animation?.entrance && component.animation.entrance !== 'none') {
+      animationClasses.push(`animate-${component.animation.entrance}`)
+    }
+
+    // Apply custom animation duration and delay if set
+    const animationDuration = component.animation?.duration ? `${component.animation.duration}ms` : undefined
+    const animationDelay = component.animation?.delay ? `${component.animation.delay}ms` : undefined
 
     return (
       <div
         key={component.id}
-        style={style}
+        style={{
+          ...style,
+          animationDuration: animationDuration,
+          animationDelay: animationDelay
+        }}
         className={`
-          absolute border-2 transition-shadow
-          ${isSelected ? 'border-primary bg-primary/5 shadow-lg' : 'border-gray-300 bg-white'}
+          absolute transition-all
+          ${animationClasses.join(' ')}
+          ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}
         `}
         onMouseDown={(e) => handleMouseDownDrag(e, component.id)}
         onClick={(e) => {
@@ -187,7 +240,7 @@ export default function AdvancedCanvas() {
         }}
       >
         {/* Component content */}
-        <div className="relative w-full h-full p-3 overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden">
           {renderComponentContent(component)}
         </div>
 
@@ -252,25 +305,54 @@ export default function AdvancedCanvas() {
   }
 
   const renderComponentContent = (component) => {
+    const componentStyles = component.style || {}
+
+    // Build typography styles from PropertyPanel
+    const textStyles = {
+      color: componentStyles.textColor || '#374151',
+      fontFamily: componentStyles.fontFamily || 'system-ui',
+      fontSize: componentStyles.fontSize || '14px',
+      fontWeight: componentStyles.fontWeight || '400',
+      textAlign: componentStyles.textAlign || 'left',
+      lineHeight: componentStyles.lineHeight === 'tight' ? '1.25' :
+                  componentStyles.lineHeight === 'normal' ? '1.5' :
+                  componentStyles.lineHeight === 'relaxed' ? '1.75' :
+                  componentStyles.lineHeight === 'loose' ? '2' : '1.5'
+    }
+
+    // Hover effect styles
+    const hoverEffect = component.animation?.hoverEffect || 'none'
+    const hoverClass = hoverEffect === 'scale' ? 'hover:scale-105' :
+                       hoverEffect === 'lift' ? 'hover:-translate-y-1 hover:shadow-lg' :
+                       hoverEffect === 'glow' ? 'hover:shadow-[0_0_15px_rgba(249,115,22,0.5)]' :
+                       hoverEffect === 'rotate' ? 'hover:rotate-1' : ''
+
     switch (component.type) {
       case 'text':
         return (
-          <div className="text-gray-700 text-sm">
+          <div style={textStyles} className={`w-full h-full ${hoverClass} transition-all duration-300`}>
             {component.defaultProps?.content || 'Text field'}
           </div>
         )
 
       case 'button':
         return (
-          <button className="px-4 py-2 bg-primary text-white rounded text-sm font-medium w-full">
+          <button
+            style={{
+              ...textStyles,
+              backgroundColor: componentStyles.backgroundColor || 'var(--primary)',
+              color: componentStyles.textColor || '#ffffff'
+            }}
+            className={`px-4 py-2 rounded font-medium w-full ${hoverClass} transition-all duration-300`}
+          >
             {component.defaultProps?.label || 'Button'}
           </button>
         )
 
       case 'table':
         return (
-          <div>
-            <div className="font-semibold text-sm mb-2">{component.defaultProps?.title || 'Data Table'}</div>
+          <div style={textStyles}>
+            <div className="font-semibold mb-2">{component.defaultProps?.title || 'Data Table'}</div>
             <div className="border border-gray-200 rounded text-xs">
               <table className="w-full">
                 <thead className="bg-gray-50">
@@ -299,7 +381,7 @@ export default function AdvancedCanvas() {
 
       default:
         return (
-          <div className="text-gray-500 text-xs">
+          <div style={textStyles}>
             {component.label || component.type}
           </div>
         )
