@@ -254,4 +254,104 @@ Return a JSON object:
   }
 })
 
+// Chat endpoint for AI Assistant
+router.post('/chat', async (req, res) => {
+  try {
+    const { message, context, recordType, currentComponents } = req.body
+
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' })
+    }
+
+    // Comprehensive HubSpot card building system prompt
+    const systemPrompt = `${context || ''}
+
+Current context:
+- HubSpot Object Type: ${recordType || 'contact'}
+- Current components on canvas: ${currentComponents || 0}
+
+IMPORTANT INSTRUCTIONS:
+1. When the user asks to create components, ALWAYS respond with a valid JSON array of components
+2. Each component must have: type, x, y, width, height, defaultProps (and optionally propertyBinding)
+3. Start positions at x: 16, y: 16 and increment y by component height + 16 for each new component
+4. Use HubSpot's design language: clean spacing, #ff7a59 for primary color
+5. Make cards practical and useful for CRM users
+6. Bind components to HubSpot properties when appropriate (e.g., firstname, email, dealname)
+7. Keep responses concise and helpful
+
+When generating components, respond with valid JSON like:
+[
+  { "type": "text", "x": 16, "y": 16, "width": 350, "height": 32, "defaultProps": { "content": "Title", "fontSize": "18px", "fontWeight": "bold" } },
+  { "type": "button", "x": 16, "y": 64, "width": 120, "height": 40, "defaultProps": { "label": "Action", "variant": "primary" } }
+]
+
+After the JSON, you can include a brief explanation of what was created.`
+
+    const result = await callAIProvider(systemPrompt, message, null)
+
+    res.json({
+      message: result.content,
+      provider: result.provider
+    })
+  } catch (error) {
+    console.error('AI chat error:', error)
+
+    // Return a helpful fallback response instead of just an error
+    res.json({
+      message: `I apologize, but I'm having trouble connecting to the AI service. Here's what you can do instead:
+
+1. **Use Templates**: Click on one of the quick start templates to instantly create a card layout
+2. **Drag & Drop**: Drag components from the palette on the left side directly onto your canvas
+3. **Manual Build**: Start with basic components like Text and Button, then customize in the property panel
+
+Would you like me to suggest some components for "${req.body.message}"? Based on your request, you might want to try:
+
+${generateFallbackSuggestions(req.body.message, req.body.recordType)}`,
+      provider: 'fallback'
+    })
+  }
+})
+
+// Generate fallback suggestions when AI is unavailable
+function generateFallbackSuggestions(message, recordType) {
+  const messageLower = message.toLowerCase()
+  let suggestions = []
+
+  if (messageLower.includes('contact') || recordType === 'contact') {
+    suggestions.push('• A **Text** component bound to "firstname" and "lastname"')
+    suggestions.push('• A **Text** component bound to "email" with blue color')
+    suggestions.push('• A **Button** for "Send Email" action')
+  }
+
+  if (messageLower.includes('deal') || recordType === 'deal') {
+    suggestions.push('• A **Stat** component showing deal "amount"')
+    suggestions.push('• A **Progress** bar for deal stage')
+    suggestions.push('• A **Badge** showing deal status')
+  }
+
+  if (messageLower.includes('table')) {
+    suggestions.push('• A **Table** with columns for your data')
+    suggestions.push('• Configure columns in the property panel')
+  }
+
+  if (messageLower.includes('chart') || messageLower.includes('graph')) {
+    suggestions.push('• A **Bar Chart** for comparing values')
+    suggestions.push('• A **Line Chart** for trends over time')
+    suggestions.push('• A **Pie Chart** for distributions')
+  }
+
+  if (messageLower.includes('button')) {
+    suggestions.push('• A **Button** with primary, secondary, or danger variants')
+    suggestions.push('• Set the action URL in the property panel')
+  }
+
+  if (suggestions.length === 0) {
+    suggestions.push('• Start with a **Text** component for your title')
+    suggestions.push('• Add **Stat** components for key metrics')
+    suggestions.push('• Use **Button** components for actions')
+  }
+
+  return suggestions.join('\n')
+}
+
 export default router
