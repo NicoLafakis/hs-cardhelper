@@ -18,14 +18,86 @@ import {
   Play,
   Image as ImageIcon,
   CheckSquare,
-  Circle
+  Circle,
+  Phone,
+  Mail,
+  Building2,
+  Globe,
+  MapPin,
+  User,
+  Briefcase,
+  DollarSign,
+  Clock,
+  MoreHorizontal,
+  Edit3,
+  ExternalLink
 } from 'lucide-react'
 
 // HubSpot card dimension constraints based on placement
 const CARD_VIEWS = {
-  sidebar: { width: 400, height: 600, label: 'Sidebar', icon: Sidebar },
-  middlePane: { width: 600, height: 700, label: 'Middle Pane', icon: Monitor },
-  full: { width: 800, height: 800, label: 'Full Width', icon: Maximize }
+  sidebar: { width: 340, height: 500, label: 'Sidebar', icon: Sidebar },
+  middlePane: { width: 500, height: 550, label: 'Middle Pane', icon: Monitor },
+  full: { width: 700, height: 600, label: 'Full Width', icon: Maximize }
+}
+
+// Mock record data for realistic preview
+const MOCK_RECORDS = {
+  contact: {
+    avatar: 'JD',
+    name: 'John Doe',
+    subtitle: 'Marketing Manager at TechCorp',
+    email: 'john.doe@techcorp.com',
+    phone: '+1 (555) 123-4567',
+    company: 'TechCorp Inc.',
+    properties: [
+      { label: 'Lifecycle Stage', value: 'Customer', color: 'text-green-600' },
+      { label: 'Lead Status', value: 'Open', color: 'text-blue-600' },
+      { label: 'Last Activity', value: '2 hours ago' },
+      { label: 'Owner', value: 'Sarah Johnson' }
+    ]
+  },
+  company: {
+    avatar: 'TC',
+    name: 'TechCorp Inc.',
+    subtitle: 'Technology • San Francisco, CA',
+    email: 'info@techcorp.com',
+    phone: '+1 (555) 987-6543',
+    company: null,
+    properties: [
+      { label: 'Industry', value: 'Technology' },
+      { label: 'Annual Revenue', value: '$5.2M', color: 'text-green-600' },
+      { label: 'Employees', value: '50-200' },
+      { label: 'Owner', value: 'Mike Chen' }
+    ]
+  },
+  deal: {
+    avatar: '$',
+    name: 'Enterprise License Deal',
+    subtitle: 'TechCorp Inc. • $45,000',
+    email: null,
+    phone: null,
+    company: 'TechCorp Inc.',
+    properties: [
+      { label: 'Deal Stage', value: 'Contract Sent', color: 'text-orange-600' },
+      { label: 'Amount', value: '$45,000', color: 'text-green-600' },
+      { label: 'Close Date', value: 'Dec 30, 2025' },
+      { label: 'Owner', value: 'Sarah Johnson' }
+    ]
+  },
+  ticket: {
+    avatar: '#',
+    name: 'Login Issue - Password Reset',
+    subtitle: 'High Priority • Open',
+    email: 'john.doe@techcorp.com',
+    phone: null,
+    company: 'TechCorp Inc.',
+    properties: [
+      { label: 'Status', value: 'Open', color: 'text-blue-600' },
+      { label: 'Priority', value: 'High', color: 'text-red-600' },
+      { label: 'Category', value: 'Technical Support' },
+      { label: 'Owner', value: 'Support Team' }
+    ]
+  }
 }
 
 // Badge color variants
@@ -892,6 +964,8 @@ export default function AdvancedCanvas() {
   }
 
   const currentView = CARD_VIEWS[cardView]
+  const { recordType } = useMockData()
+  const mockRecord = MOCK_RECORDS[recordType] || MOCK_RECORDS.contact
 
   return (
     <div className="flex-1 flex flex-col bg-gray-100 overflow-hidden">
@@ -927,54 +1001,171 @@ export default function AdvancedCanvas() {
       </div>
 
       {/* Canvas Container */}
-      <div className="flex-1 overflow-auto bg-gray-100 p-8">
+      <div className="flex-1 overflow-auto bg-[#f5f8fa] p-6">
         <div className="mx-auto" style={{ width: 'fit-content' }}>
           {/* HubSpot CRM UI Mockup */}
-          <div className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden" style={{ width: `${currentView.width}px` }}>
+          <div className="bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden" style={{ width: `${currentView.width + 280}px` }}>
+            {/* HubSpot Top Navigation Bar */}
+            <div className="bg-[#33475b] h-12 flex items-center px-4 gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center">
+                  <div className="w-5 h-5 bg-[#ff7a59] rounded" />
+                </div>
+                <span className="text-white font-medium text-sm">HubSpot</span>
+              </div>
+              <div className="flex-1 flex items-center gap-1 ml-4">
+                {['CRM', 'Marketing', 'Sales', 'Service'].map((item, i) => (
+                  <button key={i} className={`px-3 py-1.5 text-xs font-medium rounded ${i === 0 ? 'bg-white/10 text-white' : 'text-white/70 hover:text-white'}`}>
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 bg-[#ff7a59] rounded-full flex items-center justify-center text-white text-xs font-medium">
+                  SJ
+                </div>
+              </div>
+            </div>
+
             {/* HubSpot Record Header */}
-            <div className="bg-white border-b border-gray-200 px-4 py-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-semibold text-lg shadow-sm">
-                  JD
+            <div className="bg-white border-b border-gray-200 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#ff7a59] to-[#ff5c35] flex items-center justify-center text-white font-bold text-xl shadow-sm">
+                    {mockRecord.avatar}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-xl font-semibold text-[#33475b]">{mockRecord.name}</h2>
+                      <button className="p-1 hover:bg-gray-100 rounded">
+                        <Edit3 className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </div>
+                    <p className="text-sm text-gray-500">{mockRecord.subtitle}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900">John Doe</h2>
-                  <p className="text-sm text-gray-500">Contact • john.doe@example.com</p>
+                <div className="flex items-center gap-2">
+                  <button className="px-3 py-1.5 text-sm font-medium text-[#33475b] bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-1.5">
+                    <Mail className="w-4 h-4" />
+                    Email
+                  </button>
+                  <button className="px-3 py-1.5 text-sm font-medium text-white bg-[#ff7a59] rounded hover:bg-[#ff5c35] flex items-center gap-1.5">
+                    Actions
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  <button className="p-1.5 hover:bg-gray-100 rounded">
+                    <MoreHorizontal className="w-5 h-5 text-gray-500" />
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* HubSpot Tab Navigation */}
-            <div className="bg-white border-b border-gray-200 px-4">
-              <div className="flex gap-0">
-                <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
-                  Overview
-                </button>
-                <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
-                  Activities
-                </button>
-                <button className="px-4 py-3 text-sm font-medium text-orange-600 border-b-2 border-orange-500 transition-colors">
-                  Custom Card
-                </button>
-                <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
-                  Sales
-                </button>
-              </div>
-            </div>
+            {/* Main Content Area with Left Sidebar */}
+            <div className="flex">
+              {/* Left Sidebar - Record Properties */}
+              <div className="w-[280px] bg-white border-r border-gray-200 flex-shrink-0">
+                {/* Quick Info */}
+                <div className="p-4 border-b border-gray-200">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">About this {recordType}</h3>
+                  <div className="space-y-3">
+                    {mockRecord.email && (
+                      <div className="flex items-center gap-3 text-sm">
+                        <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <span className="text-[#0091ae] truncate hover:underline cursor-pointer">{mockRecord.email}</span>
+                      </div>
+                    )}
+                    {mockRecord.phone && (
+                      <div className="flex items-center gap-3 text-sm">
+                        <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <span className="text-[#33475b]">{mockRecord.phone}</span>
+                      </div>
+                    )}
+                    {mockRecord.company && (
+                      <div className="flex items-center gap-3 text-sm">
+                        <Building2 className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <span className="text-[#0091ae] hover:underline cursor-pointer">{mockRecord.company}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-            {/* Card Content Area - This is where the user's card lives */}
-            <div
-              ref={canvasRef}
-              className={`bg-gray-50 relative transition-colors ${isDragOver ? 'bg-blue-50' : ''}`}
-              style={{
-                width: `${currentView.width}px`,
-                height: `${currentView.height}px`
-              }}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onClick={() => selectComponent(null)}
-            >
+                {/* Properties */}
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Properties</h3>
+                    <button className="text-xs text-[#0091ae] hover:underline">View all</button>
+                  </div>
+                  <div className="space-y-3">
+                    {mockRecord.properties.map((prop, i) => (
+                      <div key={i} className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">{prop.label}</span>
+                        <span className={`font-medium ${prop.color || 'text-[#33475b]'}`}>{prop.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recent Activity Preview */}
+                <div className="p-4 border-t border-gray-200">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Recent Activity</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-start gap-2 text-xs">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
+                        <Mail className="w-3 h-3 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-gray-600">Email opened</p>
+                        <p className="text-gray-400">2 hours ago</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2 text-xs">
+                      <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
+                        <Phone className="w-3 h-3 text-green-600" />
+                      </div>
+                      <div>
+                        <p className="text-gray-600">Call logged</p>
+                        <p className="text-gray-400">Yesterday</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Content - Card Area */}
+              <div className="flex-1 flex flex-col">
+                {/* HubSpot Tab Navigation */}
+                <div className="bg-white border-b border-gray-200 px-4">
+                  <div className="flex gap-0">
+                    <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                      Overview
+                    </button>
+                    <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                      Activities
+                    </button>
+                    <button className="px-4 py-3 text-sm font-medium text-[#ff7a59] border-b-2 border-[#ff7a59] transition-colors flex items-center gap-1.5">
+                      <span>Custom Card</span>
+                      <span className="w-1.5 h-1.5 bg-[#ff7a59] rounded-full animate-pulse" />
+                    </button>
+                    <button className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-colors">
+                      Associations
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card Content Area - This is where the user's card lives */}
+                <div
+                  ref={canvasRef}
+                  className={`bg-[#f5f8fa] relative transition-colors flex-1 ${isDragOver ? 'bg-blue-50' : ''}`}
+                  style={{
+                    width: `${currentView.width}px`,
+                    height: `${currentView.height}px`,
+                    minHeight: `${currentView.height}px`
+                  }}
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onClick={() => selectComponent(null)}
+                >
               {/* Grid background */}
               {showGrid && (
                 <div
@@ -1024,9 +1215,11 @@ export default function AdvancedCanvas() {
               </div>
 
               {/* Preview mode indicator */}
-              <div className="absolute top-3 right-3 bg-orange-500 text-white text-xs px-2.5 py-1 rounded-full pointer-events-none flex items-center gap-1.5 shadow-sm">
+              <div className="absolute top-3 right-3 bg-[#ff7a59] text-white text-xs px-2.5 py-1 rounded-full pointer-events-none flex items-center gap-1.5 shadow-sm">
                 <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
                 Design Mode
+              </div>
+            </div>
               </div>
             </div>
           </div>

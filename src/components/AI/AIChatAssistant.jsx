@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
 import {
   MessageSquare,
   Send,
@@ -170,7 +171,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm your AI card building assistant. Tell me what kind of HubSpot card you want to create, and I'll help you build it!\n\nYou can describe what you need in plain English, like:\n• \"Create a contact summary with name, email, and a call button\"\n• \"Add a table showing recent deals\"\n• \"Make a dashboard with revenue stats\"\n\nOr pick from the quick templates below to get started instantly!"
+      content: "Hi! I'm your AI card builder. Describe what you need or pick a template below to get started!"
     }
   ])
   const [input, setInput] = useState('')
@@ -346,11 +347,32 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
                   : 'bg-gray-100 text-gray-800 rounded-bl-md'
               }`}
             >
-              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+              {message.role === 'user' ? (
+                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+              ) : (
+                <div className={`text-sm prose prose-sm max-w-none ${message.role === 'user' ? 'prose-invert' : ''}`}>
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                      ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                      li: ({ children }) => <li className="text-sm">{children}</li>,
+                      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                      em: ({ children }) => <em className="italic">{children}</em>,
+                      code: ({ children }) => <code className="bg-gray-200 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                      h1: ({ children }) => <h1 className="text-base font-bold mb-2">{children}</h1>,
+                      h2: ({ children }) => <h2 className="text-sm font-bold mb-2">{children}</h2>,
+                      h3: ({ children }) => <h3 className="text-sm font-semibold mb-1">{children}</h3>,
+                    }}
+                  >
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
+              )}
               {message.componentsAdded && (
                 <div className="mt-2 pt-2 border-t border-white/20 flex items-center gap-2 text-xs">
-                  <Check className="w-4 h-4 text-green-300" />
-                  <span className="text-white/80">Components added to canvas!</span>
+                  <Check className="w-4 h-4 text-green-500" />
+                  <span className="text-gray-600">Components added to canvas!</span>
                 </div>
               )}
             </div>
@@ -423,7 +445,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-gray-200 bg-gray-50">
+      <div className="p-3 border-t border-gray-200 bg-gray-50">
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <input
@@ -432,7 +454,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && !isLoading && sendMessage()}
               placeholder="Describe what you want to build..."
-              className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
               disabled={isLoading}
             />
           </div>
@@ -448,8 +470,8 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
             )}
           </button>
         </div>
-        <p className="text-xs text-gray-400 mt-2 text-center">
-          Press Enter to send • AI will generate components directly on your canvas
+        <p className="text-xs text-gray-400 mt-1.5 text-center">
+          Enter to send • Components appear on canvas
         </p>
       </div>
     </div>
