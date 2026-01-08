@@ -27,8 +27,6 @@ export class Plugin {
    * Override this in your plugin class
    */
   async initialize(context) {
-    console.log(`Initializing plugin: ${this.name}`)
-
     // Register hooks
     if (this.hooks) {
       this.registerHooks(context)
@@ -39,9 +37,7 @@ export class Plugin {
    * Cleanup when plugin is disabled/destroyed
    * Override this in your plugin class
    */
-  async destroy() {
-    console.log(`Destroying plugin: ${this.name}`)
-  }
+  async destroy() {}
 
   /**
    * Register plugin hooks
@@ -76,7 +72,7 @@ export class Plugin {
       services: this.services,
       settings: this.settings,
       initialize: this.initialize.bind(this),
-      destroy: this.destroy.bind(this)
+      destroy: this.destroy.bind(this),
     }
   }
 }
@@ -100,7 +96,7 @@ export function createPlugin(config) {
     hooks: config.hooks || {},
     settings: config.settings || [],
     initialize: config.initialize || (async () => {}),
-    destroy: config.destroy || (async () => {})
+    destroy: config.destroy || (async () => {}),
   }
 }
 

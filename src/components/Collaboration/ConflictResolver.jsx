@@ -9,8 +9,12 @@ import { useCollaborationStore } from '../../store/collaborationStore'
 import './ConflictResolver.css'
 
 export function ConflictResolver() {
-  const { activeConflicts, resolveConflict, toggleConflictsPanel, showConflicts } =
-    useCollaborationStore()
+  const {
+    activeConflicts,
+    resolveConflict,
+    toggleConflictsPanel,
+    showConflicts,
+  } = useCollaborationStore()
   const [selectedResolution, setSelectedResolution] = useState({})
 
   const handleResolve = (conflictId, resolution) => {
@@ -31,7 +35,8 @@ export function ConflictResolver() {
             <div className="conflict-title">
               <span className="warning-icon">⚠️</span>
               <span className="title-text">
-                {activeConflicts.length} Conflict{activeConflicts.length > 1 ? 's' : ''} Detected
+                {activeConflicts.length} Conflict
+                {activeConflicts.length > 1 ? 's' : ''} Detected
               </span>
             </div>
             <button
@@ -65,13 +70,19 @@ export function ConflictResolver() {
                     {/* Conflict Info */}
                     <div className="conflict-info">
                       <div className="conflict-message">
-                        <strong>Edit conflict:</strong> Your change conflicts with{' '}
-                        <strong>{conflict.userId}</strong>&rsquo;s concurrent edit
+                        <strong>Edit conflict:</strong> Your change conflicts
+                        with <strong>{conflict.userId}</strong>&rsquo;s
+                        concurrent edit
                       </div>
                       <div className="conflict-details">
                         <div className="detail-box">
                           <span className="label">Your Edit:</span>
-                          <div className="value">{JSON.stringify(conflict.operation).substring(0, 100)}</div>
+                          <div className="value">
+                            {JSON.stringify(conflict.operation).substring(
+                              0,
+                              100
+                            )}
+                          </div>
                         </div>
                         <div className="detail-box">
                           <span className="label">Server Version:</span>
@@ -84,12 +95,14 @@ export function ConflictResolver() {
                     <div className="resolution-options">
                       <button
                         className={`resolution-btn keep ${
-                          selectedResolution[conflict.timestamp] === 'keep' ? 'selected' : ''
+                          selectedResolution[conflict.timestamp] === 'keep'
+                            ? 'selected'
+                            : ''
                         }`}
                         onClick={() => {
                           setSelectedResolution({
                             ...selectedResolution,
-                            [conflict.timestamp]: 'keep'
+                            [conflict.timestamp]: 'keep',
                           })
                           handleResolve(conflict.timestamp, 'keep_mine')
                         }}
@@ -100,12 +113,14 @@ export function ConflictResolver() {
 
                       <button
                         className={`resolution-btn accept ${
-                          selectedResolution[conflict.timestamp] === 'accept' ? 'selected' : ''
+                          selectedResolution[conflict.timestamp] === 'accept'
+                            ? 'selected'
+                            : ''
                         }`}
                         onClick={() => {
                           setSelectedResolution({
                             ...selectedResolution,
-                            [conflict.timestamp]: 'accept'
+                            [conflict.timestamp]: 'accept',
                           })
                           handleResolve(conflict.timestamp, 'accept_theirs')
                         }}
@@ -116,12 +131,14 @@ export function ConflictResolver() {
 
                       <button
                         className={`resolution-btn merge ${
-                          selectedResolution[conflict.timestamp] === 'merge' ? 'selected' : ''
+                          selectedResolution[conflict.timestamp] === 'merge'
+                            ? 'selected'
+                            : ''
                         }`}
                         onClick={() => {
                           setSelectedResolution({
                             ...selectedResolution,
-                            [conflict.timestamp]: 'merge'
+                            [conflict.timestamp]: 'merge',
                           })
                           handleResolve(conflict.timestamp, 'merge')
                         }}
@@ -139,7 +156,8 @@ export function ConflictResolver() {
           {/* Resolution Summary */}
           <div className="conflict-footer">
             <span className="footer-text">
-              {Object.keys(selectedResolution).length} of {activeConflicts.length} resolved
+              {Object.keys(selectedResolution).length} of{' '}
+              {activeConflicts.length} resolved
             </span>
           </div>
         </motion.div>

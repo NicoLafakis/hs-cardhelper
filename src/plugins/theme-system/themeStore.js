@@ -19,7 +19,7 @@ const useThemeStore = create(
       /**
        * Set the current theme
        */
-      setTheme: (themeId) => {
+      setTheme: themeId => {
         set({ currentTheme: themeId })
         get().applyTheme(themeId)
       },
@@ -42,7 +42,7 @@ const useThemeStore = create(
       /**
        * Apply theme to DOM
        */
-      applyTheme: (themeId) => {
+      applyTheme: themeId => {
         const { customThemes } = get()
 
         // Get theme object
@@ -62,28 +62,27 @@ const useThemeStore = create(
 
         // Set data-theme attribute for CSS targeting
         root.setAttribute('data-theme', themeId)
-
-        console.log(`✓ Applied theme: ${theme.name}`)
       },
 
       /**
        * Create a custom theme
        */
       createCustomTheme: (themeId, themeData) => {
-        set((state) => ({
+        set(state => ({
           customThemes: {
             ...state.customThemes,
-            [themeId]: themeData
-          }
+            [themeId]: themeData,
+          },
         }))
       },
 
       /**
        * Delete a custom theme
        */
-      deleteCustomTheme: (themeId) => {
-        set((state) => {
-          const { [themeId]: removed, ...remaining } = state.customThemes
+      deleteCustomTheme: themeId => {
+        set(state => {
+          // eslint-disable-next-line no-unused-vars
+          const { [themeId]: _, ...remaining } = state.customThemes
           return { customThemes: remaining }
         })
       },
@@ -92,14 +91,14 @@ const useThemeStore = create(
        * Update a custom theme
        */
       updateCustomTheme: (themeId, updates) => {
-        set((state) => ({
+        set(state => ({
           customThemes: {
             ...state.customThemes,
             [themeId]: {
               ...state.customThemes[themeId],
-              ...updates
-            }
-          }
+              ...updates,
+            },
+          },
         }))
       },
 
@@ -123,11 +122,11 @@ const useThemeStore = create(
       /**
        * Import theme from JSON
        */
-      importTheme: async (file) => {
+      importTheme: async file => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader()
 
-          reader.onload = (e) => {
+          reader.onload = e => {
             try {
               const theme = JSON.parse(e.target.result)
 
@@ -155,11 +154,11 @@ const useThemeStore = create(
       resetTheme: () => {
         set({ currentTheme: 'light' })
         get().applyTheme('light')
-      }
+      },
     }),
     {
       name: 'theme-storage',
-      version: 1
+      version: 1,
     }
   )
 )

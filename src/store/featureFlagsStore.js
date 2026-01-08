@@ -15,22 +15,24 @@ const useFeatureFlagsStore = create(
       /**
        * Set a feature flag
        */
-      setFlag: (key, value) => set((state) => ({
-        flags: {
-          ...state.flags,
-          [key]: value
-        }
-      })),
+      setFlag: (key, value) =>
+        set(state => ({
+          flags: {
+            ...state.flags,
+            [key]: value,
+          },
+        })),
 
       /**
        * Set multiple flags at once
        */
-      setFlags: (newFlags) => set((state) => ({
-        flags: {
-          ...state.flags,
-          ...newFlags
-        }
-      })),
+      setFlags: newFlags =>
+        set(state => ({
+          flags: {
+            ...state.flags,
+            ...newFlags,
+          },
+        })),
 
       /**
        * Get a feature flag value
@@ -43,19 +45,20 @@ const useFeatureFlagsStore = create(
       /**
        * Check if a feature is enabled
        */
-      isEnabled: (key) => {
+      isEnabled: key => {
         return get().getFlag(key, false) === true
       },
 
       /**
        * Toggle a feature flag
        */
-      toggleFlag: (key) => set((state) => ({
-        flags: {
-          ...state.flags,
-          [key]: !state.flags[key]
-        }
-      })),
+      toggleFlag: key =>
+        set(state => ({
+          flags: {
+            ...state.flags,
+            [key]: !state.flags[key],
+          },
+        })),
 
       /**
        * Reset all flags
@@ -65,11 +68,11 @@ const useFeatureFlagsStore = create(
       /**
        * Get all flags
        */
-      getAllFlags: () => get().flags
+      getAllFlags: () => get().flags,
     }),
     {
       name: 'feature-flags-storage',
-      version: 1
+      version: 1,
     }
   )
 )

@@ -13,14 +13,14 @@ export default function Signup({ onSignupSuccess }) {
   const [loading, setLoading] = useState(false)
   const setAuth = useAuthStore(state => state.setAuth)
 
-  const validatePassword = (pwd) => {
+  const validatePassword = pwd => {
     if (pwd.length < 8) return 'Password must be at least 8 characters'
     if (!/[a-zA-Z]/.test(pwd)) return 'Password must contain letters'
     if (!/[0-9]/.test(pwd)) return 'Password must contain numbers'
     return null
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setError('')
 
@@ -50,7 +50,8 @@ export default function Signup({ onSignupSuccess }) {
     }
   }
 
-  const passwordStrength = password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password)
+  const passwordStrength =
+    password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center p-4">
@@ -76,7 +77,7 @@ export default function Signup({ onSignupSuccess }) {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               className="input-field"
               placeholder="your@email.com"
               required
@@ -91,7 +92,7 @@ export default function Signup({ onSignupSuccess }) {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               className="input-field"
               placeholder="Enter your password"
               required
@@ -120,7 +121,7 @@ export default function Signup({ onSignupSuccess }) {
             <input
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={e => setConfirmPassword(e.target.value)}
               className="input-field"
               placeholder="Confirm your password"
               required

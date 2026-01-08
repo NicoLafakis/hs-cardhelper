@@ -6,6 +6,19 @@
 [![Status](https://img.shields.io/badge/status-Production%20Ready-brightgreen.svg)]()
 [![HubSpot](https://img.shields.io/badge/HubSpot-UI%20Extensions-orange.svg)]()
 
+## 📚 Documentation Quick Links
+
+| Document | Purpose |
+|----------|---------|
+| [Documentation Index](docs/DOCUMENTATION_INDEX.md) | **Start here** - Navigate all docs |
+| [AI Instructions](.github/copilot-instructions.md) | AI coding agent guidelines |
+| [Diagnostics](docs/DIAGNOSTICS.md) | Run at start of every session |
+| [Custodian Guide](docs/CUSTODIAN.md) | Code quality & cleanup |
+| [Testing Guide](docs/TESTING.md) | Automated & manual testing |
+| [Database Setup](docs/DATABASE_SETUP.md) | MySQL configuration |
+
+> **🤖 100% AGENT-MAINTAINED** - This codebase is entirely maintained by AI agents. No human coding.
+
 ## Table of Contents
 
 - [Overview](#overview)

@@ -10,25 +10,24 @@ import {
   Play,
   Pause,
   X,
-  CheckCircle,
   AlertCircle,
   FileText,
   Trash2,
   Edit3,
-  Copy
+  Copy,
 } from 'lucide-react'
 import './BulkOperationsPanel.css'
 
 const OPERATION_TYPES = [
   { value: 'update', label: 'Update Fields', icon: Edit3 },
   { value: 'delete', label: 'Delete Records', icon: Trash2 },
-  { value: 'duplicate', label: 'Duplicate Records', icon: Copy }
+  { value: 'duplicate', label: 'Duplicate Records', icon: Copy },
 ]
 
 export function BulkOperationsPanel({
   availableFields = [],
   onExecute,
-  objectType = 'records'
+  objectType = 'records',
 }) {
   const [mode, setMode] = useState('select') // 'select', 'csv', 'manual'
   const [operationType, setOperationType] = useState('update')
@@ -40,23 +39,26 @@ export function BulkOperationsPanel({
   const [csvData, setCsvData] = useState(null)
   const fileInputRef = useRef(null)
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = event => {
     const file = event.target.files[0]
     if (!file) return
 
     const reader = new FileReader()
-    reader.onload = (e) => {
+    reader.onload = e => {
       try {
         const text = e.target.result
         const rows = text.split('\n').map(row => row.split(','))
         const headers = rows[0]
-        const data = rows.slice(1).map(row => {
-          const record = {}
-          headers.forEach((header, idx) => {
-            record[header.trim()] = row[idx]?.trim() || ''
+        const data = rows
+          .slice(1)
+          .map(row => {
+            const record = {}
+            headers.forEach((header, idx) => {
+              record[header.trim()] = row[idx]?.trim() || ''
+            })
+            return record
           })
-          return record
-        }).filter(record => Object.keys(record).length > 0)
+          .filter(record => Object.keys(record).length > 0)
 
         setCsvData({ headers, data })
         setSelectedRecords(data)
@@ -79,7 +81,7 @@ export function BulkOperationsPanel({
       headers.join(','),
       ...selectedRecords.map(record =>
         headers.map(header => `"${record[header] || ''}"`).join(',')
-      )
+      ),
     ].join('\n')
 
     const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -101,7 +103,7 @@ export function BulkOperationsPanel({
     setFieldUpdates(newUpdates)
   }
 
-  const removeFieldUpdate = (index) => {
+  const removeFieldUpdate = index => {
     setFieldUpdates(fieldUpdates.filter((_, idx) => idx !== index))
   }
 
@@ -136,7 +138,7 @@ export function BulkOperationsPanel({
           await onExecute({
             type: operationType,
             record: selectedRecords[i],
-            updates: fieldUpdates.filter(u => u.field)
+            updates: fieldUpdates.filter(u => u.field),
           })
 
           setProgress(prev => ({ ...prev, current: i + 1 }))
@@ -144,7 +146,7 @@ export function BulkOperationsPanel({
           setProgress(prev => ({
             ...prev,
             current: i + 1,
-            errors: [...prev.errors, { record: i, error: error.message }]
+            errors: [...prev.errors, { record: i, error: error.message }],
           }))
         }
 
@@ -152,7 +154,9 @@ export function BulkOperationsPanel({
         await new Promise(resolve => setTimeout(resolve, 100))
       }
 
-      alert(`Operation complete! Processed ${progress.current} records with ${progress.errors.length} errors.`)
+      alert(
+        `Operation complete! Processed ${progress.current} records with ${progress.errors.length} errors.`
+      )
     } catch (error) {
       alert(`Bulk operation failed: ${error.message}`)
     } finally {
@@ -260,7 +264,9 @@ export function BulkOperationsPanel({
           {/* Manual Selection */}
           {mode === 'manual' && (
             <div className="manual-section">
-              <p>Manual selection mode - integrate with your record selection UI</p>
+              <p>
+                Manual selection mode - integrate with your record selection UI
+              </p>
               <div className="selection-info">
                 <p>
                   <strong>{selectedRecords.length}</strong> records selected
@@ -302,7 +308,7 @@ export function BulkOperationsPanel({
                       <select
                         className="field-select"
                         value={update.field}
-                        onChange={(e) =>
+                        onChange={e =>
                           updateFieldUpdate(index, 'field', e.target.value)
                         }
                       >
@@ -318,7 +324,7 @@ export function BulkOperationsPanel({
                         className="value-input"
                         placeholder="New value..."
                         value={update.value}
-                        onChange={(e) =>
+                        onChange={e =>
                           updateFieldUpdate(index, 'value', e.target.value)
                         }
                       />
@@ -343,8 +349,9 @@ export function BulkOperationsPanel({
                 <div className="warning-section">
                   <AlertCircle size={20} />
                   <p>
-                    <strong>Warning:</strong> This will permanently delete {selectedRecords.length} {objectType}.
-                    This action cannot be undone.
+                    <strong>Warning:</strong> This will permanently delete{' '}
+                    {selectedRecords.length} {objectType}. This action cannot be
+                    undone.
                   </p>
                 </div>
               )}
@@ -360,7 +367,12 @@ export function BulkOperationsPanel({
                   onClick={executeBulkOperation}
                 >
                   <Play size={16} />
-                  Execute {operationType === 'update' ? 'Update' : operationType === 'delete' ? 'Delete' : 'Duplicate'}
+                  Execute{' '}
+                  {operationType === 'update'
+                    ? 'Update'
+                    : operationType === 'delete'
+                      ? 'Delete'
+                      : 'Duplicate'}
                 </button>
               </div>
             </>
@@ -374,7 +386,7 @@ export function BulkOperationsPanel({
             <div
               className="progress-bar"
               style={{
-                width: `${(progress.current / progress.total) * 100}%`
+                width: `${(progress.current / progress.total) * 100}%`,
               }}
             />
           </div>

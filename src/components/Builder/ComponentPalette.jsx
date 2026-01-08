@@ -23,8 +23,7 @@ import {
   Layers,
   AlignLeft,
   Columns,
-  Navigation,
-  Link
+  Link,
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 
@@ -33,74 +32,218 @@ const COMPONENT_CATEGORIES = [
     name: 'Basic',
     icon: Layers,
     components: [
-      { type: 'text', label: 'Text Field', icon: Type, defaultProps: { content: 'Enter text here', fontSize: 'medium' } },
-      { type: 'button', label: 'Button', icon: MousePointer, defaultProps: { label: 'Click me', url: '' } },
-      { type: 'image', label: 'Image', icon: Image, defaultProps: { src: '', alt: 'Image' } },
-      { type: 'video', label: 'Video', icon: Video, defaultProps: { src: '', autoplay: false } },
-      { type: 'link', label: 'Link', icon: Link, defaultProps: { text: 'Click here', url: '#' } },
-      { type: 'divider', label: 'Divider', icon: AlignLeft, defaultProps: { style: 'solid' } }
-    ]
+      {
+        type: 'text',
+        label: 'Text Field',
+        icon: Type,
+        defaultProps: { content: 'Enter text here', fontSize: 'medium' },
+      },
+      {
+        type: 'button',
+        label: 'Button',
+        icon: MousePointer,
+        defaultProps: { label: 'Click me', url: '' },
+      },
+      {
+        type: 'image',
+        label: 'Image',
+        icon: Image,
+        defaultProps: { src: '', alt: 'Image' },
+      },
+      {
+        type: 'video',
+        label: 'Video',
+        icon: Video,
+        defaultProps: { src: '', autoplay: false },
+      },
+      {
+        type: 'link',
+        label: 'Link',
+        icon: Link,
+        defaultProps: { text: 'Click here', url: '#' },
+      },
+      {
+        type: 'divider',
+        label: 'Divider',
+        icon: AlignLeft,
+        defaultProps: { style: 'solid' },
+      },
+    ],
   },
   {
     name: 'Forms',
     icon: FileText,
     components: [
-      { type: 'input', label: 'Text Input', icon: Type, defaultProps: { placeholder: 'Enter text', label: 'Input Label' } },
-      { type: 'textarea', label: 'Text Area', icon: FileText, defaultProps: { placeholder: 'Enter text', rows: 4 } },
-      { type: 'checkbox', label: 'Checkbox', icon: CheckSquare, defaultProps: { label: 'Option', checked: false } },
-      { type: 'toggle', label: 'Toggle Switch', icon: ToggleLeft, defaultProps: { label: 'Enable', checked: false } },
-      { type: 'select', label: 'Dropdown', icon: List, defaultProps: { label: 'Select', options: [] } },
-      { type: 'radio', label: 'Radio Group', icon: CheckSquare, defaultProps: { label: 'Choose one', options: [] } },
-      { type: 'datepicker', label: 'Date Picker', icon: Calendar, defaultProps: { label: 'Select date' } },
-      { type: 'fileupload', label: 'File Upload', icon: Upload, defaultProps: { label: 'Upload file', accept: '*' } }
-    ]
+      {
+        type: 'input',
+        label: 'Text Input',
+        icon: Type,
+        defaultProps: { placeholder: 'Enter text', label: 'Input Label' },
+      },
+      {
+        type: 'textarea',
+        label: 'Text Area',
+        icon: FileText,
+        defaultProps: { placeholder: 'Enter text', rows: 4 },
+      },
+      {
+        type: 'checkbox',
+        label: 'Checkbox',
+        icon: CheckSquare,
+        defaultProps: { label: 'Option', checked: false },
+      },
+      {
+        type: 'toggle',
+        label: 'Toggle Switch',
+        icon: ToggleLeft,
+        defaultProps: { label: 'Enable', checked: false },
+      },
+      {
+        type: 'select',
+        label: 'Dropdown',
+        icon: List,
+        defaultProps: { label: 'Select', options: [] },
+      },
+      {
+        type: 'radio',
+        label: 'Radio Group',
+        icon: CheckSquare,
+        defaultProps: { label: 'Choose one', options: [] },
+      },
+      {
+        type: 'datepicker',
+        label: 'Date Picker',
+        icon: Calendar,
+        defaultProps: { label: 'Select date' },
+      },
+      {
+        type: 'fileupload',
+        label: 'File Upload',
+        icon: Upload,
+        defaultProps: { label: 'Upload file', accept: '*' },
+      },
+    ],
   },
   {
     name: 'Data Display',
     icon: Table,
     components: [
-      { type: 'table', label: 'Data Table', icon: Table, defaultProps: { columns: [], data: [], title: 'New Table' } },
-      { type: 'list', label: 'List', icon: List, defaultProps: { items: [], style: 'unordered' } },
-      { type: 'stat', label: 'Stat Card', icon: BarChart2, defaultProps: { label: 'Metric', value: '0', trend: '+0%' } },
-      { type: 'badge', label: 'Badge', icon: Tag, defaultProps: { text: 'Badge', variant: 'primary' } },
-      { type: 'rating', label: 'Rating', icon: Star, defaultProps: { value: 0, max: 5 } },
-      { type: 'progress', label: 'Progress Bar', icon: BarChart2, defaultProps: { value: 50, max: 100 } }
-    ]
+      {
+        type: 'table',
+        label: 'Data Table',
+        icon: Table,
+        defaultProps: { columns: [], data: [], title: 'New Table' },
+      },
+      {
+        type: 'list',
+        label: 'List',
+        icon: List,
+        defaultProps: { items: [], style: 'unordered' },
+      },
+      {
+        type: 'stat',
+        label: 'Stat Card',
+        icon: BarChart2,
+        defaultProps: { label: 'Metric', value: '0', trend: '+0%' },
+      },
+      {
+        type: 'badge',
+        label: 'Badge',
+        icon: Tag,
+        defaultProps: { text: 'Badge', variant: 'primary' },
+      },
+      {
+        type: 'rating',
+        label: 'Rating',
+        icon: Star,
+        defaultProps: { value: 0, max: 5 },
+      },
+      {
+        type: 'progress',
+        label: 'Progress Bar',
+        icon: BarChart2,
+        defaultProps: { value: 50, max: 100 },
+      },
+    ],
   },
   {
     name: 'Charts',
     icon: BarChart2,
     components: [
-      { type: 'barchart', label: 'Bar Chart', icon: BarChart2, defaultProps: { data: [], xKey: '', yKey: '' } },
-      { type: 'linechart', label: 'Line Chart', icon: BarChart2, defaultProps: { data: [], xKey: '', yKey: '' } },
-      { type: 'piechart', label: 'Pie Chart', icon: PieChart, defaultProps: { data: [], valueKey: '', nameKey: '' } },
-      { type: 'areachart', label: 'Area Chart', icon: BarChart2, defaultProps: { data: [], xKey: '', yKey: '' } }
-    ]
+      {
+        type: 'barchart',
+        label: 'Bar Chart',
+        icon: BarChart2,
+        defaultProps: { data: [], xKey: '', yKey: '' },
+      },
+      {
+        type: 'linechart',
+        label: 'Line Chart',
+        icon: BarChart2,
+        defaultProps: { data: [], xKey: '', yKey: '' },
+      },
+      {
+        type: 'piechart',
+        label: 'Pie Chart',
+        icon: PieChart,
+        defaultProps: { data: [], valueKey: '', nameKey: '' },
+      },
+      {
+        type: 'areachart',
+        label: 'Area Chart',
+        icon: BarChart2,
+        defaultProps: { data: [], xKey: '', yKey: '' },
+      },
+    ],
   },
   {
     name: 'Layout',
     icon: Grid,
     components: [
-      { type: 'container', label: 'Container', icon: Box, defaultProps: { maxWidth: 'full', padding: 'medium' } },
-      { type: 'columns', label: 'Columns', icon: Columns, defaultProps: { count: 2, gap: 'medium' } },
-      { type: 'grid', label: 'Grid', icon: Grid, defaultProps: { columns: 3, gap: 'medium' } },
+      {
+        type: 'container',
+        label: 'Container',
+        icon: Box,
+        defaultProps: { maxWidth: 'full', padding: 'medium' },
+      },
+      {
+        type: 'columns',
+        label: 'Columns',
+        icon: Columns,
+        defaultProps: { count: 2, gap: 'medium' },
+      },
+      {
+        type: 'grid',
+        label: 'Grid',
+        icon: Grid,
+        defaultProps: { columns: 3, gap: 'medium' },
+      },
       { type: 'tabs', label: 'Tabs', icon: Layers, defaultProps: { tabs: [] } },
-      { type: 'accordion', label: 'Accordion', icon: List, defaultProps: { items: [] } }
-    ]
-  }
+      {
+        type: 'accordion',
+        label: 'Accordion',
+        icon: List,
+        defaultProps: { items: [] },
+      },
+    ],
+  },
 ]
 
 export default function ComponentPalette() {
   const addComponent = useBuilderStore(state => state.addComponent)
   const [searchQuery, setSearchQuery] = useState('')
-  const [expandedCategories, setExpandedCategories] = useState(['Basic', 'Forms', 'Data Display'])
+  const [expandedCategories, setExpandedCategories] = useState([
+    'Basic',
+    'Forms',
+    'Data Display',
+  ])
   const [isPaletteCollapsed, setIsPaletteCollapsed] = useState(false)
 
   const handleDragStart = (e, component) => {
     e.dataTransfer.setData('component', JSON.stringify(component))
   }
 
-  const toggleCategory = (categoryName) => {
+  const toggleCategory = categoryName => {
     setExpandedCategories(prev =>
       prev.includes(categoryName)
         ? prev.filter(name => name !== categoryName)
@@ -110,10 +253,11 @@ export default function ComponentPalette() {
 
   const filteredCategories = COMPONENT_CATEGORIES.map(category => ({
     ...category,
-    components: category.components.filter(component =>
-      component.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      component.type.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    components: category.components.filter(
+      component =>
+        component.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.type.toLowerCase().includes(searchQuery.toLowerCase())
+    ),
   })).filter(category => category.components.length > 0)
 
   if (isPaletteCollapsed) {
@@ -152,7 +296,7 @@ export default function ComponentPalette() {
             type="text"
             placeholder="Search components..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
           />
         </div>
@@ -166,7 +310,7 @@ export default function ComponentPalette() {
             <p className="text-sm text-gray-500">No components found</p>
           </div>
         ) : (
-          filteredCategories.map((category) => {
+          filteredCategories.map(category => {
             const CategoryIcon = category.icon
             const isExpanded = expandedCategories.includes(category.name)
 
@@ -196,13 +340,13 @@ export default function ComponentPalette() {
                 {/* Category Components */}
                 {isExpanded && (
                   <div className="space-y-1.5 pl-2">
-                    {category.components.map((component) => {
+                    {category.components.map(component => {
                       const Icon = component.icon
                       return (
                         <div
                           key={component.type}
                           draggable
-                          onDragStart={(e) => handleDragStart(e, component)}
+                          onDragStart={e => handleDragStart(e, component)}
                           onClick={() => addComponent(component)}
                           className="flex items-center gap-2.5 p-2.5 bg-gray-50 hover:bg-gray-100 rounded cursor-move border border-gray-200 hover:border-primary transition-all group"
                           title={`Drag or click to add ${component.label}`}

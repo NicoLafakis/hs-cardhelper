@@ -19,12 +19,12 @@ const useVersionStore = create((set, get) => ({
       components: JSON.parse(JSON.stringify(components)), // Deep clone
       createdAt: new Date().toISOString(),
       createdBy: 'current-user', // TODO: Get from auth store
-      thumbnail: null // TODO: Generate thumbnail
+      thumbnail: null, // TODO: Generate thumbnail
     }
 
-    set((state) => ({
+    set(state => ({
       snapshots: [snapshot, ...state.snapshots],
-      activeSnapshotId: snapshot.id
+      activeSnapshotId: snapshot.id,
     }))
 
     return snapshot
@@ -32,35 +32,38 @@ const useVersionStore = create((set, get) => ({
 
   // Update existing snapshot
   updateSnapshot: (id, updates) => {
-    set((state) => ({
+    set(state => ({
       snapshots: state.snapshots.map(s =>
-        s.id === id ? { ...s, ...updates, updatedAt: new Date().toISOString() } : s
-      )
+        s.id === id
+          ? { ...s, ...updates, updatedAt: new Date().toISOString() }
+          : s
+      ),
     }))
   },
 
   // Delete snapshot
-  deleteSnapshot: (id) => {
-    set((state) => ({
+  deleteSnapshot: id => {
+    set(state => ({
       snapshots: state.snapshots.filter(s => s.id !== id),
-      activeSnapshotId: state.activeSnapshotId === id ? null : state.activeSnapshotId
+      activeSnapshotId:
+        state.activeSnapshotId === id ? null : state.activeSnapshotId,
     }))
   },
 
   // Set active snapshot
-  setActiveSnapshot: (id) => {
+  setActiveSnapshot: id => {
     set({ activeSnapshotId: id })
   },
 
   // Get snapshot by ID
-  getSnapshot: (id) => {
+  getSnapshot: id => {
     return get().snapshots.find(s => s.id === id)
   },
 
   // Get all snapshots sorted by date
   getSortedSnapshots: () => {
-    return [...get().snapshots].sort((a, b) =>
-      new Date(b.createdAt) - new Date(a.createdAt)
+    return [...get().snapshots].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     )
   },
 
@@ -75,7 +78,7 @@ const useVersionStore = create((set, get) => ({
       added: [],
       removed: [],
       modified: [],
-      unchanged: []
+      unchanged: [],
     }
 
     const components1Map = new Map(snapshot1.components.map(c => [c.id, c]))
@@ -108,11 +111,14 @@ const useVersionStore = create((set, get) => ({
       snapshot2,
       changes,
       summary: {
-        totalChanges: changes.added.length + changes.removed.length + changes.modified.length,
+        totalChanges:
+          changes.added.length +
+          changes.removed.length +
+          changes.modified.length,
         added: changes.added.length,
         removed: changes.removed.length,
-        modified: changes.modified.length
-      }
+        modified: changes.modified.length,
+      },
     }
   },
 
@@ -122,12 +128,12 @@ const useVersionStore = create((set, get) => ({
   },
 
   // Import snapshots
-  importSnapshots: (data) => {
+  importSnapshots: data => {
     try {
       const imported = JSON.parse(data)
       if (Array.isArray(imported)) {
-        set((state) => ({
-          snapshots: [...imported, ...state.snapshots]
+        set(state => ({
+          snapshots: [...imported, ...state.snapshots],
         }))
         return { success: true, count: imported.length }
       }
@@ -146,11 +152,11 @@ const useVersionStore = create((set, get) => ({
   autoSaveEnabled: true,
   lastAutoSave: null,
 
-  setAutoSaveEnabled: (enabled) => {
+  setAutoSaveEnabled: enabled => {
     set({ autoSaveEnabled: enabled })
   },
 
-  autoSave: (components) => {
+  autoSave: components => {
     const { autoSaveEnabled, snapshots } = get()
     if (!autoSaveEnabled) return
 
@@ -158,7 +164,10 @@ const useVersionStore = create((set, get) => ({
     const lastSave = snapshots.find(s => s.name.startsWith('Auto-save'))
 
     // Auto-save every 5 minutes
-    if (!lastSave || now - new Date(lastSave.createdAt).getTime() > 5 * 60 * 1000) {
+    if (
+      !lastSave ||
+      now - new Date(lastSave.createdAt).getTime() > 5 * 60 * 1000
+    ) {
       get().createSnapshot(
         `Auto-save ${new Date().toLocaleTimeString()}`,
         'Automatic backup',
@@ -170,34 +179,33 @@ const useVersionStore = create((set, get) => ({
 
   // Tags for organization
   addTag: (snapshotId, tag) => {
-    set((state) => ({
+    set(state => ({
       snapshots: state.snapshots.map(s =>
-        s.id === snapshotId
-          ? { ...s, tags: [...(s.tags || []), tag] }
-          : s
-      )
+        s.id === snapshotId ? { ...s, tags: [...(s.tags || []), tag] } : s
+      ),
     }))
   },
 
   removeTag: (snapshotId, tag) => {
-    set((state) => ({
+    set(state => ({
       snapshots: state.snapshots.map(s =>
         s.id === snapshotId
           ? { ...s, tags: (s.tags || []).filter(t => t !== tag) }
           : s
-      )
+      ),
     }))
   },
 
   // Search snapshots
-  searchSnapshots: (query) => {
+  searchSnapshots: query => {
     const lowerQuery = query.toLowerCase()
-    return get().snapshots.filter(s =>
-      s.name.toLowerCase().includes(lowerQuery) ||
-      s.description.toLowerCase().includes(lowerQuery) ||
-      (s.tags || []).some(t => t.toLowerCase().includes(lowerQuery))
+    return get().snapshots.filter(
+      s =>
+        s.name.toLowerCase().includes(lowerQuery) ||
+        s.description.toLowerCase().includes(lowerQuery) ||
+        (s.tags || []).some(t => t.toLowerCase().includes(lowerQuery))
     )
-  }
+  },
 }))
 
 export default useVersionStore

@@ -17,13 +17,13 @@ export function useGenerateLayout() {
   const [layout, setLayout] = useState(null)
   const [tokensUsed, setTokensUsed] = useState(0)
 
-  const generate = useCallback(async (description) => {
+  const generate = useCallback(async description => {
     setLoading(true)
     setError(null)
 
     try {
       const response = await axios.post(`${API_BASE}/generate-layout`, {
-        description
+        description,
       })
 
       setLayout(response.data.layout)
@@ -55,10 +55,13 @@ export function useSuggestHubSpotMappings() {
     setError(null)
 
     try {
-      const response = await axios.post(`${API_BASE}/suggest-hubspot-mappings`, {
-        cardLayout,
-        hubspotProperties
-      })
+      const response = await axios.post(
+        `${API_BASE}/suggest-hubspot-mappings`,
+        {
+          cardLayout,
+          hubspotProperties,
+        }
+      )
 
       setMappings(response.data.mappings)
       setTokensUsed(response.data.tokensUsed)
@@ -84,13 +87,13 @@ export function useLayoutImprovements() {
   const [suggestions, setSuggestions] = useState(null)
   const [tokensUsed, setTokensUsed] = useState(0)
 
-  const getSuggestions = useCallback(async (cardLayout) => {
+  const getSuggestions = useCallback(async cardLayout => {
     setLoading(true)
     setError(null)
 
     try {
       const response = await axios.post(`${API_BASE}/suggest-improvements`, {
-        cardLayout
+        cardLayout,
       })
 
       setSuggestions(response.data.suggestions)
@@ -117,20 +120,21 @@ export function useSuggestComponents() {
   const [recommendations, setRecommendations] = useState([])
   const [tokensUsed, setTokensUsed] = useState(0)
 
-  const suggest = useCallback(async (description) => {
+  const suggest = useCallback(async description => {
     setLoading(true)
     setError(null)
 
     try {
       const response = await axios.post(`${API_BASE}/suggest-components`, {
-        description
+        description,
       })
 
       setRecommendations(response.data.recommendations)
       setTokensUsed(response.data.tokensUsed)
       return response.data.recommendations
     } catch (err) {
-      const message = err.response?.data?.error || 'Failed to suggest components'
+      const message =
+        err.response?.data?.error || 'Failed to suggest components'
       setError(message)
       throw err
     } finally {
@@ -168,5 +172,5 @@ export default {
   useSuggestHubSpotMappings,
   useLayoutImprovements,
   useSuggestComponents,
-  useSmartBuilderStatus
+  useSmartBuilderStatus,
 }

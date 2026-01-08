@@ -60,7 +60,7 @@ export class FeatureFlagsService extends BaseService {
 
       return {
         success: true,
-        flags: merged
+        flags: merged,
       }
     }
 

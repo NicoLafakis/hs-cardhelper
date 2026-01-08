@@ -11,16 +11,13 @@ import './DataDisplay.css'
  * Badge Component
  * Simple status/label badge with multiple variants
  */
-export function Badge({
-  config = {},
-  value = 'Badge'
-}) {
+export function Badge({ config = {}, value = 'Badge' }) {
   const {
     variant = 'default', // 'default' | 'success' | 'warning' | 'danger' | 'info'
     size = 'md', // 'sm' | 'md' | 'lg'
     icon = null,
     rounded = true,
-    animated = false
+    animated = false,
   } = config
 
   const variantClasses = {
@@ -28,13 +25,13 @@ export function Badge({
     success: 'badge-success',
     warning: 'badge-warning',
     danger: 'badge-danger',
-    info: 'badge-info'
+    info: 'badge-info',
   }
 
   const sizeClasses = {
     sm: 'badge-sm',
     md: 'badge-md',
-    lg: 'badge-lg'
+    lg: 'badge-lg',
   }
 
   return (
@@ -53,16 +50,12 @@ export function Badge({
  * Tag Component
  * Removable label with optional close button
  */
-export function Tag({
-  config = {},
-  value = 'Tag',
-  onRemove = null
-}) {
+export function Tag({ config = {}, value = 'Tag', onRemove = null }) {
   const {
     color = 'default', // 'default' | 'blue' | 'green' | 'red' | 'purple'
     removable = false,
     icon = null,
-    size = 'md'
+    size = 'md',
   } = config
 
   const [isVisible, setIsVisible] = useState(true)
@@ -79,13 +72,13 @@ export function Tag({
     blue: 'tag-blue',
     green: 'tag-green',
     red: 'tag-red',
-    purple: 'tag-purple'
+    purple: 'tag-purple',
   }
 
   const sizeClasses = {
     sm: 'tag-sm',
     md: 'tag-md',
-    lg: 'tag-lg'
+    lg: 'tag-lg',
   }
 
   return (
@@ -115,10 +108,7 @@ export function Tag({
  * ProgressBar Component
  * Visual progress indicator with percentage
  */
-export function ProgressBar({
-  config = {},
-  value = 50
-}) {
+export function ProgressBar({ config = {}, value = 50 }) {
   const {
     max = 100,
     animated = true,
@@ -127,7 +117,7 @@ export function ProgressBar({
     variant = 'default', // 'default' | 'success' | 'warning' | 'danger' | 'info'
     size = 'md', // 'sm' | 'md' | 'lg'
     striped = false,
-    customLabel = null
+    customLabel = null,
   } = config
 
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
@@ -137,13 +127,13 @@ export function ProgressBar({
     success: 'progress-success',
     warning: 'progress-warning',
     danger: 'progress-danger',
-    info: 'progress-info'
+    info: 'progress-info',
   }
 
   const sizeClasses = {
     sm: 'progress-sm',
     md: 'progress-md',
-    lg: 'progress-lg'
+    lg: 'progress-lg',
   }
 
   let displayLabel = ''
@@ -181,11 +171,7 @@ export function ProgressBar({
  * Rating Component
  * Star rating display and input
  */
-export function Rating({
-  config = {},
-  value = 0,
-  onChange = null
-}) {
+export function Rating({ config = {}, value = 0, onChange = null }) {
   const {
     max = 5,
     interactive = false,
@@ -193,36 +179,45 @@ export function Rating({
     precision = 1, // 1 | 0.5
     color = 'default', // 'default' | 'gold' | 'red'
     showLabel = true,
-    hoverEffect = true
+    hoverEffect = true,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
   const [hoverValue, setHoverValue] = useState(0)
 
-  const handleRating = useCallback((newValue) => {
-    if (!interactive) return
-    setInternalValue(newValue)
-    if (onChange) onChange(newValue)
-  }, [interactive, onChange])
+  const handleRating = useCallback(
+    newValue => {
+      if (!interactive) return
+      setInternalValue(newValue)
+      if (onChange) onChange(newValue)
+    },
+    [interactive, onChange]
+  )
 
   const sizeClasses = {
     sm: 'rating-sm',
     md: 'rating-md',
-    lg: 'rating-lg'
+    lg: 'rating-lg',
   }
 
   const colorClasses = {
     default: 'rating-default',
     gold: 'rating-gold',
-    red: 'rating-red'
+    red: 'rating-red',
   }
 
   const displayValue = hoverValue || internalValue
   const stars = Array.from({ length: max }, (_, i) => i + 1)
 
   return (
-    <div className={`rating-wrapper ${sizeClasses[size] || 'rating-md'} ${colorClasses[color] || 'rating-default'}`}>
-      <div className="rating-stars" role="img" aria-label={`Rating: ${displayValue} out of ${max}`}>
+    <div
+      className={`rating-wrapper ${sizeClasses[size] || 'rating-md'} ${colorClasses[color] || 'rating-default'}`}
+    >
+      <div
+        className="rating-stars"
+        role="img"
+        aria-label={`Rating: ${displayValue} out of ${max}`}
+      >
         {stars.map(star => {
           const isFilled = star <= displayValue
           const isHalf = precision === 0.5 && star - 0.5 === displayValue
@@ -245,7 +240,9 @@ export function Rating({
       </div>
       {showLabel && (
         <span className="rating-label">
-          {displayValue > 0 ? `${displayValue.toFixed(1)} / ${max}` : 'Not rated'}
+          {displayValue > 0
+            ? `${displayValue.toFixed(1)} / ${max}`
+            : 'Not rated'}
         </span>
       )}
     </div>

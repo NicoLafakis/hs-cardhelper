@@ -4,8 +4,15 @@ import { useMockData } from '../../contexts/MockDataContext'
 import useBuilderStore from '../../store/builderStore'
 
 export default function PropertyMapper({ isOpen, onClose }) {
-  const { recordType, setRecordType, getRecordTypes, getPropertyMetadata, getProperties } = useMockData()
-  const { components, selectedComponentId, selectComponent, updateComponent } = useBuilderStore()
+  const {
+    recordType,
+    setRecordType,
+    getRecordTypes,
+    getPropertyMetadata,
+    getProperties,
+  } = useMockData()
+  const { components, selectedComponentId, selectComponent, updateComponent } =
+    useBuilderStore()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedProperty, setSelectedProperty] = useState(null)
 
@@ -14,15 +21,17 @@ export default function PropertyMapper({ isOpen, onClose }) {
   const propertyMetadata = getPropertyMetadata(recordType)
 
   // Filter properties by search query
-  const filteredProperties = Object.entries(properties).filter(([key, value]) => {
-    const metadata = propertyMetadata[key] || {}
-    const searchLower = searchQuery.toLowerCase()
-    return (
-      key.toLowerCase().includes(searchLower) ||
-      metadata.label?.toLowerCase().includes(searchLower) ||
-      String(value).toLowerCase().includes(searchLower)
-    )
-  })
+  const filteredProperties = Object.entries(properties).filter(
+    ([key, value]) => {
+      const metadata = propertyMetadata[key] || {}
+      const searchLower = searchQuery.toLowerCase()
+      return (
+        key.toLowerCase().includes(searchLower) ||
+        metadata.label?.toLowerCase().includes(searchLower) ||
+        String(value).toLowerCase().includes(searchLower)
+      )
+    }
+  )
 
   // Group properties by their group
   const groupedProperties = filteredProperties.reduce((acc, [key, value]) => {
@@ -33,7 +42,7 @@ export default function PropertyMapper({ isOpen, onClose }) {
     return acc
   }, {})
 
-  const handleBindProperty = (propertyKey) => {
+  const handleBindProperty = propertyKey => {
     if (!selectedComponent) {
       alert('Please select a component first')
       return
@@ -42,13 +51,15 @@ export default function PropertyMapper({ isOpen, onClose }) {
     // Check if component type supports property binding
     const supportedTypes = ['text', 'input', 'button', 'link']
     if (!supportedTypes.includes(selectedComponent.type)) {
-      alert(`Property binding is not supported for ${selectedComponent.type} components yet`)
+      alert(
+        `Property binding is not supported for ${selectedComponent.type} components yet`
+      )
       return
     }
 
     // Update component with property binding
     updateComponent(selectedComponent.id, {
-      propertyBinding: propertyKey
+      propertyBinding: propertyKey,
     })
 
     onClose()
@@ -58,7 +69,7 @@ export default function PropertyMapper({ isOpen, onClose }) {
     if (!selectedComponent) return
 
     updateComponent(selectedComponent.id, {
-      propertyBinding: null
+      propertyBinding: null,
     })
   }
 
@@ -73,8 +84,12 @@ export default function PropertyMapper({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">HubSpot Property Mapper</h2>
-            <p className="text-sm text-gray-600">Bind HubSpot CRM properties to your components</p>
+            <h2 className="text-lg font-semibold text-gray-800">
+              HubSpot Property Mapper
+            </h2>
+            <p className="text-sm text-gray-600">
+              Bind HubSpot CRM properties to your components
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -94,7 +109,7 @@ export default function PropertyMapper({ isOpen, onClose }) {
               </label>
               <select
                 value={recordType}
-                onChange={(e) => setRecordType(e.target.value)}
+                onChange={e => setRecordType(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 {getRecordTypes().map(type => (
@@ -112,7 +127,7 @@ export default function PropertyMapper({ isOpen, onClose }) {
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Search properties..."
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary"
                 />
@@ -131,7 +146,9 @@ export default function PropertyMapper({ isOpen, onClose }) {
                     {props.map(({ key, value, metadata }) => (
                       <button
                         key={key}
-                        onClick={() => setSelectedProperty({ key, value, metadata })}
+                        onClick={() =>
+                          setSelectedProperty({ key, value, metadata })
+                        }
                         onDoubleClick={() => handleBindProperty(key)}
                         className={`w-full text-left p-3 rounded border transition-colors ${
                           selectedProperty?.key === key
@@ -143,13 +160,17 @@ export default function PropertyMapper({ isOpen, onClose }) {
                           <span className="text-sm font-medium text-gray-800">
                             {metadata.label || key}
                           </span>
-                          {boundComponents.some(c => c.propertyBinding === key) && (
-                            <Link2 className="w-3 h-3 text-primary" />
-                          )}
+                          {boundComponents.some(
+                            c => c.propertyBinding === key
+                          ) && <Link2 className="w-3 h-3 text-primary" />}
                         </div>
-                        <div className="text-xs text-gray-500 font-mono">{key}</div>
+                        <div className="text-xs text-gray-500 font-mono">
+                          {key}
+                        </div>
                         <div className="text-xs text-gray-600 mt-1 truncate">
-                          {typeof value === 'object' ? JSON.stringify(value) : String(value)}
+                          {typeof value === 'object'
+                            ? JSON.stringify(value)
+                            : String(value)}
                         </div>
                       </button>
                     ))}
@@ -209,7 +230,8 @@ export default function PropertyMapper({ isOpen, onClose }) {
                 <div className="bg-yellow-50 border border-yellow-200 rounded p-3 flex items-start gap-2">
                   <Info className="w-4 h-4 text-yellow-600 flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-yellow-800">
-                    Select a component on the canvas first, then choose a property to bind
+                    Select a component on the canvas first, then choose a
+                    property to bind
                   </p>
                 </div>
               )}
@@ -230,7 +252,9 @@ export default function PropertyMapper({ isOpen, onClose }) {
                   </div>
                   <div className="mb-2">
                     <span className="text-xs text-gray-500">Internal Name</span>
-                    <div className="text-sm font-mono text-gray-800">{selectedProperty.key}</div>
+                    <div className="text-sm font-mono text-gray-800">
+                      {selectedProperty.key}
+                    </div>
                   </div>
                   <div className="mb-2">
                     <span className="text-xs text-gray-500">Type</span>
@@ -304,8 +328,9 @@ export default function PropertyMapper({ isOpen, onClose }) {
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
             <div className="text-sm text-blue-800">
-              <strong>How to use:</strong> Select a component on the canvas, then double-click a property to bind it.
-              The component will display the real HubSpot data when deployed.
+              <strong>How to use:</strong> Select a component on the canvas,
+              then double-click a property to bind it. The component will
+              display the real HubSpot data when deployed.
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ export function FileUpload({
   value = null,
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -26,7 +26,7 @@ export function FileUpload({
     accept = '*/*', // MIME types: 'image/*', '.pdf', etc.
     maxSize = 5242880, // 5MB default
     multiple = false,
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
@@ -34,42 +34,51 @@ export function FileUpload({
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef(null)
 
-  const validateFile = useCallback((files) => {
-    if (required && (!files || files.length === 0)) {
-      return { valid: false, message: errorMessage || 'Please upload a file' }
-    }
+  const validateFile = useCallback(
+    files => {
+      if (required && (!files || files.length === 0)) {
+        return { valid: false, message: errorMessage || 'Please upload a file' }
+      }
 
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i]
-        if (file.size > maxSize) {
-          return { valid: false, message: `File size exceeds ${(maxSize / 1024 / 1024).toFixed(1)}MB limit` }
+      if (files && files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i]
+          if (file.size > maxSize) {
+            return {
+              valid: false,
+              message: `File size exceeds ${(maxSize / 1024 / 1024).toFixed(1)}MB limit`,
+            }
+          }
         }
       }
-    }
 
-    return { valid: true, message: '' }
-  }, [required, errorMessage, maxSize])
+      return { valid: true, message: '' }
+    },
+    [required, errorMessage, maxSize]
+  )
 
-  const handleFiles = useCallback((files) => {
-    const validation_result = validateFile(files)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+  const handleFiles = useCallback(
+    files => {
+      const validation_result = validateFile(files)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
 
-    const newValue = multiple ? Array.from(files) : files[0]
-    setInternalValue(newValue)
+      const newValue = multiple ? Array.from(files) : files[0]
+      setInternalValue(newValue)
 
-    if (onChange) onChange(newValue)
-  }, [validateFile, multiple, onChange])
+      if (onChange) onChange(newValue)
+    },
+    [validateFile, multiple, onChange]
+  )
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     handleFiles(e.target.files)
   }
 
-  const handleDragOver = (e) => {
+  const handleDragOver = e => {
     e.preventDefault()
     setIsDragging(true)
   }
@@ -78,14 +87,19 @@ export function FileUpload({
     setIsDragging(false)
   }
 
-  const handleDrop = (e) => {
+  const handleDrop = e => {
     e.preventDefault()
     setIsDragging(false)
     handleFiles(e.dataTransfer.files)
   }
 
   const displayError = error || validationError
-  const fileCount = multiple && Array.isArray(internalValue) ? internalValue.length : (internalValue ? 1 : 0)
+  const fileCount =
+    multiple && Array.isArray(internalValue)
+      ? internalValue.length
+      : internalValue
+        ? 1
+        : 0
 
   return (
     <motion.div className="form-field fileupload-wrapper">
@@ -121,9 +135,7 @@ export function FileUpload({
 
         <div className="fileupload-content">
           <div className="fileupload-icon">📁</div>
-          <p className="fileupload-text">
-            Drag files here or click to upload
-          </p>
+          <p className="fileupload-text">Drag files here or click to upload</p>
           <p className="fileupload-hint">
             Max size: {(maxSize / 1024 / 1024).toFixed(1)}MB
           </p>
@@ -132,25 +144,28 @@ export function FileUpload({
 
       {fileCount > 0 && (
         <div className="fileupload-list">
-          {multiple && Array.isArray(internalValue) ? (
-            internalValue.map((file, idx) => (
-              <div key={idx} className="fileupload-item">
-                📄 {file.name} ({(file.size / 1024).toFixed(1)}KB)
-              </div>
-            ))
-          ) : (
-            internalValue && (
-              <div className="fileupload-item">
-                📄 {internalValue.name} ({(internalValue.size / 1024).toFixed(1)}KB)
-              </div>
-            )
-          )}
+          {multiple && Array.isArray(internalValue)
+            ? internalValue.map((file, idx) => (
+                <div key={idx} className="fileupload-item">
+                  📄 {file.name} ({(file.size / 1024).toFixed(1)}KB)
+                </div>
+              ))
+            : internalValue && (
+                <div className="fileupload-item">
+                  📄 {internalValue.name} (
+                  {(internalValue.size / 1024).toFixed(1)}KB)
+                </div>
+              )}
         </div>
       )}
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}
@@ -168,7 +183,7 @@ export function SearchInput({
   onChange,
   onSearch,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -176,7 +191,7 @@ export function SearchInput({
     helpText = '',
     minChars = 2,
     debounceMs = 300,
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
@@ -186,53 +201,62 @@ export function SearchInput({
   const [showSuggestions, setShowSuggestions] = useState(false)
   const debounceTimerRef = useRef(null)
 
-  const performSearch = useCallback(async (searchTerm) => {
-    if (searchTerm.length < minChars) {
-      setSuggestions([])
-      return
-    }
-
-    setIsSearching(true)
-    try {
-      if (onSearch) {
-        const results = await onSearch(searchTerm)
-        setSuggestions(results || [])
-        setShowSuggestions(true)
+  const performSearch = useCallback(
+    async searchTerm => {
+      if (searchTerm.length < minChars) {
+        setSuggestions([])
+        return
       }
-    } catch (err) {
-      setValidationError('Search failed, please try again')
-    } finally {
-      setIsSearching(false)
-    }
-  }, [minChars, onSearch])
 
-  const handleChange = useCallback((e) => {
-    const newValue = e.target.value
-    setInternalValue(newValue)
-    setValidationError(null)
-    setShowSuggestions(true)
+      setIsSearching(true)
+      try {
+        if (onSearch) {
+          const results = await onSearch(searchTerm)
+          setSuggestions(results || [])
+          setShowSuggestions(true)
+        }
+      } catch (err) {
+        setValidationError('Search failed, please try again')
+      } finally {
+        setIsSearching(false)
+      }
+    },
+    [minChars, onSearch]
+  )
 
-    // Debounce search
-    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current)
+  const handleChange = useCallback(
+    e => {
+      const newValue = e.target.value
+      setInternalValue(newValue)
+      setValidationError(null)
+      setShowSuggestions(true)
 
-    if (newValue.trim().length >= minChars) {
-      debounceTimerRef.current = setTimeout(() => {
-        performSearch(newValue)
-      }, debounceMs)
-    } else {
-      setSuggestions([])
+      // Debounce search
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current)
+
+      if (newValue.trim().length >= minChars) {
+        debounceTimerRef.current = setTimeout(() => {
+          performSearch(newValue)
+        }, debounceMs)
+      } else {
+        setSuggestions([])
+        setShowSuggestions(false)
+      }
+
+      if (onChange) onChange(newValue)
+    },
+    [minChars, debounceMs, performSearch, onChange]
+  )
+
+  const handleSelectSuggestion = useCallback(
+    suggestion => {
+      setInternalValue(suggestion)
       setShowSuggestions(false)
-    }
-
-    if (onChange) onChange(newValue)
-  }, [minChars, debounceMs, performSearch, onChange])
-
-  const handleSelectSuggestion = useCallback((suggestion) => {
-    setInternalValue(suggestion)
-    setShowSuggestions(false)
-    setSuggestions([])
-    if (onChange) onChange(suggestion)
-  }, [onChange])
+      setSuggestions([])
+      if (onChange) onChange(suggestion)
+    },
+    [onChange]
+  )
 
   const displayError = error || validationError
 
@@ -248,7 +272,11 @@ export function SearchInput({
             className={`searchinput-input ${displayError ? 'error' : ''}`}
             value={internalValue}
             onChange={handleChange}
-            onFocus={() => internalValue.length >= minChars && setSuggestions.length > 0 && setShowSuggestions(true)}
+            onFocus={() =>
+              internalValue.length >= minChars &&
+              setSuggestions.length > 0 &&
+              setShowSuggestions(true)
+            }
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             placeholder={placeholder}
             disabled={disabled || isSearching}
@@ -281,7 +309,11 @@ export function SearchInput({
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}

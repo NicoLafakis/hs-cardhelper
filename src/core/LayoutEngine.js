@@ -9,7 +9,7 @@ const BREAKPOINTS = {
   sm: { width: 640, cols: 2, rowHeight: 100, gutter: 12 },
   md: { width: 1024, cols: 3, rowHeight: 120, gutter: 16 },
   lg: { width: 1280, cols: 4, rowHeight: 120, gutter: 20 },
-  xl: { width: 1536, cols: 6, rowHeight: 140, gutter: 24 }
+  xl: { width: 1536, cols: 6, rowHeight: 140, gutter: 24 },
 }
 
 // Default layout configuration
@@ -26,7 +26,7 @@ const DEFAULT_LAYOUT_CONFIG = {
   isBounded: false,
   useCSSTransforms: true,
   verticalCompact: true,
-  autoSize: true
+  autoSize: true,
 }
 
 /**
@@ -111,7 +111,7 @@ export class LayoutEngine {
       cols,
       rowHeight: this.config.rowHeight,
       margin: this.config.margin,
-      gutter: bpConfig.gutter
+      gutter: bpConfig.gutter,
     }
   }
 
@@ -206,7 +206,7 @@ export class LayoutEngine {
       config: this.config,
       layouts: this.layouts,
       items: this.gridItems,
-      version: '1.0'
+      version: '1.0',
     }
   }
 

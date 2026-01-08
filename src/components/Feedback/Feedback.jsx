@@ -14,14 +14,14 @@ import './Feedback.css'
 export function Alert({
   config = {},
   message = 'Alert message',
-  onDismiss = null
+  onDismiss = null,
 }) {
   const {
     type = 'info', // 'success' | 'warning' | 'error' | 'info'
     dismissible = true,
     icon = null,
     title = null,
-    animated = true
+    animated = true,
   } = config
 
   const [isVisible, setIsVisible] = useState(true)
@@ -37,14 +37,14 @@ export function Alert({
     success: 'alert-success',
     warning: 'alert-warning',
     error: 'alert-error',
-    info: 'alert-info'
+    info: 'alert-info',
   }
 
   const typeIcons = {
     success: '✓',
     warning: '⚠',
     error: '✕',
-    info: 'ℹ'
+    info: 'ℹ',
   }
 
   return (
@@ -77,13 +77,13 @@ export function Alert({
 export function Toast({
   config = {},
   message = 'Toast message',
-  duration = 3000
+  duration = 3000,
 }) {
   const {
     type = 'info', // 'success' | 'warning' | 'error' | 'info'
     icon = null,
     position = 'bottom-right', // 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-    closeable = true
+    closeable = true,
   } = config
 
   const [isVisible, setIsVisible] = useState(true)
@@ -100,14 +100,14 @@ export function Toast({
     success: 'toast-success',
     warning: 'toast-warning',
     error: 'toast-error',
-    info: 'toast-info'
+    info: 'toast-info',
   }
 
   const typeIcons = {
     success: '✓',
     warning: '⚠',
     error: '✕',
-    info: 'ℹ'
+    info: 'ℹ',
   }
 
   return (
@@ -122,7 +122,11 @@ export function Toast({
         <span className="toast-message">{message}</span>
       </div>
       {closeable && (
-        <button className="toast-close" onClick={() => setIsVisible(false)} type="button">
+        <button
+          className="toast-close"
+          onClick={() => setIsVisible(false)}
+          type="button"
+        >
           ×
         </button>
       )}
@@ -134,15 +138,11 @@ export function Toast({
  * Tooltip Component
  * Hover information popup
  */
-export function Tooltip({
-  config = {},
-  children,
-  content = 'Tooltip'
-}) {
+export function Tooltip({ config = {}, children, content = 'Tooltip' }) {
   const {
     position = 'top', // 'top' | 'bottom' | 'left' | 'right'
     delay = 200,
-    arrow = true
+    arrow = true,
   } = config
 
   const [isVisible, setIsVisible] = useState(false)
@@ -158,7 +158,11 @@ export function Tooltip({
   }
 
   return (
-    <div className="tooltip-wrapper" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div
+      className="tooltip-wrapper"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {children}
       <AnimatePresence>
         {isVisible && (
@@ -180,27 +184,25 @@ export function Tooltip({
  * Popover Component
  * Click-triggered popup with content
  */
-export function Popover({
-  config = {},
-  trigger,
-  content,
-  onClose = null
-}) {
+export function Popover({ config = {}, trigger, content, onClose = null }) {
   const {
     position = 'bottom', // 'top' | 'bottom' | 'left' | 'right'
     arrow = true,
-    closeOnClick = true
+    closeOnClick = true,
   } = config
 
   const [isOpen, setIsOpen] = useState(false)
   const wrapperRef = useRef(null)
 
-  const handleClickOutside = useCallback((e) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-      setIsOpen(false)
-      if (onClose) onClose()
-    }
-  }, [onClose])
+  const handleClickOutside = useCallback(
+    e => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setIsOpen(false)
+        if (onClose) onClose()
+      }
+    },
+    [onClose]
+  )
 
   useEffect(() => {
     if (isOpen) {
@@ -247,19 +249,19 @@ export function Modal({
   onClose = null,
   title = 'Modal',
   children,
-  actions = null
+  actions = null,
 }) {
   const {
     size = 'md', // 'sm' | 'md' | 'lg' | 'xl'
     backdrop = 'dark', // 'dark' | 'light'
-    closeButton = true
+    closeButton = true,
   } = config
 
   const sizeClasses = {
     sm: 'modal-sm',
     md: 'modal-md',
     lg: 'modal-lg',
-    xl: 'modal-xl'
+    xl: 'modal-xl',
   }
 
   return (
@@ -300,15 +302,13 @@ export function Modal({
  * Skeleton Component
  * Loading placeholder
  */
-export function Skeleton({
-  config = {}
-}) {
+export function Skeleton({ config = {} }) {
   const {
     type = 'text', // 'text' | 'circle' | 'rect'
     count = 1,
     width = '100%',
     height = '1rem',
-    animated = true
+    animated = true,
   } = config
 
   const items = Array.from({ length: count })
@@ -322,10 +322,13 @@ export function Skeleton({
           style={{
             width: type === 'circle' ? height : width,
             height,
-            borderRadius: type === 'circle' ? '50%' : '0.375rem'
+            borderRadius: type === 'circle' ? '50%' : '0.375rem',
           }}
           animate={animated ? { opacity: [0.5, 1, 0.5] } : {}}
-          transition={{ duration: 1.5, repeat: animated ? Number.POSITIVE_INFINITY : 0 }}
+          transition={{
+            duration: 1.5,
+            repeat: animated ? Number.POSITIVE_INFINITY : 0,
+          }}
         />
       ))}
     </div>

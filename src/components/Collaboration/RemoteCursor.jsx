@@ -3,7 +3,6 @@
  * Displays live cursor positions of other collaborators
  */
 
-import React from 'react'
 import { motion } from 'framer-motion'
 import './RemoteCursor.css'
 
@@ -13,7 +12,7 @@ export function RemoteCursor({
   userAvatar,
   x,
   y,
-  isVisible = true
+  isVisible = true,
 }) {
   if (!isVisible) return null
 
@@ -26,7 +25,7 @@ export function RemoteCursor({
     '#8b5cf6', // purple
     '#ec4899', // pink
     '#06b6d4', // cyan
-    '#f97316'  // orange
+    '#f97316', // orange
   ]
   const color = colors[userId.charCodeAt(0) % colors.length]
 

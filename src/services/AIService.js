@@ -17,7 +17,7 @@ export class AIService extends BaseService {
     return await this.post('/suggest', {
       prompt,
       objectType,
-      properties
+      properties,
     })
   }
 
@@ -28,7 +28,7 @@ export class AIService extends BaseService {
     return await this.post('/table-wizard', {
       description,
       objectType,
-      availableProperties
+      availableProperties,
     })
   }
 
@@ -59,18 +59,18 @@ export class AIService extends BaseService {
         return {
           success: true,
           columns: response.data.columns || [],
-          config: response.data.config || {}
+          config: response.data.config || {},
         }
       }
 
       return {
         success: false,
-        error: 'Failed to parse AI response'
+        error: 'Failed to parse AI response',
       }
     } catch (error) {
       return {
         success: false,
-        error: error.message
+        error: error.message,
       }
     }
   }
@@ -79,12 +79,7 @@ export class AIService extends BaseService {
    * Build AI prompt for card generation
    */
   buildCardPrompt(requirements) {
-    const {
-      objectType,
-      purpose,
-      dataPoints,
-      style
-    } = requirements
+    const { objectType, purpose, dataPoints, style } = requirements
 
     return `Create a HubSpot CRM card for ${objectType} objects.
 Purpose: ${purpose}

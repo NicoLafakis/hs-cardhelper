@@ -37,11 +37,11 @@ export function useDataBindings(cardId) {
   }, [fetchBindings])
 
   const createBinding = useCallback(
-    async (binding) => {
+    async binding => {
       try {
         const response = await axios.post('/api/data-bindings/create', {
           cardId,
-          binding
+          binding,
         })
 
         if (response.data.success) {
@@ -63,14 +63,12 @@ export function useDataBindings(cardId) {
         const response = await axios.put('/api/data-bindings/update', {
           cardId,
           bindingId,
-          updates
+          updates,
         })
 
         if (response.data.success) {
           setBindings(
-            bindings.map(b =>
-              b.id === bindingId ? { ...b, ...updates } : b
-            )
+            bindings.map(b => (b.id === bindingId ? { ...b, ...updates } : b))
           )
         }
 
@@ -84,10 +82,10 @@ export function useDataBindings(cardId) {
   )
 
   const deleteBinding = useCallback(
-    async (bindingId) => {
+    async bindingId => {
       try {
         const response = await axios.delete('/api/data-bindings/delete', {
-          data: { cardId, bindingId }
+          data: { cardId, bindingId },
         })
 
         if (response.data.success) {
@@ -110,7 +108,7 @@ export function useDataBindings(cardId) {
     createBinding,
     updateBinding,
     deleteBinding,
-    refetch: fetchBindings
+    refetch: fetchBindings,
   }
 }
 
@@ -133,7 +131,7 @@ export function useBindingEvaluation(cardId, data, autoEvaluate = true) {
     try {
       const response = await axios.post('/api/data-bindings/evaluate-all', {
         cardId,
-        data
+        data,
       })
 
       if (response.data.success) {
@@ -167,20 +165,20 @@ export function useBindingEvaluation(cardId, data, autoEvaluate = true) {
   }, [data, autoEvaluate, evaluateAllBindings])
 
   const evaluateSingleBinding = useCallback(
-    async (bindingId) => {
+    async bindingId => {
       if (!cardId || !bindingId || !data) return
 
       try {
         const response = await axios.post('/api/data-bindings/evaluate', {
           cardId,
           bindingId,
-          data
+          data,
         })
 
         if (response.data.success) {
           setResults(prev => ({
             ...prev,
-            [bindingId]: response.data.result
+            [bindingId]: response.data.result,
           }))
         }
 
@@ -198,7 +196,7 @@ export function useBindingEvaluation(cardId, data, autoEvaluate = true) {
     loading,
     error,
     evaluateAllBindings,
-    evaluateSingleBinding
+    evaluateSingleBinding,
   }
 }
 
@@ -210,7 +208,7 @@ export function useConditionalFields(cardId, data) {
   const { results: conditions } = useBindingEvaluation(cardId, data, true)
 
   const isFieldVisible = useCallback(
-    (fieldId) => {
+    fieldId => {
       // If field has a conditional binding result, use that
       if (conditions[fieldId] !== undefined) {
         return Boolean(conditions[fieldId])
@@ -222,7 +220,7 @@ export function useConditionalFields(cardId, data) {
   )
 
   const visibleFields = useCallback(
-    (fieldIds) => {
+    fieldIds => {
       return fieldIds.filter(fieldId => isFieldVisible(fieldId))
     },
     [isFieldVisible]
@@ -231,7 +229,7 @@ export function useConditionalFields(cardId, data) {
   return {
     isFieldVisible,
     visibleFields,
-    conditions
+    conditions,
   }
 }
 
@@ -243,7 +241,7 @@ export function useComputedFields(cardId, data) {
   const { results: computedValues } = useBindingEvaluation(cardId, data, true)
 
   const getComputedValue = useCallback(
-    (fieldId) => {
+    fieldId => {
       return computedValues[fieldId]
     },
     [computedValues]
@@ -251,7 +249,7 @@ export function useComputedFields(cardId, data) {
 
   return {
     computedValues,
-    getComputedValue
+    getComputedValue,
   }
 }
 
@@ -263,7 +261,7 @@ export function useFormulaFields(cardId, data) {
   const { results: formulaResults } = useBindingEvaluation(cardId, data, true)
 
   const getFormulaResult = useCallback(
-    (fieldId) => {
+    fieldId => {
       return formulaResults[fieldId]
     },
     [formulaResults]
@@ -271,7 +269,7 @@ export function useFormulaFields(cardId, data) {
 
   return {
     formulaResults,
-    getFormulaResult
+    getFormulaResult,
   }
 }
 
@@ -283,7 +281,7 @@ export function useLookupFields(cardId, data) {
   const { results: lookupValues } = useBindingEvaluation(cardId, data, true)
 
   const getLookupValue = useCallback(
-    (fieldId) => {
+    fieldId => {
       return lookupValues[fieldId]
     },
     [lookupValues]
@@ -291,7 +289,7 @@ export function useLookupFields(cardId, data) {
 
   return {
     lookupValues,
-    getLookupValue
+    getLookupValue,
   }
 }
 
@@ -328,7 +326,7 @@ export function useDependentFields(cardId) {
   }, [cardId])
 
   const getDependents = useCallback(
-    (fieldId) => {
+    fieldId => {
       const dependents = []
       Object.entries(dependencies).forEach(([id, deps]) => {
         if (deps.includes(fieldId)) {
@@ -343,7 +341,7 @@ export function useDependentFields(cardId) {
   return {
     dependencies,
     getDependents,
-    loading
+    loading,
   }
 }
 
@@ -352,7 +350,7 @@ export function useDependentFields(cardId) {
  * Validate binding configurations
  */
 export function useBindingValidator() {
-  const validateConditional = useCallback((binding) => {
+  const validateConditional = useCallback(binding => {
     if (!binding.sourceField) {
       return { valid: false, error: 'Source field is required' }
     }
@@ -362,29 +360,38 @@ export function useBindingValidator() {
     return { valid: true }
   }, [])
 
-  const validateFormula = useCallback((binding) => {
+  const validateFormula = useCallback(binding => {
     if (!binding.formula) {
       return { valid: false, error: 'Formula is required' }
     }
     // Basic formula syntax check
     if (!binding.formula.includes('${')) {
-      return { valid: false, error: 'Formula must contain field references (${fieldName})' }
+      return {
+        valid: false,
+        error: 'Formula must contain field references (${fieldName})',
+      }
     }
     return { valid: true }
   }, [])
 
-  const validateLookup = useCallback((binding) => {
-    if (!binding.sourceField || !binding.lookupTable || !binding.matchField || !binding.returnField) {
+  const validateLookup = useCallback(binding => {
+    if (
+      !binding.sourceField ||
+      !binding.lookupTable ||
+      !binding.matchField ||
+      !binding.returnField
+    ) {
       return {
         valid: false,
-        error: 'Lookup requires sourceField, lookupTable, matchField, and returnField'
+        error:
+          'Lookup requires sourceField, lookupTable, matchField, and returnField',
       }
     }
     return { valid: true }
   }, [])
 
   const validateBinding = useCallback(
-    (binding) => {
+    binding => {
       if (!binding.type) {
         return { valid: false, error: 'Binding type is required' }
       }
@@ -407,6 +414,6 @@ export function useBindingValidator() {
     validateBinding,
     validateConditional,
     validateFormula,
-    validateLookup
+    validateLookup,
   }
 }

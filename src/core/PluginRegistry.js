@@ -39,10 +39,8 @@ class PluginRegistry {
       enabled: plugin.enabled !== false, // Default to enabled
       initialized: false,
       dependencies: plugin.dependencies || [],
-      config: plugin.config || {}
+      config: plugin.config || {},
     })
-
-    console.log(`✓ Plugin registered: ${plugin.name} (${plugin.id})`)
   }
 
   /**
@@ -61,7 +59,6 @@ class PluginRegistry {
     }
 
     if (!plugin.enabled) {
-      console.log(`Plugin ${pluginId} is disabled, skipping initialization`)
       return
     }
 
@@ -80,8 +77,6 @@ class PluginRegistry {
 
       this.initializedPlugins.add(pluginId)
       plugin.initialized = true
-
-      console.log(`✓ Plugin initialized: ${plugin.name}`)
     } catch (error) {
       console.error(`Failed to initialize plugin ${pluginId}:`, error)
       throw error
@@ -119,8 +114,6 @@ class PluginRegistry {
 
       this.initializedPlugins.delete(pluginId)
       plugin.initialized = false
-
-      console.log(`✓ Plugin destroyed: ${plugin.name}`)
     } catch (error) {
       console.error(`Failed to destroy plugin ${pluginId}:`, error)
     }
@@ -199,7 +192,7 @@ class PluginRegistry {
 
     this.hooks.get(hookName).push({
       callback,
-      pluginId
+      pluginId,
     })
   }
 
@@ -216,7 +209,10 @@ class PluginRegistry {
         try {
           await hook.callback(...args)
         } catch (error) {
-          console.error(`Error executing hook ${hookName} for plugin ${hook.pluginId}:`, error)
+          console.error(
+            `Error executing hook ${hookName} for plugin ${hook.pluginId}:`,
+            error
+          )
         }
       }
     }

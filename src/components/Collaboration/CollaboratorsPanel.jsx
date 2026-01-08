@@ -3,7 +3,6 @@
  * Shows active users and their activity in real-time
  */
 
-import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCollaborationStore } from '../../store/collaborationStore'
 import './CollaboratorsPanel.css'
@@ -15,7 +14,7 @@ export function CollaboratorsPanel() {
     userPresence,
     isConnected,
     toggleCollaboratorsPanel,
-    showCollaborators
+    showCollaborators,
   } = useCollaborationStore()
 
   return (
@@ -33,7 +32,9 @@ export function CollaboratorsPanel() {
       </div>
 
       {/* Status */}
-      <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+      <div
+        className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}
+      >
         <span className="status-dot"></span>
         <span className="status-text">
           {isConnected ? 'Connected' : 'Disconnected'}
@@ -54,7 +55,7 @@ export function CollaboratorsPanel() {
                 <p>No collaborators yet</p>
               </div>
             ) : (
-              cardCollaborators.map((collaborator) => (
+              cardCollaborators.map(collaborator => (
                 <motion.div
                   key={collaborator.userId}
                   className="collaborator-item"
@@ -96,11 +97,11 @@ export function CollaboratorsPanel() {
                     <motion.div
                       className="cursor-indicator"
                       animate={{
-                        opacity: [1, 0.5, 1]
+                        opacity: [1, 0.5, 1],
                       }}
                       transition={{
                         duration: 2,
-                        repeat: Infinity
+                        repeat: Infinity,
                       }}
                     >
                       <span className="dot"></span>

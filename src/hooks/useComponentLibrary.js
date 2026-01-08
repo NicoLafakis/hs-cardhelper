@@ -36,7 +36,7 @@ export function useComponentLibrary() {
     }
   }, [])
 
-  const getComponent = useCallback(async (componentId) => {
+  const getComponent = useCallback(async componentId => {
     try {
       return await componentAPI.getComponent(componentId)
     } catch (err) {
@@ -45,7 +45,7 @@ export function useComponentLibrary() {
     }
   }, [])
 
-  const createComponent = useCallback(async (componentData) => {
+  const createComponent = useCallback(async componentData => {
     setLoading(true)
     setError(null)
 
@@ -67,7 +67,7 @@ export function useComponentLibrary() {
     error,
     fetchComponents,
     getComponent,
-    createComponent
+    createComponent,
   }
 }
 
@@ -95,25 +95,30 @@ export function useComponentInstance(cardId) {
     }
   }, [cardId])
 
-  const addComponent = useCallback(async (componentId, props = {}) => {
-    try {
-      const instance = await componentAPI.createComponentInstance(cardId, componentId, props)
-      setInstances(prev => [...prev, instance])
-      return instance
-    } catch (err) {
-      setError(err.message)
-      throw err
-    }
-  }, [cardId])
+  const addComponent = useCallback(
+    async (componentId, props = {}) => {
+      try {
+        const instance = await componentAPI.createComponentInstance(
+          cardId,
+          componentId,
+          props
+        )
+        setInstances(prev => [...prev, instance])
+        return instance
+      } catch (err) {
+        setError(err.message)
+        throw err
+      }
+    },
+    [cardId]
+  )
 
   const updateComponent = useCallback(async (instanceId, updates) => {
     try {
       await componentAPI.updateComponentInstance(instanceId, updates)
       setInstances(prev =>
         prev.map(inst =>
-          inst.id === instanceId
-            ? { ...inst, ...updates }
-            : inst
+          inst.id === instanceId ? { ...inst, ...updates } : inst
         )
       )
     } catch (err) {
@@ -122,7 +127,7 @@ export function useComponentInstance(cardId) {
     }
   }, [])
 
-  const deleteComponent = useCallback(async (instanceId) => {
+  const deleteComponent = useCallback(async instanceId => {
     try {
       await componentAPI.deleteComponentInstance(instanceId)
       setInstances(prev => prev.filter(inst => inst.id !== instanceId))
@@ -144,7 +149,7 @@ export function useComponentInstance(cardId) {
     fetchCardComponents,
     addComponent,
     updateComponent,
-    deleteComponent
+    deleteComponent,
   }
 }
 
@@ -169,7 +174,7 @@ export function useComponentSearch() {
         const response = await componentAPI.getComponents({
           search: searchQuery,
           type,
-          category
+          category,
         })
         setResults(response)
       } catch (err) {
@@ -185,7 +190,7 @@ export function useComponentSearch() {
     results,
     loading,
     error,
-    search
+    search,
   }
 }
 
@@ -213,13 +218,16 @@ export function useComponentAnalytics(componentId) {
     }
   }, [componentId])
 
-  const trackUsage = useCallback(async (cardId) => {
-    try {
-      await componentAPI.trackComponentUsage(componentId, cardId)
-    } catch (err) {
-      setError(err.message)
-    }
-  }, [componentId])
+  const trackUsage = useCallback(
+    async cardId => {
+      try {
+        await componentAPI.trackComponentUsage(componentId, cardId)
+      } catch (err) {
+        setError(err.message)
+      }
+    },
+    [componentId]
+  )
 
   useEffect(() => {
     fetchAnalytics()
@@ -230,7 +238,7 @@ export function useComponentAnalytics(componentId) {
     loading,
     error,
     fetchAnalytics,
-    trackUsage
+    trackUsage,
   }
 }
 
@@ -305,7 +313,7 @@ export function useComponentMarketplace() {
     error,
     pagination,
     fetchMarketplace,
-    publishComponent
+    publishComponent,
   }
 }
 
@@ -316,13 +324,13 @@ export function useComponentFilters() {
   const [filters, setFilters] = useState({
     type: null,
     category: null,
-    search: ''
+    search: '',
   })
 
   const updateFilter = useCallback((key, value) => {
     setFilters(prev => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }))
   }, [])
 
@@ -330,14 +338,14 @@ export function useComponentFilters() {
     setFilters({
       type: null,
       category: null,
-      search: ''
+      search: '',
     })
   }, [])
 
   return {
     filters,
     updateFilter,
-    clearFilters
+    clearFilters,
   }
 }
 
@@ -362,7 +370,7 @@ export function useComponentPreview(component) {
         type: component.type,
         props: component.defaultProps,
         accessibility: component.accessibility,
-        responsiveConfig: component.responsiveConfig
+        responsiveConfig: component.responsiveConfig,
       }
       setPreview(previewData)
     } catch (err) {
@@ -379,41 +387,44 @@ export function useComponentPreview(component) {
 export function useComponentValidation(component) {
   const [validationErrors, setValidationErrors] = useState({})
 
-  const validate = useCallback((props) => {
-    const errors = {}
+  const validate = useCallback(
+    props => {
+      const errors = {}
 
-    for (const [key, rule] of Object.entries(component.validation || {})) {
-      const value = props[key]
+      for (const [key, rule] of Object.entries(component.validation || {})) {
+        const value = props[key]
 
-      if (rule.required && value === undefined) {
-        errors[key] = `${key} is required`
+        if (rule.required && value === undefined) {
+          errors[key] = `${key} is required`
+        }
+
+        if (rule.type && value !== undefined && typeof value !== rule.type) {
+          errors[key] = `${key} must be of type ${rule.type}`
+        }
+
+        if (rule.enum && value !== undefined && !rule.enum.includes(value)) {
+          errors[key] = `${key} must be one of: ${rule.enum.join(', ')}`
+        }
+
+        if (rule.minLength && value?.length < rule.minLength) {
+          errors[key] = `${key} must have minimum length ${rule.minLength}`
+        }
+
+        if (rule.maxLength && value?.length > rule.maxLength) {
+          errors[key] = `${key} must have maximum length ${rule.maxLength}`
+        }
       }
 
-      if (rule.type && value !== undefined && typeof value !== rule.type) {
-        errors[key] = `${key} must be of type ${rule.type}`
-      }
-
-      if (rule.enum && value !== undefined && !rule.enum.includes(value)) {
-        errors[key] = `${key} must be one of: ${rule.enum.join(', ')}`
-      }
-
-      if (rule.minLength && value?.length < rule.minLength) {
-        errors[key] = `${key} must have minimum length ${rule.minLength}`
-      }
-
-      if (rule.maxLength && value?.length > rule.maxLength) {
-        errors[key] = `${key} must have maximum length ${rule.maxLength}`
-      }
-    }
-
-    setValidationErrors(errors)
-    return Object.keys(errors).length === 0
-  }, [component.validation])
+      setValidationErrors(errors)
+      return Object.keys(errors).length === 0
+    },
+    [component.validation]
+  )
 
   return {
     validationErrors,
     validate,
-    isValid: Object.keys(validationErrors).length === 0
+    isValid: Object.keys(validationErrors).length === 0,
   }
 }
 

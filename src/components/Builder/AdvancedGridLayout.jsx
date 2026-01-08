@@ -16,7 +16,7 @@ export const AdvancedGridLayout = ({
   onLayoutChange,
   isDraggable = true,
   isResizable = true,
-  config = {}
+  config = {},
 }) => {
   const [layout, setLayout] = useState([])
   const [currentBreakpoint, setCurrentBreakpoint] = useState('md')
@@ -36,7 +36,7 @@ export const AdvancedGridLayout = ({
       static: item.static || false,
       minW: item.minW || 1,
       minH: item.minH || 1,
-      maxW: item.maxW || Infinity
+      maxW: item.maxW || Infinity,
     }))
     setLayout(gridLayout)
   }, [items])
@@ -58,14 +58,17 @@ export const AdvancedGridLayout = ({
   }, [])
 
   // Handle layout changes
-  const handleLayoutChange = useCallback((newLayout) => {
-    setLayout(newLayout)
-    layoutEngine.current.setLayout(currentBreakpoint, newLayout)
-    onLayoutChange?.(newLayout, currentBreakpoint)
-  }, [currentBreakpoint, onLayoutChange])
+  const handleLayoutChange = useCallback(
+    newLayout => {
+      setLayout(newLayout)
+      layoutEngine.current.setLayout(currentBreakpoint, newLayout)
+      onLayoutChange?.(newLayout, currentBreakpoint)
+    },
+    [currentBreakpoint, onLayoutChange]
+  )
 
   // Handle breakpoint change
-  const handleBreakpointChange = (newBreakpoint) => {
+  const handleBreakpointChange = newBreakpoint => {
     setCurrentBreakpoint(newBreakpoint)
   }
 
@@ -103,9 +106,7 @@ export const AdvancedGridLayout = ({
             whileHover={{ boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)' }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="grid-item-content">
-              {item.content}
-            </div>
+            <div className="grid-item-content">{item.content}</div>
           </motion.div>
         ))}
       </GridLayout>
@@ -135,28 +136,81 @@ export const CSSCustomizationPanel = ({ onRuleChange, itemId }) => {
     spacing: [
       { label: 'Padding', property: 'padding', type: 'text', default: '16px' },
       { label: 'Margin', property: 'margin', type: 'text', default: '0px' },
-      { label: 'Gap', property: 'gap', type: 'text', default: '8px' }
+      { label: 'Gap', property: 'gap', type: 'text', default: '8px' },
     ],
     sizing: [
       { label: 'Width', property: 'width', type: 'text', default: '100%' },
       { label: 'Height', property: 'height', type: 'text', default: 'auto' },
-      { label: 'Max Width', property: 'maxWidth', type: 'text', default: 'none' }
+      {
+        label: 'Max Width',
+        property: 'maxWidth',
+        type: 'text',
+        default: 'none',
+      },
     ],
     typography: [
-      { label: 'Font Size', property: 'fontSize', type: 'text', default: '16px' },
-      { label: 'Font Weight', property: 'fontWeight', type: 'select', options: ['400', '500', '600', '700'], default: '400' },
-      { label: 'Text Align', property: 'textAlign', type: 'select', options: ['left', 'center', 'right'], default: 'left' }
+      {
+        label: 'Font Size',
+        property: 'fontSize',
+        type: 'text',
+        default: '16px',
+      },
+      {
+        label: 'Font Weight',
+        property: 'fontWeight',
+        type: 'select',
+        options: ['400', '500', '600', '700'],
+        default: '400',
+      },
+      {
+        label: 'Text Align',
+        property: 'textAlign',
+        type: 'select',
+        options: ['left', 'center', 'right'],
+        default: 'left',
+      },
     ],
     colors: [
-      { label: 'Background', property: 'backgroundColor', type: 'color', default: '#ffffff' },
-      { label: 'Border Color', property: 'borderColor', type: 'color', default: '#e5e7eb' },
-      { label: 'Text Color', property: 'color', type: 'color', default: '#000000' }
+      {
+        label: 'Background',
+        property: 'backgroundColor',
+        type: 'color',
+        default: '#ffffff',
+      },
+      {
+        label: 'Border Color',
+        property: 'borderColor',
+        type: 'color',
+        default: '#e5e7eb',
+      },
+      {
+        label: 'Text Color',
+        property: 'color',
+        type: 'color',
+        default: '#000000',
+      },
     ],
     borders: [
-      { label: 'Border Width', property: 'borderWidth', type: 'text', default: '1px' },
-      { label: 'Border Radius', property: 'borderRadius', type: 'text', default: '8px' },
-      { label: 'Border Style', property: 'borderStyle', type: 'select', options: ['solid', 'dashed', 'dotted'], default: 'solid' }
-    ]
+      {
+        label: 'Border Width',
+        property: 'borderWidth',
+        type: 'text',
+        default: '1px',
+      },
+      {
+        label: 'Border Radius',
+        property: 'borderRadius',
+        type: 'text',
+        default: '8px',
+      },
+      {
+        label: 'Border Style',
+        property: 'borderStyle',
+        type: 'select',
+        options: ['solid', 'dashed', 'dotted'],
+        default: 'solid',
+      },
+    ],
   }
 
   const tabProps = commonProperties[activeTab] || []
@@ -183,7 +237,9 @@ export const CSSCustomizationPanel = ({ onRuleChange, itemId }) => {
               <input
                 type="text"
                 value={rules[prop.property] || prop.default}
-                onChange={(e) => handlePropertyChange(prop.property, e.target.value)}
+                onChange={e =>
+                  handlePropertyChange(prop.property, e.target.value)
+                }
                 placeholder={prop.default}
               />
             )}
@@ -191,13 +247,17 @@ export const CSSCustomizationPanel = ({ onRuleChange, itemId }) => {
               <input
                 type="color"
                 value={rules[prop.property] || prop.default}
-                onChange={(e) => handlePropertyChange(prop.property, e.target.value)}
+                onChange={e =>
+                  handlePropertyChange(prop.property, e.target.value)
+                }
               />
             )}
             {prop.type === 'select' && (
               <select
                 value={rules[prop.property] || prop.default}
-                onChange={(e) => handlePropertyChange(prop.property, e.target.value)}
+                onChange={e =>
+                  handlePropertyChange(prop.property, e.target.value)
+                }
               >
                 {prop.options.map(option => (
                   <option key={option} value={option}>
@@ -224,10 +284,10 @@ export const ResponsivePreview = ({ items, onBreakpointChange }) => {
     sm: 640,
     md: 1024,
     lg: 1280,
-    xl: 1536
+    xl: 1536,
   }
 
-  const handleBreakpointClick = (bp) => {
+  const handleBreakpointClick = bp => {
     setPreviewBreakpoint(bp)
     onBreakpointChange?.(bp)
   }

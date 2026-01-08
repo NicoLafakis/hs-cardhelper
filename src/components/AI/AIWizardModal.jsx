@@ -22,11 +22,13 @@ export default function AIWizardModal({ onClose }) {
       const response = await hubspotAPI.getObjects()
       setObjects(response.data)
     } catch (err) {
-      setError('Failed to load HubSpot objects. Make sure your API key is configured.')
+      setError(
+        'Failed to load HubSpot objects. Make sure your API key is configured.'
+      )
     }
   }
 
-  const handleObjectSelect = async (objectId) => {
+  const handleObjectSelect = async objectId => {
     setSelectedObject(objectId)
     setLoading(true)
     setError('')
@@ -52,7 +54,11 @@ export default function AIWizardModal({ onClose }) {
     setError('')
 
     try {
-      const response = await aiAPI.tableWizard(prompt, selectedObject, properties)
+      const response = await aiAPI.tableWizard(
+        prompt,
+        selectedObject,
+        properties
+      )
       setSuggestion(response.data.tableConfig)
       setStep(3)
     } catch (err) {
@@ -74,9 +80,14 @@ export default function AIWizardModal({ onClose }) {
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center gap-2">
             <Wand2 className="w-6 h-6 text-purple-600" />
-            <h2 className="text-2xl font-bold text-gray-800">AI Table Wizard</h2>
+            <h2 className="text-2xl font-bold text-gray-800">
+              AI Table Wizard
+            </h2>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-lg"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -95,7 +106,7 @@ export default function AIWizardModal({ onClose }) {
                 Step 1: Select HubSpot Object
               </h3>
               <div className="grid grid-cols-2 gap-3">
-                {objects.map((obj) => (
+                {objects.map(obj => (
                   <button
                     key={obj.id}
                     onClick={() => handleObjectSelect(obj.id)}
@@ -115,12 +126,14 @@ export default function AIWizardModal({ onClose }) {
                 Step 2: Describe Your Table
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                Tell the AI what you want to display in your table. Be specific about which fields you need.
+                Tell the AI what you want to display in your table. Be specific
+                about which fields you need.
               </p>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Selected Object: <span className="text-primary">{selectedObject}</span>
+                  Selected Object:{' '}
+                  <span className="text-primary">{selectedObject}</span>
                 </label>
                 <p className="text-xs text-gray-500">
                   {properties.length} properties available
@@ -129,17 +142,14 @@ export default function AIWizardModal({ onClose }) {
 
               <textarea
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                onChange={e => setPrompt(e.target.value)}
                 placeholder="Example: Create a table showing contact names, emails, and phone numbers with the most recent contacts first"
                 className="input-field w-full"
                 rows={6}
               />
 
               <div className="flex gap-3 mt-4">
-                <button
-                  onClick={() => setStep(1)}
-                  className="btn-secondary"
-                >
+                <button onClick={() => setStep(1)} className="btn-secondary">
                   Back
                 </button>
                 <button
@@ -198,7 +208,8 @@ export default function AIWizardModal({ onClose }) {
 
               <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
                 <p className="text-sm text-blue-800">
-                  Use this configuration in your card builder. You can copy it and apply it to your components.
+                  Use this configuration in your card builder. You can copy it
+                  and apply it to your components.
                 </p>
               </div>
 
@@ -212,10 +223,7 @@ export default function AIWizardModal({ onClose }) {
                 >
                   Try Again
                 </button>
-                <button
-                  onClick={onClose}
-                  className="btn-primary flex-1"
-                >
+                <button onClick={onClose} className="btn-primary flex-1">
                   Done
                 </button>
               </div>

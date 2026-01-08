@@ -11,12 +11,12 @@ import { MockDataProvider } from '../contexts/MockDataContext'
 import { Eye, Layout } from 'lucide-react'
 
 export default function BuilderPage() {
-  const { cardId } = useParams()
+  useParams() // cardId available but not currently used
   const { undo, redo } = useBuilderStore()
   const [viewMode, setViewMode] = useState('design') // 'design' or 'preview' or 'split'
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
       // Ctrl+Z or Cmd+Z for undo
       if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
         e.preventDefault()
@@ -85,8 +85,10 @@ export default function BuilderPage() {
           </div>
           <div className="text-xs text-gray-500">
             {viewMode === 'design' && 'Design Mode - Build your card'}
-            {viewMode === 'preview' && 'Preview Mode - See how it looks in HubSpot'}
-            {viewMode === 'split' && 'Split View - Design and preview side-by-side'}
+            {viewMode === 'preview' &&
+              'Preview Mode - See how it looks in HubSpot'}
+            {viewMode === 'split' &&
+              'Split View - Design and preview side-by-side'}
           </div>
         </div>
 
@@ -100,7 +102,9 @@ export default function BuilderPage() {
               </div>
 
               {/* Canvas - Full width on mobile */}
-              <div className={`flex-1 overflow-hidden ${viewMode === 'split' ? 'border-r border-gray-200' : ''}`}>
+              <div
+                className={`flex-1 overflow-hidden ${viewMode === 'split' ? 'border-r border-gray-200' : ''}`}
+              >
                 <AdvancedCanvas />
               </div>
 
@@ -115,7 +119,13 @@ export default function BuilderPage() {
 
           {/* Preview View */}
           {(viewMode === 'preview' || viewMode === 'split') && (
-            <div className={viewMode === 'split' ? 'flex-1 overflow-hidden' : 'flex-1 overflow-hidden'}>
+            <div
+              className={
+                viewMode === 'split'
+                  ? 'flex-1 overflow-hidden'
+                  : 'flex-1 overflow-hidden'
+              }
+            >
               <PreviewPanel />
             </div>
           )}

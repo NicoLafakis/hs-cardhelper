@@ -55,7 +55,7 @@ export class AuthService extends BaseService {
       hasUpperCase: /[A-Z]/.test(password),
       hasLowerCase: /[a-z]/.test(password),
       hasNumber: /\d/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
     }
   }
 
@@ -64,10 +64,12 @@ export class AuthService extends BaseService {
    */
   isPasswordStrong(password) {
     const validation = this.validatePassword(password)
-    return validation.minLength &&
-           validation.hasUpperCase &&
-           validation.hasLowerCase &&
-           validation.hasNumber
+    return (
+      validation.minLength &&
+      validation.hasUpperCase &&
+      validation.hasLowerCase &&
+      validation.hasNumber
+    )
   }
 }
 

@@ -5,51 +5,60 @@
  */
 
 export function generateJSONFormat(components) {
-  const cardSections = components.map(comp => {
-    return generateJSONSection(comp)
-  }).filter(Boolean)
+  const cardSections = components
+    .map(comp => {
+      return generateJSONSection(comp)
+    })
+    .filter(Boolean)
 
   const cardConfig = {
     type: 'custom-card',
     data: {
       title: 'Custom Card',
-      sections: cardSections.length > 0 ? cardSections : [
-        {
-          type: 'text',
-          text: 'Add components to generate card structure'
-        }
-      ],
+      sections:
+        cardSections.length > 0
+          ? cardSections
+          : [
+              {
+                type: 'text',
+                text: 'Add components to generate card structure',
+              },
+            ],
       actions: [
         {
           type: 'IFRAME',
           width: 800,
           height: 600,
           url: 'https://your-app-url.com/action',
-          label: 'Custom Action'
-        }
-      ]
+          label: 'Custom Action',
+        },
+      ],
     },
     fetch: {
       targetUrl: 'https://your-api-endpoint.com/card-data',
       objectTypes: [
         {
           name: 'contacts',
-          propertiesToSend: ['email', 'firstname', 'lastname', 'phone']
+          propertiesToSend: ['email', 'firstname', 'lastname', 'phone'],
         },
         {
           name: 'companies',
-          propertiesToSend: ['name', 'domain', 'industry']
+          propertiesToSend: ['name', 'domain', 'industry'],
         },
         {
           name: 'deals',
-          propertiesToSend: ['dealname', 'amount', 'dealstage']
+          propertiesToSend: ['dealname', 'amount', 'dealstage'],
         },
         {
           name: 'tickets',
-          propertiesToSend: ['subject', 'hs_ticket_priority', 'hs_pipeline_stage']
-        }
-      ]
-    }
+          propertiesToSend: [
+            'subject',
+            'hs_ticket_priority',
+            'hs_pipeline_stage',
+          ],
+        },
+      ],
+    },
   }
 
   return JSON.stringify(cardConfig, null, 2)
@@ -63,14 +72,14 @@ function generateJSONSection(component) {
         text: component.propertyBinding
           ? `{${component.propertyBinding}}`
           : component.props?.text || 'Text content',
-        format: component.props?.fontWeight === 'bold' ? 'markdown' : 'text'
+        format: component.props?.fontWeight === 'bold' ? 'markdown' : 'text',
       }
 
     case 'button':
       return {
         type: 'button',
         text: component.props?.label || 'Button',
-        variant: component.props?.variant || 'primary'
+        variant: component.props?.variant || 'primary',
       }
 
     case 'image':
@@ -79,19 +88,19 @@ function generateJSONSection(component) {
         src: component.props?.src || 'https://via.placeholder.com/300x200',
         alt: component.props?.alt || 'Image',
         width: component.width,
-        height: component.height
+        height: component.height,
       }
 
     case 'divider':
       return {
-        type: 'divider'
+        type: 'divider',
       }
 
     case 'link':
       return {
         type: 'link',
         text: component.props?.text || 'Link',
-        url: component.props?.href || '#'
+        url: component.props?.href || '#',
       }
 
     case 'table':
@@ -99,15 +108,15 @@ function generateJSONSection(component) {
         type: 'table',
         columns: [
           { label: 'Column 1', property: 'col1' },
-          { label: 'Column 2', property: 'col2' }
+          { label: 'Column 2', property: 'col2' },
         ],
-        rows: []
+        rows: [],
       }
 
     default:
       return {
         type: 'text',
-        text: `${component.type} component`
+        text: `${component.type} component`,
       }
   }
 }

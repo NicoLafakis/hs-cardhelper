@@ -6,11 +6,8 @@ import {
   Maximize2,
   Save,
   Download,
-  Upload,
   Copy,
   Check,
-  Plus,
-  Trash2
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 
@@ -27,7 +24,7 @@ const DEFAULT_TOKENS = {
     dark: '#343a40',
     text: '#33475b',
     background: '#ffffff',
-    border: '#cbd6e2'
+    border: '#cbd6e2',
   },
   typography: {
     fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -39,19 +36,19 @@ const DEFAULT_TOKENS = {
       xl: '20px',
       '2xl': '24px',
       '3xl': '30px',
-      '4xl': '36px'
+      '4xl': '36px',
     },
     fontWeight: {
       normal: '400',
       medium: '500',
       semibold: '600',
-      bold: '700'
+      bold: '700',
     },
     lineHeight: {
       tight: '1.2',
       normal: '1.5',
-      relaxed: '1.75'
-    }
+      relaxed: '1.75',
+    },
   },
   spacing: {
     xs: '4px',
@@ -60,7 +57,7 @@ const DEFAULT_TOKENS = {
     lg: '24px',
     xl: '32px',
     '2xl': '48px',
-    '3xl': '64px'
+    '3xl': '64px',
   },
   borderRadius: {
     none: '0px',
@@ -69,22 +66,22 @@ const DEFAULT_TOKENS = {
     md: '6px',
     lg: '8px',
     xl: '12px',
-    full: '9999px'
+    full: '9999px',
   },
   shadows: {
     sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
     base: '0 1px 3px rgba(0, 0, 0, 0.1)',
     md: '0 4px 6px rgba(0, 0, 0, 0.1)',
     lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
-    xl: '0 20px 25px rgba(0, 0, 0, 0.1)'
-  }
+    xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
+  },
 }
 
 // Theme presets
 const THEME_PRESETS = {
   default: {
     name: 'Default',
-    colors: DEFAULT_TOKENS.colors
+    colors: DEFAULT_TOKENS.colors,
   },
   dark: {
     name: 'Dark Mode',
@@ -93,8 +90,8 @@ const THEME_PRESETS = {
       primary: '#6366f1',
       background: '#1f2937',
       text: '#f9fafb',
-      border: '#374151'
-    }
+      border: '#374151',
+    },
   },
   minimal: {
     name: 'Minimal',
@@ -104,8 +101,8 @@ const THEME_PRESETS = {
       secondary: '#666666',
       background: '#ffffff',
       text: '#000000',
-      border: '#e5e5e5'
-    }
+      border: '#e5e5e5',
+    },
   },
   vibrant: {
     name: 'Vibrant',
@@ -120,8 +117,8 @@ const THEME_PRESETS = {
       dark: '#1e293b',
       text: '#1e293b',
       background: '#ffffff',
-      border: '#e2e8f0'
-    }
+      border: '#e2e8f0',
+    },
   },
   professional: {
     name: 'Professional',
@@ -136,9 +133,9 @@ const THEME_PRESETS = {
       dark: '#1e293b',
       text: '#334155',
       background: '#ffffff',
-      border: '#cbd5e1'
-    }
-  }
+      border: '#cbd5e1',
+    },
+  },
 }
 
 export default function DesignSystemManager({ isOpen, onClose }) {
@@ -152,8 +149,8 @@ export default function DesignSystemManager({ isOpen, onClose }) {
       ...prev,
       colors: {
         ...prev.colors,
-        [key]: value
-      }
+        [key]: value,
+      },
     }))
   }
 
@@ -164,22 +161,26 @@ export default function DesignSystemManager({ isOpen, onClose }) {
         ...prev.typography,
         [category]: {
           ...prev.typography[category],
-          [key]: value
-        }
-      }
+          [key]: value,
+        },
+      },
     }))
   }
 
-  const handleApplyTheme = (presetKey) => {
+  const handleApplyTheme = presetKey => {
     const preset = THEME_PRESETS[presetKey]
     setTokens(prev => ({
       ...prev,
-      colors: preset.colors
+      colors: preset.colors,
     }))
   }
 
   const handleApplyToComponents = () => {
-    if (!confirm('Apply design tokens to all components? This will override existing styles.')) {
+    if (
+      !confirm(
+        'Apply design tokens to all components? This will override existing styles.'
+      )
+    ) {
       return
     }
 
@@ -191,7 +192,7 @@ export default function DesignSystemManager({ isOpen, onClose }) {
         updates.props = {
           ...component.props,
           color: tokens.colors.text,
-          fontSize: tokens.typography.fontSize.base
+          fontSize: tokens.typography.fontSize.base,
         }
       }
 
@@ -199,7 +200,7 @@ export default function DesignSystemManager({ isOpen, onClose }) {
         updates.props = {
           ...component.props,
           backgroundColor: tokens.colors.primary,
-          textColor: tokens.colors.background
+          textColor: tokens.colors.background,
         }
       }
 
@@ -292,15 +293,23 @@ export default function DesignSystemManager({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Design System Manager</h2>
-            <p className="text-sm text-gray-600">Define and manage design tokens for consistent styling</p>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Design System Manager
+            </h2>
+            <p className="text-sm text-gray-600">
+              Define and manage design tokens for consistent styling
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyCSS}
               className="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm"
             >
-              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
               {copied ? 'Copied!' : 'Copy CSS'}
             </button>
             <button
@@ -323,12 +332,14 @@ export default function DesignSystemManager({ isOpen, onClose }) {
           {/* Sidebar */}
           <div className="w-64 border-r border-gray-200 overflow-y-auto">
             <div className="p-4">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Design Tokens</h3>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
+                Design Tokens
+              </h3>
               <div className="space-y-1">
                 {[
                   { id: 'colors', label: 'Colors', icon: Palette },
                   { id: 'typography', label: 'Typography', icon: Type },
-                  { id: 'spacing', label: 'Spacing', icon: Maximize2 }
+                  { id: 'spacing', label: 'Spacing', icon: Maximize2 },
                 ].map(section => {
                   const Icon = section.icon
                   return (
@@ -350,7 +361,9 @@ export default function DesignSystemManager({ isOpen, onClose }) {
             </div>
 
             <div className="p-4 border-t border-gray-200">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Theme Presets</h3>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">
+                Theme Presets
+              </h3>
               <div className="space-y-1">
                 {Object.entries(THEME_PRESETS).map(([key, preset]) => (
                   <button
@@ -370,10 +383,15 @@ export default function DesignSystemManager({ isOpen, onClose }) {
             {/* Colors Section */}
             {activeSection === 'colors' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Color Tokens</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Color Tokens
+                </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.entries(tokens.colors).map(([key, value]) => (
-                    <div key={key} className="border border-gray-200 rounded p-4">
+                    <div
+                      key={key}
+                      className="border border-gray-200 rounded p-4"
+                    >
                       <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').trim()}
                       </label>
@@ -381,13 +399,13 @@ export default function DesignSystemManager({ isOpen, onClose }) {
                         <input
                           type="color"
                           value={value}
-                          onChange={(e) => handleColorChange(key, e.target.value)}
+                          onChange={e => handleColorChange(key, e.target.value)}
                           className="w-16 h-10 rounded cursor-pointer"
                         />
                         <input
                           type="text"
                           value={value}
-                          onChange={(e) => handleColorChange(key, e.target.value)}
+                          onChange={e => handleColorChange(key, e.target.value)}
                           className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm font-mono"
                         />
                       </div>
@@ -404,55 +422,88 @@ export default function DesignSystemManager({ isOpen, onClose }) {
             {/* Typography Section */}
             {activeSection === 'typography' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Typography Tokens</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Typography Tokens
+                </h3>
 
                 {/* Font Family */}
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Font Family</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Font Family
+                  </label>
                   <input
                     type="text"
                     value={tokens.typography.fontFamily}
-                    onChange={(e) => setTokens(prev => ({
-                      ...prev,
-                      typography: { ...prev.typography, fontFamily: e.target.value }
-                    }))}
+                    onChange={e =>
+                      setTokens(prev => ({
+                        ...prev,
+                        typography: {
+                          ...prev.typography,
+                          fontFamily: e.target.value,
+                        },
+                      }))
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                   />
                 </div>
 
                 {/* Font Sizes */}
                 <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-3">Font Sizes</h4>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3">
+                    Font Sizes
+                  </h4>
                   <div className="grid grid-cols-2 gap-3">
-                    {Object.entries(tokens.typography.fontSize).map(([key, value]) => (
-                      <div key={key} className="flex items-center gap-2">
-                        <label className="text-sm text-gray-600 w-16 capitalize">{key}:</label>
-                        <input
-                          type="text"
-                          value={value}
-                          onChange={(e) => handleTypographyChange('fontSize', key, e.target.value)}
-                          className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm"
-                        />
-                      </div>
-                    ))}
+                    {Object.entries(tokens.typography.fontSize).map(
+                      ([key, value]) => (
+                        <div key={key} className="flex items-center gap-2">
+                          <label className="text-sm text-gray-600 w-16 capitalize">
+                            {key}:
+                          </label>
+                          <input
+                            type="text"
+                            value={value}
+                            onChange={e =>
+                              handleTypographyChange(
+                                'fontSize',
+                                key,
+                                e.target.value
+                              )
+                            }
+                            className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
 
                 {/* Font Weights */}
                 <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-3">Font Weights</h4>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3">
+                    Font Weights
+                  </h4>
                   <div className="grid grid-cols-2 gap-3">
-                    {Object.entries(tokens.typography.fontWeight).map(([key, value]) => (
-                      <div key={key} className="flex items-center gap-2">
-                        <label className="text-sm text-gray-600 w-20 capitalize">{key}:</label>
-                        <input
-                          type="text"
-                          value={value}
-                          onChange={(e) => handleTypographyChange('fontWeight', key, e.target.value)}
-                          className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm"
-                        />
-                      </div>
-                    ))}
+                    {Object.entries(tokens.typography.fontWeight).map(
+                      ([key, value]) => (
+                        <div key={key} className="flex items-center gap-2">
+                          <label className="text-sm text-gray-600 w-20 capitalize">
+                            {key}:
+                          </label>
+                          <input
+                            type="text"
+                            value={value}
+                            onChange={e =>
+                              handleTypographyChange(
+                                'fontWeight',
+                                key,
+                                e.target.value
+                              )
+                            }
+                            className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -461,20 +512,27 @@ export default function DesignSystemManager({ isOpen, onClose }) {
             {/* Spacing Section */}
             {activeSection === 'spacing' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Spacing Tokens</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Spacing Tokens
+                </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.entries(tokens.spacing).map(([key, value]) => (
-                    <div key={key} className="border border-gray-200 rounded p-4">
+                    <div
+                      key={key}
+                      className="border border-gray-200 rounded p-4"
+                    >
                       <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
                         {key}
                       </label>
                       <input
                         type="text"
                         value={value}
-                        onChange={(e) => setTokens(prev => ({
-                          ...prev,
-                          spacing: { ...prev.spacing, [key]: e.target.value }
-                        }))}
+                        onChange={e =>
+                          setTokens(prev => ({
+                            ...prev,
+                            spacing: { ...prev.spacing, [key]: e.target.value },
+                          }))
+                        }
                         className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                       />
                       <div className="mt-2 flex items-center gap-2">

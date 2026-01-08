@@ -6,11 +6,9 @@ import {
   Plus,
   Trash2,
   Edit2,
-  Copy,
   Upload,
   Download,
   AlertCircle,
-  CheckCircle
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 
@@ -25,7 +23,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
   const [componentDescription, setComponentDescription] = useState('')
   const [selectedComponents, setSelectedComponents] = useState([])
   const [editingComponent, setEditingComponent] = useState(null)
-  const { components, selectComponent, selectedComponentId, addComponent } = useBuilderStore()
+  const { components, addComponent } = useBuilderStore()
 
   const handleCreateCustomComponent = () => {
     if (!componentName.trim()) {
@@ -51,7 +49,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
     const normalizedComponents = componentsToSave.map(c => ({
       ...c,
       x: c.x - minX,
-      y: c.y - minY
+      y: c.y - minY,
     }))
 
     const customComponent = {
@@ -60,7 +58,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
       description: componentDescription,
       components: normalizedComponents,
       createdAt: new Date().toISOString(),
-      thumbnail: null // TODO: Generate thumbnail
+      thumbnail: null, // TODO: Generate thumbnail
     }
 
     setCustomComponents([...customComponents, customComponent])
@@ -70,7 +68,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
     alert('Custom component created successfully!')
   }
 
-  const handleUseCustomComponent = (customComp) => {
+  const handleUseCustomComponent = customComp => {
     // Add all components from the custom component to canvas
     customComp.components.forEach((comp, index) => {
       setTimeout(() => {
@@ -79,21 +77,24 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
           id: Date.now() + Math.random() + index,
           x: comp.x + 100, // Offset from origin
           y: comp.y + 100,
-          zIndex: components.length + index
+          zIndex: components.length + index,
         }
-        addComponent(newComponent, null, { x: newComponent.x, y: newComponent.y })
+        addComponent(newComponent, null, {
+          x: newComponent.x,
+          y: newComponent.y,
+        })
       }, index * 10) // Small delay to ensure sequential addition
     })
 
     alert('Custom component added to canvas!')
   }
 
-  const handleDeleteCustomComponent = (id) => {
+  const handleDeleteCustomComponent = id => {
     if (!confirm('Delete this custom component?')) return
     setCustomComponents(customComponents.filter(c => c.id !== id))
   }
 
-  const handleEditCustomComponent = (customComp) => {
+  const handleEditCustomComponent = customComp => {
     setEditingComponent(customComp)
     setComponentName(customComp.name)
     setComponentDescription(customComp.description)
@@ -102,11 +103,13 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
   const handleUpdateCustomComponent = () => {
     if (!editingComponent) return
 
-    setCustomComponents(customComponents.map(c =>
-      c.id === editingComponent.id
-        ? { ...c, name: componentName, description: componentDescription }
-        : c
-    ))
+    setCustomComponents(
+      customComponents.map(c =>
+        c.id === editingComponent.id
+          ? { ...c, name: componentName, description: componentDescription }
+          : c
+      )
+    )
 
     setEditingComponent(null)
     setComponentName('')
@@ -125,12 +128,12 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
     URL.revokeObjectURL(url)
   }
 
-  const handleImportCustomComponents = (e) => {
+  const handleImportCustomComponents = e => {
     const file = e.target.files[0]
     if (!file) return
 
     const reader = new FileReader()
-    reader.onload = (event) => {
+    reader.onload = event => {
       try {
         const imported = JSON.parse(event.target.result)
         if (Array.isArray(imported)) {
@@ -154,8 +157,12 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Custom Component Builder</h2>
-            <p className="text-sm text-gray-600">Create reusable components from groups of elements</p>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Custom Component Builder
+            </h2>
+            <p className="text-sm text-gray-600">
+              Create reusable components from groups of elements
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -189,7 +196,9 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
           {/* Left Panel: Create New */}
           <div className="w-1/2 border-r border-gray-200 overflow-y-auto p-4">
             <h3 className="text-sm font-semibold text-gray-700 mb-4">
-              {editingComponent ? 'Edit Custom Component' : 'Create Custom Component'}
+              {editingComponent
+                ? 'Edit Custom Component'
+                : 'Create Custom Component'}
             </h3>
 
             {/* Component Details */}
@@ -201,7 +210,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                 <input
                   type="text"
                   value={componentName}
-                  onChange={(e) => setComponentName(e.target.value)}
+                  onChange={e => setComponentName(e.target.value)}
                   placeholder="e.g., Contact Card Header"
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                 />
@@ -213,7 +222,7 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                 </label>
                 <textarea
                   value={componentDescription}
-                  onChange={(e) => setComponentDescription(e.target.value)}
+                  onChange={e => setComponentDescription(e.target.value)}
                   placeholder="Brief description of this component..."
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
@@ -231,8 +240,9 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                   <div className="flex items-start gap-2">
                     <AlertCircle className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                     <p className="text-xs text-blue-800">
-                      Select the components on your canvas that you want to group into a reusable component.
-                      Their relative positions will be preserved.
+                      Select the components on your canvas that you want to
+                      group into a reusable component. Their relative positions
+                      will be preserved.
                     </p>
                   </div>
                 </div>
@@ -246,19 +256,27 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                       <input
                         type="checkbox"
                         checked={selectedComponents.includes(comp.id)}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked) {
-                            setSelectedComponents([...selectedComponents, comp.id])
+                            setSelectedComponents([
+                              ...selectedComponents,
+                              comp.id,
+                            ])
                           } else {
-                            setSelectedComponents(selectedComponents.filter(id => id !== comp.id))
+                            setSelectedComponents(
+                              selectedComponents.filter(id => id !== comp.id)
+                            )
                           }
                         }}
                         className="rounded"
                       />
                       <div className="flex-1">
-                        <div className="font-medium text-gray-800 text-sm">{comp.type}</div>
+                        <div className="font-medium text-gray-800 text-sm">
+                          {comp.type}
+                        </div>
                         <div className="text-xs text-gray-500">
-                          Position: ({comp.x}, {comp.y}) • Size: {comp.width}×{comp.height}
+                          Position: ({comp.x}, {comp.y}) • Size: {comp.width}×
+                          {comp.height}
                         </div>
                       </div>
                     </label>
@@ -268,13 +286,16 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                     <div className="text-center py-8 text-gray-500">
                       <Package className="w-12 h-12 mx-auto mb-3 text-gray-300" />
                       <p className="text-sm">No components on canvas</p>
-                      <p className="text-xs mt-1">Add components to create custom groups</p>
+                      <p className="text-xs mt-1">
+                        Add components to create custom groups
+                      </p>
                     </div>
                   )}
                 </div>
 
                 <div className="mt-3 text-sm text-gray-600">
-                  Selected: {selectedComponents.length} component{selectedComponents.length !== 1 ? 's' : ''}
+                  Selected: {selectedComponents.length} component
+                  {selectedComponents.length !== 1 ? 's' : ''}
                 </div>
               </div>
             )}
@@ -323,7 +344,9 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
               <div className="text-center py-12 text-gray-500">
                 <Package className="w-12 h-12 mx-auto mb-3 text-gray-300" />
                 <p className="text-sm">No custom components yet</p>
-                <p className="text-xs mt-1">Create your first reusable component</p>
+                <p className="text-xs mt-1">
+                  Create your first reusable component
+                </p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -334,21 +357,31 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-800">{customComp.name}</h4>
+                        <h4 className="font-semibold text-gray-800">
+                          {customComp.name}
+                        </h4>
                         {customComp.description && (
-                          <p className="text-sm text-gray-600 mt-1">{customComp.description}</p>
+                          <p className="text-sm text-gray-600 mt-1">
+                            {customComp.description}
+                          </p>
                         )}
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
                           <span>{customComp.components.length} components</span>
                           <span>•</span>
-                          <span>{new Date(customComp.createdAt).toLocaleDateString()}</span>
+                          <span>
+                            {new Date(
+                              customComp.createdAt
+                            ).toLocaleDateString()}
+                          </span>
                         </div>
                       </div>
                     </div>
 
                     {/* Component Preview */}
                     <div className="bg-gray-50 rounded p-3 mb-3 border border-gray-200">
-                      <div className="text-xs text-gray-600 mb-2">Components:</div>
+                      <div className="text-xs text-gray-600 mb-2">
+                        Components:
+                      </div>
                       <div className="flex flex-wrap gap-1">
                         {customComp.components.map((comp, idx) => (
                           <span
@@ -378,7 +411,9 @@ export default function CustomComponentBuilder({ isOpen, onClose }) {
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
-                        onClick={() => handleDeleteCustomComponent(customComp.id)}
+                        onClick={() =>
+                          handleDeleteCustomComponent(customComp.id)
+                        }
                         className="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded"
                         title="Delete"
                       >

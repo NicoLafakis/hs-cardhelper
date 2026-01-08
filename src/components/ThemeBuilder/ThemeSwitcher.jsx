@@ -18,7 +18,7 @@ export function ThemeSwitcher() {
 
   const builtInThemes = Object.values(THEME_TEMPLATES)
 
-  const handleThemeSelect = (theme) => {
+  const handleThemeSelect = theme => {
     setTheme(theme)
     setIsOpen(false)
   }
@@ -71,16 +71,20 @@ export function ThemeSwitcher() {
                     onClick={() => handleThemeSelect(theme)}
                   >
                     <div className="item-colors">
-                      {Object.values(theme.colors).slice(0, 3).map((color, idx) => (
-                        <div
-                          key={idx}
-                          className="item-color"
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
+                      {Object.values(theme.colors)
+                        .slice(0, 3)
+                        .map((color, idx) => (
+                          <div
+                            key={idx}
+                            className="item-color"
+                            style={{ backgroundColor: color }}
+                          />
+                        ))}
                     </div>
                     <span className="item-label">{theme.name}</span>
-                    {currentTheme.name === theme.name && <span className="check-mark">✓</span>}
+                    {currentTheme.name === theme.name && (
+                      <span className="check-mark">✓</span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -96,16 +100,20 @@ export function ThemeSwitcher() {
                       onClick={() => handleThemeSelect(theme)}
                     >
                       <div className="item-colors">
-                        {Object.values(theme.colors).slice(0, 3).map((color, idx) => (
-                          <div
-                            key={idx}
-                            className="item-color"
-                            style={{ backgroundColor: color }}
-                          />
-                        ))}
+                        {Object.values(theme.colors)
+                          .slice(0, 3)
+                          .map((color, idx) => (
+                            <div
+                              key={idx}
+                              className="item-color"
+                              style={{ backgroundColor: color }}
+                            />
+                          ))}
                       </div>
                       <span className="item-label">{theme.name}</span>
-                      {currentTheme.name === theme.name && <span className="check-mark">✓</span>}
+                      {currentTheme.name === theme.name && (
+                        <span className="check-mark">✓</span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -141,10 +149,7 @@ export function ThemeSwitcher() {
       {/* Theme Editor Modal */}
       <AnimatePresence>
         {showEditor && (
-          <ThemeEditor
-            onClose={handleCloseEditor}
-            onSave={handleSaveTheme}
-          />
+          <ThemeEditor onClose={handleCloseEditor} onSave={handleSaveTheme} />
         )}
       </AnimatePresence>
 

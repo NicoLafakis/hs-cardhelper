@@ -11,22 +11,22 @@ const EXPORT_FORMATS = {
     description: 'Modern HubSpot UI Extensions (2025+)',
     icon: Code,
     color: 'bg-blue-100 text-blue-700',
-    recommended: true
+    recommended: true,
   },
   json: {
     label: 'Legacy JSON Format',
     description: 'Classic CRM Cards (Deprecated Oct 2026)',
     icon: FileJson,
     color: 'bg-orange-100 text-orange-700',
-    recommended: false
+    recommended: false,
   },
   serverless: {
     label: 'Serverless Functions',
     description: 'Data fetching and API integration',
     icon: Zap,
     color: 'bg-purple-100 text-purple-700',
-    recommended: false
-  }
+    recommended: false,
+  },
 }
 
 export default function ExportPanel({ isOpen, onClose }) {
@@ -56,7 +56,12 @@ export default function ExportPanel({ isOpen, onClose }) {
 
   const handleDownload = () => {
     const code = generateCode()
-    const filename = selectedFormat === 'json' ? 'card-config.json' : selectedFormat === 'serverless' ? 'serverless-function.js' : 'CardComponent.jsx'
+    const filename =
+      selectedFormat === 'json'
+        ? 'card-config.json'
+        : selectedFormat === 'serverless'
+          ? 'serverless-function.js'
+          : 'CardComponent.jsx'
     const blob = new Blob([code], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -76,8 +81,12 @@ export default function ExportPanel({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Export to HubSpot</h2>
-            <p className="text-sm text-gray-600">Generate code for your custom card</p>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Export to HubSpot
+            </h2>
+            <p className="text-sm text-gray-600">
+              Generate code for your custom card
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -112,12 +121,18 @@ export default function ExportPanel({ isOpen, onClose }) {
                       Recommended
                     </span>
                   )}
-                  <div className={`inline-flex p-2 rounded mb-2 ${format.color}`}>
+                  <div
+                    className={`inline-flex p-2 rounded mb-2 ${format.color}`}
+                  >
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="font-medium text-sm text-gray-800">{format.label}</div>
-                    <div className="text-xs text-gray-600 mt-1">{format.description}</div>
+                    <div className="font-medium text-sm text-gray-800">
+                      {format.label}
+                    </div>
+                    <div className="text-xs text-gray-600 mt-1">
+                      {format.description}
+                    </div>
                   </div>
                 </button>
               )
@@ -161,32 +176,78 @@ export default function ExportPanel({ isOpen, onClose }) {
 
         {/* Instructions */}
         <div className="p-4 border-t border-gray-200 bg-blue-50">
-          <h3 className="text-sm font-semibold text-blue-900 mb-2">Next Steps:</h3>
+          <h3 className="text-sm font-semibold text-blue-900 mb-2">
+            Next Steps:
+          </h3>
           {selectedFormat === 'react' && (
             <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
               <li>Copy the generated React component code</li>
-              <li>Create a new file in your HubSpot project (e.g., <code className="bg-blue-100 px-1 rounded">src/app/extensions/CardComponent.jsx</code>)</li>
-              <li>Install required dependencies: <code className="bg-blue-100 px-1 rounded">npm install @hubspot/ui-extensions-react</code></li>
-              <li>Deploy using: <code className="bg-blue-100 px-1 rounded">hs project upload</code></li>
-              <li>Configure the extension in your app's <code className="bg-blue-100 px-1 rounded">public/extensions.json</code></li>
+              <li>
+                Create a new file in your HubSpot project (e.g.,{' '}
+                <code className="bg-blue-100 px-1 rounded">
+                  src/app/extensions/CardComponent.jsx
+                </code>
+                )
+              </li>
+              <li>
+                Install required dependencies:{' '}
+                <code className="bg-blue-100 px-1 rounded">
+                  npm install @hubspot/ui-extensions-react
+                </code>
+              </li>
+              <li>
+                Deploy using:{' '}
+                <code className="bg-blue-100 px-1 rounded">
+                  hs project upload
+                </code>
+              </li>
+              <li>
+                Configure the extension in your app&apos;s{' '}
+                <code className="bg-blue-100 px-1 rounded">
+                  public/extensions.json
+                </code>
+              </li>
             </ol>
           )}
           {selectedFormat === 'json' && (
             <ol className="text-sm text-orange-800 space-y-1 list-decimal list-inside">
-              <li><strong>Warning:</strong> Legacy JSON cards will be deprecated by October 31, 2026</li>
+              <li>
+                <strong>Warning:</strong> Legacy JSON cards will be deprecated
+                by October 31, 2026
+              </li>
               <li>Copy the JSON configuration</li>
-              <li>Create or update your app's card configuration file</li>
+              <li>Create or update your app&apos;s card configuration file</li>
               <li>Deploy to HubSpot using the CRM Cards API</li>
-              <li><strong>Recommended:</strong> Migrate to React UI Extensions instead</li>
+              <li>
+                <strong>Recommended:</strong> Migrate to React UI Extensions
+                instead
+              </li>
             </ol>
           )}
           {selectedFormat === 'serverless' && (
             <ol className="text-sm text-purple-800 space-y-1 list-decimal list-inside">
               <li>Copy the serverless function code</li>
-              <li>Create a new file in <code className="bg-purple-100 px-1 rounded">src/app/functions/</code></li>
-              <li>Configure endpoints in <code className="bg-purple-100 px-1 rounded">serverless.json</code></li>
-              <li>Deploy using: <code className="bg-purple-100 px-1 rounded">hs project upload</code></li>
-              <li>Update your card component to fetch data from this function</li>
+              <li>
+                Create a new file in{' '}
+                <code className="bg-purple-100 px-1 rounded">
+                  src/app/functions/
+                </code>
+              </li>
+              <li>
+                Configure endpoints in{' '}
+                <code className="bg-purple-100 px-1 rounded">
+                  serverless.json
+                </code>
+              </li>
+              <li>
+                Deploy using:{' '}
+                <code className="bg-purple-100 px-1 rounded">
+                  hs project upload
+                </code>
+              </li>
+              <li>
+                Update your card component to fetch data from this function
+              </li>
             </ol>
           )}
         </div>

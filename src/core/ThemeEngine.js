@@ -21,7 +21,7 @@ export const THEME_TEMPLATES = {
       textLight: '#6b7280',
       success: '#10b981',
       warning: '#f59e0b',
-      error: '#ef4444'
+      error: '#ef4444',
     },
     typography: {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -30,7 +30,7 @@ export const THEME_TEMPLATES = {
       smallSize: '14px',
       headingWeight: '600',
       bodyWeight: '400',
-      lineHeight: '1.5'
+      lineHeight: '1.5',
     },
     spacing: {
       xs: '4px',
@@ -38,18 +38,18 @@ export const THEME_TEMPLATES = {
       md: '16px',
       lg: '24px',
       xl: '32px',
-      xxl: '48px'
+      xxl: '48px',
     },
     border: {
       radius: '4px',
-      width: '1px'
+      width: '1px',
     },
     shadow: {
       sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
       md: '0 4px 6px rgba(0, 0, 0, 0.1)',
       lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
-      xl: '0 20px 25px rgba(0, 0, 0, 0.1)'
-    }
+      xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
+    },
   },
   bold: {
     name: 'Bold',
@@ -65,7 +65,7 @@ export const THEME_TEMPLATES = {
       textLight: '#475569',
       success: '#059669',
       warning: '#d97706',
-      error: '#dc2626'
+      error: '#dc2626',
     },
     typography: {
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
@@ -74,7 +74,7 @@ export const THEME_TEMPLATES = {
       smallSize: '14px',
       headingWeight: '700',
       bodyWeight: '500',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
     },
     spacing: {
       xs: '6px',
@@ -82,18 +82,18 @@ export const THEME_TEMPLATES = {
       md: '20px',
       lg: '32px',
       xl: '48px',
-      xxl: '64px'
+      xxl: '64px',
     },
     border: {
       radius: '8px',
-      width: '2px'
+      width: '2px',
     },
     shadow: {
       sm: '0 2px 4px rgba(0, 0, 0, 0.1)',
       md: '0 6px 12px rgba(0, 0, 0, 0.15)',
       lg: '0 14px 28px rgba(0, 0, 0, 0.2)',
-      xl: '0 24px 48px rgba(0, 0, 0, 0.25)'
-    }
+      xl: '0 24px 48px rgba(0, 0, 0, 0.25)',
+    },
   },
   elegant: {
     name: 'Elegant',
@@ -109,7 +109,7 @@ export const THEME_TEMPLATES = {
       textLight: '#78350f',
       success: '#7c2d12',
       warning: '#b45309',
-      error: '#92400e'
+      error: '#92400e',
     },
     typography: {
       fontFamily: "'Georgia', 'Garamond', serif",
@@ -118,7 +118,7 @@ export const THEME_TEMPLATES = {
       smallSize: '16px',
       headingWeight: '600',
       bodyWeight: '400',
-      lineHeight: '1.8'
+      lineHeight: '1.8',
     },
     spacing: {
       xs: '8px',
@@ -126,18 +126,18 @@ export const THEME_TEMPLATES = {
       md: '24px',
       lg: '40px',
       xl: '56px',
-      xxl: '80px'
+      xxl: '80px',
     },
     border: {
       radius: '12px',
-      width: '1px'
+      width: '1px',
     },
     shadow: {
       sm: '0 3px 8px rgba(120, 53, 15, 0.1)',
       md: '0 8px 16px rgba(120, 53, 15, 0.12)',
       lg: '0 16px 32px rgba(120, 53, 15, 0.15)',
-      xl: '0 24px 48px rgba(120, 53, 15, 0.2)'
-    }
+      xl: '0 24px 48px rgba(120, 53, 15, 0.2)',
+    },
   },
   dark: {
     name: 'Dark Mode',
@@ -153,7 +153,7 @@ export const THEME_TEMPLATES = {
       textLight: '#d1d5db',
       success: '#34d399',
       warning: '#fbbf24',
-      error: '#f87171'
+      error: '#f87171',
     },
     typography: {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -162,7 +162,7 @@ export const THEME_TEMPLATES = {
       smallSize: '14px',
       headingWeight: '600',
       bodyWeight: '400',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
     },
     spacing: {
       xs: '4px',
@@ -170,19 +170,19 @@ export const THEME_TEMPLATES = {
       md: '16px',
       lg: '24px',
       xl: '32px',
-      xxl: '48px'
+      xxl: '48px',
     },
     border: {
       radius: '6px',
-      width: '1px'
+      width: '1px',
     },
     shadow: {
       sm: '0 1px 3px rgba(0, 0, 0, 0.3)',
       md: '0 4px 8px rgba(0, 0, 0, 0.4)',
       lg: '0 10px 20px rgba(0, 0, 0, 0.5)',
-      xl: '0 20px 40px rgba(0, 0, 0, 0.6)'
-    }
-  }
+      xl: '0 20px 40px rgba(0, 0, 0, 0.6)',
+    },
+  },
 }
 
 /**
@@ -200,7 +200,7 @@ export class ColorPaletteGenerator {
     return [
       baseColor,
       this.hslToHex({ ...hsl, h: (hsl.h + 30) % 360 }),
-      this.hslToHex({ ...hsl, h: (hsl.h - 30 + 360) % 360 })
+      this.hslToHex({ ...hsl, h: (hsl.h - 30 + 360) % 360 }),
     ]
   }
 
@@ -209,7 +209,7 @@ export class ColorPaletteGenerator {
     return [
       baseColor,
       this.hslToHex({ ...hsl, h: (hsl.h + 120) % 360 }),
-      this.hslToHex({ ...hsl, h: (hsl.h + 240) % 360 })
+      this.hslToHex({ ...hsl, h: (hsl.h + 240) % 360 }),
     ]
   }
 
@@ -220,7 +220,7 @@ export class ColorPaletteGenerator {
       this.hslToHex({ ...hsl, l: 70 }),
       this.hslToHex({ ...hsl, l: 50 }),
       this.hslToHex({ ...hsl, l: 30 }),
-      this.hslToHex({ ...hsl, l: 10 })
+      this.hslToHex({ ...hsl, l: 10 }),
     ]
   }
 
@@ -231,7 +231,9 @@ export class ColorPaletteGenerator {
 
     const max = Math.max(r, g, b)
     const min = Math.min(r, g, b)
-    let h, s, l = (max + min) / 2
+    let h,
+      s,
+      l = (max + min) / 2
 
     if (max === min) {
       h = s = 0
@@ -240,13 +242,23 @@ export class ColorPaletteGenerator {
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
 
       switch (max) {
-        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break
-        case g: h = ((b - r) / d + 2) / 6; break
-        case b: h = ((r - g) / d + 4) / 6; break
+        case r:
+          h = ((g - b) / d + (g < b ? 6 : 0)) / 6
+          break
+        case g:
+          h = ((b - r) / d + 2) / 6
+          break
+        case b:
+          h = ((r - g) / d + 4) / 6
+          break
       }
     }
 
-    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) }
+    return {
+      h: Math.round(h * 360),
+      s: Math.round(s * 100),
+      l: Math.round(l * 100),
+    }
   }
 
   static hslToHex({ h, s, l }) {
@@ -255,50 +267,60 @@ export class ColorPaletteGenerator {
 
     const k = n => (n + h / 30) % 12
     const a = s * Math.min(l, 1 - l)
-    const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+    const f = n =>
+      l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
 
-    return "#" + [f(0), f(8), f(4)].map(x => {
-      const hex = Math.round(x * 255).toString(16)
-      return hex.length === 1 ? "0" + hex : hex
-    }).join('')
+    return (
+      '#' +
+      [f(0), f(8), f(4)]
+        .map(x => {
+          const hex = Math.round(x * 255).toString(16)
+          return hex.length === 1 ? '0' + hex : hex
+        })
+        .join('')
+    )
   }
 }
 
 /**
  * Theme Store (Zustand)
  */
-export const useThemeStore = create((set) => ({
+export const useThemeStore = create(set => ({
   currentTheme: THEME_TEMPLATES.minimal,
   customThemes: [],
   isDarkMode: false,
 
-  setTheme: (theme) => set({ currentTheme: theme }),
+  setTheme: theme => set({ currentTheme: theme }),
 
-  setDarkMode: (isDark) => set({ isDarkMode: isDark }),
+  setDarkMode: isDark => set({ isDarkMode: isDark }),
 
-  saveCustomTheme: (name, theme) => set((state) => ({
-    customThemes: [...state.customThemes, { name, ...theme, custom: true }]
-  })),
+  saveCustomTheme: (name, theme) =>
+    set(state => ({
+      customThemes: [...state.customThemes, { name, ...theme, custom: true }],
+    })),
 
-  deleteCustomTheme: (name) => set((state) => ({
-    customThemes: state.customThemes.filter(t => t.name !== name)
-  })),
+  deleteCustomTheme: name =>
+    set(state => ({
+      customThemes: state.customThemes.filter(t => t.name !== name),
+    })),
 
-  updateThemeColor: (colorKey, value) => set((state) => ({
-    currentTheme: {
-      ...state.currentTheme,
-      colors: { ...state.currentTheme.colors, [colorKey]: value }
-    }
-  })),
+  updateThemeColor: (colorKey, value) =>
+    set(state => ({
+      currentTheme: {
+        ...state.currentTheme,
+        colors: { ...state.currentTheme.colors, [colorKey]: value },
+      },
+    })),
 
-  updateThemeTypography: (typogKey, value) => set((state) => ({
-    currentTheme: {
-      ...state.currentTheme,
-      typography: { ...state.currentTheme.typography, [typogKey]: value }
-    }
-  })),
+  updateThemeTypography: (typogKey, value) =>
+    set(state => ({
+      currentTheme: {
+        ...state.currentTheme,
+        typography: { ...state.currentTheme.typography, [typogKey]: value },
+      },
+    })),
 
-  applyTheme: (theme) => {
+  applyTheme: theme => {
     const root = document.documentElement
     const colors = theme.colors || {}
     const typography = theme.typography || {}
@@ -328,7 +350,7 @@ export const useThemeStore = create((set) => ({
     })
 
     set({ currentTheme: theme })
-  }
+  },
 }))
 
 /**

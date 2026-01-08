@@ -16,7 +16,7 @@ const exportImportPlugin = createPlugin({
   // Plugin services
   services: {
     export: {
-      exportTemplate: (template) => {
+      exportTemplate: template => {
         const json = JSON.stringify(template, null, 2)
         const blob = new Blob([json], { type: 'application/json' })
         const url = URL.createObjectURL(blob)
@@ -27,14 +27,14 @@ const exportImportPlugin = createPlugin({
         link.click()
 
         URL.revokeObjectURL(url)
-      }
+      },
     },
     import: {
-      importTemplate: async (file) => {
+      importTemplate: async file => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader()
 
-          reader.onload = (e) => {
+          reader.onload = e => {
             try {
               const template = JSON.parse(e.target.result)
               resolve(template)
@@ -46,13 +46,11 @@ const exportImportPlugin = createPlugin({
           reader.onerror = () => reject(new Error('Failed to read file'))
           reader.readAsText(file)
         })
-      }
-    }
+      },
+    },
   },
 
-  initialize: async function(context) {
-    console.log('Export/Import plugin initialized!')
-
+  initialize: async function (context) {
     if (context.featureFlags) {
       context.featureFlags.setFlag('plugin.export-import', true)
     }
@@ -60,10 +58,9 @@ const exportImportPlugin = createPlugin({
     return true
   },
 
-  destroy: async function() {
-    console.log('Export/Import plugin destroyed!')
+  destroy: async function () {
     return true
-  }
+  },
 })
 
 export default exportImportPlugin

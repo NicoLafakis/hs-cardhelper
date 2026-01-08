@@ -14,7 +14,7 @@ export function ThemeEditor({ onClose, onSave }) {
     updateThemeColor,
     updateThemeTypography,
     applyTheme,
-    saveCustomTheme
+    saveCustomTheme,
   } = useThemeStore()
 
   const [activeTab, setActiveTab] = useState('colors')
@@ -91,7 +91,9 @@ export function ThemeEditor({ onClose, onSave }) {
               placeholder="Enter theme name"
             />
           </div>
-          <button className="close-btn" onClick={onClose}>✕</button>
+          <button className="close-btn" onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         {/* Tabs */}
@@ -178,7 +180,9 @@ export function ThemeEditor({ onClose, onSave }) {
                           <input
                             type="color"
                             value={value}
-                            onChange={e => handleColorChange(key, e.target.value)}
+                            onChange={e =>
+                              handleColorChange(key, e.target.value)
+                            }
                             className="color-picker-hidden"
                           />
                         </div>
@@ -208,7 +212,9 @@ export function ThemeEditor({ onClose, onSave }) {
                     <input
                       type="text"
                       value={currentTheme.typography.fontFamily}
-                      onChange={e => handleTypographyChange('fontFamily', e.target.value)}
+                      onChange={e =>
+                        handleTypographyChange('fontFamily', e.target.value)
+                      }
                       className="text-input"
                       placeholder="e.g., 'Segoe UI', sans-serif"
                     />
@@ -223,10 +229,12 @@ export function ThemeEditor({ onClose, onSave }) {
                         <input
                           type="text"
                           value={currentTheme.typography.headingSize[heading]}
-                          onChange={e => handleTypographyChange('headingSize', {
-                            ...currentTheme.typography.headingSize,
-                            [heading]: e.target.value
-                          })}
+                          onChange={e =>
+                            handleTypographyChange('headingSize', {
+                              ...currentTheme.typography.headingSize,
+                              [heading]: e.target.value,
+                            })
+                          }
                           className="text-input"
                           placeholder="e.g., 32px"
                         />
@@ -243,7 +251,9 @@ export function ThemeEditor({ onClose, onSave }) {
                         <input
                           type="text"
                           value={currentTheme.typography[size]}
-                          onChange={e => handleTypographyChange(size, e.target.value)}
+                          onChange={e =>
+                            handleTypographyChange(size, e.target.value)
+                          }
                           className="text-input"
                         />
                       </div>
@@ -257,11 +267,18 @@ export function ThemeEditor({ onClose, onSave }) {
                       <label>Heading Weight</label>
                       <select
                         value={currentTheme.typography.headingWeight}
-                        onChange={e => handleTypographyChange('headingWeight', e.target.value)}
+                        onChange={e =>
+                          handleTypographyChange(
+                            'headingWeight',
+                            e.target.value
+                          )
+                        }
                         className="select-input"
                       >
                         {['400', '500', '600', '700', '800'].map(w => (
-                          <option key={w} value={w}>{w}</option>
+                          <option key={w} value={w}>
+                            {w}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -269,11 +286,15 @@ export function ThemeEditor({ onClose, onSave }) {
                       <label>Body Weight</label>
                       <select
                         value={currentTheme.typography.bodyWeight}
-                        onChange={e => handleTypographyChange('bodyWeight', e.target.value)}
+                        onChange={e =>
+                          handleTypographyChange('bodyWeight', e.target.value)
+                        }
                         className="select-input"
                       >
                         {['400', '500', '600', '700'].map(w => (
-                          <option key={w} value={w}>{w}</option>
+                          <option key={w} value={w}>
+                            {w}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -286,7 +307,12 @@ export function ThemeEditor({ onClose, onSave }) {
                       type="number"
                       step="0.1"
                       value={currentTheme.typography.lineHeight}
-                      onChange={e => handleTypographyChange('lineHeight', parseFloat(e.target.value))}
+                      onChange={e =>
+                        handleTypographyChange(
+                          'lineHeight',
+                          parseFloat(e.target.value)
+                        )
+                      }
                       className="text-input"
                       min="1"
                       max="2"
@@ -312,16 +338,22 @@ export function ThemeEditor({ onClose, onSave }) {
                       <input
                         type="text"
                         value={value}
-                        onChange={e => handleTypographyChange('spacing', {
-                          ...currentTheme.spacing,
-                          [key]: e.target.value
-                        })}
+                        onChange={e =>
+                          handleTypographyChange('spacing', {
+                            ...currentTheme.spacing,
+                            [key]: e.target.value,
+                          })
+                        }
                         className="text-input"
                         placeholder="e.g., 16px"
                       />
                       <div
                         className="spacing-preview"
-                        style={{ width: value, height: '20px', backgroundColor: 'var(--color-accent)' }}
+                        style={{
+                          width: value,
+                          height: '20px',
+                          backgroundColor: 'var(--color-accent)',
+                        }}
                       />
                     </div>
                   ))}
@@ -349,10 +381,12 @@ export function ThemeEditor({ onClose, onSave }) {
                         <input
                           type="text"
                           value={value}
-                          onChange={e => handleTypographyChange('shadow', {
-                            ...currentTheme.shadow,
-                            [key]: e.target.value
-                          })}
+                          onChange={e =>
+                            handleTypographyChange('shadow', {
+                              ...currentTheme.shadow,
+                              [key]: e.target.value,
+                            })
+                          }
                           className="text-input"
                         />
                         <div
@@ -371,10 +405,12 @@ export function ThemeEditor({ onClose, onSave }) {
                       <input
                         type="text"
                         value={currentTheme.border.radius}
-                        onChange={e => handleTypographyChange('border', {
-                          ...currentTheme.border,
-                          radius: e.target.value
-                        })}
+                        onChange={e =>
+                          handleTypographyChange('border', {
+                            ...currentTheme.border,
+                            radius: e.target.value,
+                          })
+                        }
                         className="text-input"
                         placeholder="e.g., 4px"
                       />
@@ -388,10 +424,12 @@ export function ThemeEditor({ onClose, onSave }) {
                       <input
                         type="text"
                         value={currentTheme.border.width}
-                        onChange={e => handleTypographyChange('border', {
-                          ...currentTheme.border,
-                          width: e.target.value
-                        })}
+                        onChange={e =>
+                          handleTypographyChange('border', {
+                            ...currentTheme.border,
+                            width: e.target.value,
+                          })
+                        }
                         className="text-input"
                         placeholder="e.g., 1px"
                       />
@@ -408,16 +446,21 @@ export function ThemeEditor({ onClose, onSave }) {
             <div className="preview-content">
               <h1>Heading 1</h1>
               <h2>Heading 2</h2>
-              <p>This is body text. It demonstrates the current typography settings.</p>
+              <p>
+                This is body text. It demonstrates the current typography
+                settings.
+              </p>
               <div className="preview-colors">
-                {Object.entries(currentTheme.colors).slice(0, 4).map(([key, color]) => (
-                  <div
-                    key={key}
-                    className="preview-color-box"
-                    style={{ backgroundColor: color }}
-                    title={key}
-                  />
-                ))}
+                {Object.entries(currentTheme.colors)
+                  .slice(0, 4)
+                  .map(([key, color]) => (
+                    <div
+                      key={key}
+                      className="preview-color-box"
+                      style={{ backgroundColor: color }}
+                      title={key}
+                    />
+                  ))}
               </div>
             </div>
           </div>
@@ -425,7 +468,9 @@ export function ThemeEditor({ onClose, onSave }) {
 
         {/* Footer Actions */}
         <div className="editor-footer">
-          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="cancel-btn" onClick={onClose}>
+            Cancel
+          </button>
           <button
             className="save-btn"
             onClick={handleSaveTheme}

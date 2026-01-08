@@ -5,7 +5,10 @@
 
 import React, { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { ANIMATION_PRESETS, getAnimationsByCategory } from '../../core/AnimationEngine'
+import {
+  ANIMATION_PRESETS,
+  getAnimationsByCategory,
+} from '../../core/AnimationEngine'
 import Modal from '../ui/molecules/Modal'
 import Button from '../ui/atoms/Button'
 import Input from '../ui/atoms/Input'
@@ -18,7 +21,7 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
   const [customOptions, setCustomOptions] = useState({
     duration: 0.5,
     delay: 0,
-    repeat: 0
+    repeat: 0,
   })
   const [preview, setPreview] = useState(true)
 
@@ -27,7 +30,7 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
     [activeTab]
   )
 
-  const handleAnimationSelect = (animKey) => {
+  const handleAnimationSelect = animKey => {
     setSelectedAnimation(animKey)
   }
 
@@ -39,8 +42,8 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
         config: {
           ...animation,
           duration: customOptions.duration,
-          delay: customOptions.delay
-        }
+          delay: customOptions.delay,
+        },
       })
       onClose()
     }
@@ -56,8 +59,8 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
         animate: animation.animate,
         transition: {
           ...animation.transition,
-          duration: customOptions.duration
-        }
+          duration: customOptions.duration,
+        },
       }
     }
 
@@ -67,8 +70,8 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
       transition: {
         duration: customOptions.duration,
         delay: customOptions.delay,
-        ease: animation.easing
-      }
+        ease: animation.easing,
+      },
     }
   }
 
@@ -79,18 +82,20 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
           {/* Left: Category Tabs */}
           <div className="builder-sidebar">
             <div className="category-tabs">
-              {['entrance', 'hover', 'scroll', 'exit', 'continuous'].map(category => (
-                <button
-                  key={category}
-                  className={`category-tab ${activeTab === category ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab(category)
-                    setSelectedAnimation(null)
-                  }}
-                >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
+              {['entrance', 'hover', 'scroll', 'exit', 'continuous'].map(
+                category => (
+                  <button
+                    key={category}
+                    className={`category-tab ${activeTab === category ? 'active' : ''}`}
+                    onClick={() => {
+                      setActiveTab(category)
+                      setSelectedAnimation(null)
+                    }}
+                  >
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
@@ -113,7 +118,7 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
                         animate={animation.animate}
                         transition={{
                           duration: animation.duration,
-                          ease: animation.easing
+                          ease: animation.easing,
                         }}
                       />
                     )}
@@ -160,7 +165,7 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
                         onChange={e =>
                           setCustomOptions({
                             ...customOptions,
-                            duration: parseFloat(e.target.value)
+                            duration: parseFloat(e.target.value),
                           })
                         }
                       />
@@ -179,7 +184,7 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
                         onChange={e =>
                           setCustomOptions({
                             ...customOptions,
-                            delay: parseFloat(e.target.value)
+                            delay: parseFloat(e.target.value),
                           })
                         }
                       />
@@ -199,7 +204,10 @@ export function AnimationBuilder({ onAnimationSelect, onClose }) {
 
                   {preview && (
                     <div className="animation-preview-large">
-                      <motion.div className="preview-box-large" {...getPreviewProps()} />
+                      <motion.div
+                        className="preview-box-large"
+                        {...getPreviewProps()}
+                      />
                     </div>
                   )}
                 </>
@@ -255,7 +263,11 @@ export function AnimationPresetCard({ preset, isSelected, onClick }) {
 /**
  * Animation Timeline Component
  */
-export function AnimationTimeline({ animations = [], onAnimationClick, onAnimationRemove }) {
+export function AnimationTimeline({
+  animations = [],
+  onAnimationClick,
+  onAnimationRemove,
+}) {
   return (
     <div className="animation-timeline">
       <div className="timeline-header">
@@ -284,13 +296,13 @@ export function AnimationTimeline({ animations = [], onAnimationClick, onAnimati
                   className="timeline-bar"
                   style={{
                     width: `${(anim.duration / 5) * 100}%`,
-                    left: `${(anim.delay / 5) * 100}%`
+                    left: `${(anim.delay / 5) * 100}%`,
                   }}
                 />
               </div>
               <button
                 className="remove-btn"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   onAnimationRemove?.(index)
                 }}
@@ -308,7 +320,10 @@ export function AnimationTimeline({ animations = [], onAnimationClick, onAnimati
 /**
  * Quick Animation Selector
  */
-export function QuickAnimationPicker({ onSelect, categories = ['entrance', 'hover', 'continuous'] }) {
+export function QuickAnimationPicker({
+  onSelect,
+  categories = ['entrance', 'hover', 'continuous'],
+}) {
   const [activeCategory, setActiveCategory] = useState(categories[0])
 
   const animations = useMemo(

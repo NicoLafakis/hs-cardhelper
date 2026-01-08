@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   usePremiumTemplates,
   useTemplateClone,
   useTemplateSearch,
   useFeaturedTemplates,
-  usePopularTemplates
-} from '../../hooks/usePremiumTemplates';
-import TemplateCard from './TemplateCard';
-import TemplatePreview from './TemplatePreview';
-import './TemplateBrowser.css';
+  usePopularTemplates,
+} from '../../hooks/usePremiumTemplates'
+import TemplateCard from './TemplateCard'
+import TemplatePreview from './TemplatePreview'
+import './TemplateBrowser.css'
 
 const TEMPLATE_CATEGORIES = [
   { id: 'all', name: 'All Templates', icon: '📋' },
@@ -19,22 +19,22 @@ const TEMPLATE_CATEGORIES = [
   { id: 'form-templates', name: 'Form Templates', icon: '📝' },
   { id: 'landing-page-cards', name: 'Landing Pages', icon: '🚀' },
   { id: 'gallery-cards', name: 'Gallery Cards', icon: '🖼️' },
-  { id: 'event-cards', name: 'Event Cards', icon: '📅' }
-];
+  { id: 'event-cards', name: 'Event Cards', icon: '📅' },
+]
 
 const FILTER_OPTIONS = [
   { id: 'all', name: 'All Templates' },
   { id: 'featured', name: 'Featured' },
   { id: 'popular', name: 'Popular' },
-  { id: 'recent', name: 'Recently Added' }
-];
+  { id: 'recent', name: 'Recently Added' },
+]
 
 const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [previewTemplate, setPreviewTemplate] = useState(null);
-  const [showPreview, setShowPreview] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedFilter, setSelectedFilter] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [previewTemplate, setPreviewTemplate] = useState(null)
+  const [showPreview, setShowPreview] = useState(false)
 
   // Hooks
   const {
@@ -42,52 +42,53 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
     loading: templatesLoading,
     error: templatesError,
     setCategory,
-    setSearch,
     setFeatured,
-    refresh
-  } = usePremiumTemplates();
+    refresh,
+  } = usePremiumTemplates()
 
-  const { templates: featuredTemplates, loading: featuredLoading } = useFeaturedTemplates(12);
-  const { templates: popularTemplates, loading: popularLoading } = usePopularTemplates(10);
-  const { searchResults, searching, handleSearch } = useTemplateSearch(500);
-  const { cloning, error: cloneError, cloneTemplate } = useTemplateClone();
+  const { templates: featuredTemplates, loading: featuredLoading } =
+    useFeaturedTemplates(12)
+  const { templates: popularTemplates, loading: popularLoading } =
+    usePopularTemplates(10)
+  const { searchResults, searching, handleSearch } = useTemplateSearch(500)
+  const { cloning, error: cloneError, cloneTemplate } = useTemplateClone()
 
   // Update filters
   useEffect(() => {
     if (selectedCategory !== 'all') {
-      setCategory(selectedCategory);
+      setCategory(selectedCategory)
     }
     if (selectedFilter === 'featured') {
-      setFeatured(true);
+      setFeatured(true)
     }
-  }, [selectedCategory, selectedFilter, setCategory, setFeatured]);
+  }, [selectedCategory, selectedFilter, setCategory, setFeatured])
 
   // Handle search
   useEffect(() => {
     if (searchQuery.length > 0) {
-      handleSearch(searchQuery);
+      handleSearch(searchQuery)
     }
-  }, [searchQuery, handleSearch]);
+  }, [searchQuery, handleSearch])
 
   // Determine which templates to display
   const displayTemplates = useMemo(() => {
     if (searchQuery.length > 0 && searchResults.length > 0) {
-      return searchResults;
+      return searchResults
     }
 
     if (selectedFilter === 'featured') {
-      return featuredTemplates;
+      return featuredTemplates
     }
 
     if (selectedFilter === 'popular') {
-      return popularTemplates;
+      return popularTemplates
     }
 
     if (selectedCategory === 'all') {
-      return allTemplates;
+      return allTemplates
     }
 
-    return allTemplates.filter(t => t.category === selectedCategory);
+    return allTemplates.filter(t => t.category === selectedCategory)
   }, [
     searchQuery,
     searchResults,
@@ -95,34 +96,35 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
     selectedCategory,
     allTemplates,
     featuredTemplates,
-    popularTemplates
-  ]);
+    popularTemplates,
+  ])
 
-  const handlePreview = (template) => {
-    setPreviewTemplate(template);
-    setShowPreview(true);
-  };
+  const handlePreview = template => {
+    setPreviewTemplate(template)
+    setShowPreview(true)
+  }
 
-  const handleClone = async (template) => {
+  const handleClone = async template => {
     if (!currentCardId) {
-      alert('Please select or create a card first');
-      return;
+      alert('Please select or create a card first')
+      return
     }
 
     try {
-      const instance = await cloneTemplate(template.templateId, currentCardId);
+      const instance = await cloneTemplate(template.templateId, currentCardId)
       if (onTemplateClone) {
-        onTemplateClone(instance);
+        onTemplateClone(instance)
       }
-      alert('Template cloned successfully!');
-      setShowPreview(false);
+      alert('Template cloned successfully!')
+      setShowPreview(false)
     } catch (error) {
-      console.error('Failed to clone template:', error);
-      alert('Failed to clone template: ' + (error.message || 'Unknown error'));
+      console.error('Failed to clone template:', error)
+      alert('Failed to clone template: ' + (error.message || 'Unknown error'))
     }
-  };
+  }
 
-  const loading = templatesLoading || featuredLoading || popularLoading || searching;
+  const loading =
+    templatesLoading || featuredLoading || popularLoading || searching
 
   return (
     <div className="template-browser">
@@ -130,7 +132,9 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
       <div className="template-browser-header">
         <div className="header-content">
           <h2>Premium Templates</h2>
-          <p>Choose from professionally designed templates to jumpstart your card</p>
+          <p>
+            Choose from professionally designed templates to jumpstart your card
+          </p>
         </div>
 
         {/* Search Bar */}
@@ -139,7 +143,7 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
             type="text"
             placeholder="Search templates..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="search-input"
           />
           <span className="search-icon">🔍</span>
@@ -204,7 +208,10 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
             <div className="empty-state">
               <p>No templates found</p>
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="clear-search-button">
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="clear-search-button"
+                >
                   Clear Search
                 </button>
               )}
@@ -257,7 +264,7 @@ const TemplateBrowser = ({ onTemplateClone, currentCardId }) => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TemplateBrowser;
+export default TemplateBrowser

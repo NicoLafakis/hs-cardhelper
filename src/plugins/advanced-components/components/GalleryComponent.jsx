@@ -11,7 +11,7 @@ export function GalleryComponent({ config }) {
     images = [],
     title = 'Gallery',
     columns = 3,
-    showCaptions = true
+    showCaptions = true,
   } = config
 
   const [lightboxImage, setLightboxImage] = useState(null)
@@ -19,7 +19,9 @@ export function GalleryComponent({ config }) {
   if (!images || images.length === 0) {
     return (
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="text-sm text-gray-500 text-center">No images in gallery</p>
+        <p className="text-sm text-gray-500 text-center">
+          No images in gallery
+        </p>
       </div>
     )
   }
@@ -28,7 +30,7 @@ export function GalleryComponent({ config }) {
     1: 'grid-cols-1',
     2: 'grid-cols-2',
     3: 'grid-cols-3',
-    4: 'grid-cols-4'
+    4: 'grid-cols-4',
   }
 
   return (
@@ -52,7 +54,10 @@ export function GalleryComponent({ config }) {
 
             {/* Overlay on hover */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity flex items-center justify-center">
-              <ZoomIn className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={32} />
+              <ZoomIn
+                className="text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                size={32}
+              />
             </div>
 
             {showCaptions && (image.caption || image.title) && (
@@ -84,7 +89,7 @@ export function GalleryComponent({ config }) {
               src={lightboxImage.url || lightboxImage.src || lightboxImage}
               alt={lightboxImage.alt || lightboxImage.caption || 'Image'}
               className="max-w-full max-h-[90vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
             />
 
             {(lightboxImage.caption || lightboxImage.title) && (

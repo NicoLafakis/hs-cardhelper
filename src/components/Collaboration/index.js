@@ -9,5 +9,5 @@ export { ConflictResolver } from './ConflictResolver'
 export default {
   CollaboratorsPanel: () => import('./CollaboratorsPanel'),
   VersionHistory: () => import('./VersionHistory'),
-  ConflictResolver: () => import('./ConflictResolver')
+  ConflictResolver: () => import('./ConflictResolver'),
 }

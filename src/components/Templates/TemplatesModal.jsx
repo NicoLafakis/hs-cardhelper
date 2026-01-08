@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react'
 import { templatesAPI } from '../../api/api'
 import useBuilderStore from '../../store/builderStore'
-import { X, Save, Trash2, Download, AlertCircle, Sparkles, User } from 'lucide-react'
+import {
+  X,
+  Save,
+  Trash2,
+  Download,
+  AlertCircle,
+  Sparkles,
+  User,
+} from 'lucide-react'
 import { CARD_TEMPLATES, getCategories } from '../../data/cardTemplates'
 
 export default function TemplatesModal({ onClose }) {
@@ -15,7 +23,6 @@ export default function TemplatesModal({ onClose }) {
   const components = useBuilderStore(state => state.components)
   const loadComponents = useBuilderStore(state => state.loadComponents)
   const addComponent = useBuilderStore(state => state.addComponent)
-  const clearCanvas = useBuilderStore(state => state.clearCanvas || (() => {}))
 
   useEffect(() => {
     loadTemplates()
@@ -57,11 +64,12 @@ export default function TemplatesModal({ onClose }) {
     }
   }
 
-  const handleLoad = async (template) => {
+  const handleLoad = async template => {
     try {
-      const config = typeof template.config === 'string'
-        ? JSON.parse(template.config)
-        : template.config
+      const config =
+        typeof template.config === 'string'
+          ? JSON.parse(template.config)
+          : template.config
       loadComponents(config)
       onClose()
     } catch (err) {
@@ -69,7 +77,7 @@ export default function TemplatesModal({ onClose }) {
     }
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     if (!confirm('Are you sure you want to delete this template?')) return
 
     try {
@@ -80,7 +88,7 @@ export default function TemplatesModal({ onClose }) {
     }
   }
 
-  const handleLoadPrebuiltTemplate = (template) => {
+  const handleLoadPrebuiltTemplate = template => {
     try {
       // Clear existing components
       loadComponents([])
@@ -90,7 +98,7 @@ export default function TemplatesModal({ onClose }) {
         const newComponent = {
           ...comp,
           id: Date.now() + Math.random(),
-          zIndex: comp.zIndex || 0
+          zIndex: comp.zIndex || 0,
         }
         // Use a timeout to ensure components are added sequentially
         setTimeout(() => {
@@ -105,9 +113,10 @@ export default function TemplatesModal({ onClose }) {
   }
 
   const categories = ['All', ...getCategories()]
-  const filteredTemplates = selectedCategory === 'All'
-    ? CARD_TEMPLATES
-    : CARD_TEMPLATES.filter(t => t.category === selectedCategory)
+  const filteredTemplates =
+    selectedCategory === 'All'
+      ? CARD_TEMPLATES
+      : CARD_TEMPLATES.filter(t => t.category === selectedCategory)
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -228,7 +237,7 @@ export default function TemplatesModal({ onClose }) {
                   <input
                     type="text"
                     value={templateName}
-                    onChange={(e) => setTemplateName(e.target.value)}
+                    onChange={e => setTemplateName(e.target.value)}
                     placeholder="Template name"
                     className="input-field flex-1"
                   />
@@ -253,7 +262,7 @@ export default function TemplatesModal({ onClose }) {
                   <p className="text-gray-500">No templates saved yet</p>
                 ) : (
                   <div className="space-y-2">
-                    {templates.map((template) => (
+                    {templates.map(template => (
                       <div
                         key={template.id}
                         className="flex items-center justify-between p-4 bg-gray-50 rounded border border-gray-200"

@@ -6,9 +6,11 @@
 export function generateReactCode(components) {
   const sortedComponents = [...components].sort((a, b) => a.zIndex - b.zIndex)
 
-  const componentJSX = sortedComponents.map(comp => {
-    return generateComponentJSX(comp)
-  }).join('\n      ')
+  const componentJSX = sortedComponents
+    .map(comp => {
+      return generateComponentJSX(comp)
+    })
+    .join('\n      ')
 
   return `import React from 'react';
 import {

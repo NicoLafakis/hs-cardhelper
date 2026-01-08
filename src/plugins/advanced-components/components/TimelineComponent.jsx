@@ -4,25 +4,27 @@
  */
 
 import { format } from 'date-fns'
-import { Calendar, Clock } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 
 export function TimelineComponent({ config }) {
   const {
     events = [],
     title = 'Timeline',
     showDates = true,
-    showTimes = false
+    showTimes = false,
   } = config
 
   if (!events || events.length === 0) {
     return (
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="text-sm text-gray-500 text-center">No events in timeline</p>
+        <p className="text-sm text-gray-500 text-center">
+          No events in timeline
+        </p>
       </div>
     )
   }
 
-  const formatDateTime = (date) => {
+  const formatDateTime = date => {
     try {
       const d = new Date(date)
       if (showTimes) {
@@ -59,7 +61,9 @@ export function TimelineComponent({ config }) {
                 )}
 
                 {event.title && (
-                  <h4 className="font-semibold text-gray-900 mb-1">{event.title}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">
+                    {event.title}
+                  </h4>
                 )}
 
                 {event.description && (

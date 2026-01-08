@@ -13,13 +13,14 @@ const themeSystemPlugin = createPlugin({
   id: 'theme-system',
   name: 'Theme System',
   version: '1.0.0',
-  description: 'Switch between pre-built themes or create your own custom themes',
+  description:
+    'Switch between pre-built themes or create your own custom themes',
   author: 'CardHelper Team',
   enabled: true,
 
   components: {
     ThemeSwitcher,
-    ThemeEditor
+    ThemeEditor,
   },
 
   services: {
@@ -30,17 +31,14 @@ const themeSystemPlugin = createPlugin({
       },
 
       // Set theme
-      setTheme: (themeId) => {
+      setTheme: themeId => {
         return useThemeStore.getState().setTheme(themeId)
       },
 
       // Get all available themes
       getAllThemes: () => {
         const { customThemes } = useThemeStore.getState()
-        return [
-          ...getAllThemes(),
-          ...Object.values(customThemes)
-        ]
+        return [...getAllThemes(), ...Object.values(customThemes)]
       },
 
       // Create custom theme
@@ -54,29 +52,26 @@ const themeSystemPlugin = createPlugin({
       },
 
       // Import theme
-      importTheme: (file) => {
+      importTheme: file => {
         return useThemeStore.getState().importTheme(file)
-      }
-    }
+      },
+    },
   },
 
   config: {
     defaultTheme: 'light',
     enableCustomThemes: true,
-    enableThemeImportExport: true
+    enableThemeImportExport: true,
   },
 
   hooks: {
-    'app:mounted': async function() {
-      console.log('Theme System: App mounted, applying saved theme')
+    'app:mounted': async function () {
       const currentTheme = useThemeStore.getState().currentTheme
       useThemeStore.getState().applyTheme(currentTheme)
-    }
+    },
   },
 
-  initialize: async function(context) {
-    console.log('Theme System plugin initialized!')
-
+  initialize: async function (context) {
     // Apply saved theme on init
     const currentTheme = useThemeStore.getState().currentTheme
     useThemeStore.getState().applyTheme(currentTheme)
@@ -86,20 +81,15 @@ const themeSystemPlugin = createPlugin({
       context.featureFlags.setFlag('plugin.theme-system', true)
     }
 
-    // Log available themes
-    console.log('Available themes:', getAllThemes().map(t => t.name).join(', '))
-
     return true
   },
 
-  destroy: async function() {
-    console.log('Theme System plugin destroyed!')
-
+  destroy: async function () {
     // Reset to default theme
     useThemeStore.getState().resetTheme()
 
     return true
-  }
+  },
 })
 
 export default themeSystemPlugin

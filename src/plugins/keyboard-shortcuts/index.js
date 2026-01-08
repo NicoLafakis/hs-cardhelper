@@ -19,53 +19,52 @@ const keyboardShortcutsPlugin = createPlugin({
       {
         key: 'ctrl+s',
         action: 'save',
-        description: 'Save current template'
+        description: 'Save current template',
       },
       {
         key: 'ctrl+shift+s',
         action: 'saveAs',
-        description: 'Save template as...'
+        description: 'Save template as...',
       },
       {
         key: 'ctrl+n',
         action: 'new',
-        description: 'New template'
+        description: 'New template',
       },
       {
         key: 'ctrl+o',
         action: 'open',
-        description: 'Open template'
+        description: 'Open template',
       },
       {
         key: 'delete',
         action: 'deleteComponent',
-        description: 'Delete selected component'
+        description: 'Delete selected component',
       },
       {
         key: 'ctrl+d',
         action: 'duplicateComponent',
-        description: 'Duplicate selected component'
-      }
-    ]
+        description: 'Duplicate selected component',
+      },
+    ],
   },
 
-  initialize: async function(context) {
-    console.log('Keyboard Shortcuts plugin initialized!')
-
+  initialize: async function (context) {
     // Register keyboard event listener
-    this.handleKeydown = (e) => {
+    this.handleKeydown = e => {
       const key = [
         e.ctrlKey && 'ctrl',
         e.shiftKey && 'shift',
         e.altKey && 'alt',
-        e.key.toLowerCase()
-      ].filter(Boolean).join('+')
+        e.key.toLowerCase(),
+      ]
+        .filter(Boolean)
+        .join('+')
 
       const shortcut = this.config.shortcuts.find(s => s.key === key)
 
       if (shortcut) {
         e.preventDefault()
-        console.log(`Executing shortcut: ${shortcut.action}`)
         // Execute action via hook
         context.pluginRegistry?.executeHook(`shortcut:${shortcut.action}`, e)
       }
@@ -80,16 +79,14 @@ const keyboardShortcutsPlugin = createPlugin({
     return true
   },
 
-  destroy: async function() {
-    console.log('Keyboard Shortcuts plugin destroyed!')
-
+  destroy: async function () {
     // Clean up event listener
     if (this.handleKeydown) {
       window.removeEventListener('keydown', this.handleKeydown)
     }
 
     return true
-  }
+  },
 })
 
 export default keyboardShortcutsPlugin

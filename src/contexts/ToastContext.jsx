@@ -21,17 +21,31 @@ export function ToastProvider({ children }) {
     return id
   }, [])
 
-  const removeToast = useCallback((id) => {
+  const removeToast = useCallback(id => {
     setToasts(prev => prev.filter(toast => toast.id !== id))
   }, [])
 
-  const success = useCallback((message, duration) => addToast(message, 'success', duration), [addToast])
-  const error = useCallback((message, duration) => addToast(message, 'error', duration), [addToast])
-  const info = useCallback((message, duration) => addToast(message, 'info', duration), [addToast])
-  const warning = useCallback((message, duration) => addToast(message, 'warning', duration), [addToast])
+  const success = useCallback(
+    (message, duration) => addToast(message, 'success', duration),
+    [addToast]
+  )
+  const error = useCallback(
+    (message, duration) => addToast(message, 'error', duration),
+    [addToast]
+  )
+  const info = useCallback(
+    (message, duration) => addToast(message, 'info', duration),
+    [addToast]
+  )
+  const warning = useCallback(
+    (message, duration) => addToast(message, 'warning', duration),
+    [addToast]
+  )
 
   return (
-    <ToastContext.Provider value={{ addToast, removeToast, success, error, info, warning }}>
+    <ToastContext.Provider
+      value={{ addToast, removeToast, success, error, info, warning }}
+    >
       {children}
       <ToastContainer toasts={toasts} removeToast={removeToast} />
     </ToastContext.Provider>
@@ -42,7 +56,11 @@ function ToastContainer({ toasts, removeToast }) {
   return (
     <div className="fixed top-4 right-4 z-[100] space-y-2 pointer-events-none">
       {toasts.map(toast => (
-        <Toast key={toast.id} toast={toast} onClose={() => removeToast(toast.id)} />
+        <Toast
+          key={toast.id}
+          toast={toast}
+          onClose={() => removeToast(toast.id)}
+        />
       ))}
     </div>
   )
@@ -53,21 +71,21 @@ function Toast({ toast, onClose }) {
     success: CheckCircle,
     error: AlertCircle,
     info: Info,
-    warning: AlertTriangle
+    warning: AlertTriangle,
   }
 
   const styles = {
     success: 'bg-green-50 border-green-200 text-green-800',
     error: 'bg-red-50 border-red-200 text-red-800',
     info: 'bg-blue-50 border-blue-200 text-blue-800',
-    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800'
+    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
   }
 
   const iconColors = {
     success: 'text-green-600',
     error: 'text-red-600',
     info: 'text-blue-600',
-    warning: 'text-yellow-600'
+    warning: 'text-yellow-600',
   }
 
   const Icon = icons[toast.type] || Info
@@ -82,7 +100,9 @@ function Toast({ toast, onClose }) {
         animate-in slide-in-from-right duration-300
       `}
     >
-      <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColors[toast.type]}`} />
+      <Icon
+        className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColors[toast.type]}`}
+      />
       <p className="flex-1 text-sm font-medium">{toast.message}</p>
       <button
         onClick={onClose}

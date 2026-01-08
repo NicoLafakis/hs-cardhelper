@@ -1,10 +1,9 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import DOMPurify from 'dompurify';
-import './TemplatePreview.css';
+import { motion, AnimatePresence } from 'framer-motion'
+import DOMPurify from 'dompurify'
+import './TemplatePreview.css'
 
 const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
-  if (!template) return null;
+  if (!template) return null
 
   const {
     name,
@@ -17,18 +16,18 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
     rating,
     downloadCount,
     cloneCount,
-    accessibilityNotes
-  } = template;
+    accessibilityNotes,
+  } = template
 
   const handleClone = () => {
-    onClone(template);
-  };
+    onClone(template)
+  }
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      onClose();
+      onClose()
     }
-  };
+  }
 
   // Format category for display
   const categoryDisplay = category
@@ -36,10 +35,10 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')
-    : 'Template';
+    : 'Template'
 
   // Count components in structure
-  const componentCount = componentStructure?.children?.length || 0;
+  const componentCount = componentStructure?.children?.length || 0
 
   return (
     <AnimatePresence>
@@ -76,7 +75,9 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
                 {previewHtml ? (
                   <div
                     className="preview-html"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(previewHtml) }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(previewHtml),
+                    }}
                   />
                 ) : (
                   <div className="preview-placeholder">
@@ -88,15 +89,9 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
 
               {/* Responsive Tabs */}
               <div className="preview-tabs">
-                <button className="preview-tab active">
-                  💻 Desktop
-                </button>
-                <button className="preview-tab">
-                  📱 Mobile
-                </button>
-                <button className="preview-tab">
-                  🎨 Design Tokens
-                </button>
+                <button className="preview-tab active">💻 Desktop</button>
+                <button className="preview-tab">📱 Mobile</button>
+                <button className="preview-tab">🎨 Design Tokens</button>
               </div>
             </div>
 
@@ -116,7 +111,9 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
                     {rating && (
                       <div className="stat-box">
                         <span className="stat-label">Rating</span>
-                        <span className="stat-value">⭐ {rating.toFixed(1)}</span>
+                        <span className="stat-value">
+                          ⭐ {rating.toFixed(1)}
+                        </span>
                       </div>
                     )}
                     {downloadCount !== undefined && (
@@ -165,15 +162,17 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
                         <div className="token-group">
                           <h4>Colors</h4>
                           <div className="color-swatches">
-                            {Object.entries(designTokens.colors).slice(0, 6).map(([key, value]) => (
-                              <div key={key} className="color-swatch">
-                                <div
-                                  className="swatch-color"
-                                  style={{ backgroundColor: value }}
-                                ></div>
-                                <span className="swatch-label">{key}</span>
-                              </div>
-                            ))}
+                            {Object.entries(designTokens.colors)
+                              .slice(0, 6)
+                              .map(([key, value]) => (
+                                <div key={key} className="color-swatch">
+                                  <div
+                                    className="swatch-color"
+                                    style={{ backgroundColor: value }}
+                                  ></div>
+                                  <span className="swatch-label">{key}</span>
+                                </div>
+                              ))}
                           </div>
                         </div>
                       )}
@@ -226,7 +225,7 @@ const TemplatePreview = ({ template, onClose, onClone, cloning }) => {
         </motion.div>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default TemplatePreview;
+export default TemplatePreview

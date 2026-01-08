@@ -15,7 +15,11 @@ export const usePremiumTemplates = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [pagination, setPagination] = useState({ limit: 20, offset: 0 })
-  const [filters, setFilters] = useState({ category: null, search: '', featured: false })
+  const [filters, setFilters] = useState({
+    category: null,
+    search: '',
+    featured: false,
+  })
 
   const fetchTemplates = useCallback(async () => {
     setLoading(true)
@@ -25,7 +29,7 @@ export const usePremiumTemplates = () => {
         limit: pagination.limit,
         offset: pagination.offset,
         ...filters,
-        featured: filters.featured ? 'true' : 'false'
+        featured: filters.featured ? 'true' : 'false',
       })
 
       const response = await api.get(`/api/premium-templates?${params}`)
@@ -42,29 +46,29 @@ export const usePremiumTemplates = () => {
     fetchTemplates()
   }, [fetchTemplates])
 
-  const setCategory = useCallback((category) => {
-    setFilters((prev) => ({ ...prev, category }))
-    setPagination((prev) => ({ ...prev, offset: 0 }))
+  const setCategory = useCallback(category => {
+    setFilters(prev => ({ ...prev, category }))
+    setPagination(prev => ({ ...prev, offset: 0 }))
   }, [])
 
-  const setSearch = useCallback((search) => {
-    setFilters((prev) => ({ ...prev, search }))
-    setPagination((prev) => ({ ...prev, offset: 0 }))
+  const setSearch = useCallback(search => {
+    setFilters(prev => ({ ...prev, search }))
+    setPagination(prev => ({ ...prev, offset: 0 }))
   }, [])
 
-  const setFeatured = useCallback((featured) => {
-    setFilters((prev) => ({ ...prev, featured }))
-    setPagination((prev) => ({ ...prev, offset: 0 }))
+  const setFeatured = useCallback(featured => {
+    setFilters(prev => ({ ...prev, featured }))
+    setPagination(prev => ({ ...prev, offset: 0 }))
   }, [])
 
   const nextPage = useCallback(() => {
-    setPagination((prev) => ({ ...prev, offset: prev.offset + prev.limit }))
+    setPagination(prev => ({ ...prev, offset: prev.offset + prev.limit }))
   }, [])
 
   const previousPage = useCallback(() => {
-    setPagination((prev) => ({
+    setPagination(prev => ({
       ...prev,
-      offset: Math.max(0, prev.offset - prev.limit)
+      offset: Math.max(0, prev.offset - prev.limit),
     }))
   }, [])
 
@@ -78,7 +82,7 @@ export const usePremiumTemplates = () => {
     setFeatured,
     nextPage,
     previousPage,
-    refresh: fetchTemplates
+    refresh: fetchTemplates,
   }
 }
 
@@ -91,30 +95,36 @@ export const useTemplateClone = () => {
   const [error, setError] = useState(null)
   const [clonedInstance, setClonedInstance] = useState(null)
 
-  const cloneTemplate = useCallback(async (templateId, cardId, customizationData = {}) => {
-    setCloning(true)
-    setError(null)
-    try {
-      const response = await api.post(`/api/premium-templates/${templateId}/clone`, {
-        cardId,
-        customizationData
-      })
-      setClonedInstance(response.data.instance)
-      return response.data.instance
-    } catch (err) {
-      setError(err.message)
-      console.error('Clone template error:', err)
-      throw err
-    } finally {
-      setCloning(false)
-    }
-  }, [])
+  const cloneTemplate = useCallback(
+    async (templateId, cardId, customizationData = {}) => {
+      setCloning(true)
+      setError(null)
+      try {
+        const response = await api.post(
+          `/api/premium-templates/${templateId}/clone`,
+          {
+            cardId,
+            customizationData,
+          }
+        )
+        setClonedInstance(response.data.instance)
+        return response.data.instance
+      } catch (err) {
+        setError(err.message)
+        console.error('Clone template error:', err)
+        throw err
+      } finally {
+        setCloning(false)
+      }
+    },
+    []
+  )
 
   return {
     cloning,
     error,
     clonedInstance,
-    cloneTemplate
+    cloneTemplate,
   }
 }
 
@@ -122,7 +132,7 @@ export const useTemplateClone = () => {
  * Hook for rating templates
  * Handles rating submission and review
  */
-export const useTemplateRating = (templateId) => {
+export const useTemplateRating = templateId => {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -142,7 +152,7 @@ export const useTemplateRating = (templateId) => {
     try {
       await api.post(`/api/premium-templates/${templateId}/rate`, {
         rating,
-        reviewText: review
+        reviewText: review,
       })
       setSuccess(true)
       setRating(0)
@@ -164,7 +174,7 @@ export const useTemplateRating = (templateId) => {
     submitting,
     error,
     success,
-    submitRating
+    submitRating,
   }
 }
 
@@ -179,7 +189,7 @@ export const useTemplateSearch = (delay = 500) => {
   const [error, setError] = useState(null)
   const debounceTimer = useRef(null)
 
-  const performSearch = useCallback(async (query) => {
+  const performSearch = useCallback(async query => {
     if (!query.trim()) {
       setSearchResults([])
       return
@@ -189,7 +199,9 @@ export const useTemplateSearch = (delay = 500) => {
     setError(null)
 
     try {
-      const response = await api.get(`/api/premium-templates?search=${encodeURIComponent(query)}`)
+      const response = await api.get(
+        `/api/premium-templates?search=${encodeURIComponent(query)}`
+      )
       setSearchResults(response.data.templates)
     } catch (err) {
       setError(err.message)
@@ -200,7 +212,7 @@ export const useTemplateSearch = (delay = 500) => {
   }, [])
 
   const handleSearch = useCallback(
-    (query) => {
+    query => {
       setSearchQuery(query)
 
       // Clear existing timer
@@ -230,7 +242,7 @@ export const useTemplateSearch = (delay = 500) => {
     handleSearch,
     searchResults,
     searching,
-    error
+    error,
   }
 }
 
@@ -248,7 +260,9 @@ export const usePopularTemplates = (limit = 10) => {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.get(`/api/premium-templates/popular?limit=${limit}`)
+        const response = await api.get(
+          `/api/premium-templates/popular?limit=${limit}`
+        )
         setTemplates(response.data.templates)
       } catch (err) {
         setError(err.message)
@@ -278,7 +292,9 @@ export const useFeaturedTemplates = (limit = 12) => {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.get(`/api/premium-templates/featured?limit=${limit}`)
+        const response = await api.get(
+          `/api/premium-templates/featured?limit=${limit}`
+        )
         setTemplates(response.data.templates)
       } catch (err) {
         setError(err.message)
@@ -298,7 +314,7 @@ export const useFeaturedTemplates = (limit = 12) => {
  * Hook for template preview
  * Generates and manages template preview
  */
-export const useTemplatePreview = (templateId) => {
+export const useTemplatePreview = templateId => {
   const [preview, setPreview] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -314,7 +330,7 @@ export const useTemplatePreview = (templateId) => {
           html: template.previewHtml,
           structure: template.componentStructure,
           tokens: template.designTokens,
-          defaults: template.defaultValues
+          defaults: template.defaultValues,
         })
       } catch (err) {
         setError(err.message)
@@ -345,11 +361,16 @@ export const useTemplateInstances = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await api.put(`/api/premium-templates/instances/${instanceId}`, {
-        customizationData
-      })
-      setInstances((prev) =>
-        prev.map((inst) => (inst.id === instanceId ? response.data.instance : inst))
+      const response = await api.put(
+        `/api/premium-templates/instances/${instanceId}`,
+        {
+          customizationData,
+        }
+      )
+      setInstances(prev =>
+        prev.map(inst =>
+          inst.id === instanceId ? response.data.instance : inst
+        )
       )
       return response.data.instance
     } catch (err) {
@@ -361,11 +382,13 @@ export const useTemplateInstances = () => {
     }
   }, [])
 
-  const publishInstance = useCallback(async (instanceId) => {
+  const publishInstance = useCallback(async instanceId => {
     setLoading(true)
     setError(null)
     try {
-      const response = await api.post(`/api/premium-templates/instances/${instanceId}/publish`)
+      const response = await api.post(
+        `/api/premium-templates/instances/${instanceId}/publish`
+      )
       return response.data
     } catch (err) {
       setError(err.message)
@@ -381,6 +404,6 @@ export const useTemplateInstances = () => {
     loading,
     error,
     updateInstance,
-    publishInstance
+    publishInstance,
   }
 }

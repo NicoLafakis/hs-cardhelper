@@ -39,8 +39,8 @@ export const themes = {
       cardBorder: '#E5E7EB',
       inputBackground: '#FFFFFF',
       inputBorder: '#D1D5DB',
-      modalOverlay: 'rgba(0, 0, 0, 0.5)'
-    }
+      modalOverlay: 'rgba(0, 0, 0, 0.5)',
+    },
   },
 
   dark: {
@@ -78,8 +78,8 @@ export const themes = {
       cardBorder: '#374151',
       inputBackground: '#374151',
       inputBorder: '#4B5563',
-      modalOverlay: 'rgba(0, 0, 0, 0.75)'
-    }
+      modalOverlay: 'rgba(0, 0, 0, 0.75)',
+    },
   },
 
   highContrast: {
@@ -117,8 +117,8 @@ export const themes = {
       cardBorder: '#000000',
       inputBackground: '#FFFFFF',
       inputBorder: '#000000',
-      modalOverlay: 'rgba(0, 0, 0, 0.8)'
-    }
+      modalOverlay: 'rgba(0, 0, 0, 0.8)',
+    },
   },
 
   ocean: {
@@ -156,8 +156,8 @@ export const themes = {
       cardBorder: '#7DD3FC',
       inputBackground: '#FFFFFF',
       inputBorder: '#38BDF8',
-      modalOverlay: 'rgba(12, 74, 110, 0.5)'
-    }
+      modalOverlay: 'rgba(12, 74, 110, 0.5)',
+    },
   },
 
   sunset: {
@@ -195,8 +195,8 @@ export const themes = {
       cardBorder: '#FDBA74',
       inputBackground: '#FFFFFF',
       inputBorder: '#FB923C',
-      modalOverlay: 'rgba(124, 45, 18, 0.5)'
-    }
+      modalOverlay: 'rgba(124, 45, 18, 0.5)',
+    },
   },
 
   forest: {
@@ -234,9 +234,9 @@ export const themes = {
       cardBorder: '#86EFAC',
       inputBackground: '#FFFFFF',
       inputBorder: '#4ADE80',
-      modalOverlay: 'rgba(20, 83, 45, 0.5)'
-    }
-  }
+      modalOverlay: 'rgba(20, 83, 45, 0.5)',
+    },
+  },
 }
 
 export function getTheme(themeId) {

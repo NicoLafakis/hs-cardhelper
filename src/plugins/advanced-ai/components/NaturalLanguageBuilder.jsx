@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react'
-import { Wand2, Loader2, Sparkles } from 'lucide-react'
+import { Wand2, Sparkles } from 'lucide-react'
 import { Button } from '../../../components/ui/atoms/Button'
 import { Spinner } from '../../../components/ui/atoms/Spinner'
 import { aiAPI } from '../../../api/api'
@@ -13,14 +13,13 @@ export function NaturalLanguageBuilder({ onCardGenerated }) {
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [suggestions, setSuggestions] = useState([])
 
   const examplePrompts = [
-    "Create a card showing contact name, email, phone, and company",
-    "Build a deal card with amount, stage, close date, and owner",
-    "Show recent activity timeline for this contact",
-    "Display company revenue chart over the last 6 months",
-    "Create a task list with due dates and priorities"
+    'Create a card showing contact name, email, phone, and company',
+    'Build a deal card with amount, stage, close date, and owner',
+    'Show recent activity timeline for this contact',
+    'Display company revenue chart over the last 6 months',
+    'Create a task list with due dates and priorities',
   ]
 
   const handleGenerate = async () => {
@@ -49,7 +48,7 @@ export function NaturalLanguageBuilder({ onCardGenerated }) {
     }
   }
 
-  const useSuggestion = (suggestion) => {
+  const applySuggestion = suggestion => {
     setPrompt(suggestion)
   }
 
@@ -60,8 +59,12 @@ export function NaturalLanguageBuilder({ onCardGenerated }) {
           <Wand2 size={24} className="text-white" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">AI Card Builder</h3>
-          <p className="text-sm text-gray-600">Describe your card in plain English</p>
+          <h3 className="text-lg font-semibold text-gray-900">
+            AI Card Builder
+          </h3>
+          <p className="text-sm text-gray-600">
+            Describe your card in plain English
+          </p>
         </div>
       </div>
 
@@ -75,7 +78,7 @@ export function NaturalLanguageBuilder({ onCardGenerated }) {
         <div>
           <textarea
             value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
+            onChange={e => setPrompt(e.target.value)}
             placeholder="e.g., Create a card showing contact name, email, recent deals, and activity timeline..."
             className="w-full h-32 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
             disabled={loading}
@@ -103,12 +106,14 @@ export function NaturalLanguageBuilder({ onCardGenerated }) {
       </div>
 
       <div className="mt-6">
-        <p className="text-sm font-medium text-gray-700 mb-3">Try these examples:</p>
+        <p className="text-sm font-medium text-gray-700 mb-3">
+          Try these examples:
+        </p>
         <div className="space-y-2">
           {examplePrompts.map((suggestion, index) => (
             <button
               key={index}
-              onClick={() => useSuggestion(suggestion)}
+              onClick={() => applySuggestion(suggestion)}
               className="w-full text-left px-4 py-2 bg-white border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors text-sm text-gray-700"
               disabled={loading}
             >

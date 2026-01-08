@@ -21,60 +21,66 @@ const useAnalyticsStore = create(
       /**
        * Add an analytics event
        */
-      addEvent: (eventName, data = {}) => set((state) => ({
-        events: [
-          ...state.events,
-          {
-            name: eventName,
-            data,
-            timestamp: new Date().toISOString()
-          }
-        ]
-      })),
+      addEvent: (eventName, data = {}) =>
+        set(state => ({
+          events: [
+            ...state.events,
+            {
+              name: eventName,
+              data,
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        })),
 
       /**
        * Track template usage
        */
-      trackTemplate: (templateId, action) => set((state) => {
-        const existing = state.templates.find(t => t.id === templateId)
+      trackTemplate: (templateId, action) =>
+        set(state => {
+          const existing = state.templates.find(t => t.id === templateId)
 
-        if (existing) {
-          return {
-            templates: state.templates.map(t =>
-              t.id === templateId
-                ? {
-                    ...t,
-                    uses: t.uses + 1,
-                    lastUsed: new Date().toISOString(),
-                    actions: [...(t.actions || []), { action, timestamp: new Date().toISOString() }]
-                  }
-                : t
-            )
+          if (existing) {
+            return {
+              templates: state.templates.map(t =>
+                t.id === templateId
+                  ? {
+                      ...t,
+                      uses: t.uses + 1,
+                      lastUsed: new Date().toISOString(),
+                      actions: [
+                        ...(t.actions || []),
+                        { action, timestamp: new Date().toISOString() },
+                      ],
+                    }
+                  : t
+              ),
+            }
+          } else {
+            return {
+              templates: [
+                ...state.templates,
+                {
+                  id: templateId,
+                  uses: 1,
+                  lastUsed: new Date().toISOString(),
+                  actions: [{ action, timestamp: new Date().toISOString() }],
+                },
+              ],
+            }
           }
-        } else {
-          return {
-            templates: [
-              ...state.templates,
-              {
-                id: templateId,
-                uses: 1,
-                lastUsed: new Date().toISOString(),
-                actions: [{ action, timestamp: new Date().toISOString() }]
-              }
-            ]
-          }
-        }
-      }),
+        }),
 
       /**
        * Track component usage
        */
-      trackComponent: (componentType) => set((state) => ({
-        componentStats: {
-          ...state.componentStats,
-          [componentType]: (state.componentStats[componentType] || 0) + 1
-        }
-      })),
+      trackComponent: componentType =>
+        set(state => ({
+          componentStats: {
+            ...state.componentStats,
+            [componentType]: (state.componentStats[componentType] || 0) + 1,
+          },
+        })),
 
       /**
        * Get popular components
@@ -101,11 +107,12 @@ const useAnalyticsStore = create(
       /**
        * Clear all analytics data
        */
-      clearAll: () => set({
-        events: [],
-        templates: [],
-        componentStats: {}
-      }),
+      clearAll: () =>
+        set({
+          events: [],
+          templates: [],
+          componentStats: {},
+        }),
 
       /**
        * Get summary stats
@@ -116,16 +123,20 @@ const useAnalyticsStore = create(
         return {
           totalEvents: events.length,
           totalTemplates: templates.length,
-          totalComponents: Object.values(componentStats).reduce((a, b) => a + b, 0),
+          totalComponents: Object.values(componentStats).reduce(
+            (a, b) => a + b,
+            0
+          ),
           mostUsedTemplate: templates.sort((a, b) => b.uses - a.uses)[0],
-          mostUsedComponent: Object.entries(componentStats)
-            .sort(([, a], [, b]) => b - a)[0]?.[0]
+          mostUsedComponent: Object.entries(componentStats).sort(
+            ([, a], [, b]) => b - a
+          )[0]?.[0],
         }
-      }
+      },
     }),
     {
       name: 'analytics-storage',
-      version: 1
+      version: 1,
     }
   )
 )

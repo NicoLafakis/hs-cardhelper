@@ -9,5 +9,5 @@ export { ThemeSwitcher } from './ThemeSwitcher'
 export default {
   ThemeEditor: () => import('./ThemeEditor'),
   ThemePresets: () => import('./ThemePresets'),
-  ThemeSwitcher: () => import('./ThemeSwitcher')
+  ThemeSwitcher: () => import('./ThemeSwitcher'),
 }

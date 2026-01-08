@@ -3,7 +3,13 @@
  * Provides hooks and components for working with plugins
  */
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react'
 import pluginRegistry from './PluginRegistry'
 
 // Create context for plugin system
@@ -45,16 +51,22 @@ export function PluginProvider({ children }) {
   }, [])
 
   // Enable plugin
-  const enablePlugin = useCallback(async (pluginId) => {
-    await pluginRegistry.enable(pluginId)
-    refreshPlugins()
-  }, [refreshPlugins])
+  const enablePlugin = useCallback(
+    async pluginId => {
+      await pluginRegistry.enable(pluginId)
+      refreshPlugins()
+    },
+    [refreshPlugins]
+  )
 
   // Disable plugin
-  const disablePlugin = useCallback(async (pluginId) => {
-    await pluginRegistry.disable(pluginId)
-    refreshPlugins()
-  }, [refreshPlugins])
+  const disablePlugin = useCallback(
+    async pluginId => {
+      await pluginRegistry.disable(pluginId)
+      refreshPlugins()
+    },
+    [refreshPlugins]
+  )
 
   // Execute hook
   const executeHook = useCallback(async (hookName, ...args) => {
@@ -67,13 +79,11 @@ export function PluginProvider({ children }) {
     enablePlugin,
     disablePlugin,
     executeHook,
-    refreshPlugins
+    refreshPlugins,
   }
 
   return (
-    <PluginContext.Provider value={value}>
-      {children}
-    </PluginContext.Provider>
+    <PluginContext.Provider value={value}>{children}</PluginContext.Provider>
   )
 }
 
@@ -126,7 +136,9 @@ export function PluginGuard({ pluginId, children, fallback = null }) {
 async function loadPlugins() {
   // This will be populated as we create plugins
   // For now, just a placeholder
-  const pluginModules = import.meta.glob('../plugins/*/index.js', { eager: true })
+  const pluginModules = import.meta.glob('../plugins/*/index.js', {
+    eager: true,
+  })
 
   for (const path in pluginModules) {
     const module = pluginModules[path]

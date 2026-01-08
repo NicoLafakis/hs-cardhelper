@@ -22,10 +22,7 @@ export const COMPONENTS_REGISTRY = {
     'CardBody',
     'CardFooter',
     'Badge',
-    'Spinner'
+    'Spinner',
   ],
-  molecules: [
-    'FormField',
-    'Modal'
-  ]
+  molecules: ['FormField', 'Modal'],
 }

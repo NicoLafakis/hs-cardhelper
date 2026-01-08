@@ -1,12 +1,20 @@
 import { useState, useRef, useEffect } from 'react'
 import useBuilderStore from '../../store/builderStore'
-import { Trash2, Move, Maximize2, ArrowUp, ArrowDown, Monitor, Sidebar, Maximize } from 'lucide-react'
+import {
+  Trash2,
+  Move,
+  ArrowUp,
+  ArrowDown,
+  Monitor,
+  Sidebar,
+  Maximize,
+} from 'lucide-react'
 
 // HubSpot card dimension constraints based on placement
 const CARD_VIEWS = {
   sidebar: { width: 400, height: 600, label: 'Sidebar', icon: Sidebar },
   middlePane: { width: 600, height: 700, label: 'Middle Pane', icon: Monitor },
-  full: { width: 800, height: 800, label: 'Full Width', icon: Maximize }
+  full: { width: 800, height: 800, label: 'Full Width', icon: Maximize },
 }
 
 export default function AdvancedCanvas() {
@@ -21,7 +29,7 @@ export default function AdvancedCanvas() {
     bringToFront,
     sendToBack,
     showGrid,
-    gridSize
+    gridSize,
   } = useBuilderStore()
 
   const canvasRef = useRef(null)
@@ -29,11 +37,16 @@ export default function AdvancedCanvas() {
   const [resizingId, setResizingId] = useState(null)
   const [resizeDirection, setResizeDirection] = useState(null)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
-  const [componentStart, setComponentStart] = useState({ x: 0, y: 0, width: 0, height: 0 })
+  const [componentStart, setComponentStart] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  })
   const [cardView, setCardView] = useState('middlePane')
 
   // Handle drop from component palette
-  const handleDrop = (e) => {
+  const handleDrop = e => {
     e.preventDefault()
     const componentData = e.dataTransfer.getData('component')
     if (componentData && canvasRef.current) {
@@ -46,13 +59,17 @@ export default function AdvancedCanvas() {
     }
   }
 
-  const handleDragOver = (e) => {
+  const handleDragOver = e => {
     e.preventDefault()
   }
 
   // Start dragging component
   const handleMouseDownDrag = (e, componentId) => {
-    if (e.target.closest('.resize-handle') || e.target.closest('.component-controls')) return
+    if (
+      e.target.closest('.resize-handle') ||
+      e.target.closest('.component-controls')
+    )
+      return
 
     e.stopPropagation()
     const component = components.find(c => c.id === componentId)
@@ -73,12 +90,17 @@ export default function AdvancedCanvas() {
     setResizingId(componentId)
     setResizeDirection(direction)
     setDragStart({ x: e.clientX, y: e.clientY })
-    setComponentStart({ x: component.x, y: component.y, width: component.width, height: component.height })
+    setComponentStart({
+      x: component.x,
+      y: component.y,
+      width: component.width,
+      height: component.height,
+    })
   }
 
   // Handle mouse move for dragging/resizing
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = e => {
       if (draggingId) {
         const dx = e.clientX - dragStart.x
         const dy = e.clientY - dragStart.y
@@ -133,7 +155,12 @@ export default function AdvancedCanvas() {
             break
         }
 
-        resizeComponent(resizingId, newWidth, newHeight, e.shiftKey ? false : true)
+        resizeComponent(
+          resizingId,
+          newWidth,
+          newHeight,
+          e.shiftKey ? false : true
+        )
         if (newX !== componentStart.x || newY !== componentStart.y) {
           moveComponent(resizingId, newX, newY, e.shiftKey ? false : true)
         }
@@ -155,12 +182,20 @@ export default function AdvancedCanvas() {
         window.removeEventListener('mouseup', handleMouseUp)
       }
     }
-  }, [draggingId, resizingId, dragStart, componentStart, resizeDirection, moveComponent, resizeComponent])
+  }, [
+    draggingId,
+    resizingId,
+    dragStart,
+    componentStart,
+    resizeDirection,
+    moveComponent,
+    resizeComponent,
+  ])
 
-  const renderComponent = (component) => {
+  const renderComponent = component => {
     const isSelected = component.id === selectedComponentId
     const isDragging = component.id === draggingId
-    const isResizing = component.id === resizingId
+    // Note: isResizing intentionally unused for now - reserved for resize indicator styling
 
     const style = {
       position: 'absolute',
@@ -169,7 +204,7 @@ export default function AdvancedCanvas() {
       width: `${component.width}px`,
       height: `${component.height}px`,
       zIndex: component.zIndex,
-      cursor: isDragging ? 'grabbing' : 'grab'
+      cursor: isDragging ? 'grabbing' : 'grab',
     }
 
     return (
@@ -180,8 +215,8 @@ export default function AdvancedCanvas() {
           absolute border-2 transition-shadow
           ${isSelected ? 'border-primary bg-primary/5 shadow-lg' : 'border-gray-300 bg-white'}
         `}
-        onMouseDown={(e) => handleMouseDownDrag(e, component.id)}
-        onClick={(e) => {
+        onMouseDown={e => handleMouseDownDrag(e, component.id)}
+        onClick={e => {
           e.stopPropagation()
           selectComponent(component.id)
         }}
@@ -197,7 +232,7 @@ export default function AdvancedCanvas() {
             {/* Component toolbar */}
             <div className="component-controls absolute -top-8 left-0 flex gap-1 bg-white border border-gray-300 rounded shadow-sm p-1">
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   bringToFront(component.id)
                 }}
@@ -207,7 +242,7 @@ export default function AdvancedCanvas() {
                 <ArrowUp className="w-3 h-3" />
               </button>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   sendToBack(component.id)
                 }}
@@ -217,7 +252,7 @@ export default function AdvancedCanvas() {
                 <ArrowDown className="w-3 h-3" />
               </button>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   removeComponent(component.id)
                 }}
@@ -229,29 +264,45 @@ export default function AdvancedCanvas() {
             </div>
 
             {/* Resize handles */}
-            <div className="resize-handle absolute -top-1 -left-1 w-3 h-3 bg-primary border border-white cursor-nw-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'nw')} />
-            <div className="resize-handle absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-n-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'n')} />
-            <div className="resize-handle absolute -top-1 -right-1 w-3 h-3 bg-primary border border-white cursor-ne-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'ne')} />
-            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -left-1 w-3 h-3 bg-primary border border-white cursor-w-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'w')} />
-            <div className="resize-handle absolute top-1/2 -translate-y-1/2 -right-1 w-3 h-3 bg-primary border border-white cursor-e-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'e')} />
-            <div className="resize-handle absolute -bottom-1 -left-1 w-3 h-3 bg-primary border border-white cursor-sw-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'sw')} />
-            <div className="resize-handle absolute -bottom-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-s-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 's')} />
-            <div className="resize-handle absolute -bottom-1 -right-1 w-3 h-3 bg-primary border border-white cursor-se-resize"
-              onMouseDown={(e) => handleMouseDownResize(e, component.id, 'se')} />
+            <div
+              className="resize-handle absolute -top-1 -left-1 w-3 h-3 bg-primary border border-white cursor-nw-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'nw')}
+            />
+            <div
+              className="resize-handle absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-n-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'n')}
+            />
+            <div
+              className="resize-handle absolute -top-1 -right-1 w-3 h-3 bg-primary border border-white cursor-ne-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'ne')}
+            />
+            <div
+              className="resize-handle absolute top-1/2 -translate-y-1/2 -left-1 w-3 h-3 bg-primary border border-white cursor-w-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'w')}
+            />
+            <div
+              className="resize-handle absolute top-1/2 -translate-y-1/2 -right-1 w-3 h-3 bg-primary border border-white cursor-e-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'e')}
+            />
+            <div
+              className="resize-handle absolute -bottom-1 -left-1 w-3 h-3 bg-primary border border-white cursor-sw-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'sw')}
+            />
+            <div
+              className="resize-handle absolute -bottom-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary border border-white cursor-s-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 's')}
+            />
+            <div
+              className="resize-handle absolute -bottom-1 -right-1 w-3 h-3 bg-primary border border-white cursor-se-resize"
+              onMouseDown={e => handleMouseDownResize(e, component.id, 'se')}
+            />
           </>
         )}
       </div>
     )
   }
 
-  const renderComponentContent = (component) => {
+  const renderComponentContent = component => {
     switch (component.type) {
       case 'text':
         return (
@@ -270,7 +321,9 @@ export default function AdvancedCanvas() {
       case 'table':
         return (
           <div>
-            <div className="font-semibold text-sm mb-2">{component.defaultProps?.title || 'Data Table'}</div>
+            <div className="font-semibold text-sm mb-2">
+              {component.defaultProps?.title || 'Data Table'}
+            </div>
             <div className="border border-gray-200 rounded text-xs">
               <table className="w-full">
                 <thead className="bg-gray-50">
@@ -293,7 +346,9 @@ export default function AdvancedCanvas() {
       case 'container':
         return (
           <div className="w-full h-full border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
-            <span className="text-xs text-gray-400">Container (drop items here)</span>
+            <span className="text-xs text-gray-400">
+              Container (drop items here)
+            </span>
           </div>
         )
 
@@ -323,9 +378,11 @@ export default function AdvancedCanvas() {
                   onClick={() => setCardView(key)}
                   className={`
                     flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors
-                    ${cardView === key
-                      ? 'bg-white text-primary shadow-sm font-medium'
-                      : 'text-gray-600 hover:text-gray-900'}
+                    ${
+                      cardView === key
+                        ? 'bg-white text-primary shadow-sm font-medium'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }
                   `}
                   title={view.label}
                 >
@@ -337,7 +394,8 @@ export default function AdvancedCanvas() {
           </div>
         </div>
         <div className="text-xs text-gray-500">
-          {currentView.width} × {currentView.height}px (HubSpot {currentView.label})
+          {currentView.width} × {currentView.height}px (HubSpot{' '}
+          {currentView.label})
         </div>
       </div>
 
@@ -345,7 +403,10 @@ export default function AdvancedCanvas() {
       <div className="flex-1 overflow-auto bg-gray-100 p-8">
         <div className="mx-auto" style={{ width: 'fit-content' }}>
           {/* HubSpot CRM UI Mockup */}
-          <div className="bg-white rounded-lg shadow-2xl border border-gray-300 overflow-hidden" style={{ width: `${currentView.width}px` }}>
+          <div
+            className="bg-white rounded-lg shadow-2xl border border-gray-300 overflow-hidden"
+            style={{ width: `${currentView.width}px` }}
+          >
             {/* HubSpot Record Header */}
             <div className="bg-white border-b border-gray-200 px-4 py-3">
               <div className="flex items-center gap-3">
@@ -353,8 +414,12 @@ export default function AdvancedCanvas() {
                   JD
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">John Doe</h2>
-                  <p className="text-sm text-gray-500">Contact • john.doe@example.com</p>
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    John Doe
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    Contact • john.doe@example.com
+                  </p>
                 </div>
               </div>
             </div>
@@ -383,7 +448,7 @@ export default function AdvancedCanvas() {
               className="bg-gray-50 relative"
               style={{
                 width: `${currentView.width}px`,
-                height: `${currentView.height}px`
+                height: `${currentView.height}px`,
               }}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
@@ -398,7 +463,7 @@ export default function AdvancedCanvas() {
                       repeating-linear-gradient(0deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px),
                       repeating-linear-gradient(90deg, transparent, transparent ${gridSize - 1}px, #e5e7eb ${gridSize - 1}px, #e5e7eb ${gridSize}px)
                     `,
-                    backgroundSize: `${gridSize}px ${gridSize}px`
+                    backgroundSize: `${gridSize}px ${gridSize}px`,
                   }}
                 />
               )}
@@ -412,7 +477,8 @@ export default function AdvancedCanvas() {
                       Drag components here to start designing
                     </p>
                     <p className="text-gray-400 text-sm mt-2">
-                      Your custom card will appear on the "Custom Card" tab
+                      Your custom card will appear on the &quot;Custom
+                      Card&quot; tab
                     </p>
                     <p className="text-gray-400 text-xs mt-4">
                       Building for HubSpot {currentView.label}

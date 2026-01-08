@@ -53,10 +53,7 @@ export class TemplateService extends BaseService {
 
     if (result.success) {
       const template = result.data
-      return await this.create(
-        `${template.name} (Copy)`,
-        template.config
-      )
+      return await this.create(`${template.name} (Copy)`, template.config)
     }
 
     return result
@@ -85,7 +82,7 @@ export class TemplateService extends BaseService {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
 
-      reader.onload = async (e) => {
+      reader.onload = async e => {
         try {
           const template = JSON.parse(e.target.result)
           const result = await this.create(template.name, template.config)

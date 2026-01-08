@@ -4,7 +4,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react'
-import { MessageCircle, Send, Bot, User } from 'lucide-react'
+import { Send, Bot, User } from 'lucide-react'
 import { Button } from '../../../components/ui/atoms/Button'
 import { Input } from '../../../components/ui/atoms/Input'
 
@@ -13,9 +13,10 @@ export function AIAssistant() {
     {
       id: 1,
       role: 'assistant',
-      content: "Hi! I'm your AI assistant. I can help you build better HubSpot cards. Ask me anything!",
-      timestamp: new Date()
-    }
+      content:
+        "Hi! I'm your AI assistant. I can help you build better HubSpot cards. Ask me anything!",
+      timestamp: new Date(),
+    },
   ])
 
   const [inputMessage, setInputMessage] = useState('')
@@ -38,7 +39,7 @@ export function AIAssistant() {
       id: messages.length + 1,
       role: 'user',
       content: inputMessage,
-      timestamp: new Date()
+      timestamp: new Date(),
     }
 
     setMessages(prev => [...prev, userMessage])
@@ -51,7 +52,7 @@ export function AIAssistant() {
         id: messages.length + 2,
         role: 'assistant',
         content: generateAIResponse(inputMessage),
-        timestamp: new Date()
+        timestamp: new Date(),
       }
 
       setMessages(prev => [...prev, aiMessage])
@@ -59,39 +60,42 @@ export function AIAssistant() {
     }, 1500)
   }
 
-  const generateAIResponse = (question) => {
+  const generateAIResponse = question => {
     // This would call the actual AI API
     // For now, just return helpful responses based on keywords
 
     const lowerQuestion = question.toLowerCase()
 
     if (lowerQuestion.includes('chart') || lowerQuestion.includes('graph')) {
-      return "I can help you add a chart! You can use the Chart component to visualize data. It supports bar, line, area, and pie charts. What kind of data would you like to visualize?"
+      return 'I can help you add a chart! You can use the Chart component to visualize data. It supports bar, line, area, and pie charts. What kind of data would you like to visualize?'
     }
 
-    if (lowerQuestion.includes('timeline') || lowerQuestion.includes('activity')) {
-      return "The Timeline component is perfect for showing activity history. It displays events chronologically with dates and descriptions. Would you like me to add one to your card?"
+    if (
+      lowerQuestion.includes('timeline') ||
+      lowerQuestion.includes('activity')
+    ) {
+      return 'The Timeline component is perfect for showing activity history. It displays events chronologically with dates and descriptions. Would you like me to add one to your card?'
     }
 
     if (lowerQuestion.includes('improve') || lowerQuestion.includes('better')) {
-      return "Here are some ways to improve your card: 1) Use visual components like charts for data, 2) Group related information together, 3) Add a clear header, 4) Use progress bars for metrics. What aspect would you like to focus on?"
+      return 'Here are some ways to improve your card: 1) Use visual components like charts for data, 2) Group related information together, 3) Add a clear header, 4) Use progress bars for metrics. What aspect would you like to focus on?'
     }
 
     if (lowerQuestion.includes('theme') || lowerQuestion.includes('color')) {
-      return "You can customize the look of your cards using the Theme System! Try different themes like Dark, Ocean, or Sunset. You can also create custom themes with your brand colors."
+      return 'You can customize the look of your cards using the Theme System! Try different themes like Dark, Ocean, or Sunset. You can also create custom themes with your brand colors.'
     }
 
     return "I'm here to help you build amazing HubSpot cards! You can ask me about components, layouts, best practices, or specific features. What would you like to know?"
   }
 
   const quickActions = [
-    "Add a chart",
-    "Show timeline",
-    "Suggest improvements",
-    "Change theme"
+    'Add a chart',
+    'Show timeline',
+    'Suggest improvements',
+    'Change theme',
   ]
 
-  const handleQuickAction = (action) => {
+  const handleQuickAction = action => {
     setInputMessage(action)
   }
 
@@ -108,7 +112,7 @@ export function AIAssistant() {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-        {messages.map((message) => (
+        {messages.map(message => (
           <div
             key={message.id}
             className={`flex gap-3 ${
@@ -129,9 +133,11 @@ export function AIAssistant() {
               }`}
             >
               <p className="text-sm">{message.content}</p>
-              <p className={`text-xs mt-1 ${
-                message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
-              }`}>
+              <p
+                className={`text-xs mt-1 ${
+                  message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                }`}
+              >
                 {message.timestamp.toLocaleTimeString()}
               </p>
             </div>
@@ -151,9 +157,18 @@ export function AIAssistant() {
             </div>
             <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
               <div className="flex gap-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '0ms' }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '150ms' }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '300ms' }}
+                />
               </div>
             </div>
           </div>
@@ -185,8 +200,8 @@ export function AIAssistant() {
         <div className="flex gap-2">
           <Input
             value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            onChange={e => setInputMessage(e.target.value)}
+            onKeyPress={e => e.key === 'Enter' && handleSendMessage()}
             placeholder="Ask me anything..."
             disabled={isTyping}
           />

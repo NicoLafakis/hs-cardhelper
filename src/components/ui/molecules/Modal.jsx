@@ -5,7 +5,6 @@
 
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
-import { Button } from '../atoms/Button'
 
 export function Modal({
   isOpen,
@@ -14,11 +13,11 @@ export function Modal({
   children,
   footer,
   size = 'md',
-  className = ''
+  className = '',
 }) {
   // Close on ESC key
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = e => {
       if (e.key === 'Escape' && isOpen) {
         onClose()
       }
@@ -48,7 +47,7 @@ export function Modal({
     md: 'max-w-2xl',
     lg: 'max-w-4xl',
     xl: 'max-w-6xl',
-    full: 'max-w-full mx-4'
+    full: 'max-w-full mx-4',
   }
 
   return (
@@ -63,7 +62,7 @@ export function Modal({
       <div className="flex min-h-full items-center justify-center p-4">
         <div
           className={`relative bg-white rounded-lg shadow-xl w-full ${sizes[size]} ${className}`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
         >
           {/* Header */}
           {title && (
@@ -79,9 +78,7 @@ export function Modal({
           )}
 
           {/* Body */}
-          <div className="px-6 py-4">
-            {children}
-          </div>
+          <div className="px-6 py-4">{children}</div>
 
           {/* Footer */}
           {footer && (

@@ -17,7 +17,7 @@ export function useAnalyticsTracking() {
       await axios.post(`${API_BASE}/track-event`, {
         cardId,
         eventType,
-        metadata
+        metadata,
       })
       return { success: true }
     } catch (err) {
@@ -26,34 +26,40 @@ export function useAnalyticsTracking() {
     }
   }, [])
 
-  const trackComponent = useCallback(async (cardId, componentType, count = 1) => {
-    try {
-      await axios.post(`${API_BASE}/track-component`, {
-        cardId,
-        componentType,
-        count
-      })
-      return { success: true }
-    } catch (err) {
-      console.error('Track component failed:', err)
-      throw err
-    }
-  }, [])
+  const trackComponent = useCallback(
+    async (cardId, componentType, count = 1) => {
+      try {
+        await axios.post(`${API_BASE}/track-component`, {
+          cardId,
+          componentType,
+          count,
+        })
+        return { success: true }
+      } catch (err) {
+        console.error('Track component failed:', err)
+        throw err
+      }
+    },
+    []
+  )
 
-  const trackPerformance = useCallback(async (cardId, renderTime, componentCount, fieldCount) => {
-    try {
-      await axios.post(`${API_BASE}/track-performance`, {
-        cardId,
-        renderTime,
-        componentCount,
-        fieldCount
-      })
-      return { success: true }
-    } catch (err) {
-      console.error('Track performance failed:', err)
-      throw err
-    }
-  }, [])
+  const trackPerformance = useCallback(
+    async (cardId, renderTime, componentCount, fieldCount) => {
+      try {
+        await axios.post(`${API_BASE}/track-performance`, {
+          cardId,
+          renderTime,
+          componentCount,
+          fieldCount,
+        })
+        return { success: true }
+      } catch (err) {
+        console.error('Track performance failed:', err)
+        throw err
+      }
+    },
+    []
+  )
 
   return { trackEvent, trackComponent, trackPerformance }
 }
@@ -72,7 +78,7 @@ export function useCardMetrics(cardId, timeRange = '7d') {
 
     try {
       const response = await axios.get(`${API_BASE}/card/${cardId}`, {
-        params: { timeRange }
+        params: { timeRange },
       })
       setMetrics(response.data.data)
     } catch (err) {
@@ -106,7 +112,7 @@ export function useUserMetrics(userId, timeRange = '7d') {
 
     try {
       const response = await axios.get(`${API_BASE}/user/${userId}`, {
-        params: { timeRange }
+        params: { timeRange },
       })
       setMetrics(response.data.data)
     } catch (err) {
@@ -140,7 +146,7 @@ export function useComponentHeatmap(timeRange = '7d') {
 
     try {
       const response = await axios.get(`${API_BASE}/components`, {
-        params: { timeRange }
+        params: { timeRange },
       })
       setHeatmap(response.data.data)
     } catch (err) {
@@ -172,7 +178,7 @@ export function useTrendingCards(timeRange = '7d', limit = 10) {
 
     try {
       const response = await axios.get(`${API_BASE}/trending`, {
-        params: { timeRange, limit }
+        params: { timeRange, limit },
       })
       setTrending(response.data.data)
     } catch (err) {
@@ -204,7 +210,7 @@ export function useSystemPerformance(timeRange = '7d') {
 
     try {
       const response = await axios.get(`${API_BASE}/performance`, {
-        params: { timeRange }
+        params: { timeRange },
       })
       setPerformance(response.data.data)
     } catch (err) {
@@ -238,7 +244,7 @@ export function useABTestComparison(cardIdA, cardIdB, timeRange = '7d') {
 
     try {
       const response = await axios.get(`${API_BASE}/ab-test`, {
-        params: { cardIdA, cardIdB, timeRange }
+        params: { cardIdA, cardIdB, timeRange },
       })
       setComparison(response.data.data)
     } catch (err) {

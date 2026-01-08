@@ -4,16 +4,11 @@ import {
   Save,
   Clock,
   GitBranch,
-  Eye,
   Trash2,
   Download,
   Upload,
   Search,
-  Tag,
-  Copy,
   RotateCcw,
-  AlertCircle,
-  Check
 } from 'lucide-react'
 import useVersionStore from '../../store/versionStore'
 import useBuilderStore from '../../store/builderStore'
@@ -24,7 +19,6 @@ export default function VersionControlPanel({ isOpen, onClose }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedSnapshots, setSelectedSnapshots] = useState([])
   const [showComparison, setShowComparison] = useState(false)
-  const [newTag, setNewTag] = useState('')
 
   const {
     snapshots,
@@ -33,10 +27,9 @@ export default function VersionControlPanel({ isOpen, onClose }) {
     compareSnapshots,
     exportSnapshots,
     importSnapshots,
-    addTag,
     searchSnapshots,
     autoSaveEnabled,
-    setAutoSaveEnabled
+    setAutoSaveEnabled,
   } = useVersionStore()
 
   const { components, loadComponents } = useBuilderStore()
@@ -52,8 +45,12 @@ export default function VersionControlPanel({ isOpen, onClose }) {
     setSnapshotDescription('')
   }
 
-  const handleRestoreSnapshot = (snapshot) => {
-    if (!confirm(`Restore to "${snapshot.name}"? Current work will be lost if not saved.`)) {
+  const handleRestoreSnapshot = snapshot => {
+    if (
+      !confirm(
+        `Restore to "${snapshot.name}"? Current work will be lost if not saved.`
+      )
+    ) {
       return
     }
 
@@ -61,7 +58,7 @@ export default function VersionControlPanel({ isOpen, onClose }) {
     onClose()
   }
 
-  const handleDeleteSnapshot = (id) => {
+  const handleDeleteSnapshot = id => {
     if (!confirm('Delete this snapshot? This cannot be undone.')) {
       return
     }
@@ -79,12 +76,12 @@ export default function VersionControlPanel({ isOpen, onClose }) {
     URL.revokeObjectURL(url)
   }
 
-  const handleImport = (e) => {
+  const handleImport = e => {
     const file = e.target.files[0]
     if (!file) return
 
     const reader = new FileReader()
-    reader.onload = (event) => {
+    reader.onload = event => {
       const result = importSnapshots(event.target.result)
       if (result.success) {
         alert(`Successfully imported ${result.count} snapshots`)
@@ -104,32 +101,32 @@ export default function VersionControlPanel({ isOpen, onClose }) {
     setShowComparison(true)
   }
 
-  const handleAddTag = (snapshotId) => {
-    if (newTag.trim()) {
-      addTag(snapshotId, newTag.trim())
-      setNewTag('')
-    }
-  }
+  // handleAddTag available via addTag from store when needed
 
   const filteredSnapshots = searchQuery
     ? searchSnapshots(searchQuery)
     : snapshots
 
-  const sortedSnapshots = [...filteredSnapshots].sort((a, b) =>
-    new Date(b.createdAt) - new Date(a.createdAt)
+  const sortedSnapshots = [...filteredSnapshots].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   )
 
   if (!isOpen) return null
 
   // Comparison View
   if (showComparison && selectedSnapshots.length === 2) {
-    const comparison = compareSnapshots(selectedSnapshots[0], selectedSnapshots[1])
+    const comparison = compareSnapshots(
+      selectedSnapshots[0],
+      selectedSnapshots[1]
+    )
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded shadow-xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-800">Compare Snapshots</h2>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Compare Snapshots
+            </h2>
             <button
               onClick={() => setShowComparison(false)}
               className="p-2 hover:bg-gray-100 rounded"
@@ -200,8 +197,13 @@ export default function VersionControlPanel({ isOpen, onClose }) {
                   </h4>
                   <div className="space-y-2">
                     {comparison.changes.added.map(comp => (
-                      <div key={comp.id} className="bg-green-50 border border-green-200 rounded p-3">
-                        <span className="font-medium text-green-900">{comp.type}</span>
+                      <div
+                        key={comp.id}
+                        className="bg-green-50 border border-green-200 rounded p-3"
+                      >
+                        <span className="font-medium text-green-900">
+                          {comp.type}
+                        </span>
                         <span className="text-sm text-green-700 ml-2">
                           at ({comp.x}, {comp.y})
                         </span>
@@ -219,8 +221,13 @@ export default function VersionControlPanel({ isOpen, onClose }) {
                   </h4>
                   <div className="space-y-2">
                     {comparison.changes.removed.map(comp => (
-                      <div key={comp.id} className="bg-red-50 border border-red-200 rounded p-3">
-                        <span className="font-medium text-red-900">{comp.type}</span>
+                      <div
+                        key={comp.id}
+                        className="bg-red-50 border border-red-200 rounded p-3"
+                      >
+                        <span className="font-medium text-red-900">
+                          {comp.type}
+                        </span>
                         <span className="text-sm text-red-700 ml-2">
                           at ({comp.x}, {comp.y})
                         </span>
@@ -238,10 +245,16 @@ export default function VersionControlPanel({ isOpen, onClose }) {
                   </h4>
                   <div className="space-y-2">
                     {comparison.changes.modified.map(({ before, after }) => (
-                      <div key={after.id} className="bg-yellow-50 border border-yellow-200 rounded p-3">
-                        <span className="font-medium text-yellow-900">{after.type}</span>
+                      <div
+                        key={after.id}
+                        className="bg-yellow-50 border border-yellow-200 rounded p-3"
+                      >
+                        <span className="font-medium text-yellow-900">
+                          {after.type}
+                        </span>
                         <div className="text-sm text-yellow-700 mt-1">
-                          Position: ({before.x}, {before.y}) → ({after.x}, {after.y})
+                          Position: ({before.x}, {before.y}) → ({after.x},{' '}
+                          {after.y})
                         </div>
                       </div>
                     ))}
@@ -262,8 +275,12 @@ export default function VersionControlPanel({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div>
-            <h2 className="text-lg font-semibold text-gray-800">Version Control</h2>
-            <p className="text-sm text-gray-600">Manage snapshots and track changes</p>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Version Control
+            </h2>
+            <p className="text-sm text-gray-600">
+              Manage snapshots and track changes
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -309,7 +326,7 @@ export default function VersionControlPanel({ isOpen, onClose }) {
               <input
                 type="checkbox"
                 checked={autoSaveEnabled}
-                onChange={(e) => setAutoSaveEnabled(e.target.checked)}
+                onChange={e => setAutoSaveEnabled(e.target.checked)}
                 className="rounded"
               />
               Auto-save (every 5 min)
@@ -322,7 +339,7 @@ export default function VersionControlPanel({ isOpen, onClose }) {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search snapshots..."
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded text-sm"
             />
@@ -331,18 +348,20 @@ export default function VersionControlPanel({ isOpen, onClose }) {
 
         {/* Create Snapshot Form */}
         <div className="p-4 border-b border-gray-200">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3">Create New Snapshot</h3>
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">
+            Create New Snapshot
+          </h3>
           <div className="space-y-2">
             <input
               type="text"
               value={snapshotName}
-              onChange={(e) => setSnapshotName(e.target.value)}
+              onChange={e => setSnapshotName(e.target.value)}
               placeholder="Snapshot name (required)"
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
             />
             <textarea
               value={snapshotDescription}
-              onChange={(e) => setSnapshotDescription(e.target.value)}
+              onChange={e => setSnapshotDescription(e.target.value)}
               placeholder="Description (optional)"
               rows={2}
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
@@ -363,11 +382,13 @@ export default function VersionControlPanel({ isOpen, onClose }) {
             <div className="text-center py-12 text-gray-500">
               <Clock className="w-12 h-12 mx-auto mb-3 text-gray-300" />
               <p className="text-sm">No snapshots yet</p>
-              <p className="text-xs mt-1">Create your first snapshot to start tracking changes</p>
+              <p className="text-xs mt-1">
+                Create your first snapshot to start tracking changes
+              </p>
             </div>
           ) : (
             <div className="space-y-3">
-              {sortedSnapshots.map((snapshot) => (
+              {sortedSnapshots.map(snapshot => (
                 <div
                   key={snapshot.id}
                   className={`border rounded p-4 transition-all ${
@@ -381,19 +402,28 @@ export default function VersionControlPanel({ isOpen, onClose }) {
                       <input
                         type="checkbox"
                         checked={selectedSnapshots.includes(snapshot.id)}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked) {
-                            setSelectedSnapshots([...selectedSnapshots, snapshot.id])
+                            setSelectedSnapshots([
+                              ...selectedSnapshots,
+                              snapshot.id,
+                            ])
                           } else {
-                            setSelectedSnapshots(selectedSnapshots.filter(id => id !== snapshot.id))
+                            setSelectedSnapshots(
+                              selectedSnapshots.filter(id => id !== snapshot.id)
+                            )
                           }
                         }}
                         className="mt-1"
                       />
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-800">{snapshot.name}</h4>
+                        <h4 className="font-semibold text-gray-800">
+                          {snapshot.name}
+                        </h4>
                         {snapshot.description && (
-                          <p className="text-sm text-gray-600 mt-1">{snapshot.description}</p>
+                          <p className="text-sm text-gray-600 mt-1">
+                            {snapshot.description}
+                          </p>
                         )}
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
                           <span className="flex items-center gap-1">

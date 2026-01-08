@@ -13,23 +13,23 @@ export function VersionHistory() {
     useCollaborationStore()
   const [expandedVersion, setExpandedVersion] = useState(null)
 
-  const formatTime = (timestamp) => {
+  const formatTime = timestamp => {
     const date = new Date(timestamp)
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
 
-  const formatDate = (timestamp) => {
+  const formatDate = timestamp => {
     const date = new Date(timestamp)
     return date.toLocaleDateString([], { month: 'short', day: 'numeric' })
   }
 
-  const getOperationLabel = (operation) => {
+  const getOperationLabel = operation => {
     const typeMap = {
       insert: 'Added',
       delete: 'Removed',
       update: 'Updated',
       move: 'Moved',
-      resize: 'Resized'
+      resize: 'Resized',
     }
     return typeMap[operation.type] || 'Modified'
   }
@@ -80,20 +80,28 @@ export function VersionHistory() {
                       className="timeline-content"
                       onClick={() =>
                         setExpandedVersion(
-                          expandedVersion === entry.version ? null : entry.version
+                          expandedVersion === entry.version
+                            ? null
+                            : entry.version
                         )
                       }
                     >
                       <div className="version-header">
                         <div className="version-info">
-                          <span className="version-number">v{entry.version}</span>
+                          <span className="version-number">
+                            v{entry.version}
+                          </span>
                           <span className="operation-label">
                             {getOperationLabel(entry.operation)}
                           </span>
                         </div>
                         <div className="version-time">
-                          <span className="time">{formatTime(entry.timestamp)}</span>
-                          <span className="date">{formatDate(entry.timestamp)}</span>
+                          <span className="time">
+                            {formatTime(entry.timestamp)}
+                          </span>
+                          <span className="date">
+                            {formatDate(entry.timestamp)}
+                          </span>
                         </div>
                       </div>
 
@@ -113,19 +121,26 @@ export function VersionHistory() {
                           >
                             <div className="detail-row">
                               <span className="detail-label">Type:</span>
-                              <span className="detail-value">{entry.operation.type}</span>
+                              <span className="detail-value">
+                                {entry.operation.type}
+                              </span>
                             </div>
                             {entry.operation.field && (
                               <div className="detail-row">
                                 <span className="detail-label">Field:</span>
-                                <span className="detail-value">{entry.operation.field}</span>
+                                <span className="detail-value">
+                                  {entry.operation.field}
+                                </span>
                               </div>
                             )}
                             {entry.operation.oldValue !== undefined && (
                               <div className="detail-row">
                                 <span className="detail-label">From:</span>
                                 <span className="detail-value old">
-                                  {String(entry.operation.oldValue).substring(0, 50)}
+                                  {String(entry.operation.oldValue).substring(
+                                    0,
+                                    50
+                                  )}
                                 </span>
                               </div>
                             )}
@@ -133,11 +148,16 @@ export function VersionHistory() {
                               <div className="detail-row">
                                 <span className="detail-label">To:</span>
                                 <span className="detail-value new">
-                                  {String(entry.operation.newValue).substring(0, 50)}
+                                  {String(entry.operation.newValue).substring(
+                                    0,
+                                    50
+                                  )}
                                 </span>
                               </div>
                             )}
-                            <button className="revert-btn">Revert to this version</button>
+                            <button className="revert-btn">
+                              Revert to this version
+                            </button>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -153,7 +173,8 @@ export function VersionHistory() {
       {/* Footer */}
       <div className="history-footer">
         <span className="history-count">
-          {versionHistory.length} version{versionHistory.length !== 1 ? 's' : ''}
+          {versionHistory.length} version
+          {versionHistory.length !== 1 ? 's' : ''}
         </span>
       </div>
     </div>

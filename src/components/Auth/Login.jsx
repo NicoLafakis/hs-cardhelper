@@ -12,7 +12,7 @@ export default function Login({ onLoginSuccess }) {
   const [loading, setLoading] = useState(false)
   const setAuth = useAuthStore(state => state.setAuth)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -54,7 +54,7 @@ export default function Login({ onLoginSuccess }) {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               className="input-field"
               placeholder="your@email.com"
               required
@@ -69,7 +69,7 @@ export default function Login({ onLoginSuccess }) {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               className="input-field"
               placeholder="Enter your password"
               required
@@ -88,7 +88,7 @@ export default function Login({ onLoginSuccess }) {
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <button
               onClick={() => navigate('/signup')}
               className="text-primary hover:underline font-medium"

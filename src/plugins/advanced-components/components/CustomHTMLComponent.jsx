@@ -7,11 +7,7 @@ import { Code } from 'lucide-react'
 import DOMPurify from 'dompurify'
 
 export function CustomHTMLComponent({ config }) {
-  const {
-    html = '',
-    title = 'Custom Content',
-    allowScripts = false
-  } = config
+  const { html = '', title = 'Custom Content', allowScripts = false } = config
 
   if (!html) {
     return (
@@ -29,15 +25,41 @@ export function CustomHTMLComponent({ config }) {
     ALLOWED_TAGS: allowScripts
       ? undefined // Allow all tags if scripts are explicitly enabled
       : [
-          'div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-          'ul', 'ol', 'li', 'a', 'strong', 'em', 'b', 'i', 'u',
-          'table', 'thead', 'tbody', 'tr', 'td', 'th',
-          'img', 'br', 'hr', 'blockquote', 'pre', 'code'
+          'div',
+          'span',
+          'p',
+          'h1',
+          'h2',
+          'h3',
+          'h4',
+          'h5',
+          'h6',
+          'ul',
+          'ol',
+          'li',
+          'a',
+          'strong',
+          'em',
+          'b',
+          'i',
+          'u',
+          'table',
+          'thead',
+          'tbody',
+          'tr',
+          'td',
+          'th',
+          'img',
+          'br',
+          'hr',
+          'blockquote',
+          'pre',
+          'code',
         ],
     ALLOWED_ATTR: allowScripts
       ? undefined
       : ['class', 'id', 'style', 'href', 'src', 'alt', 'title', 'target'],
-    ALLOW_DATA_ATTR: false
+    ALLOW_DATA_ATTR: false,
   })
 
   return (
@@ -53,7 +75,8 @@ export function CustomHTMLComponent({ config }) {
 
       {!allowScripts && (
         <div className="mt-4 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-          Note: Scripts are disabled for security. Enable in component settings if needed.
+          Note: Scripts are disabled for security. Enable in component settings
+          if needed.
         </div>
       )}
     </div>

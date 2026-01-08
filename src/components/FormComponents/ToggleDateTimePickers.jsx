@@ -16,14 +16,14 @@ export function Toggle({
   value = false,
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
     helpText = '',
     onLabel = 'On',
     offLabel = 'Off',
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
@@ -61,7 +61,11 @@ export function Toggle({
 
       {helpText && <p className="help-text">{helpText}</p>}
       {error && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {error}
         </motion.p>
       )}
@@ -78,7 +82,7 @@ export function DatePicker({
   value = '',
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -87,41 +91,47 @@ export function DatePicker({
     errorMessage = '',
     minDate = null,
     maxDate = null,
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
   const [validationError, setValidationError] = useState(null)
 
-  const validateDate = useCallback((dateStr) => {
-    if (required && !dateStr) {
-      return { valid: false, message: errorMessage || 'Please select a date' }
-    }
+  const validateDate = useCallback(
+    dateStr => {
+      if (required && !dateStr) {
+        return { valid: false, message: errorMessage || 'Please select a date' }
+      }
 
-    if (dateStr && minDate && new Date(dateStr) < new Date(minDate)) {
-      return { valid: false, message: `Date must be after ${minDate}` }
-    }
+      if (dateStr && minDate && new Date(dateStr) < new Date(minDate)) {
+        return { valid: false, message: `Date must be after ${minDate}` }
+      }
 
-    if (dateStr && maxDate && new Date(dateStr) > new Date(maxDate)) {
-      return { valid: false, message: `Date must be before ${maxDate}` }
-    }
+      if (dateStr && maxDate && new Date(dateStr) > new Date(maxDate)) {
+        return { valid: false, message: `Date must be before ${maxDate}` }
+      }
 
-    return { valid: true, message: '' }
-  }, [required, errorMessage, minDate, maxDate])
+      return { valid: true, message: '' }
+    },
+    [required, errorMessage, minDate, maxDate]
+  )
 
-  const handleChange = useCallback((e) => {
-    const newValue = e.target.value
-    setInternalValue(newValue)
+  const handleChange = useCallback(
+    e => {
+      const newValue = e.target.value
+      setInternalValue(newValue)
 
-    const validation_result = validateDate(newValue)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+      const validation_result = validateDate(newValue)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
 
-    if (onChange) onChange(newValue)
-  }, [validateDate, onChange])
+      if (onChange) onChange(newValue)
+    },
+    [validateDate, onChange]
+  )
 
   const displayError = error || validationError
 
@@ -149,7 +159,11 @@ export function DatePicker({
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}
@@ -166,7 +180,7 @@ export function TimePicker({
   value = '',
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -176,41 +190,47 @@ export function TimePicker({
     minTime = null,
     maxTime = null,
     step = 300, // seconds: 300 = 5 minute intervals
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
   const [validationError, setValidationError] = useState(null)
 
-  const validateTime = useCallback((timeStr) => {
-    if (required && !timeStr) {
-      return { valid: false, message: errorMessage || 'Please select a time' }
-    }
+  const validateTime = useCallback(
+    timeStr => {
+      if (required && !timeStr) {
+        return { valid: false, message: errorMessage || 'Please select a time' }
+      }
 
-    if (timeStr && minTime && timeStr < minTime) {
-      return { valid: false, message: `Time must be after ${minTime}` }
-    }
+      if (timeStr && minTime && timeStr < minTime) {
+        return { valid: false, message: `Time must be after ${minTime}` }
+      }
 
-    if (timeStr && maxTime && timeStr > maxTime) {
-      return { valid: false, message: `Time must be before ${maxTime}` }
-    }
+      if (timeStr && maxTime && timeStr > maxTime) {
+        return { valid: false, message: `Time must be before ${maxTime}` }
+      }
 
-    return { valid: true, message: '' }
-  }, [required, errorMessage, minTime, maxTime])
+      return { valid: true, message: '' }
+    },
+    [required, errorMessage, minTime, maxTime]
+  )
 
-  const handleChange = useCallback((e) => {
-    const newValue = e.target.value
-    setInternalValue(newValue)
+  const handleChange = useCallback(
+    e => {
+      const newValue = e.target.value
+      setInternalValue(newValue)
 
-    const validation_result = validateTime(newValue)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+      const validation_result = validateTime(newValue)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
 
-    if (onChange) onChange(newValue)
-  }, [validateTime, onChange])
+      if (onChange) onChange(newValue)
+    },
+    [validateTime, onChange]
+  )
 
   const displayError = error || validationError
 
@@ -239,7 +259,11 @@ export function TimePicker({
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}

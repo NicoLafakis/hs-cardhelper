@@ -4,7 +4,10 @@
  */
 
 import React, { useState, useMemo } from 'react'
-import { useDataBindings, useBindingValidator } from '../../hooks/useDataBindings'
+import {
+  useDataBindings,
+  useBindingValidator,
+} from '../../hooks/useDataBindings'
 import Modal from '../ui/molecules/Modal'
 import Button from '../ui/atoms/Button'
 import Input from '../ui/atoms/Input'
@@ -12,7 +15,8 @@ import Label from '../ui/atoms/Label'
 import './DataBindingBuilder.css'
 
 export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
-  const { bindings, createBinding, updateBinding, deleteBinding } = useDataBindings(cardId)
+  const { bindings, createBinding, updateBinding, deleteBinding } =
+    useDataBindings(cardId)
   const { validateBinding } = useBindingValidator()
   const [activeTab, setActiveTab] = useState('conditional')
   const [selectedBinding, setSelectedBinding] = useState(null)
@@ -24,11 +28,11 @@ export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
       computed: bindings.filter(b => b.type === 'computed'),
       formula: bindings.filter(b => b.type === 'formula'),
       lookup: bindings.filter(b => b.type === 'lookup'),
-      dependency: bindings.filter(b => b.type === 'dependency')
+      dependency: bindings.filter(b => b.type === 'dependency'),
     }
   }, [bindings])
 
-  const handleCreateBinding = async (bindingConfig) => {
+  const handleCreateBinding = async bindingConfig => {
     const validation = validateBinding(bindingConfig)
     if (!validation.valid) {
       alert(validation.error)
@@ -54,7 +58,7 @@ export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
     }
   }
 
-  const handleDeleteBinding = async (bindingId) => {
+  const handleDeleteBinding = async bindingId => {
     if (!window.confirm('Are you sure you want to delete this binding?')) return
 
     try {
@@ -70,16 +74,18 @@ export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
     <Modal title="Data Binding Builder" onClose={onClose} size="large">
       <div className="binding-builder">
         <div className="binding-tabs">
-          {['conditional', 'computed', 'formula', 'lookup', 'dependency'].map(type => (
-            <button
-              key={type}
-              className={`tab-button ${activeTab === type ? 'active' : ''}`}
-              onClick={() => setActiveTab(type)}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-              <span className="badge">{bindingsByType[type].length}</span>
-            </button>
-          ))}
+          {['conditional', 'computed', 'formula', 'lookup', 'dependency'].map(
+            type => (
+              <button
+                key={type}
+                className={`tab-button ${activeTab === type ? 'active' : ''}`}
+                onClick={() => setActiveTab(type)}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+                <span className="badge">{bindingsByType[type].length}</span>
+              </button>
+            )
+          )}
         </div>
 
         <div className="binding-content">
@@ -87,7 +93,7 @@ export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
             <BindingEditor
               binding={editingBinding}
               cardFields={cardFields}
-              onSave={(config) =>
+              onSave={config =>
                 editingBinding.id
                   ? handleUpdateBinding(editingBinding.id, config)
                   : handleCreateBinding(config)
@@ -104,11 +110,12 @@ export function DataBindingBuilder({ cardId, cardFields = [], onClose }) {
                     fieldId: '',
                     type: activeTab,
                     sourceField: '',
-                    condition: { operator: 'equals', value: '' }
+                    condition: { operator: 'equals', value: '' },
                   })
                 }
               >
-                + Create {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Binding
+                + Create{' '}
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Binding
               </button>
 
               <div className="bindings-list">
@@ -146,28 +153,29 @@ function BindingEditor({ binding, cardFields, onSave, onCancel }) {
     onSave(config)
   }
 
-  const updateConfig = (updates) => {
+  const updateConfig = updates => {
     setConfig(prev => ({ ...prev, ...updates }))
   }
 
-  const updateCondition = (updates) => {
+  const updateCondition = updates => {
     setConfig(prev => ({
       ...prev,
-      condition: { ...prev.condition, ...updates }
+      condition: { ...prev.condition, ...updates },
     }))
   }
 
-  const updateMetadata = (updates) => {
+  const updateMetadata = updates => {
     setConfig(prev => ({
       ...prev,
-      metadata: { ...prev.metadata, ...updates }
+      metadata: { ...prev.metadata, ...updates },
     }))
   }
 
   return (
     <div className="binding-editor">
       <h3>
-        {config.id?.startsWith('binding_') ? 'Create' : 'Edit'} {config.type} Binding
+        {config.id?.startsWith('binding_') ? 'Create' : 'Edit'} {config.type}{' '}
+        Binding
       </h3>
 
       <div className="editor-section">
@@ -192,7 +200,9 @@ function BindingEditor({ binding, cardFields, onSave, onCancel }) {
           sourceField={config.sourceField}
           cardFields={cardFields}
           onConditionChange={updateCondition}
-          onSourceFieldChange={e => updateConfig({ sourceField: e.target.value })}
+          onSourceFieldChange={e =>
+            updateConfig({ sourceField: e.target.value })
+          }
         />
       )}
 
@@ -201,7 +211,9 @@ function BindingEditor({ binding, cardFields, onSave, onCancel }) {
           sourceField={config.sourceField}
           metadata={config.metadata}
           cardFields={cardFields}
-          onSourceFieldChange={e => updateConfig({ sourceField: e.target.value })}
+          onSourceFieldChange={e =>
+            updateConfig({ sourceField: e.target.value })
+          }
           onMetadataChange={updateMetadata}
         />
       )}
@@ -221,10 +233,16 @@ function BindingEditor({ binding, cardFields, onSave, onCancel }) {
           matchField={config.matchField}
           returnField={config.returnField}
           cardFields={cardFields}
-          onSourceFieldChange={e => updateConfig({ sourceField: e.target.value })}
-          onLookupTableChange={e => updateConfig({ lookupTable: e.target.value })}
+          onSourceFieldChange={e =>
+            updateConfig({ sourceField: e.target.value })
+          }
+          onLookupTableChange={e =>
+            updateConfig({ lookupTable: e.target.value })
+          }
           onMatchFieldChange={e => updateConfig({ matchField: e.target.value })}
-          onReturnFieldChange={e => updateConfig({ returnField: e.target.value })}
+          onReturnFieldChange={e =>
+            updateConfig({ returnField: e.target.value })
+          }
         />
       )}
 
@@ -251,11 +269,21 @@ function BindingEditor({ binding, cardFields, onSave, onCancel }) {
 /**
  * Conditional Binding Editor
  */
-function ConditionalEditor({ condition, sourceField, cardFields, onConditionChange, onSourceFieldChange }) {
+function ConditionalEditor({
+  condition,
+  sourceField,
+  cardFields,
+  onConditionChange,
+  onSourceFieldChange,
+}) {
   return (
     <div className="editor-section">
       <Label>Source Field</Label>
-      <select className="field-select" value={sourceField} onChange={onSourceFieldChange}>
+      <select
+        className="field-select"
+        value={sourceField}
+        onChange={onSourceFieldChange}
+      >
         <option value="">Select field...</option>
         {cardFields.map(f => (
           <option key={f.id} value={f.id}>
@@ -307,12 +335,16 @@ function ComputedEditor({
   metadata,
   cardFields,
   onSourceFieldChange,
-  onMetadataChange
+  onMetadataChange,
 }) {
   return (
     <div className="editor-section">
       <Label>Source Field(s)</Label>
-      <select className="field-select" value={sourceField} onChange={onSourceFieldChange}>
+      <select
+        className="field-select"
+        value={sourceField}
+        onChange={onSourceFieldChange}
+      >
         <option value="">Select field...</option>
         {cardFields.map(f => (
           <option key={f.id} value={f.id}>
@@ -351,7 +383,7 @@ function FormulaEditor({ formula, cardFields, onFormulaChange }) {
         className="formula-input"
         value={formula || ''}
         onChange={onFormulaChange}
-        placeholder='e.g., ${price} * ${quantity} + ${tax}'
+        placeholder="e.g., ${price} * ${quantity} + ${tax}"
       />
 
       <div className="formula-help">
@@ -388,12 +420,16 @@ function LookupEditor({
   onSourceFieldChange,
   onLookupTableChange,
   onMatchFieldChange,
-  onReturnFieldChange
+  onReturnFieldChange,
 }) {
   return (
     <div className="editor-section">
       <Label>Source Field</Label>
-      <select className="field-select" value={sourceField} onChange={onSourceFieldChange}>
+      <select
+        className="field-select"
+        value={sourceField}
+        onChange={onSourceFieldChange}
+      >
         <option value="">Select field...</option>
         {cardFields.map(f => (
           <option key={f.id} value={f.id}>
@@ -463,11 +499,22 @@ function DependencyEditor({ dependsOn, bindings, onDependsOnChange }) {
 /**
  * Binding Item Component (Display)
  */
-function BindingItem({ binding, isSelected, onSelect, onEdit, onDelete, cardFields }) {
-  const fieldLabel = cardFields.find(f => f.id === binding.fieldId)?.label || binding.fieldId
+function BindingItem({
+  binding,
+  isSelected,
+  onSelect,
+  onEdit,
+  onDelete,
+  cardFields,
+}) {
+  const fieldLabel =
+    cardFields.find(f => f.id === binding.fieldId)?.label || binding.fieldId
 
   return (
-    <div className={`binding-item ${isSelected ? 'selected' : ''}`} onClick={onSelect}>
+    <div
+      className={`binding-item ${isSelected ? 'selected' : ''}`}
+      onClick={onSelect}
+    >
       <div className="binding-header">
         <h4>{fieldLabel}</h4>
         <span className={`type-badge ${binding.type}`}>{binding.type}</span>
@@ -476,10 +523,22 @@ function BindingItem({ binding, isSelected, onSelect, onEdit, onDelete, cardFiel
       <p className="binding-preview">{getBindingPreview(binding)}</p>
 
       <div className="binding-actions">
-        <button className="btn-edit" onClick={(e) => { e.stopPropagation(); onEdit() }}>
+        <button
+          className="btn-edit"
+          onClick={e => {
+            e.stopPropagation()
+            onEdit()
+          }}
+        >
           Edit
         </button>
-        <button className="btn-delete" onClick={(e) => { e.stopPropagation(); onDelete() }}>
+        <button
+          className="btn-delete"
+          onClick={e => {
+            e.stopPropagation()
+            onDelete()
+          }}
+        >
           Delete
         </button>
       </div>

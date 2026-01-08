@@ -9,7 +9,9 @@ import useFeatureFlagsStore from '../../../store/featureFlagsStore'
 
 export function WelcomeBanner() {
   const [dismissed, setDismissed] = useState(false)
-  const isEnabled = useFeatureFlagsStore((state) => state.isEnabled('plugin.welcome-banner'))
+  const isEnabled = useFeatureFlagsStore(state =>
+    state.isEnabled('plugin.welcome-banner')
+  )
 
   if (!isEnabled || dismissed) {
     return null

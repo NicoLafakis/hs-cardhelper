@@ -11,8 +11,7 @@ import {
   Calendar,
   LogOut,
   Settings,
-  BarChart,
-  Layers
+  Layers,
 } from 'lucide-react'
 
 export default function Dashboard() {
@@ -45,11 +44,10 @@ export default function Dashboard() {
     navigate('/builder/new')
   }
 
-  const handleEditCard = (card) => {
+  const handleEditCard = card => {
     try {
-      const config = typeof card.config === 'string'
-        ? JSON.parse(card.config)
-        : card.config
+      const config =
+        typeof card.config === 'string' ? JSON.parse(card.config) : card.config
       loadComponents(config)
       navigate(`/builder/${card.id}`)
     } catch (err) {
@@ -58,7 +56,7 @@ export default function Dashboard() {
     }
   }
 
-  const handleDeleteCard = async (cardId) => {
+  const handleDeleteCard = async cardId => {
     if (!confirm('Are you sure you want to delete this card?')) return
 
     try {
@@ -105,7 +103,9 @@ export default function Dashboard() {
               </button>
 
               <div className="border-l border-gray-300 pl-2 sm:pl-3 ml-2 sm:ml-3 flex items-center gap-2 sm:gap-3">
-                <span className="text-sm text-gray-600 hidden sm:block">{user?.email}</span>
+                <span className="text-sm text-gray-600 hidden sm:block">
+                  {user?.email}
+                </span>
                 <button
                   onClick={handleLogout}
                   className="p-2 rounded hover:bg-gray-100 text-red-600"
@@ -123,9 +123,7 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Dashboard
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h2>
           <p className="text-gray-600">
             Create and manage HubSpot custom cards
           </p>
@@ -139,7 +137,7 @@ export default function Dashboard() {
               type="text"
               placeholder="Search cards..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent"
             />
           </div>
@@ -179,8 +177,7 @@ export default function Dashboard() {
             <p className="text-gray-500 mb-6 max-w-md mx-auto">
               {searchQuery
                 ? `No cards match "${searchQuery}". Try a different search term.`
-                : 'Create your first custom HubSpot card using the drag-and-drop builder.'
-              }
+                : 'Create your first custom HubSpot card using the drag-and-drop builder.'}
             </p>
             {!searchQuery && (
               <button
@@ -194,7 +191,7 @@ export default function Dashboard() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredCards.map((card) => (
+            {filteredCards.map(card => (
               <div
                 key={card.id}
                 className="bg-white rounded border border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-200 overflow-hidden group"
@@ -206,12 +203,17 @@ export default function Dashboard() {
 
                 {/* Card Info */}
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1 truncate" title={card.name}>
+                  <h3
+                    className="font-semibold text-gray-900 mb-1 truncate"
+                    title={card.name}
+                  >
                     {card.name}
                   </h3>
                   <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
                     <Calendar className="w-4 h-4" />
-                    <span>{new Date(card.created_at).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(card.created_at).toLocaleDateString()}
+                    </span>
                   </div>
 
                   {/* Actions */}
@@ -223,7 +225,7 @@ export default function Dashboard() {
                       Edit
                     </button>
                     <button
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         handleDeleteCard(card.id)
                       }}
@@ -250,7 +252,9 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Total Cards</p>
-                    <p className="text-2xl font-bold text-gray-900">{cards.length}</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {cards.length}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -263,7 +267,9 @@ export default function Dashboard() {
                   <div>
                     <p className="text-sm text-gray-500">Last Created</p>
                     <p className="text-lg font-semibold text-gray-900">
-                      {new Date(Math.max(...cards.map(c => new Date(c.created_at)))).toLocaleDateString()}
+                      {new Date(
+                        Math.max(...cards.map(c => new Date(c.created_at)))
+                      ).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -276,7 +282,9 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Components</p>
-                    <p className="text-lg font-semibold text-gray-900">32 Available</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      32 Available
+                    </p>
                   </div>
                 </div>
               </div>

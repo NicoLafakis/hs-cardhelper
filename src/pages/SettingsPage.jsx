@@ -40,7 +40,9 @@ export default function SettingsPage() {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600 hidden sm:block">{user?.email}</span>
+              <span className="text-sm text-gray-600 hidden sm:block">
+                {user?.email}
+              </span>
               <button
                 onClick={handleLogout}
                 className="p-2 rounded-lg hover:bg-gray-100 text-red-600"

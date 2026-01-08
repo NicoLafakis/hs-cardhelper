@@ -15,7 +15,8 @@ const advancedComponentsPlugin = createPlugin({
   id: 'advanced-components',
   name: 'Advanced Components',
   version: '1.0.0',
-  description: 'Adds charts, timelines, galleries, videos, and custom HTML components',
+  description:
+    'Adds charts, timelines, galleries, videos, and custom HTML components',
   author: 'CardHelper Team',
   enabled: true,
 
@@ -26,7 +27,7 @@ const advancedComponentsPlugin = createPlugin({
     GalleryComponent,
     VideoComponent,
     CustomHTMLComponent,
-    ProgressComponent
+    ProgressComponent,
   },
 
   // Component metadata for the builder
@@ -45,20 +46,25 @@ const advancedComponentsPlugin = createPlugin({
             { name: 'Feb', value: 300 },
             { name: 'Mar', value: 600 },
             { name: 'Apr', value: 800 },
-            { name: 'May', value: 500 }
+            { name: 'May', value: 500 },
           ],
           xKey: 'name',
           yKey: 'value',
           title: 'Monthly Data',
-          height: 300
+          height: 300,
         },
         properties: [
-          { key: 'type', label: 'Chart Type', type: 'select', options: ['bar', 'line', 'area', 'pie'] },
+          {
+            key: 'type',
+            label: 'Chart Type',
+            type: 'select',
+            options: ['bar', 'line', 'area', 'pie'],
+          },
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'height', label: 'Height (px)', type: 'number' },
           { key: 'xKey', label: 'X-Axis Key', type: 'text' },
-          { key: 'yKey', label: 'Y-Axis Key', type: 'text' }
-        ]
+          { key: 'yKey', label: 'Y-Axis Key', type: 'text' },
+        ],
       },
       {
         id: 'timeline',
@@ -72,17 +78,17 @@ const advancedComponentsPlugin = createPlugin({
             {
               date: new Date().toISOString(),
               title: 'Recent Activity',
-              description: 'Latest event in the timeline'
-            }
+              description: 'Latest event in the timeline',
+            },
           ],
           showDates: true,
-          showTimes: false
+          showTimes: false,
         },
         properties: [
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'showDates', label: 'Show Dates', type: 'boolean' },
-          { key: 'showTimes', label: 'Show Times', type: 'boolean' }
-        ]
+          { key: 'showTimes', label: 'Show Times', type: 'boolean' },
+        ],
       },
       {
         id: 'gallery',
@@ -94,13 +100,13 @@ const advancedComponentsPlugin = createPlugin({
           title: 'Gallery',
           images: [],
           columns: 3,
-          showCaptions: true
+          showCaptions: true,
         },
         properties: [
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'columns', label: 'Columns', type: 'number', min: 1, max: 4 },
-          { key: 'showCaptions', label: 'Show Captions', type: 'boolean' }
-        ]
+          { key: 'showCaptions', label: 'Show Captions', type: 'boolean' },
+        ],
       },
       {
         id: 'video',
@@ -115,16 +121,21 @@ const advancedComponentsPlugin = createPlugin({
           controls: true,
           loop: false,
           muted: false,
-          height: '360px'
+          height: '360px',
         },
         properties: [
-          { key: 'url', label: 'Video URL', type: 'text', placeholder: 'https://www.youtube.com/watch?v=...' },
+          {
+            key: 'url',
+            label: 'Video URL',
+            type: 'text',
+            placeholder: 'https://www.youtube.com/watch?v=...',
+          },
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'autoplay', label: 'Autoplay', type: 'boolean' },
           { key: 'controls', label: 'Show Controls', type: 'boolean' },
           { key: 'loop', label: 'Loop', type: 'boolean' },
-          { key: 'muted', label: 'Muted', type: 'boolean' }
-        ]
+          { key: 'muted', label: 'Muted', type: 'boolean' },
+        ],
       },
       {
         id: 'custom-html',
@@ -135,13 +146,17 @@ const advancedComponentsPlugin = createPlugin({
         defaultConfig: {
           html: '<p>Your custom HTML here...</p>',
           title: 'Custom Content',
-          allowScripts: false
+          allowScripts: false,
         },
         properties: [
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'html', label: 'HTML Content', type: 'textarea' },
-          { key: 'allowScripts', label: 'Allow Scripts (UNSAFE)', type: 'boolean' }
-        ]
+          {
+            key: 'allowScripts',
+            label: 'Allow Scripts (UNSAFE)',
+            type: 'boolean',
+          },
+        ],
       },
       {
         id: 'progress',
@@ -156,24 +171,33 @@ const advancedComponentsPlugin = createPlugin({
           showPercentage: true,
           showValue: true,
           color: 'blue',
-          size: 'md'
+          size: 'md',
         },
         properties: [
           { key: 'label', label: 'Label', type: 'text' },
           { key: 'value', label: 'Current Value', type: 'number' },
           { key: 'max', label: 'Maximum Value', type: 'number' },
-          { key: 'color', label: 'Color', type: 'select', options: ['blue', 'green', 'red', 'yellow', 'purple', 'gray'] },
-          { key: 'size', label: 'Size', type: 'select', options: ['sm', 'md', 'lg'] },
+          {
+            key: 'color',
+            label: 'Color',
+            type: 'select',
+            options: ['blue', 'green', 'red', 'yellow', 'purple', 'gray'],
+          },
+          {
+            key: 'size',
+            label: 'Size',
+            type: 'select',
+            options: ['sm', 'md', 'lg'],
+          },
           { key: 'showPercentage', label: 'Show Percentage', type: 'boolean' },
-          { key: 'showValue', label: 'Show Value', type: 'boolean' }
-        ]
-      }
-    ]
+          { key: 'showValue', label: 'Show Value', type: 'boolean' },
+        ],
+      },
+    ],
   },
 
   // Plugin initialization
-  initialize: async function(context) {
-    console.log('Advanced Components plugin initialized!')
+  initialize: async function (context) {
     console.log('Registered components:', Object.keys(this.components))
 
     // Register component types in the builder store if available
@@ -191,8 +215,7 @@ const advancedComponentsPlugin = createPlugin({
     return true
   },
 
-  destroy: async function() {
-    console.log('Advanced Components plugin destroyed!')
+  destroy: async function () {
     return true
   },
 
@@ -204,28 +227,41 @@ const advancedComponentsPlugin = createPlugin({
         if (!Array.isArray(data)) return []
         return data.map(item => ({
           [xKey]: item[xKey] || item.name || item.label,
-          [yKey]: Number(item[yKey] || item.value || 0)
+          [yKey]: Number(item[yKey] || item.value || 0),
         }))
       },
 
       // Generate sample chart data
       generateSampleData: (count = 5) => {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        const months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ]
         return Array.from({ length: count }, (_, i) => ({
           name: months[i],
-          value: Math.floor(Math.random() * 1000)
+          value: Math.floor(Math.random() * 1000),
         }))
-      }
+      },
     },
 
     timeline: {
       // Sort events by date
-      sortEvents: (events) => {
+      sortEvents: events => {
         return [...events].sort((a, b) => new Date(b.date) - new Date(a.date))
       },
 
       // Group events by date
-      groupByDate: (events) => {
+      groupByDate: events => {
         const groups = {}
         events.forEach(event => {
           const date = new Date(event.date).toDateString()
@@ -233,12 +269,12 @@ const advancedComponentsPlugin = createPlugin({
           groups[date].push(event)
         })
         return groups
-      }
+      },
     },
 
     gallery: {
       // Validate image URLs
-      validateImages: (images) => {
+      validateImages: images => {
         return images.filter(img => {
           const url = img.url || img.src || img
           return typeof url === 'string' && url.length > 0
@@ -246,12 +282,12 @@ const advancedComponentsPlugin = createPlugin({
       },
 
       // Create thumbnail URLs
-      createThumbnail: (url, size = '200x200') => {
+      createThumbnail: url => {
         // This could integrate with an image service
         return url
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 export default advancedComponentsPlugin

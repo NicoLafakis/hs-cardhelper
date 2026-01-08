@@ -12,7 +12,8 @@ const advancedAIPlugin = createPlugin({
   id: 'advanced-ai',
   name: 'Advanced AI Features',
   version: '1.0.0',
-  description: 'Natural language builder, smart suggestions, and AI assistant for card building',
+  description:
+    'Natural language builder, smart suggestions, and AI assistant for card building',
   author: 'CardHelper Team',
   enabled: true,
   dependencies: [], // Could depend on openai API key being configured
@@ -20,7 +21,7 @@ const advancedAIPlugin = createPlugin({
   components: {
     NaturalLanguageBuilder,
     SmartSuggestions,
-    AIAssistant
+    AIAssistant,
   },
 
   services: {
@@ -45,9 +46,10 @@ const advancedAIPlugin = createPlugin({
           {
             type: 'layout',
             title: 'Improve Visual Hierarchy',
-            description: 'Add a header section to make the card title more prominent',
-            impact: 'high'
-          }
+            description:
+              'Add a header section to make the card title more prominent',
+            impact: 'high',
+          },
         ]
       },
 
@@ -66,18 +68,18 @@ const advancedAIPlugin = createPlugin({
       },
 
       // Auto-generate card title and description
-      generateMetadata: async (components) => {
+      generateMetadata: async components => {
         // Analyze components and generate appropriate title/description
         const componentTypes = components.map(c => c.type).join(', ')
 
         return {
           title: `Custom Card with ${components.length} components`,
-          description: `Displays ${componentTypes}`
+          description: `Displays ${componentTypes}`,
         }
       },
 
       // Smart field mapping suggestions
-      suggestFieldMapping: (sourceFields) => {
+      suggestFieldMapping: sourceFields => {
         // Suggest which fields to map to component properties
         const suggestions = {}
 
@@ -92,8 +94,8 @@ const advancedAIPlugin = createPlugin({
         })
 
         return suggestions
-      }
-    }
+      },
+    },
   },
 
   config: {
@@ -101,32 +103,28 @@ const advancedAIPlugin = createPlugin({
       naturalLanguageBuilder: true,
       smartSuggestions: true,
       aiAssistant: true,
-      autoFieldMapping: true
+      autoFieldMapping: true,
     },
 
     // AI model configuration
     modelSettings: {
       temperature: 0.7,
       maxTokens: 1000,
-      model: 'gpt-4-mini'
-    }
+      model: 'gpt-4-mini',
+    },
   },
 
   hooks: {
-    'component:added': async function() {
+    'component:added': async function () {
       // When a component is added, could suggest related components
-      console.log('Advanced AI: Component added, analyzing for suggestions...')
     },
 
-    'card:saved': async function() {
+    'card:saved': async function () {
       // When card is saved, could generate metadata or suggestions
-      console.log('Advanced AI: Card saved, generating metadata...')
-    }
+    },
   },
 
-  initialize: async function(context) {
-    console.log('Advanced AI Features plugin initialized!')
-
+  initialize: async function (context) {
     // Check if OpenAI API key is configured
     // Use a timeout to avoid blocking initialization if server is not available
     try {
@@ -139,13 +137,15 @@ const advancedAIPlugin = createPlugin({
       clearTimeout(timeoutId)
 
       if (!status.data.hasKey) {
-        console.warn('Advanced AI: OpenAI API key not configured. Some features may not work.')
-      } else {
-        console.log('Advanced AI: OpenAI API key configured ✓')
+        console.warn(
+          'Advanced AI: OpenAI API key not configured. Some features may not work.'
+        )
       }
     } catch (error) {
       // Silently fail during initialization - the API check can happen later when needed
-      console.debug('Advanced AI: API key check skipped (server may not be available yet)')
+      console.debug(
+        'Advanced AI: API key check skipped (server may not be available yet)'
+      )
     }
 
     // Set feature flag
@@ -156,10 +156,9 @@ const advancedAIPlugin = createPlugin({
     return true
   },
 
-  destroy: async function() {
-    console.log('Advanced AI Features plugin destroyed!')
+  destroy: async function () {
     return true
-  }
+  },
 })
 
 export default advancedAIPlugin

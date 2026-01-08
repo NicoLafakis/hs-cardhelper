@@ -15,7 +15,7 @@ const OPERATORS = {
     { value: 'startsWith', label: 'starts with' },
     { value: 'endsWith', label: 'ends with' },
     { value: 'isEmpty', label: 'is empty' },
-    { value: 'isNotEmpty', label: 'is not empty' }
+    { value: 'isNotEmpty', label: 'is not empty' },
   ],
   number: [
     { value: 'equals', label: '=' },
@@ -24,18 +24,18 @@ const OPERATORS = {
     { value: 'lessThan', label: '<' },
     { value: 'greaterOrEqual', label: '≥' },
     { value: 'lessOrEqual', label: '≤' },
-    { value: 'between', label: 'between' }
+    { value: 'between', label: 'between' },
   ],
   boolean: [
     { value: 'isTrue', label: 'is true' },
-    { value: 'isFalse', label: 'is false' }
+    { value: 'isFalse', label: 'is false' },
   ],
   date: [
     { value: 'equals', label: 'is on' },
     { value: 'before', label: 'is before' },
     { value: 'after', label: 'is after' },
-    { value: 'between', label: 'is between' }
-  ]
+    { value: 'between', label: 'is between' },
+  ],
 }
 
 const ACTION_TYPES = [
@@ -44,14 +44,14 @@ const ACTION_TYPES = [
   { value: 'setField', label: 'Set Field Value' },
   { value: 'applyTheme', label: 'Apply Theme' },
   { value: 'triggerValidation', label: 'Trigger Validation' },
-  { value: 'sendNotification', label: 'Send Notification' }
+  { value: 'sendNotification', label: 'Send Notification' },
 ]
 
 export function ConditionBuilder({
   conditions = [],
   onChange,
   availableFields = [],
-  availableComponents = []
+  availableComponents = [],
 }) {
   const [expanded, setExpanded] = useState(true)
 
@@ -63,8 +63,8 @@ export function ConditionBuilder({
         type: 'group',
         operator: 'AND',
         conditions: [createNewCondition()],
-        actions: [createNewAction()]
-      }
+        actions: [createNewAction()],
+      },
     ])
   }
 
@@ -73,14 +73,14 @@ export function ConditionBuilder({
     field: '',
     operator: 'equals',
     value: '',
-    fieldType: 'string'
+    fieldType: 'string',
   })
 
   const createNewAction = () => ({
     id: `action_${Date.now()}`,
     type: 'showComponent',
     target: '',
-    value: ''
+    value: '',
   })
 
   const updateConditionGroup = (groupIndex, updates) => {
@@ -89,17 +89,20 @@ export function ConditionBuilder({
     onChange(newConditions)
   }
 
-  const removeConditionGroup = (groupIndex) => {
+  const removeConditionGroup = groupIndex => {
     onChange(conditions.filter((_, idx) => idx !== groupIndex))
   }
 
-  const duplicateConditionGroup = (groupIndex) => {
+  const duplicateConditionGroup = groupIndex => {
     const group = conditions[groupIndex]
     const duplicated = {
       ...group,
       id: `group_${Date.now()}`,
-      conditions: group.conditions.map(c => ({ ...c, id: `cond_${Date.now()}` })),
-      actions: group.actions.map(a => ({ ...a, id: `action_${Date.now()}` }))
+      conditions: group.conditions.map(c => ({
+        ...c,
+        id: `cond_${Date.now()}`,
+      })),
+      actions: group.actions.map(a => ({ ...a, id: `action_${Date.now()}` })),
     }
     onChange([...conditions, duplicated])
   }
@@ -128,7 +131,8 @@ export function ConditionBuilder({
             <div className="empty-state">
               <p>No conditional rules yet</p>
               <p className="empty-hint">
-                Create rules to show/hide components or change values based on conditions
+                Create rules to show/hide components or change values based on
+                conditions
               </p>
             </div>
           ) : (
@@ -139,7 +143,7 @@ export function ConditionBuilder({
                 groupIndex={groupIndex}
                 availableFields={availableFields}
                 availableComponents={availableComponents}
-                onUpdate={(updates) => updateConditionGroup(groupIndex, updates)}
+                onUpdate={updates => updateConditionGroup(groupIndex, updates)}
                 onRemove={() => removeConditionGroup(groupIndex)}
                 onDuplicate={() => duplicateConditionGroup(groupIndex)}
               />
@@ -158,7 +162,7 @@ function ConditionGroup({
   availableComponents,
   onUpdate,
   onRemove,
-  onDuplicate
+  onDuplicate,
 }) {
   const addCondition = () => {
     onUpdate({
@@ -169,9 +173,9 @@ function ConditionGroup({
           field: '',
           operator: 'equals',
           value: '',
-          fieldType: 'string'
-        }
-      ]
+          fieldType: 'string',
+        },
+      ],
     })
   }
 
@@ -181,10 +185,10 @@ function ConditionGroup({
     onUpdate({ conditions: newConditions })
   }
 
-  const removeCondition = (condIndex) => {
+  const removeCondition = condIndex => {
     if (group.conditions.length > 1) {
       onUpdate({
-        conditions: group.conditions.filter((_, idx) => idx !== condIndex)
+        conditions: group.conditions.filter((_, idx) => idx !== condIndex),
       })
     }
   }
@@ -197,9 +201,9 @@ function ConditionGroup({
           id: `action_${Date.now()}`,
           type: 'showComponent',
           target: '',
-          value: ''
-        }
-      ]
+          value: '',
+        },
+      ],
     })
   }
 
@@ -209,10 +213,10 @@ function ConditionGroup({
     onUpdate({ actions: newActions })
   }
 
-  const removeAction = (actionIndex) => {
+  const removeAction = actionIndex => {
     if (group.actions.length > 1) {
       onUpdate({
-        actions: group.actions.filter((_, idx) => idx !== actionIndex)
+        actions: group.actions.filter((_, idx) => idx !== actionIndex),
       })
     }
   }
@@ -247,7 +251,7 @@ function ConditionGroup({
             <select
               className="operator-select"
               value={group.operator}
-              onChange={(e) => onUpdate({ operator: e.target.value })}
+              onChange={e => onUpdate({ operator: e.target.value })}
             >
               <option value="AND">All conditions match (AND)</option>
               <option value="OR">Any condition matches (OR)</option>
@@ -262,7 +266,7 @@ function ConditionGroup({
                 condIndex={condIndex}
                 availableFields={availableFields}
                 showRemove={group.conditions.length > 1}
-                onUpdate={(updates) => updateCondition(condIndex, updates)}
+                onUpdate={updates => updateCondition(condIndex, updates)}
                 onRemove={() => removeCondition(condIndex)}
               />
             ))}
@@ -289,7 +293,7 @@ function ConditionGroup({
                 availableComponents={availableComponents}
                 availableFields={availableFields}
                 showRemove={group.actions.length > 1}
-                onUpdate={(updates) => updateAction(actionIndex, updates)}
+                onUpdate={updates => updateAction(actionIndex, updates)}
                 onRemove={() => removeAction(actionIndex)}
               />
             ))}
@@ -307,23 +311,22 @@ function ConditionGroup({
 
 function Condition({
   condition,
-  condIndex,
   availableFields,
   showRemove,
   onUpdate,
-  onRemove
+  onRemove,
 }) {
   const selectedField = availableFields.find(f => f.value === condition.field)
   const fieldType = selectedField?.type || 'string'
   const operators = OPERATORS[fieldType] || OPERATORS.string
 
-  const handleFieldChange = (fieldValue) => {
+  const handleFieldChange = fieldValue => {
     const field = availableFields.find(f => f.value === fieldValue)
     onUpdate({
       field: fieldValue,
       fieldType: field?.type || 'string',
       operator: OPERATORS[field?.type || 'string'][0].value,
-      value: ''
+      value: '',
     })
   }
 
@@ -332,7 +335,7 @@ function Condition({
       <select
         className="field-select"
         value={condition.field}
-        onChange={(e) => handleFieldChange(e.target.value)}
+        onChange={e => handleFieldChange(e.target.value)}
       >
         <option value="">Select field...</option>
         {availableFields.map(field => (
@@ -345,7 +348,7 @@ function Condition({
       <select
         className="operator-select"
         value={condition.operator}
-        onChange={(e) => onUpdate({ operator: e.target.value })}
+        onChange={e => onUpdate({ operator: e.target.value })}
       >
         {operators.map(op => (
           <option key={op.value} value={op.value}>
@@ -354,18 +357,24 @@ function Condition({
         ))}
       </select>
 
-      {!['isEmpty', 'isNotEmpty', 'isTrue', 'isFalse'].includes(condition.operator) && (
+      {!['isEmpty', 'isNotEmpty', 'isTrue', 'isFalse'].includes(
+        condition.operator
+      ) && (
         <input
           type={fieldType === 'number' ? 'number' : 'text'}
           className="value-input"
           placeholder="Value..."
           value={condition.value}
-          onChange={(e) => onUpdate({ value: e.target.value })}
+          onChange={e => onUpdate({ value: e.target.value })}
         />
       )}
 
       {showRemove && (
-        <button className="remove-button" onClick={onRemove} title="Remove condition">
+        <button
+          className="remove-button"
+          onClick={onRemove}
+          title="Remove condition"
+        >
           <Trash2 size={14} />
         </button>
       )}
@@ -375,19 +384,20 @@ function Condition({
 
 function Action({
   action,
-  actionIndex,
   availableComponents,
   availableFields,
   showRemove,
   onUpdate,
-  onRemove
+  onRemove,
 }) {
   return (
     <div className="action-row">
       <select
         className="action-type-select"
         value={action.type}
-        onChange={(e) => onUpdate({ type: e.target.value, target: '', value: '' })}
+        onChange={e =>
+          onUpdate({ type: e.target.value, target: '', value: '' })
+        }
       >
         {ACTION_TYPES.map(type => (
           <option key={type.value} value={type.value}>
@@ -401,7 +411,7 @@ function Action({
         <select
           className="target-select"
           value={action.target}
-          onChange={(e) => onUpdate({ target: e.target.value })}
+          onChange={e => onUpdate({ target: e.target.value })}
         >
           <option value="">Select component...</option>
           {availableComponents.map(comp => (
@@ -417,7 +427,7 @@ function Action({
           <select
             className="target-select"
             value={action.target}
-            onChange={(e) => onUpdate({ target: e.target.value })}
+            onChange={e => onUpdate({ target: e.target.value })}
           >
             <option value="">Select field...</option>
             {availableFields.map(field => (
@@ -431,7 +441,7 @@ function Action({
             className="value-input"
             placeholder="New value..."
             value={action.value}
-            onChange={(e) => onUpdate({ value: e.target.value })}
+            onChange={e => onUpdate({ value: e.target.value })}
           />
         </>
       )}
@@ -440,7 +450,7 @@ function Action({
         <select
           className="target-select"
           value={action.target}
-          onChange={(e) => onUpdate({ target: e.target.value })}
+          onChange={e => onUpdate({ target: e.target.value })}
         >
           <option value="">Select theme...</option>
           <option value="light">Light</option>
@@ -456,12 +466,16 @@ function Action({
           className="value-input"
           placeholder="Notification message..."
           value={action.value}
-          onChange={(e) => onUpdate({ value: e.target.value })}
+          onChange={e => onUpdate({ value: e.target.value })}
         />
       )}
 
       {showRemove && (
-        <button className="remove-button" onClick={onRemove} title="Remove action">
+        <button
+          className="remove-button"
+          onClick={onRemove}
+          title="Remove action"
+        >
           <Trash2 size={14} />
         </button>
       )}

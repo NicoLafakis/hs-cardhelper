@@ -3,13 +3,20 @@
  * Displays usage metrics and insights
  */
 
-import { useState } from 'react'
 import { BarChart3, TrendingUp, Activity, Clock, Download } from 'lucide-react'
 import useAnalyticsStore from '../analyticsStore'
 import { Card, CardHeader, CardBody } from '../../../components/ui/atoms/Card'
 import { Badge } from '../../../components/ui/atoms/Badge'
 import { Button } from '../../../components/ui/atoms/Button'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
 
 export function AnalyticsDashboard() {
   const {
@@ -18,7 +25,7 @@ export function AnalyticsDashboard() {
     componentStats,
     getSummary,
     getPopularComponents,
-    clearAll
+    clearAll,
   } = useAnalyticsStore()
 
   const summary = getSummary()
@@ -30,7 +37,7 @@ export function AnalyticsDashboard() {
       templates,
       componentStats,
       summary,
-      exportedAt: new Date().toISOString()
+      exportedAt: new Date().toISOString(),
     }
 
     const json = JSON.stringify(data, null, 2)
@@ -46,16 +53,22 @@ export function AnalyticsDashboard() {
   }
 
   const handleClear = () => {
-    if (confirm('Are you sure you want to clear all analytics data? This cannot be undone.')) {
+    if (
+      confirm(
+        'Are you sure you want to clear all analytics data? This cannot be undone.'
+      )
+    ) {
       clearAll()
     }
   }
 
   // Prepare chart data
-  const componentChartData = Object.entries(componentStats).map(([type, count]) => ({
-    name: type,
-    uses: count
-  }))
+  const componentChartData = Object.entries(componentStats).map(
+    ([type, count]) => ({
+      name: type,
+      uses: count,
+    })
+  )
 
   // Get recent activity
   const recentActivity = events.slice(-10).reverse()
@@ -65,8 +78,12 @@ export function AnalyticsDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h2>
-          <p className="text-gray-600 mt-1">Track your card building activity and insights</p>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Analytics Dashboard
+          </h2>
+          <p className="text-gray-600 mt-1">
+            Track your card building activity and insights
+          </p>
         </div>
 
         <div className="flex gap-2">
@@ -87,7 +104,9 @@ export function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Events</p>
-                <p className="text-2xl font-bold text-gray-900">{summary.totalEvents}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {summary.totalEvents}
+                </p>
               </div>
               <Activity size={32} className="text-blue-500" />
             </div>
@@ -99,7 +118,9 @@ export function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Templates</p>
-                <p className="text-2xl font-bold text-gray-900">{summary.totalTemplates}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {summary.totalTemplates}
+                </p>
               </div>
               <BarChart3 size={32} className="text-green-500" />
             </div>
@@ -111,7 +132,9 @@ export function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Components Used</p>
-                <p className="text-2xl font-bold text-gray-900">{summary.totalComponents}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {summary.totalComponents}
+                </p>
               </div>
               <TrendingUp size={32} className="text-purple-500" />
             </div>

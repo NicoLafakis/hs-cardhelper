@@ -2,7 +2,13 @@ import useBuilderStore from '../../store/builderStore'
 import { Settings, Move, Maximize2 } from 'lucide-react'
 
 export default function PropertyPanel() {
-  const { components, selectedComponentId, updateComponent, moveComponent, resizeComponent } = useBuilderStore()
+  const {
+    components,
+    selectedComponentId,
+    updateComponent,
+    moveComponent,
+    resizeComponent,
+  } = useBuilderStore()
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   if (!selectedComponent) {
@@ -23,8 +29,8 @@ export default function PropertyPanel() {
     updateComponent(selectedComponentId, {
       defaultProps: {
         ...selectedComponent.defaultProps,
-        [key]: value
-      }
+        [key]: value,
+      },
     })
   }
 
@@ -40,9 +46,19 @@ export default function PropertyPanel() {
   const handleSizeChange = (dimension, value) => {
     const numValue = parseInt(value) || 50
     if (dimension === 'width') {
-      resizeComponent(selectedComponentId, numValue, selectedComponent.height, false)
+      resizeComponent(
+        selectedComponentId,
+        numValue,
+        selectedComponent.height,
+        false
+      )
     } else {
-      resizeComponent(selectedComponentId, selectedComponent.width, numValue, false)
+      resizeComponent(
+        selectedComponentId,
+        selectedComponent.width,
+        numValue,
+        false
+      )
     }
   }
 
@@ -58,7 +74,7 @@ export default function PropertyPanel() {
               <input
                 type="text"
                 value={selectedComponent.defaultProps?.title || ''}
-                onChange={(e) => handlePropertyChange('title', e.target.value)}
+                onChange={e => handlePropertyChange('title', e.target.value)}
                 className="input-field"
               />
             </div>
@@ -74,7 +90,7 @@ export default function PropertyPanel() {
               </label>
               <textarea
                 value={selectedComponent.defaultProps?.content || ''}
-                onChange={(e) => handlePropertyChange('content', e.target.value)}
+                onChange={e => handlePropertyChange('content', e.target.value)}
                 className="input-field"
                 rows={4}
               />
@@ -85,7 +101,7 @@ export default function PropertyPanel() {
               </label>
               <select
                 value={selectedComponent.defaultProps?.fontSize || 'medium'}
-                onChange={(e) => handlePropertyChange('fontSize', e.target.value)}
+                onChange={e => handlePropertyChange('fontSize', e.target.value)}
                 className="input-field"
               >
                 <option value="small">Small</option>
@@ -106,7 +122,7 @@ export default function PropertyPanel() {
               <input
                 type="text"
                 value={selectedComponent.defaultProps?.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field"
               />
             </div>
@@ -117,7 +133,7 @@ export default function PropertyPanel() {
               <input
                 type="url"
                 value={selectedComponent.defaultProps?.url || ''}
-                onChange={(e) => handlePropertyChange('url', e.target.value)}
+                onChange={e => handlePropertyChange('url', e.target.value)}
                 className="input-field"
                 placeholder="https://example.com"
               />
@@ -170,7 +186,7 @@ export default function PropertyPanel() {
             <input
               type="number"
               value={selectedComponent.x || 0}
-              onChange={(e) => handlePositionChange('x', e.target.value)}
+              onChange={e => handlePositionChange('x', e.target.value)}
               className="input-field text-sm"
             />
           </div>
@@ -181,7 +197,7 @@ export default function PropertyPanel() {
             <input
               type="number"
               value={selectedComponent.y || 0}
-              onChange={(e) => handlePositionChange('y', e.target.value)}
+              onChange={e => handlePositionChange('y', e.target.value)}
               className="input-field text-sm"
             />
           </div>
@@ -202,7 +218,7 @@ export default function PropertyPanel() {
             <input
               type="number"
               value={selectedComponent.width || 200}
-              onChange={(e) => handleSizeChange('width', e.target.value)}
+              onChange={e => handleSizeChange('width', e.target.value)}
               className="input-field text-sm"
             />
           </div>
@@ -213,7 +229,7 @@ export default function PropertyPanel() {
             <input
               type="number"
               value={selectedComponent.height || 100}
-              onChange={(e) => handleSizeChange('height', e.target.value)}
+              onChange={e => handleSizeChange('height', e.target.value)}
               className="input-field text-sm"
             />
           </div>

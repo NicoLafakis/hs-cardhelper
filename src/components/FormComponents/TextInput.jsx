@@ -20,7 +20,7 @@ export function TextInput({
   onBlur,
   onValidate,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -36,7 +36,7 @@ export function TextInput({
     maxLength = 500,
     autoComplete = 'off',
     ariaLabel = label,
-    ariaDescription = helpText
+    ariaDescription = helpText,
   } = config
 
   // Internal state
@@ -47,166 +47,217 @@ export function TextInput({
   const debounceTimer = useRef(null)
 
   // Format value based on config
-  const formatValue = useCallback((val) => {
-    if (!formatting.type || !val) return val
+  const formatValue = useCallback(
+    val => {
+      if (!formatting.type || !val) return val
 
-    switch (formatting.type) {
-      case 'uppercase':
-        return val.toUpperCase()
-      case 'lowercase':
-        return val.toLowerCase()
-      case 'capitalize':
-        return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()
-      case 'phone': {
-        // Format as (123) 456-7890
-        const digitsOnly = val.replace(/\D/g, '')
-        if (digitsOnly.length <= 3) return digitsOnly
-        if (digitsOnly.length <= 6) return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3)}`
-        return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3, 6)}-${digitsOnly.slice(6, 10)}`
-      }
-      case 'currency': {
-        // Format as $1,234.56
-        const num = parseFloat(val.replace(/[^\d.]/g, '')) || 0
-        return `$${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      }
-      case 'date': {
-        // Format as MM/DD/YYYY
-        const dateDigits = val.replace(/\D/g, '')
-        if (dateDigits.length <= 2) return dateDigits
-        if (dateDigits.length <= 4) return `${dateDigits.slice(0, 2)}/${dateDigits.slice(2)}`
-        return `${dateDigits.slice(0, 2)}/${dateDigits.slice(2, 4)}/${dateDigits.slice(4, 8)}`
-      }
-      default:
-        return val
-    }
-  }, [formatting])
-
-  // Validate value based on config
-  const validateValue = useCallback((val) => {
-    // Check required
-    if (required && (!val || val.trim().length === 0)) {
-      return { valid: false, message: errorMessage || 'This field is required' }
-    }
-
-    // Check length
-    if (validation.minLength && val.length < validation.minLength) {
-      return { valid: false, message: errorMessage || `Minimum ${validation.minLength} characters required` }
-    }
-    if (validation.maxLength && val.length > validation.maxLength) {
-      return { valid: false, message: errorMessage || `Maximum ${validation.maxLength} characters allowed` }
-    }
-
-    // Check type-based validation
-    if (validation.type) {
-      switch (validation.type) {
-        case 'email': {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-          if (val && !emailRegex.test(val)) {
-            return { valid: false, message: errorMessage || 'Please enter a valid email address' }
-          }
-          break
-        }
+      switch (formatting.type) {
+        case 'uppercase':
+          return val.toUpperCase()
+        case 'lowercase':
+          return val.toLowerCase()
+        case 'capitalize':
+          return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()
         case 'phone': {
-          const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-          if (val && !phoneRegex.test(val.replace(/\D/g, ''))) {
-            return { valid: false, message: errorMessage || 'Please enter a valid phone number' }
-          }
-          break
+          // Format as (123) 456-7890
+          const digitsOnly = val.replace(/\D/g, '')
+          if (digitsOnly.length <= 3) return digitsOnly
+          if (digitsOnly.length <= 6)
+            return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3)}`
+          return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3, 6)}-${digitsOnly.slice(6, 10)}`
         }
-        case 'url': {
-          try {
-            if (val) new URL(val)
-          } catch {
-            return { valid: false, message: errorMessage || 'Please enter a valid URL' }
-          }
-          break
+        case 'currency': {
+          // Format as $1,234.56
+          const num = parseFloat(val.replace(/[^\d.]/g, '')) || 0
+          return `$${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
         }
-        case 'number': {
-          if (val && isNaN(val)) {
-            return { valid: false, message: errorMessage || 'Please enter a valid number' }
-          }
-          break
-        }
-        case 'custom': {
-          if (validation.pattern) {
-            const regex = new RegExp(validation.pattern)
-            if (val && !regex.test(val)) {
-              return { valid: false, message: errorMessage || 'Invalid format' }
-            }
-          }
-          break
+        case 'date': {
+          // Format as MM/DD/YYYY
+          const dateDigits = val.replace(/\D/g, '')
+          if (dateDigits.length <= 2) return dateDigits
+          if (dateDigits.length <= 4)
+            return `${dateDigits.slice(0, 2)}/${dateDigits.slice(2)}`
+          return `${dateDigits.slice(0, 2)}/${dateDigits.slice(2, 4)}/${dateDigits.slice(4, 8)}`
         }
         default:
-          break
+          return val
       }
-    }
+    },
+    [formatting]
+  )
 
-    return { valid: true, message: '' }
-  }, [validation, required, errorMessage])
-
-  // Handle async action (validation, webhook, lookup)
-  const performAsyncAction = useCallback(async (val) => {
-    if (!asyncAction || !asyncAction.url) return
-
-    setIsValidating(true)
-    try {
-      const response = await fetch(asyncAction.url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ value: val, componentId })
-      })
-
-      const result = await response.json()
-
-      if (asyncAction.action === 'validate') {
-        if (!result.valid) {
-          setValidationError(result.message || 'Validation failed')
-          if (onValidate) onValidate({ valid: false, message: result.message })
-        } else {
-          setValidationError(null)
-          if (onValidate) onValidate({ valid: true })
+  // Validate value based on config
+  const validateValue = useCallback(
+    val => {
+      // Check required
+      if (required && (!val || val.trim().length === 0)) {
+        return {
+          valid: false,
+          message: errorMessage || 'This field is required',
         }
       }
-    } catch (err) {
-      console.error('Async action failed:', err)
-    } finally {
-      setIsValidating(false)
-    }
-  }, [asyncAction, componentId, onValidate])
+
+      // Check length
+      if (validation.minLength && val.length < validation.minLength) {
+        return {
+          valid: false,
+          message:
+            errorMessage ||
+            `Minimum ${validation.minLength} characters required`,
+        }
+      }
+      if (validation.maxLength && val.length > validation.maxLength) {
+        return {
+          valid: false,
+          message:
+            errorMessage ||
+            `Maximum ${validation.maxLength} characters allowed`,
+        }
+      }
+
+      // Check type-based validation
+      if (validation.type) {
+        switch (validation.type) {
+          case 'email': {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (val && !emailRegex.test(val)) {
+              return {
+                valid: false,
+                message: errorMessage || 'Please enter a valid email address',
+              }
+            }
+            break
+          }
+          case 'phone': {
+            const phoneRegex =
+              /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+            if (val && !phoneRegex.test(val.replace(/\D/g, ''))) {
+              return {
+                valid: false,
+                message: errorMessage || 'Please enter a valid phone number',
+              }
+            }
+            break
+          }
+          case 'url': {
+            try {
+              if (val) new URL(val)
+            } catch {
+              return {
+                valid: false,
+                message: errorMessage || 'Please enter a valid URL',
+              }
+            }
+            break
+          }
+          case 'number': {
+            if (val && isNaN(val)) {
+              return {
+                valid: false,
+                message: errorMessage || 'Please enter a valid number',
+              }
+            }
+            break
+          }
+          case 'custom': {
+            if (validation.pattern) {
+              const regex = new RegExp(validation.pattern)
+              if (val && !regex.test(val)) {
+                return {
+                  valid: false,
+                  message: errorMessage || 'Invalid format',
+                }
+              }
+            }
+            break
+          }
+          default:
+            break
+        }
+      }
+
+      return { valid: true, message: '' }
+    },
+    [validation, required, errorMessage]
+  )
+
+  // Handle async action (validation, webhook, lookup)
+  const performAsyncAction = useCallback(
+    async val => {
+      if (!asyncAction || !asyncAction.url) return
+
+      setIsValidating(true)
+      try {
+        const response = await fetch(asyncAction.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ value: val, componentId }),
+        })
+
+        const result = await response.json()
+
+        if (asyncAction.action === 'validate') {
+          if (!result.valid) {
+            setValidationError(result.message || 'Validation failed')
+            if (onValidate)
+              onValidate({ valid: false, message: result.message })
+          } else {
+            setValidationError(null)
+            if (onValidate) onValidate({ valid: true })
+          }
+        }
+      } catch (err) {
+        console.error('Async action failed:', err)
+      } finally {
+        setIsValidating(false)
+      }
+    },
+    [asyncAction, componentId, onValidate]
+  )
 
   // Handle change with formatting and validation
-  const handleChange = useCallback((e) => {
-    let newValue = e.target.value
+  const handleChange = useCallback(
+    e => {
+      let newValue = e.target.value
 
-    // Apply formatting
-    newValue = formatValue(newValue)
+      // Apply formatting
+      newValue = formatValue(newValue)
 
-    // Enforce max length
-    if (newValue.length > maxLength) {
-      newValue = newValue.slice(0, maxLength)
-    }
+      // Enforce max length
+      if (newValue.length > maxLength) {
+        newValue = newValue.slice(0, maxLength)
+      }
 
-    setInternalValue(newValue)
+      setInternalValue(newValue)
 
-    // Sync validation (instant feedback)
-    const validation_result = validateValue(newValue)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+      // Sync validation (instant feedback)
+      const validation_result = validateValue(newValue)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
 
-    // Call onChange callback
-    if (onChange) onChange(newValue)
+      // Call onChange callback
+      if (onChange) onChange(newValue)
 
-    // Debounce async action on change
-    if (asyncAction?.on === 'change') {
-      clearTimeout(debounceTimer.current)
-      debounceTimer.current = setTimeout(() => {
-        performAsyncAction(newValue)
-      }, asyncAction.debounce || 500)
-    }
-  }, [formatValue, validateValue, maxLength, onChange, asyncAction, performAsyncAction])
+      // Debounce async action on change
+      if (asyncAction?.on === 'change') {
+        clearTimeout(debounceTimer.current)
+        debounceTimer.current = setTimeout(() => {
+          performAsyncAction(newValue)
+        }, asyncAction.debounce || 500)
+      }
+    },
+    [
+      formatValue,
+      validateValue,
+      maxLength,
+      onChange,
+      asyncAction,
+      performAsyncAction,
+    ]
+  )
 
   // Handle blur with validation
   const handleBlur = useCallback(() => {
@@ -229,10 +280,12 @@ export function TextInput({
   }, [])
 
   // Determine if field should be shown (conditions)
-  const isVisible = conditions.length === 0 || conditions.every(() => {
-    // Evaluate condition (in real app, this would check parent form state)
-    return true
-  })
+  const isVisible =
+    conditions.length === 0 ||
+    conditions.every(() => {
+      // Evaluate condition (in real app, this would check parent form state)
+      return true
+    })
 
   if (!isVisible) return null
 
@@ -280,9 +333,7 @@ export function TextInput({
         )}
       </div>
 
-      {helpText && !displayError && (
-        <p className="help-text">{helpText}</p>
-      )}
+      {helpText && !displayError && <p className="help-text">{helpText}</p>}
 
       {displayError && (
         <motion.p
@@ -314,7 +365,7 @@ export function TextArea({
   onChange,
   onBlur,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -326,7 +377,7 @@ export function TextArea({
     rows = 4,
     maxLength = 5000,
     ariaLabel = label,
-    ariaDescription = helpText
+    ariaDescription = helpText,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
@@ -334,40 +385,59 @@ export function TextArea({
   const [isFocused, setIsFocused] = useState(false)
 
   // Same validation logic as TextInput
-  const validateValue = useCallback((val) => {
-    if (required && (!val || val.trim().length === 0)) {
-      return { valid: false, message: errorMessage || 'This field is required' }
-    }
+  const validateValue = useCallback(
+    val => {
+      if (required && (!val || val.trim().length === 0)) {
+        return {
+          valid: false,
+          message: errorMessage || 'This field is required',
+        }
+      }
 
-    if (validation.minLength && val.length < validation.minLength) {
-      return { valid: false, message: errorMessage || `Minimum ${validation.minLength} characters required` }
-    }
+      if (validation.minLength && val.length < validation.minLength) {
+        return {
+          valid: false,
+          message:
+            errorMessage ||
+            `Minimum ${validation.minLength} characters required`,
+        }
+      }
 
-    if (validation.maxLength && val.length > validation.maxLength) {
-      return { valid: false, message: errorMessage || `Maximum ${validation.maxLength} characters allowed` }
-    }
+      if (validation.maxLength && val.length > validation.maxLength) {
+        return {
+          valid: false,
+          message:
+            errorMessage ||
+            `Maximum ${validation.maxLength} characters allowed`,
+        }
+      }
 
-    return { valid: true, message: '' }
-  }, [validation, required, errorMessage])
+      return { valid: true, message: '' }
+    },
+    [validation, required, errorMessage]
+  )
 
-  const handleChange = useCallback((e) => {
-    let newValue = e.target.value
+  const handleChange = useCallback(
+    e => {
+      let newValue = e.target.value
 
-    if (newValue.length > maxLength) {
-      newValue = newValue.slice(0, maxLength)
-    }
+      if (newValue.length > maxLength) {
+        newValue = newValue.slice(0, maxLength)
+      }
 
-    setInternalValue(newValue)
+      setInternalValue(newValue)
 
-    const validation_result = validateValue(newValue)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+      const validation_result = validateValue(newValue)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
 
-    if (onChange) onChange(newValue)
-  }, [maxLength, validateValue, onChange])
+      if (onChange) onChange(newValue)
+    },
+    [maxLength, validateValue, onChange]
+  )
 
   const handleBlur = () => {
     setIsFocused(false)
@@ -407,9 +477,7 @@ export function TextArea({
         aria-required={required}
       />
 
-      {helpText && !displayError && (
-        <p className="help-text">{helpText}</p>
-      )}
+      {helpText && !displayError && <p className="help-text">{helpText}</p>}
 
       {displayError && (
         <motion.p

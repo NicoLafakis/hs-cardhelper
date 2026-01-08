@@ -85,7 +85,7 @@ export class BaseService {
     return {
       success: true,
       data: response.data,
-      status: response.status
+      status: response.status,
     }
   }
 
@@ -99,7 +99,7 @@ export class BaseService {
       success: false,
       error: error.response?.data?.error || error.message,
       status: error.response?.status,
-      data: null
+      data: null,
     }
   }
 }

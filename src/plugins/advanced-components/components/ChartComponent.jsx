@@ -3,9 +3,32 @@
  * Displays various chart types using Recharts
  */
 
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts'
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts'
 
-const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899']
+const COLORS = [
+  '#3B82F6',
+  '#10B981',
+  '#F59E0B',
+  '#EF4444',
+  '#8B5CF6',
+  '#EC4899',
+]
 
 export function ChartComponent({ config }) {
   const {
@@ -14,13 +37,15 @@ export function ChartComponent({ config }) {
     xKey = 'name',
     yKey = 'value',
     title = 'Chart',
-    height = 300
+    height = 300,
   } = config
 
   if (!data || data.length === 0) {
     return (
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="text-sm text-gray-500 text-center">No data available for chart</p>
+        <p className="text-sm text-gray-500 text-center">
+          No data available for chart
+        </p>
       </div>
     )
   }
@@ -47,7 +72,12 @@ export function ChartComponent({ config }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey={yKey} stroke="#3B82F6" strokeWidth={2} />
+            <Line
+              type="monotone"
+              dataKey={yKey}
+              stroke="#3B82F6"
+              strokeWidth={2}
+            />
           </LineChart>
         )
 
@@ -59,7 +89,13 @@ export function ChartComponent({ config }) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Area type="monotone" dataKey={yKey} stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.6} />
+            <Area
+              type="monotone"
+              dataKey={yKey}
+              stroke="#3B82F6"
+              fill="#3B82F6"
+              fillOpacity={0.6}
+            />
           </AreaChart>
         )
 
@@ -76,7 +112,10 @@ export function ChartComponent({ config }) {
               label
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip />
@@ -85,7 +124,9 @@ export function ChartComponent({ config }) {
         )
 
       default:
-        return <p className="text-sm text-gray-500">Unknown chart type: {type}</p>
+        return (
+          <p className="text-sm text-gray-500">Unknown chart type: {type}</p>
+        )
     }
   }
 

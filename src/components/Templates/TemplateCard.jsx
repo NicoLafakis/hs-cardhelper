@@ -1,6 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import './TemplateCard.css';
+import { motion } from 'framer-motion'
+import './TemplateCard.css'
 
 const TemplateCard = ({ template, onPreview, onClone, cloning }) => {
   const {
@@ -12,18 +11,18 @@ const TemplateCard = ({ template, onPreview, onClone, cloning }) => {
     rating,
     downloadCount,
     isFeatured,
-    isPremium
-  } = template;
+    isPremium,
+  } = template
 
-  const handlePreviewClick = (e) => {
-    e.stopPropagation();
-    onPreview(template);
-  };
+  const handlePreviewClick = e => {
+    e.stopPropagation()
+    onPreview(template)
+  }
 
-  const handleCloneClick = (e) => {
-    e.stopPropagation();
-    onClone(template);
-  };
+  const handleCloneClick = e => {
+    e.stopPropagation()
+    onClone(template)
+  }
 
   // Format category for display
   const categoryDisplay = category
@@ -31,7 +30,7 @@ const TemplateCard = ({ template, onPreview, onClone, cloning }) => {
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')
-    : 'Template';
+    : 'Template'
 
   return (
     <motion.div
@@ -55,17 +54,12 @@ const TemplateCard = ({ template, onPreview, onClone, cloning }) => {
           {isFeatured && (
             <span className="badge badge-featured">⭐ Featured</span>
           )}
-          {isPremium && (
-            <span className="badge badge-premium">👑 Premium</span>
-          )}
+          {isPremium && <span className="badge badge-premium">👑 Premium</span>}
         </div>
 
         {/* Hover Overlay */}
         <div className="template-overlay">
-          <button
-            className="preview-button"
-            onClick={handlePreviewClick}
-          >
+          <button className="preview-button" onClick={handlePreviewClick}>
             👁️ Quick Preview
           </button>
         </div>
@@ -138,7 +132,7 @@ const TemplateCard = ({ template, onPreview, onClone, cloning }) => {
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default TemplateCard;
+export default TemplateCard

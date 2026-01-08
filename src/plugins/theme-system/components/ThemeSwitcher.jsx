@@ -10,10 +10,7 @@ import { getAllThemes } from '../themes'
 export function ThemeSwitcher({ compact = false }) {
   const { currentTheme, setTheme, customThemes } = useThemeStore()
 
-  const allThemes = [
-    ...getAllThemes(),
-    ...Object.values(customThemes)
-  ]
+  const allThemes = [...getAllThemes(), ...Object.values(customThemes)]
 
   if (compact) {
     return (
@@ -24,7 +21,7 @@ export function ThemeSwitcher({ compact = false }) {
 
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
           <div className="p-2">
-            {allThemes.map((theme) => (
+            {allThemes.map(theme => (
               <button
                 key={theme.id}
                 onClick={() => setTheme(theme.id)}
@@ -52,7 +49,7 @@ export function ThemeSwitcher({ compact = false }) {
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {allThemes.map((theme) => (
+        {allThemes.map(theme => (
           <button
             key={theme.id}
             onClick={() => setTheme(theme.id)}

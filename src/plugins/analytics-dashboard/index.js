@@ -16,7 +16,7 @@ const analyticsDashboardPlugin = createPlugin({
   enabled: true,
 
   components: {
-    AnalyticsDashboard
+    AnalyticsDashboard,
   },
 
   services: {
@@ -33,7 +33,7 @@ const analyticsDashboardPlugin = createPlugin({
       },
 
       // Get events by type
-      getEventsByType: (eventName) => {
+      getEventsByType: eventName => {
         const { events } = useAnalyticsStore.getState()
         return events.filter(e => e.name === eventName)
       },
@@ -45,8 +45,10 @@ const analyticsDashboardPlugin = createPlugin({
         return {
           totalEvents: events.length,
           totalTemplates: templates.length,
-          popularComponents: useAnalyticsStore.getState().getPopularComponents(),
-          recentActivity: events.slice(-10).reverse()
+          popularComponents: useAnalyticsStore
+            .getState()
+            .getPopularComponents(),
+          recentActivity: events.slice(-10).reverse(),
         }
       },
 
@@ -69,36 +71,34 @@ const analyticsDashboardPlugin = createPlugin({
         link.click()
 
         URL.revokeObjectURL(url)
-      }
-    }
+      },
+    },
   },
 
   hooks: {
-    'app:mounted': async function() {
+    'app:mounted': async function () {
       this.services.analytics.trackEvent('app_opened')
     },
 
-    'component:added': async function(component) {
+    'component:added': async function (component) {
       this.services.analytics.trackEvent('component_added', {
-        componentType: component.type
+        componentType: component.type,
       })
     },
 
-    'template:saved': async function(template) {
+    'template:saved': async function (template) {
       this.services.analytics.trackEvent('template_saved', {
         templateId: template.id,
-        componentCount: template.components?.length || 0
+        componentCount: template.components?.length || 0,
       })
     },
 
-    'template:loaded': async function(template) {
+    'template:loaded': async function (template) {
       this.services.analytics.trackTemplateUsage(template.id, 'loaded')
-    }
+    },
   },
 
-  initialize: async function(context) {
-    console.log('Analytics Dashboard plugin initialized!')
-
+  initialize: async function (context) {
     // Set feature flag
     if (context.featureFlags) {
       context.featureFlags.setFlag('plugin.analytics-dashboard', true)
@@ -107,10 +107,9 @@ const analyticsDashboardPlugin = createPlugin({
     return true
   },
 
-  destroy: async function() {
-    console.log('Analytics Dashboard plugin destroyed!')
+  destroy: async function () {
     return true
-  }
+  },
 })
 
 export default analyticsDashboardPlugin

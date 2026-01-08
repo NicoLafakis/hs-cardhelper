@@ -16,7 +16,7 @@ export function Select({
   value = '',
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -25,45 +25,56 @@ export function Select({
     errorMessage = '',
     multiSelect = false,
     options = [], // [ { label, value }, ... ]
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
-  const [internalValue, setInternalValue] = useState(multiSelect && !Array.isArray(value) ? [] : value)
+  const [internalValue, setInternalValue] = useState(
+    multiSelect && !Array.isArray(value) ? [] : value
+  )
   const [validationError, setValidationError] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
 
   // Validate selection
-  const validateValue = useCallback((val) => {
-    if (required && (!val || (Array.isArray(val) && val.length === 0))) {
-      return { valid: false, message: errorMessage || 'Please select an option' }
-    }
-    return { valid: true, message: '' }
-  }, [required, errorMessage])
-
-  const handleChange = useCallback((selectedValue) => {
-    let newValue
-    if (multiSelect) {
-      newValue = Array.isArray(internalValue) ? internalValue : []
-      if (newValue.includes(selectedValue)) {
-        newValue = newValue.filter(v => v !== selectedValue)
-      } else {
-        newValue = [...newValue, selectedValue]
+  const validateValue = useCallback(
+    val => {
+      if (required && (!val || (Array.isArray(val) && val.length === 0))) {
+        return {
+          valid: false,
+          message: errorMessage || 'Please select an option',
+        }
       }
-    } else {
-      newValue = selectedValue
-    }
+      return { valid: true, message: '' }
+    },
+    [required, errorMessage]
+  )
 
-    setInternalValue(newValue)
+  const handleChange = useCallback(
+    selectedValue => {
+      let newValue
+      if (multiSelect) {
+        newValue = Array.isArray(internalValue) ? internalValue : []
+        if (newValue.includes(selectedValue)) {
+          newValue = newValue.filter(v => v !== selectedValue)
+        } else {
+          newValue = [...newValue, selectedValue]
+        }
+      } else {
+        newValue = selectedValue
+      }
 
-    const validation_result = validateValue(newValue)
-    if (!validation_result.valid) {
-      setValidationError(validation_result.message)
-    } else {
-      setValidationError(null)
-    }
+      setInternalValue(newValue)
 
-    if (onChange) onChange(newValue)
-  }, [internalValue, multiSelect, onChange, validateValue])
+      const validation_result = validateValue(newValue)
+      if (!validation_result.valid) {
+        setValidationError(validation_result.message)
+      } else {
+        setValidationError(null)
+      }
+
+      if (onChange) onChange(newValue)
+    },
+    [internalValue, multiSelect, onChange, validateValue]
+  )
 
   const displayError = error || validationError
   const displayOptions = Array.isArray(options) ? options : []
@@ -77,11 +88,19 @@ export function Select({
         </label>
       )}
 
-      <div className={`select-container ${isFocused ? 'focused' : ''} ${displayError ? 'error' : ''}`}>
+      <div
+        className={`select-container ${isFocused ? 'focused' : ''} ${displayError ? 'error' : ''}`}
+      >
         <select
           className="select-input"
-          value={multiSelect ? (Array.isArray(internalValue) ? internalValue[0] : '') : internalValue}
-          onChange={(e) => handleChange(e.target.value)}
+          value={
+            multiSelect
+              ? Array.isArray(internalValue)
+                ? internalValue[0]
+                : ''
+              : internalValue
+          }
+          onChange={e => handleChange(e.target.value)}
           onBlur={() => setIsFocused(false)}
           onFocus={() => setIsFocused(true)}
           disabled={disabled}
@@ -101,7 +120,11 @@ export function Select({
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}
@@ -118,31 +141,34 @@ export function Checkbox({
   value = false,
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
     helpText = '',
     required = false,
     errorMessage = '',
-    description = ''
+    description = '',
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
   const [validationError, setValidationError] = useState(null)
 
-  const handleChange = useCallback((e) => {
-    const newValue = e.target.checked
-    setInternalValue(newValue)
+  const handleChange = useCallback(
+    e => {
+      const newValue = e.target.checked
+      setInternalValue(newValue)
 
-    if (required && !newValue) {
-      setValidationError(errorMessage || 'This checkbox must be checked')
-    } else {
-      setValidationError(null)
-    }
+      if (required && !newValue) {
+        setValidationError(errorMessage || 'This checkbox must be checked')
+      } else {
+        setValidationError(null)
+      }
 
-    if (onChange) onChange(newValue)
-  }, [required, onChange, errorMessage])
+      if (onChange) onChange(newValue)
+    },
+    [required, onChange, errorMessage]
+  )
 
   const displayError = error || validationError
 
@@ -168,7 +194,11 @@ export function Checkbox({
       {description && <p className="checkbox-description">{description}</p>}
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}
@@ -185,7 +215,7 @@ export function Radio({
   value = '',
   onChange,
   error = null,
-  disabled = false
+  disabled = false,
 }) {
   const {
     label,
@@ -194,23 +224,26 @@ export function Radio({
     errorMessage = '',
     options = [], // [ { label, value }, ... ]
     orientation = 'vertical', // 'vertical' | 'horizontal'
-    ariaLabel = label
+    ariaLabel = label,
   } = config
 
   const [internalValue, setInternalValue] = useState(value)
   const [validationError, setValidationError] = useState(null)
 
-  const handleChange = useCallback((selectedValue) => {
-    setInternalValue(selectedValue)
+  const handleChange = useCallback(
+    selectedValue => {
+      setInternalValue(selectedValue)
 
-    if (required && !selectedValue) {
-      setValidationError(errorMessage || 'Please select an option')
-    } else {
-      setValidationError(null)
-    }
+      if (required && !selectedValue) {
+        setValidationError(errorMessage || 'Please select an option')
+      } else {
+        setValidationError(null)
+      }
 
-    if (onChange) onChange(selectedValue)
-  }, [required, onChange, errorMessage])
+      if (onChange) onChange(selectedValue)
+    },
+    [required, onChange, errorMessage]
+  )
 
   const displayError = error || validationError
 
@@ -223,7 +256,11 @@ export function Radio({
         </label>
       )}
 
-      <div className={`radio-group radio-${orientation}`} role="radiogroup" aria-label={ariaLabel}>
+      <div
+        className={`radio-group radio-${orientation}`}
+        role="radiogroup"
+        aria-label={ariaLabel}
+      >
         {options.map(opt => (
           <div key={opt.value} className="radio-option">
             <input
@@ -231,7 +268,7 @@ export function Radio({
               name={ariaLabel}
               value={opt.value}
               checked={internalValue === opt.value}
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={e => handleChange(e.target.value)}
               disabled={disabled}
               className={`radio-input ${displayError ? 'error' : ''}`}
               aria-required={required}
@@ -243,7 +280,11 @@ export function Radio({
 
       {helpText && !displayError && <p className="help-text">{helpText}</p>}
       {displayError && (
-        <motion.p className="error-message" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.p
+          className="error-message"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           {displayError}
         </motion.p>
       )}

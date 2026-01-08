@@ -5,7 +5,11 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useGenerateLayout, useSuggestComponents, useLayoutImprovements } from '../../hooks/useSmartBuilder'
+import {
+  useGenerateLayout,
+  useSuggestComponents,
+  useLayoutImprovements,
+} from '../../hooks/useSmartBuilder'
 import './SmartBuilder.css'
 
 export function SmartBuilder({ onCardGenerated }) {
@@ -13,8 +17,11 @@ export function SmartBuilder({ onCardGenerated }) {
   const [activeTab, setActiveTab] = useState('generate')
   const [generatedLayout, setGeneratedLayout] = useState(null)
 
-  const { generate: generateLayout, loading: generatingLayout, error: layoutError } =
-    useGenerateLayout()
+  const {
+    generate: generateLayout,
+    loading: generatingLayout,
+    error: layoutError,
+  } = useGenerateLayout()
   const { suggest: suggestComponents, loading: loadingComponents } =
     useSuggestComponents()
   const { getSuggestions: getImprovements, loading: loadingImprovements } =
@@ -102,13 +109,11 @@ export function SmartBuilder({ onCardGenerated }) {
                 <textarea
                   className="description-input"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={e => setDescription(e.target.value)}
                   placeholder="Example: A contact card showing name, email, phone number, and company. Include action buttons for call and email. Use a professional blue theme."
                   rows={5}
                 />
-                <span className="char-count">
-                  {description.length} / 1000
-                </span>
+                <span className="char-count">{description.length} / 1000</span>
               </div>
 
               {/* Examples */}
@@ -118,7 +123,7 @@ export function SmartBuilder({ onCardGenerated }) {
                   {[
                     'Lead qualification form with score display',
                     'Product card with image, price, and reviews',
-                    'Meeting scheduler with calendar picker'
+                    'Meeting scheduler with calendar picker',
                   ].map(example => (
                     <button
                       key={example}
@@ -176,11 +181,15 @@ export function SmartBuilder({ onCardGenerated }) {
                     </div>
                     <div className="info-item">
                       <span className="label">Sections:</span>
-                      <span className="value">{generatedLayout.sections?.length || 0}</span>
+                      <span className="value">
+                        {generatedLayout.sections?.length || 0}
+                      </span>
                     </div>
                     <div className="info-item">
                       <span className="label">Fields:</span>
-                      <span className="value">{generatedLayout.fields?.length || 0}</span>
+                      <span className="value">
+                        {generatedLayout.fields?.length || 0}
+                      </span>
                     </div>
                   </div>
 
@@ -205,7 +214,9 @@ export function SmartBuilder({ onCardGenerated }) {
                         <div key={field.id} className="field-item">
                           <span className="field-type">{field.type}</span>
                           <span className="field-name">{field.name}</span>
-                          {field.required && <span className="required-badge">Required</span>}
+                          {field.required && (
+                            <span className="required-badge">Required</span>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -268,14 +279,18 @@ export function SmartBuilder({ onCardGenerated }) {
                       onClick={handleSuggestComponents}
                       disabled={loadingComponents}
                     >
-                      {loadingComponents ? '⏳ Analyzing...' : '🎨 Suggest Components'}
+                      {loadingComponents
+                        ? '⏳ Analyzing...'
+                        : '🎨 Suggest Components'}
                     </button>
                     <button
                       className="refine-btn"
                       onClick={handleGetImprovements}
                       disabled={loadingImprovements}
                     >
-                      {loadingImprovements ? '⏳ Analyzing...' : '⚡ Get Improvements'}
+                      {loadingImprovements
+                        ? '⏳ Analyzing...'
+                        : '⚡ Get Improvements'}
                     </button>
                   </div>
                   <div className="refine-info">

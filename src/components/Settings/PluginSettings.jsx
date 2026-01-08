@@ -40,9 +40,7 @@ export function PluginSettings() {
 
   if (plugins.length === 0) {
     return (
-      <div className="text-center p-8 text-gray-500">
-        No plugins available
-      </div>
+      <div className="text-center p-8 text-gray-500">No plugins available</div>
     )
   }
 
@@ -56,7 +54,7 @@ export function PluginSettings() {
       </div>
 
       <div className="grid gap-4">
-        {plugins.map((plugin) => (
+        {plugins.map(plugin => (
           <Card key={plugin.id} className="overflow-hidden">
             <CardHeader>
               <div className="flex items-start justify-between">
@@ -113,9 +111,11 @@ export function PluginSettings() {
                 )}
                 {plugin.dependencies.length > 0 && (
                   <div className="col-span-2">
-                    <span className="font-medium text-gray-700">Dependencies:</span>
+                    <span className="font-medium text-gray-700">
+                      Dependencies:
+                    </span>
                     <div className="flex gap-2 mt-1">
-                      {plugin.dependencies.map((dep) => (
+                      {plugin.dependencies.map(dep => (
                         <Badge key={dep} variant="default" size="sm">
                           {dep}
                         </Badge>
@@ -133,7 +133,9 @@ export function PluginSettings() {
         <h4 className="font-semibold text-blue-900 mb-2">Plugin Development</h4>
         <p className="text-sm text-blue-800">
           Want to create your own plugin? Check out the{' '}
-          <code className="bg-blue-100 px-1 py-0.5 rounded">src/plugins/README.md</code>{' '}
+          <code className="bg-blue-100 px-1 py-0.5 rounded">
+            src/plugins/README.md
+          </code>{' '}
           file for documentation and examples.
         </p>
       </div>

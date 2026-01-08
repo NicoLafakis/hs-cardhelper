@@ -11,7 +11,7 @@ import {
   ArrowLeft,
   Code,
   Settings,
-  Upload
+  Upload,
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 import { generateReactCode } from '../../utils/exportGenerators/reactGenerator'
@@ -25,7 +25,7 @@ const STEPS = [
   { id: 'prepare', title: 'Prepare', icon: Settings },
   { id: 'generate', title: 'Generate Code', icon: Code },
   { id: 'deploy', title: 'Deploy', icon: Upload },
-  { id: 'complete', title: 'Complete', icon: CheckCircle }
+  { id: 'complete', title: 'Complete', icon: CheckCircle },
 ]
 
 export default function DeploymentWizard({ isOpen, onClose }) {
@@ -92,8 +92,12 @@ export default function DeploymentWizard({ isOpen, onClose }) {
               <Rocket className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">Deploy to HubSpot</h2>
-              <p className="text-sm text-gray-600">Step-by-step deployment wizard</p>
+              <h2 className="text-lg font-semibold text-gray-800">
+                Deploy to HubSpot
+              </h2>
+              <p className="text-sm text-gray-600">
+                Step-by-step deployment wizard
+              </p>
             </div>
           </div>
           <button
@@ -120,8 +124,8 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                         isActive
                           ? 'border-primary bg-primary text-white'
                           : isCompleted
-                          ? 'border-green-500 bg-green-500 text-white'
-                          : 'border-gray-300 bg-white text-gray-400'
+                            ? 'border-green-500 bg-green-500 text-white'
+                            : 'border-gray-300 bg-white text-gray-400'
                       }`}
                     >
                       {isCompleted ? (
@@ -136,7 +140,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                   </div>
 
                   {index < STEPS.length - 1 && (
-                    <div className={`flex-1 h-0.5 mb-6 ${isCompleted ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                    <div
+                      className={`flex-1 h-0.5 mb-6 ${isCompleted ? 'bg-green-500' : 'bg-gray-300'}`}
+                    ></div>
                   )}
                 </React.Fragment>
               )
@@ -150,7 +156,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
           {currentStep === 0 && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Deployment Configuration</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Deployment Configuration
+                </h3>
                 <p className="text-sm text-gray-600 mb-6">
                   Configure your HubSpot app settings before deployment
                 </p>
@@ -163,7 +171,7 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                 <input
                   type="text"
                   value={hubspotAccount}
-                  onChange={(e) => setHubspotAccount(e.target.value)}
+                  onChange={e => setHubspotAccount(e.target.value)}
                   placeholder="e.g., 12345678"
                   className="w-full px-3 py-2 border border-gray-300 rounded"
                 />
@@ -179,7 +187,7 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                 <input
                   type="text"
                   value={appName}
-                  onChange={(e) => setAppName(e.target.value)}
+                  onChange={e => setAppName(e.target.value)}
                   placeholder="e.g., my-hubspot-app"
                   className="w-full px-3 py-2 border border-gray-300 rounded"
                 />
@@ -195,7 +203,7 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                 <input
                   type="text"
                   value={cardName}
-                  onChange={(e) => setCardName(e.target.value)}
+                  onChange={e => setCardName(e.target.value)}
                   placeholder="e.g., Contact Overview Card"
                   className="w-full px-3 py-2 border border-gray-300 rounded"
                 />
@@ -211,7 +219,7 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                       <input
                         type="checkbox"
                         checked={objectTypes.includes(type)}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked) {
                             setObjectTypes([...objectTypes, type])
                           } else {
@@ -220,7 +228,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                         }}
                         className="rounded"
                       />
-                      <span className="text-sm text-gray-700 capitalize">{type}</span>
+                      <span className="text-sm text-gray-700 capitalize">
+                        {type}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -235,7 +245,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
           {currentStep === 1 && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Generated Code</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Generated Code
+                </h3>
                 <p className="text-sm text-gray-600 mb-6">
                   Your card has been converted to HubSpot UI Extension code
                 </p>
@@ -247,7 +259,11 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                     onClick={handleCopyCode}
                     className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50"
                   >
-                    {copied ? <CheckCircle className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                    {copied ? (
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                     {copied ? 'Copied!' : 'Copy'}
                   </button>
                   <button
@@ -270,7 +286,12 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                     <p className="font-medium mb-1">Next Steps:</p>
                     <ol className="list-decimal list-inside space-y-1">
                       <li>Save this code to your project</li>
-                      <li>Install dependencies: <code className="bg-blue-100 px-1 rounded">npm install @hubspot/ui-extensions-react</code></li>
+                      <li>
+                        Install dependencies:{' '}
+                        <code className="bg-blue-100 px-1 rounded">
+                          npm install @hubspot/ui-extensions-react
+                        </code>
+                      </li>
                       <li>Configure your app in HubSpot Developer Portal</li>
                     </ol>
                   </div>
@@ -283,7 +304,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
           {currentStep === 2 && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Deploy to HubSpot</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Deploy to HubSpot
+                </h3>
                 <p className="text-sm text-gray-600 mb-6">
                   Follow these steps to deploy your card to HubSpot
                 </p>
@@ -296,7 +319,9 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                       1
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800 mb-2">Set Up HubSpot CLI</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">
+                        Set Up HubSpot CLI
+                      </h4>
                       <pre className="bg-gray-900 text-gray-100 p-3 rounded text-xs font-mono mb-2">
                         npm install -g @hubspot/cli
                       </pre>
@@ -313,12 +338,15 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                       2
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800 mb-2">Authenticate</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">
+                        Authenticate
+                      </h4>
                       <pre className="bg-gray-900 text-gray-100 p-3 rounded text-xs font-mono mb-2">
                         hs auth
                       </pre>
                       <p className="text-sm text-gray-600">
-                        Connect the CLI to your HubSpot account (Account ID: {hubspotAccount || 'XXXXX'})
+                        Connect the CLI to your HubSpot account (Account ID:{' '}
+                        {hubspotAccount || 'XXXXX'})
                       </p>
                     </div>
                   </div>
@@ -330,9 +358,11 @@ export default function DeploymentWizard({ isOpen, onClose }) {
                       3
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800 mb-2">Create Project Structure</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">
+                        Create Project Structure
+                      </h4>
                       <pre className="bg-gray-900 text-gray-100 p-3 rounded text-xs font-mono mb-2">
-{`mkdir -p ${appName}/src/app/extensions
+                        {`mkdir -p ${appName}/src/app/extensions
 cd ${appName}
 # Place CardComponent.jsx in src/app/extensions/`}
                       </pre>
@@ -349,7 +379,9 @@ cd ${appName}
                       4
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800 mb-2">Upload to HubSpot</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">
+                        Upload to HubSpot
+                      </h4>
                       <pre className="bg-gray-900 text-gray-100 p-3 rounded text-xs font-mono mb-2">
                         hs project upload
                       </pre>
@@ -366,9 +398,12 @@ cd ${appName}
                       5
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800 mb-2">Configure in HubSpot</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">
+                        Configure in HubSpot
+                      </h4>
                       <p className="text-sm text-gray-600 mb-2">
-                        Go to your HubSpot Developer Portal and configure the card:
+                        Go to your HubSpot Developer Portal and configure the
+                        card:
                       </p>
                       <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
                         <li>Navigate to Apps → Your App → UI Extensions</li>
@@ -398,13 +433,18 @@ cd ${appName}
               <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Deployment Guide Complete!</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                Deployment Guide Complete!
+              </h3>
               <p className="text-gray-600 text-center max-w-md mb-6">
-                Your card code has been generated and you have all the instructions needed to deploy to HubSpot.
+                Your card code has been generated and you have all the
+                instructions needed to deploy to HubSpot.
               </p>
 
               <div className="bg-green-50 border border-green-200 rounded p-4 max-w-md">
-                <h4 className="font-semibold text-green-900 mb-2">What's Next?</h4>
+                <h4 className="font-semibold text-green-900 mb-2">
+                  What&apos;s Next?
+                </h4>
                 <ul className="text-sm text-green-800 space-y-1">
                   <li>✓ Follow the deployment steps</li>
                   <li>✓ Test your card in HubSpot</li>

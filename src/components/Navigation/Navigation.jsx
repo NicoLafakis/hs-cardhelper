@@ -11,15 +11,11 @@ import './Navigation.css'
  * Tabs Component
  * Tabbed content navigation
  */
-export function Tabs({
-  config = {},
-  tabs = [],
-  defaultTab = 0
-}) {
+export function Tabs({ config = {}, tabs = [], defaultTab = 0 }) {
   const {
     variant = 'default', // 'default' | 'underline' | 'pills'
     animated = true,
-    orientation = 'horizontal' // 'horizontal' | 'vertical'
+    orientation = 'horizontal', // 'horizontal' | 'vertical'
   } = config
 
   const [activeTab, setActiveTab] = useState(defaultTab)
@@ -27,12 +23,14 @@ export function Tabs({
   const variantClasses = {
     default: 'tabs-default',
     underline: 'tabs-underline',
-    pills: 'tabs-pills'
+    pills: 'tabs-pills',
   }
 
   return (
     <div className={`tabs-wrapper tabs-${orientation}`}>
-      <div className={`tabs-header ${variantClasses[variant] || 'tabs-default'}`}>
+      <div
+        className={`tabs-header ${variantClasses[variant] || 'tabs-default'}`}
+      >
         {tabs.map((tab, idx) => (
           <button
             key={idx}
@@ -52,7 +50,14 @@ export function Tabs({
             key={idx}
             className={`tab-panel ${activeTab === idx ? 'active' : ''}`}
             initial={animated ? { opacity: 0, x: 10 } : {}}
-            animate={animated ? { opacity: activeTab === idx ? 1 : 0, x: activeTab === idx ? 0 : 10 } : {}}
+            animate={
+              animated
+                ? {
+                    opacity: activeTab === idx ? 1 : 0,
+                    x: activeTab === idx ? 0 : 10,
+                  }
+                : {}
+            }
             transition={{ duration: 0.2 }}
           >
             {activeTab === idx && tab.content}
@@ -67,22 +72,22 @@ export function Tabs({
  * Accordion Component
  * Collapsible content sections
  */
-export function Accordion({
-  items = [],
-  allowMultiple = false
-}) {
+export function Accordion({ items = [], allowMultiple = false }) {
   const [openItems, setOpenItems] = useState(new Set())
 
-  const toggleItem = useCallback((index) => {
-    const newOpen = new Set(openItems)
-    if (newOpen.has(index)) {
-      newOpen.delete(index)
-    } else {
-      if (!allowMultiple) newOpen.clear()
-      newOpen.add(index)
-    }
-    setOpenItems(newOpen)
-  }, [openItems, allowMultiple])
+  const toggleItem = useCallback(
+    index => {
+      const newOpen = new Set(openItems)
+      if (newOpen.has(index)) {
+        newOpen.delete(index)
+      } else {
+        if (!allowMultiple) newOpen.clear()
+        newOpen.add(index)
+      }
+      setOpenItems(newOpen)
+    },
+    [openItems, allowMultiple]
+  )
 
   return (
     <div className="accordion-wrapper">
@@ -109,7 +114,7 @@ export function Accordion({
             initial={false}
             animate={{
               height: openItems.has(idx) ? 'auto' : 0,
-              opacity: openItems.has(idx) ? 1 : 0
+              opacity: openItems.has(idx) ? 1 : 0,
             }}
             transition={{ duration: 0.3 }}
             style={{ overflow: 'hidden' }}
@@ -126,13 +131,8 @@ export function Accordion({
  * Breadcrumb Component
  * Navigation path indicator
  */
-export function Breadcrumb({
-  config = {},
-  items = []
-}) {
-  const {
-    separator = '/'
-  } = config
+export function Breadcrumb({ config = {}, items = [] }) {
+  const { separator = '/' } = config
 
   const displayItems = items
 
@@ -145,12 +145,16 @@ export function Breadcrumb({
               <span className="breadcrumb-separator">{item.label}</span>
             ) : item.href ? (
               <a href={item.href} className="breadcrumb-link">
-                {item.icon && <span className="breadcrumb-icon">{item.icon}</span>}
+                {item.icon && (
+                  <span className="breadcrumb-icon">{item.icon}</span>
+                )}
                 {item.label}
               </a>
             ) : (
               <span className="breadcrumb-current">
-                {item.icon && <span className="breadcrumb-icon">{item.icon}</span>}
+                {item.icon && (
+                  <span className="breadcrumb-icon">{item.icon}</span>
+                )}
                 {item.label}
               </span>
             )}
@@ -172,15 +176,15 @@ export function Stepper({
   config = {},
   steps = [],
   activeStep = 0,
-  onStepClick = null
+  onStepClick = null,
 }) {
   const {
     orientation = 'horizontal', // 'horizontal' | 'vertical'
     clickable = false,
-    showLabels = true
+    showLabels = true,
   } = config
 
-  const handleStepClick = (idx) => {
+  const handleStepClick = idx => {
     if (clickable && onStepClick) onStepClick(idx)
   }
 
@@ -189,7 +193,11 @@ export function Stepper({
       {steps.map((step, idx) => {
         const isActive = idx === activeStep
         const isCompleted = idx < activeStep
-        const status = isCompleted ? 'completed' : isActive ? 'active' : 'pending'
+        const status = isCompleted
+          ? 'completed'
+          : isActive
+            ? 'active'
+            : 'pending'
 
         return (
           <div key={idx} className="stepper-step-wrapper">
@@ -198,7 +206,11 @@ export function Stepper({
               onClick={() => handleStepClick(idx)}
               animate={{
                 scale: isActive ? 1.1 : 1,
-                backgroundColor: isCompleted ? '#22c55e' : isActive ? '#3b82f6' : '#e5e7eb'
+                backgroundColor: isCompleted
+                  ? '#22c55e'
+                  : isActive
+                    ? '#3b82f6'
+                    : '#e5e7eb',
               }}
             >
               {isCompleted ? (
@@ -212,7 +224,9 @@ export function Stepper({
               <div className="stepper-label">
                 <span className="stepper-title">{step.title}</span>
                 {step.description && (
-                  <span className="stepper-description">{step.description}</span>
+                  <span className="stepper-description">
+                    {step.description}
+                  </span>
                 )}
               </div>
             )}
@@ -221,7 +235,7 @@ export function Stepper({
               <motion.div
                 className="stepper-connector"
                 animate={{
-                  backgroundColor: isCompleted ? '#22c55e' : '#e5e7eb'
+                  backgroundColor: isCompleted ? '#22c55e' : '#e5e7eb',
                 }}
               />
             )}

@@ -16,7 +16,7 @@ const welcomeBannerPlugin = createPlugin({
 
   // Components provided by this plugin
   components: {
-    WelcomeBanner
+    WelcomeBanner,
   },
 
   // Plugin settings
@@ -25,7 +25,7 @@ const welcomeBannerPlugin = createPlugin({
       key: 'message',
       label: 'Banner Message',
       type: 'text',
-      default: 'Welcome to CardHelper!'
+      default: 'Welcome to CardHelper!',
     },
     {
       key: 'color',
@@ -34,26 +34,20 @@ const welcomeBannerPlugin = createPlugin({
       options: [
         { value: 'blue', label: 'Blue' },
         { value: 'purple', label: 'Purple' },
-        { value: 'green', label: 'Green' }
+        { value: 'green', label: 'Green' },
       ],
-      default: 'blue'
-    }
+      default: 'blue',
+    },
   ],
 
   // Plugin hooks
   hooks: {
-    'app:mounted': async function() {
-      console.log('Welcome Banner plugin: App mounted')
-    },
-    'builder:opened': async function() {
-      console.log('Welcome Banner plugin: Builder opened')
-    }
+    'app:mounted': async function () {},
+    'builder:opened': async function () {},
   },
 
   // Initialize plugin
-  initialize: async function(context) {
-    console.log('Welcome Banner plugin initialized!')
-
+  initialize: async function (context) {
     // You can access app context here
     // context.store, context.api, etc.
 
@@ -66,10 +60,9 @@ const welcomeBannerPlugin = createPlugin({
   },
 
   // Cleanup when plugin is disabled
-  destroy: async function() {
-    console.log('Welcome Banner plugin destroyed!')
+  destroy: async function () {
     return true
-  }
+  },
 })
 
 export default welcomeBannerPlugin

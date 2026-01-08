@@ -15,7 +15,7 @@ export function VideoComponent({ config }) {
     loop = false,
     muted = false,
     width = '100%',
-    height = '360px'
+    height = '360px',
   } = config
 
   if (!url) {
@@ -46,11 +46,11 @@ export function VideoComponent({ config }) {
           height={height}
           config={{
             youtube: {
-              playerVars: { showinfo: 1 }
+              playerVars: { showinfo: 1 },
             },
             vimeo: {
-              playerOptions: { byline: true }
-            }
+              playerOptions: { byline: true },
+            },
           }}
         />
       </div>

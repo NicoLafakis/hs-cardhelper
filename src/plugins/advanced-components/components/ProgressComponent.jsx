@@ -15,7 +15,7 @@ export function ProgressComponent({ config }) {
     color = 'blue',
     size = 'md',
     trend = null, // 'up', 'down', 'neutral'
-    trendValue = null
+    trendValue = null,
   } = config
 
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
@@ -26,19 +26,19 @@ export function ProgressComponent({ config }) {
     red: 'bg-red-500',
     yellow: 'bg-yellow-500',
     purple: 'bg-purple-500',
-    gray: 'bg-gray-500'
+    gray: 'bg-gray-500',
   }
 
   const sizes = {
     sm: 'h-2',
     md: 'h-4',
-    lg: 'h-6'
+    lg: 'h-6',
   }
 
   const trendIcons = {
     up: <TrendingUp size={16} className="text-green-600" />,
     down: <TrendingDown size={16} className="text-red-600" />,
-    neutral: <Minus size={16} className="text-gray-600" />
+    neutral: <Minus size={16} className="text-gray-600" />,
   }
 
   return (

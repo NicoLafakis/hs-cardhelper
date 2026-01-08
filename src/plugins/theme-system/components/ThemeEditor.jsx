@@ -4,14 +4,14 @@
  */
 
 import { useState } from 'react'
-import { Plus, Save, Download, Upload } from 'lucide-react'
+import { Plus, Download, Upload } from 'lucide-react'
 import useThemeStore from '../themeStore'
 import { Button } from '../../../components/ui/atoms/Button'
 import { Input } from '../../../components/ui/atoms/Input'
 import { Label } from '../../../components/ui/atoms/Label'
 
 export function ThemeEditor() {
-  const { createCustomTheme, exportTheme, importTheme, getThemeObject } = useThemeStore()
+  const { createCustomTheme, exportTheme, importTheme } = useThemeStore()
 
   const [themeName, setThemeName] = useState('')
   const [themeId, setThemeId] = useState('')
@@ -21,7 +21,7 @@ export function ThemeEditor() {
     textPrimary: '#111827',
     success: '#10B981',
     warning: '#F59E0B',
-    error: '#EF4444'
+    error: '#EF4444',
   })
 
   const handleCreateTheme = () => {
@@ -34,7 +34,7 @@ export function ThemeEditor() {
       id: themeId,
       name: themeName,
       description: 'Custom theme',
-      colors: { ...themeColors }
+      colors: { ...themeColors },
     }
 
     createCustomTheme(themeId, newTheme)
@@ -48,11 +48,11 @@ export function ThemeEditor() {
   const handleColorChange = (colorKey, value) => {
     setThemeColors(prev => ({
       ...prev,
-      [colorKey]: value
+      [colorKey]: value,
     }))
   }
 
-  const handleImport = async (e) => {
+  const handleImport = async e => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -67,7 +67,9 @@ export function ThemeEditor() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Create Custom Theme</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Create Custom Theme
+        </h3>
 
         <div className="space-y-4">
           <div>
@@ -75,7 +77,7 @@ export function ThemeEditor() {
             <Input
               id="theme-name"
               value={themeName}
-              onChange={(e) => setThemeName(e.target.value)}
+              onChange={e => setThemeName(e.target.value)}
               placeholder="My Awesome Theme"
             />
           </div>
@@ -85,7 +87,7 @@ export function ThemeEditor() {
             <Input
               id="theme-id"
               value={themeId}
-              onChange={(e) => setThemeId(e.target.value)}
+              onChange={e => setThemeId(e.target.value)}
               placeholder="my-awesome-theme"
             />
           </div>
@@ -94,19 +96,21 @@ export function ThemeEditor() {
             {Object.entries(themeColors).map(([key, value]) => (
               <div key={key}>
                 <Label htmlFor={`color-${key}`}>
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                  {key
+                    .replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, str => str.toUpperCase())}
                 </Label>
                 <div className="flex gap-2">
                   <input
                     type="color"
                     id={`color-${key}`}
                     value={value}
-                    onChange={(e) => handleColorChange(key, e.target.value)}
+                    onChange={e => handleColorChange(key, e.target.value)}
                     className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
                   />
                   <Input
                     value={value}
-                    onChange={(e) => handleColorChange(key, e.target.value)}
+                    onChange={e => handleColorChange(key, e.target.value)}
                     placeholder="#000000"
                   />
                 </div>
@@ -122,7 +126,9 @@ export function ThemeEditor() {
       </div>
 
       <div className="border-t border-gray-200 pt-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Import/Export</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Import/Export
+        </h3>
 
         <div className="flex gap-3">
           <Button variant="secondary" onClick={exportTheme} className="flex-1">
@@ -158,7 +164,7 @@ export function ThemeEditor() {
               className="h-12 rounded flex items-center justify-center text-xs font-medium shadow"
               style={{
                 backgroundColor: value,
-                color: key.includes('background') ? '#000' : '#fff'
+                color: key.includes('background') ? '#000' : '#fff',
               }}
             >
               {key}

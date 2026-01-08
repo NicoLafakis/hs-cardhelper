@@ -25,34 +25,32 @@ export function useRealtimeConnection() {
       auth: { token },
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-      reconnectionAttempts: 5
+      reconnectionAttempts: 5,
     })
 
     // Connection events
     socketRef.current.on('connect', () => {
-      console.log('Connected to real-time server')
       setConnected(true)
     })
 
     socketRef.current.on('disconnect', () => {
-      console.log('Disconnected from real-time server')
       setConnected(false)
     })
 
-    socketRef.current.on('connect_error', (error) => {
+    socketRef.current.on('connect_error', error => {
       console.error('Connection error:', error)
     })
 
     // User management
-    socketRef.current.on('user:online', (data) => {
+    socketRef.current.on('user:online', data => {
       addActiveUser(data)
     })
 
-    socketRef.current.on('user:offline', (data) => {
+    socketRef.current.on('user:offline', data => {
       removeActiveUser(data.userId)
     })
 
-    socketRef.current.on('users:active', (data) => {
+    socketRef.current.on('users:active', data => {
       useCollaborationStore.setState({ activeUsers: data.users })
     })
 
@@ -77,25 +75,28 @@ export function useCollaborativeCursor(cardId) {
   useEffect(() => {
     if (!socket || !cardId) return
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = e => {
       const x = e.clientX
       const y = e.clientY
 
       // Throttle cursor updates (every 50ms)
       const now = Date.now()
-      if (!lastMousePos.current.lastUpdate || now - lastMousePos.current.lastUpdate > 50) {
+      if (
+        !lastMousePos.current.lastUpdate ||
+        now - lastMousePos.current.lastUpdate > 50
+      ) {
         socket.emit('cursor:move', { cardId, x, y })
         lastMousePos.current = { x, y, lastUpdate: now }
       }
     }
 
     // Listen for remote cursors
-    const handleCursorMoved = (data) => {
+    const handleCursorMoved = data => {
       updateUserCursor(data.userId, {
         x: data.x,
         y: data.y,
         userName: data.userName,
-        userAvatar: data.userAvatar
+        userAvatar: data.userAvatar,
       })
     }
 
@@ -119,7 +120,7 @@ export function useCardSession(cardId) {
     leaveCardSession,
     addCardCollaborator,
     removeCardCollaborator,
-    applyRemoteOperation
+    applyRemoteOperation,
   } = useCollaborationStore()
 
   useEffect(() => {
@@ -129,26 +130,26 @@ export function useCardSession(cardId) {
     socket.emit('card:join', { cardId })
 
     // Handle join confirmation
-    const handleCardJoined = (data) => {
+    const handleCardJoined = data => {
       joinCardSession(cardId, data.collaborators, data.version)
     }
 
     // Handle new collaborators
-    const handleUserJoined = (data) => {
+    const handleUserJoined = data => {
       addCardCollaborator({
         userId: data.userId,
         name: data.userName,
-        avatar: data.userAvatar
+        avatar: data.userAvatar,
       })
     }
 
     // Handle user leaving
-    const handleUserLeft = (data) => {
+    const handleUserLeft = data => {
       removeCardCollaborator(data.userId)
     }
 
     // Handle remote changes
-    const handleCardChanged = (data) => {
+    const handleCardChanged = data => {
       applyRemoteOperation(data)
     }
 
@@ -165,7 +166,15 @@ export function useCardSession(cardId) {
       socket.off('card:changed', handleCardChanged)
       leaveCardSession()
     }
-  }, [socket, cardId, joinCardSession, leaveCardSession, addCardCollaborator, removeCardCollaborator, applyRemoteOperation])
+  }, [
+    socket,
+    cardId,
+    joinCardSession,
+    leaveCardSession,
+    addCardCollaborator,
+    removeCardCollaborator,
+    applyRemoteOperation,
+  ])
 }
 
 /**
@@ -175,22 +184,25 @@ export function useSendOperation(cardId) {
   const socket = useRealtimeConnection()
   const { queueOperation, cardVersion } = useCollaborationStore()
 
-  return useCallback((operation) => {
-    if (!socket || !cardId) return
+  return useCallback(
+    operation => {
+      if (!socket || !cardId) return
 
-    const op = {
-      ...operation,
-      type: operation.type || 'update',
-      cardId,
-      version: cardVersion
-    }
+      const op = {
+        ...operation,
+        type: operation.type || 'update',
+        cardId,
+        version: cardVersion,
+      }
 
-    // Queue locally
-    queueOperation(op)
+      // Queue locally
+      queueOperation(op)
 
-    // Send to server
-    socket.emit('card:edit', op)
-  }, [socket, cardId, cardVersion, queueOperation])
+      // Send to server
+      socket.emit('card:edit', op)
+    },
+    [socket, cardId, cardVersion, queueOperation]
+  )
 }
 
 /**
@@ -203,11 +215,11 @@ export function useConflictResolver() {
   useEffect(() => {
     if (!socket) return
 
-    const handleConflictDetected = (data) => {
+    const handleConflictDetected = data => {
       addConflict(data.conflict)
     }
 
-    const handleConflictResolved = (data) => {
+    const handleConflictResolved = data => {
       resolveConflict(data.conflictId, data.resolution)
     }
 
@@ -220,11 +232,14 @@ export function useConflictResolver() {
     }
   }, [socket, addConflict, resolveConflict])
 
-  return useCallback((conflictId, resolution) => {
-    if (socket) {
-      socket.emit('conflict:resolve', { conflictId, resolution })
-    }
-  }, [socket])
+  return useCallback(
+    (conflictId, resolution) => {
+      if (socket) {
+        socket.emit('conflict:resolve', { conflictId, resolution })
+      }
+    },
+    [socket]
+  )
 }
 
 /**
@@ -243,7 +258,7 @@ export function useVersionHistory(cardId) {
   useEffect(() => {
     if (!socket) return
 
-    const handleHistoryUpdate = (data) => {
+    const handleHistoryUpdate = data => {
       setVersionHistory(data.history)
     }
 
@@ -263,5 +278,5 @@ export default {
   useCardSession,
   useSendOperation,
   useConflictResolver,
-  useVersionHistory
+  useVersionHistory,
 }

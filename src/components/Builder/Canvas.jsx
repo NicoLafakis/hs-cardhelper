@@ -1,11 +1,16 @@
-import { useEffect } from 'react'
 import useBuilderStore from '../../store/builderStore'
 import { Trash2 } from 'lucide-react'
 
 export default function Canvas() {
-  const { components, selectedComponentId, addComponent, selectComponent, removeComponent } = useBuilderStore()
+  const {
+    components,
+    selectedComponentId,
+    addComponent,
+    selectComponent,
+    removeComponent,
+  } = useBuilderStore()
 
-  const handleDrop = (e) => {
+  const handleDrop = e => {
     e.preventDefault()
     const componentData = e.dataTransfer.getData('component')
     if (componentData) {
@@ -14,11 +19,11 @@ export default function Canvas() {
     }
   }
 
-  const handleDragOver = (e) => {
+  const handleDragOver = e => {
     e.preventDefault()
   }
 
-  const renderComponent = (component) => {
+  const renderComponent = component => {
     const isSelected = component.id === selectedComponentId
 
     switch (component.type) {
@@ -28,7 +33,9 @@ export default function Canvas() {
             key={component.id}
             onClick={() => selectComponent(component.id)}
             className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-              isSelected ? 'border-primary bg-primary/5' : 'border-gray-300 bg-white'
+              isSelected
+                ? 'border-primary bg-primary/5'
+                : 'border-gray-300 bg-white'
             }`}
           >
             <div className="flex items-center justify-between mb-2">
@@ -36,7 +43,7 @@ export default function Canvas() {
                 {component.defaultProps?.title || 'Data Table'}
               </h3>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   removeComponent(component.id)
                 }}
@@ -70,7 +77,9 @@ export default function Canvas() {
             key={component.id}
             onClick={() => selectComponent(component.id)}
             className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-              isSelected ? 'border-primary bg-primary/5' : 'border-gray-300 bg-white'
+              isSelected
+                ? 'border-primary bg-primary/5'
+                : 'border-gray-300 bg-white'
             }`}
           >
             <div className="flex items-center justify-between">
@@ -78,7 +87,7 @@ export default function Canvas() {
                 {component.defaultProps?.content || 'Text field'}
               </p>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   removeComponent(component.id)
                 }}
@@ -96,7 +105,9 @@ export default function Canvas() {
             key={component.id}
             onClick={() => selectComponent(component.id)}
             className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-              isSelected ? 'border-primary bg-primary/5' : 'border-gray-300 bg-white'
+              isSelected
+                ? 'border-primary bg-primary/5'
+                : 'border-gray-300 bg-white'
             }`}
           >
             <div className="flex items-center justify-between">
@@ -104,7 +115,7 @@ export default function Canvas() {
                 {component.defaultProps?.label || 'Button'}
               </button>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation()
                   removeComponent(component.id)
                 }}

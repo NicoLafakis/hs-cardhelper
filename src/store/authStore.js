@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-const useAuthStore = create((set) => ({
+const useAuthStore = create(set => ({
   user: null,
   accessToken: null,
   refreshToken: null,
@@ -11,13 +11,16 @@ const useAuthStore = create((set) => ({
       user,
       accessToken,
       refreshToken,
-      isAuthenticated: true
+      isAuthenticated: true,
     })
     // Persist to localStorage
-    localStorage.setItem('auth', JSON.stringify({ user, accessToken, refreshToken }))
+    localStorage.setItem(
+      'auth',
+      JSON.stringify({ user, accessToken, refreshToken })
+    )
   },
 
-  updateAccessToken: (accessToken) => {
+  updateAccessToken: accessToken => {
     set({ accessToken })
     const auth = JSON.parse(localStorage.getItem('auth') || '{}')
     localStorage.setItem('auth', JSON.stringify({ ...auth, accessToken }))
@@ -28,7 +31,7 @@ const useAuthStore = create((set) => ({
       user: null,
       accessToken: null,
       refreshToken: null,
-      isAuthenticated: false
+      isAuthenticated: false,
     })
     localStorage.removeItem('auth')
   },
@@ -44,7 +47,7 @@ const useAuthStore = create((set) => ({
         localStorage.removeItem('auth')
       }
     }
-  }
+  },
 }))
 
 export default useAuthStore

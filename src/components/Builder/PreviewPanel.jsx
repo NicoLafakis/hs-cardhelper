@@ -1,34 +1,63 @@
 import React, { useState } from 'react'
-import { Monitor, Smartphone, Tablet, User, Building2, DollarSign, Ticket, Mail, RefreshCw } from 'lucide-react'
+import {
+  Monitor,
+  Smartphone,
+  Tablet,
+  User,
+  Building2,
+  DollarSign,
+  Ticket,
+  Mail,
+  RefreshCw,
+} from 'lucide-react'
 import { useMockData } from '../../contexts/MockDataContext'
 import useBuilderStore from '../../store/builderStore'
 
 const DEVICE_SIZES = {
   desktop: { width: '100%', label: 'Desktop', icon: Monitor },
   tablet: { width: '768px', label: 'Tablet', icon: Tablet },
-  mobile: { width: '375px', label: 'Mobile', icon: Smartphone }
+  mobile: { width: '375px', label: 'Mobile', icon: Smartphone },
 }
 
 const RECORD_TYPE_CONFIG = {
   contact: { label: 'Contact', icon: User, color: 'bg-blue-100 text-blue-700' },
-  company: { label: 'Company', icon: Building2, color: 'bg-purple-100 text-purple-700' },
-  deal: { label: 'Deal', icon: DollarSign, color: 'bg-green-100 text-green-700' },
-  ticket: { label: 'Ticket', icon: Ticket, color: 'bg-orange-100 text-orange-700' },
-  engagement: { label: 'Meeting', icon: Mail, color: 'bg-pink-100 text-pink-700' }
+  company: {
+    label: 'Company',
+    icon: Building2,
+    color: 'bg-purple-100 text-purple-700',
+  },
+  deal: {
+    label: 'Deal',
+    icon: DollarSign,
+    color: 'bg-green-100 text-green-700',
+  },
+  ticket: {
+    label: 'Ticket',
+    icon: Ticket,
+    color: 'bg-orange-100 text-orange-700',
+  },
+  engagement: {
+    label: 'Meeting',
+    icon: Mail,
+    color: 'bg-pink-100 text-pink-700',
+  },
 }
 
 export default function PreviewPanel() {
   const [deviceSize, setDeviceSize] = useState('desktop')
-  const { recordType, setRecordType, getProperties, getRecordTypes } = useMockData()
+  const { recordType, setRecordType, getProperties, getRecordTypes } =
+    useMockData()
   const { components } = useBuilderStore()
 
-  const renderComponent = (component) => {
+  const renderComponent = component => {
     const properties = getProperties()
 
     // Check if component has property binding
     const value = component.propertyBinding
       ? properties[component.propertyBinding]
-      : component.props?.text || component.props?.value || component.props?.label
+      : component.props?.text ||
+        component.props?.value ||
+        component.props?.label
 
     const baseStyle = {
       position: 'absolute',
@@ -36,7 +65,7 @@ export default function PreviewPanel() {
       top: `${component.y}px`,
       width: `${component.width}px`,
       height: `${component.height}px`,
-      zIndex: component.zIndex
+      zIndex: component.zIndex,
     }
 
     // Render different component types
@@ -52,7 +81,7 @@ export default function PreviewPanel() {
               style={{
                 fontSize: component.props?.fontSize || '14px',
                 fontWeight: component.props?.fontWeight || 'normal',
-                color: component.props?.color || '#33475b'
+                color: component.props?.color || '#33475b',
               }}
             >
               {value || 'Text'}
@@ -62,7 +91,11 @@ export default function PreviewPanel() {
 
       case 'button':
         return (
-          <div key={component.id} style={baseStyle} className="flex items-center px-2">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="flex items-center px-2"
+          >
             <button
               style={{
                 backgroundColor: component.props?.backgroundColor || '#ff7a59',
@@ -72,7 +105,7 @@ export default function PreviewPanel() {
                 padding: '8px 16px',
                 borderRadius: '3px',
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
               {value || 'Button'}
@@ -82,7 +115,11 @@ export default function PreviewPanel() {
 
       case 'input':
         return (
-          <div key={component.id} style={baseStyle} className="flex items-center px-2">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="flex items-center px-2"
+          >
             <input
               type="text"
               value={value || ''}
@@ -94,7 +131,7 @@ export default function PreviewPanel() {
                 border: '1px solid #cbd6e2',
                 borderRadius: '3px',
                 fontSize: '14px',
-                color: '#33475b'
+                color: '#33475b',
               }}
             />
           </div>
@@ -104,13 +141,15 @@ export default function PreviewPanel() {
         return (
           <div key={component.id} style={baseStyle}>
             <img
-              src={component.props?.src || 'https://via.placeholder.com/200x100'}
+              src={
+                component.props?.src || 'https://via.placeholder.com/200x100'
+              }
               alt={component.props?.alt || 'Image'}
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                borderRadius: '3px'
+                borderRadius: '3px',
               }}
             />
           </div>
@@ -127,7 +166,7 @@ export default function PreviewPanel() {
               style={{
                 width: '100%',
                 height: '1px',
-                backgroundColor: component.props?.color || '#cbd6e2'
+                backgroundColor: component.props?.color || '#cbd6e2',
               }}
             />
           </div>
@@ -169,7 +208,7 @@ export default function PreviewPanel() {
             Record Type
           </label>
           <div className="flex gap-2 flex-wrap">
-            {getRecordTypes().map((type) => {
+            {getRecordTypes().map(type => {
               const config = RECORD_TYPE_CONFIG[type]
               const Icon = config?.icon || User
               const isActive = recordType === type
@@ -227,7 +266,7 @@ export default function PreviewPanel() {
           style={{
             width: DEVICE_SIZES[deviceSize].width,
             maxWidth: '100%',
-            transition: 'width 0.3s ease'
+            transition: 'width 0.3s ease',
           }}
         >
           {/* HubSpot Card Container */}
@@ -251,7 +290,9 @@ export default function PreviewPanel() {
                 <div className="flex flex-col items-center justify-center h-64 text-gray-400">
                   <Monitor className="w-12 h-12 mb-3" />
                   <p className="text-sm">No components yet</p>
-                  <p className="text-xs">Add components from the palette to see preview</p>
+                  <p className="text-xs">
+                    Add components from the palette to see preview
+                  </p>
                 </div>
               ) : (
                 sortedComponents.map(renderComponent)
@@ -265,14 +306,20 @@ export default function PreviewPanel() {
               Sample {RECORD_TYPE_CONFIG[recordType]?.label || recordType} Data
             </h4>
             <div className="space-y-1">
-              {Object.entries(getProperties()).slice(0, 5).map(([key, value]) => (
-                <div key={key} className="flex text-xs">
-                  <span className="font-medium text-gray-600 w-32">{key}:</span>
-                  <span className="text-gray-800 truncate flex-1">
-                    {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                  </span>
-                </div>
-              ))}
+              {Object.entries(getProperties())
+                .slice(0, 5)
+                .map(([key, value]) => (
+                  <div key={key} className="flex text-xs">
+                    <span className="font-medium text-gray-600 w-32">
+                      {key}:
+                    </span>
+                    <span className="text-gray-800 truncate flex-1">
+                      {typeof value === 'object'
+                        ? JSON.stringify(value)
+                        : String(value)}
+                    </span>
+                  </div>
+                ))}
               {Object.keys(getProperties()).length > 5 && (
                 <div className="text-xs text-gray-500 italic">
                   + {Object.keys(getProperties()).length - 5} more properties

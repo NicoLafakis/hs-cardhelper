@@ -38,8 +38,8 @@ const MOCK_DATA = {
       numberofemployees: 250,
       hs_social_linkedin_clicks: 15,
       hs_social_twitter_clicks: 8,
-      hs_persona: 'Decision Maker'
-    }
+      hs_persona: 'Decision Maker',
+    },
   },
   company: {
     id: '67890',
@@ -56,7 +56,8 @@ const MOCK_DATA = {
       state: 'California',
       zip: '94102',
       country: 'United States',
-      description: 'Leading provider of enterprise software solutions for modern businesses.',
+      description:
+        'Leading provider of enterprise software solutions for modern businesses.',
       numberofemployees: 250,
       annualrevenue: 50000000,
       timezone: 'US/Pacific',
@@ -78,8 +79,8 @@ const MOCK_DATA = {
       num_notes: 28,
       linkedin_company_page: 'https://linkedin.com/company/acmecorp',
       twitterhandle: '@acmecorp',
-      facebook_company_page: 'https://facebook.com/acmecorp'
-    }
+      facebook_company_page: 'https://facebook.com/acmecorp',
+    },
   },
   deal: {
     id: '11223',
@@ -92,7 +93,8 @@ const MOCK_DATA = {
       createdate: '2024-12-01T09:00:00Z',
       hubspot_owner_id: 'owner-001',
       dealtype: 'newbusiness',
-      description: 'Annual enterprise license renewal with expanded user seats and premium support package.',
+      description:
+        'Annual enterprise license renewal with expanded user seats and premium support package.',
       hs_priority: 'HIGH',
       hs_forecast_amount: 125000,
       hs_forecast_probability: 0.75,
@@ -100,7 +102,7 @@ const MOCK_DATA = {
       num_associated_contacts: 5,
       num_notes: 18,
       num_contacted_notes: 12,
-      hs_deal_stage_probability: 0.60,
+      hs_deal_stage_probability: 0.6,
       hs_analytics_source: 'ORGANIC_SEARCH',
       hs_closed_amount: 0,
       hs_deal_amount_calculation_preference: 'manual',
@@ -119,14 +121,15 @@ const MOCK_DATA = {
       hs_acv: 125000,
       contract_term: '12 months',
       discount_percentage: 10,
-      payment_terms: 'Net 30'
-    }
+      payment_terms: 'Net 30',
+    },
   },
   ticket: {
     id: '44556',
     properties: {
       subject: 'API Integration Error - 503 Service Unavailable',
-      content: 'Customer reports receiving 503 errors when attempting to integrate with our REST API. Occurs intermittently during peak hours.',
+      content:
+        'Customer reports receiving 503 errors when attempting to integrate with our REST API. Occurs intermittently during peak hours.',
       hs_ticket_priority: 'HIGH',
       hs_pipeline: 'support_pipeline',
       hs_pipeline_stage: 'in_progress',
@@ -152,8 +155,8 @@ const MOCK_DATA = {
       related_tickets: 2,
       escalated: false,
       sla_status: 'approaching_breach',
-      estimated_resolution_date: '2025-01-12T17:00:00Z'
-    }
+      estimated_resolution_date: '2025-01-12T17:00:00Z',
+    },
   },
   engagement: {
     id: '77889',
@@ -170,8 +173,9 @@ const MOCK_DATA = {
       attendees: 'sarah.johnson@acmecorp.com, john.smith@acmecorp.com',
       location: 'Zoom Meeting',
       meeting_outcome: null,
-      internal_meeting_notes: 'Prepare slides on Q4 performance and Q1 projections'
-    }
+      internal_meeting_notes:
+        'Prepare slides on Q4 performance and Q1 projections',
+    },
   },
   quote: {
     id: '99001',
@@ -183,7 +187,8 @@ const MOCK_DATA = {
       hs_discount_percentage: 10,
       hs_tax: 10000,
       hs_total_amount: 135000,
-      hs_terms: 'Payment due within 30 days of invoice date. Annual license with premium support included.',
+      hs_terms:
+        'Payment due within 30 days of invoice date. Annual license with premium support included.',
       createdate: '2025-01-10T09:00:00Z',
       hs_lastmodifieddate: '2025-01-11T13:20:00Z',
       hubspot_owner_id: 'owner-001',
@@ -191,60 +196,184 @@ const MOCK_DATA = {
       hs_language: 'en',
       hs_payment_enabled: true,
       hs_allowed_payment_methods: 'ACH, Credit Card, Wire Transfer',
-      num_line_items: 5
-    }
-  }
+      num_line_items: 5,
+    },
+  },
 }
 
 // Property metadata for each object type
 const PROPERTY_METADATA = {
   contact: {
-    firstname: { label: 'First Name', type: 'string', group: 'Contact Information' },
-    lastname: { label: 'Last Name', type: 'string', group: 'Contact Information' },
+    firstname: {
+      label: 'First Name',
+      type: 'string',
+      group: 'Contact Information',
+    },
+    lastname: {
+      label: 'Last Name',
+      type: 'string',
+      group: 'Contact Information',
+    },
     email: { label: 'Email', type: 'string', group: 'Contact Information' },
-    phone: { label: 'Phone Number', type: 'string', group: 'Contact Information' },
-    jobtitle: { label: 'Job Title', type: 'string', group: 'Contact Information' },
-    company: { label: 'Company Name', type: 'string', group: 'Company Information' },
+    phone: {
+      label: 'Phone Number',
+      type: 'string',
+      group: 'Contact Information',
+    },
+    jobtitle: {
+      label: 'Job Title',
+      type: 'string',
+      group: 'Contact Information',
+    },
+    company: {
+      label: 'Company Name',
+      type: 'string',
+      group: 'Company Information',
+    },
     city: { label: 'City', type: 'string', group: 'Address' },
     state: { label: 'State/Region', type: 'string', group: 'Address' },
     country: { label: 'Country', type: 'string', group: 'Address' },
-    website: { label: 'Website URL', type: 'string', group: 'Contact Information' },
-    lifecyclestage: { label: 'Lifecycle Stage', type: 'enumeration', group: 'Lead Information' },
-    hs_lead_status: { label: 'Lead Status', type: 'enumeration', group: 'Lead Information' },
-    createdate: { label: 'Create Date', type: 'datetime', group: 'Contact Information' },
-    num_associated_deals: { label: 'Associated Deals', type: 'number', group: 'Deal Information' },
-    total_revenue: { label: 'Total Revenue', type: 'number', group: 'Deal Information' }
+    website: {
+      label: 'Website URL',
+      type: 'string',
+      group: 'Contact Information',
+    },
+    lifecyclestage: {
+      label: 'Lifecycle Stage',
+      type: 'enumeration',
+      group: 'Lead Information',
+    },
+    hs_lead_status: {
+      label: 'Lead Status',
+      type: 'enumeration',
+      group: 'Lead Information',
+    },
+    createdate: {
+      label: 'Create Date',
+      type: 'datetime',
+      group: 'Contact Information',
+    },
+    num_associated_deals: {
+      label: 'Associated Deals',
+      type: 'number',
+      group: 'Deal Information',
+    },
+    total_revenue: {
+      label: 'Total Revenue',
+      type: 'number',
+      group: 'Deal Information',
+    },
   },
   company: {
-    name: { label: 'Company Name', type: 'string', group: 'Company Information' },
-    domain: { label: 'Company Domain', type: 'string', group: 'Company Information' },
-    website: { label: 'Website URL', type: 'string', group: 'Company Information' },
-    industry: { label: 'Industry', type: 'enumeration', group: 'Company Information' },
-    phone: { label: 'Phone Number', type: 'string', group: 'Company Information' },
+    name: {
+      label: 'Company Name',
+      type: 'string',
+      group: 'Company Information',
+    },
+    domain: {
+      label: 'Company Domain',
+      type: 'string',
+      group: 'Company Information',
+    },
+    website: {
+      label: 'Website URL',
+      type: 'string',
+      group: 'Company Information',
+    },
+    industry: {
+      label: 'Industry',
+      type: 'enumeration',
+      group: 'Company Information',
+    },
+    phone: {
+      label: 'Phone Number',
+      type: 'string',
+      group: 'Company Information',
+    },
     city: { label: 'City', type: 'string', group: 'Address' },
     state: { label: 'State/Region', type: 'string', group: 'Address' },
-    numberofemployees: { label: 'Number of Employees', type: 'number', group: 'Company Information' },
-    annualrevenue: { label: 'Annual Revenue', type: 'number', group: 'Company Information' },
-    total_revenue: { label: 'Total Revenue', type: 'number', group: 'Deal Information' }
+    numberofemployees: {
+      label: 'Number of Employees',
+      type: 'number',
+      group: 'Company Information',
+    },
+    annualrevenue: {
+      label: 'Annual Revenue',
+      type: 'number',
+      group: 'Company Information',
+    },
+    total_revenue: {
+      label: 'Total Revenue',
+      type: 'number',
+      group: 'Deal Information',
+    },
   },
   deal: {
     dealname: { label: 'Deal Name', type: 'string', group: 'Deal Information' },
-    dealstage: { label: 'Deal Stage', type: 'enumeration', group: 'Deal Information' },
+    dealstage: {
+      label: 'Deal Stage',
+      type: 'enumeration',
+      group: 'Deal Information',
+    },
     amount: { label: 'Amount', type: 'number', group: 'Deal Information' },
-    closedate: { label: 'Close Date', type: 'datetime', group: 'Deal Information' },
-    dealtype: { label: 'Deal Type', type: 'enumeration', group: 'Deal Information' },
-    hs_priority: { label: 'Priority', type: 'enumeration', group: 'Deal Information' },
-    hs_forecast_probability: { label: 'Forecast Probability', type: 'number', group: 'Forecasting' },
-    hs_next_step: { label: 'Next Step', type: 'string', group: 'Deal Information' }
+    closedate: {
+      label: 'Close Date',
+      type: 'datetime',
+      group: 'Deal Information',
+    },
+    dealtype: {
+      label: 'Deal Type',
+      type: 'enumeration',
+      group: 'Deal Information',
+    },
+    hs_priority: {
+      label: 'Priority',
+      type: 'enumeration',
+      group: 'Deal Information',
+    },
+    hs_forecast_probability: {
+      label: 'Forecast Probability',
+      type: 'number',
+      group: 'Forecasting',
+    },
+    hs_next_step: {
+      label: 'Next Step',
+      type: 'string',
+      group: 'Deal Information',
+    },
   },
   ticket: {
-    subject: { label: 'Ticket Name', type: 'string', group: 'Ticket Information' },
-    content: { label: 'Description', type: 'string', group: 'Ticket Information' },
-    hs_ticket_priority: { label: 'Priority', type: 'enumeration', group: 'Ticket Information' },
-    hs_pipeline_stage: { label: 'Ticket Status', type: 'enumeration', group: 'Ticket Information' },
-    hs_ticket_category: { label: 'Category', type: 'enumeration', group: 'Ticket Information' },
-    createdate: { label: 'Create Date', type: 'datetime', group: 'Ticket Information' }
-  }
+    subject: {
+      label: 'Ticket Name',
+      type: 'string',
+      group: 'Ticket Information',
+    },
+    content: {
+      label: 'Description',
+      type: 'string',
+      group: 'Ticket Information',
+    },
+    hs_ticket_priority: {
+      label: 'Priority',
+      type: 'enumeration',
+      group: 'Ticket Information',
+    },
+    hs_pipeline_stage: {
+      label: 'Ticket Status',
+      type: 'enumeration',
+      group: 'Ticket Information',
+    },
+    hs_ticket_category: {
+      label: 'Category',
+      type: 'enumeration',
+      group: 'Ticket Information',
+    },
+    createdate: {
+      label: 'Create Date',
+      type: 'datetime',
+      group: 'Ticket Information',
+    },
+  },
 }
 
 export function MockDataProvider({ children }) {
@@ -255,7 +384,7 @@ export function MockDataProvider({ children }) {
   const getMockData = () => {
     return {
       ...MOCK_DATA[recordType],
-      ...customData
+      ...customData,
     }
   }
 
@@ -270,7 +399,7 @@ export function MockDataProvider({ children }) {
   }
 
   // Get property value
-  const getPropertyValue = (propertyName) => {
+  const getPropertyValue = propertyName => {
     return getProperties()[propertyName]
   }
 
@@ -280,8 +409,8 @@ export function MockDataProvider({ children }) {
       ...prev,
       properties: {
         ...prev.properties,
-        [propertyName]: value
-      }
+        [propertyName]: value,
+      },
     }))
   }
 
@@ -299,7 +428,7 @@ export function MockDataProvider({ children }) {
     getPropertyValue,
     setPropertyValue,
     getRecordTypes,
-    MOCK_DATA
+    MOCK_DATA,
   }
 
   return (

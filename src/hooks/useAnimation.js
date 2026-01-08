@@ -28,13 +28,13 @@ export function useAnimation(animationKey, options = {}) {
       easing,
       spring,
       whileHover,
-      transition: customTransition
+      transition: customTransition,
     } = animation
 
     const baseTransition = {
       duration: options.duration || duration || 0.5,
       ease: easing || 'easeInOut',
-      ...customTransition
+      ...customTransition,
     }
 
     if (spring || options.useSpring) {
@@ -44,7 +44,7 @@ export function useAnimation(animationKey, options = {}) {
         exit: options.exit || exit,
         transition: spring || SPRING_PRESETS.normal,
         whileHover,
-        ref: animationRef
+        ref: animationRef,
       }
     }
 
@@ -54,7 +54,7 @@ export function useAnimation(animationKey, options = {}) {
       exit: options.exit || exit,
       transition: baseTransition,
       whileHover,
-      ref: animationRef
+      ref: animationRef,
     }
   }, [animation, options])
 
@@ -71,7 +71,7 @@ export function useAnimation(animationKey, options = {}) {
     play,
     stop,
     ref: animationRef,
-    ...getFramerMotionProps()
+    ...getFramerMotionProps(),
   }
 }
 
@@ -80,15 +80,11 @@ export function useAnimation(animationKey, options = {}) {
  * Trigger animation on scroll/intersection
  */
 export function useScrollAnimation(options = {}) {
-  const {
-    threshold = 0.2,
-    triggerOnce = true,
-    parallaxIntensity = 0
-  } = options
+  const { threshold = 0.2, triggerOnce = true, parallaxIntensity = 0 } = options
 
   const { ref, inView } = useInView({
     threshold,
-    triggerOnce
+    triggerOnce,
   })
 
   const [scrollY, setScrollY] = useState(0)
@@ -121,7 +117,8 @@ export function useScrollAnimation(options = {}) {
     isVisible: inView,
     scrollY,
     parallaxOffset,
-    transform: parallaxIntensity > 0 ? `translateY(${parallaxOffset}px)` : undefined
+    transform:
+      parallaxIntensity > 0 ? `translateY(${parallaxOffset}px)` : undefined,
   }
 }
 
@@ -146,7 +143,7 @@ export function useHoverAnimation(animationKey = 'hoverScale') {
     onMouseLeave: handleMouseLeave,
     isHovering,
     whileHover: animation?.whileHover,
-    transition: animation?.transition || SPRING_PRESETS.normal
+    transition: animation?.transition || SPRING_PRESETS.normal,
   }
 }
 
@@ -161,20 +158,20 @@ export function useStaggerAnimation(itemCount, staggerDelay = 0.1) {
       opacity: 1,
       transition: {
         staggerChildren: staggerDelay,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   }
 
   return {
     containerVariants,
     itemVariants,
-    getItemDelay: (index) => index * staggerDelay
+    getItemDelay: index => index * staggerDelay,
   }
 }
 
@@ -193,8 +190,8 @@ export function useContinuousAnimation(animationKey) {
     animate: animation.animate,
     transition: {
       ...animation.transition,
-      repeat: Infinity
-    }
+      repeat: Infinity,
+    },
   }
 }
 
@@ -213,7 +210,7 @@ export function useAnimationSequence(animationKeys = [], options = {}) {
   const currentAnimation = animations[currentIndex]
 
   const next = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % animations.length)
+    setCurrentIndex(prev => (prev + 1) % animations.length)
   }, [animations.length])
 
   const reset = useCallback(() => {
@@ -221,7 +218,7 @@ export function useAnimationSequence(animationKeys = [], options = {}) {
   }, [])
 
   const toggle = useCallback(() => {
-    setIsPlaying((prev) => !prev)
+    setIsPlaying(prev => !prev)
   }, [])
 
   return {
@@ -231,7 +228,7 @@ export function useAnimationSequence(animationKeys = [], options = {}) {
     next,
     reset,
     toggle,
-    progress: ((currentIndex + 1) / animations.length) * 100
+    progress: ((currentIndex + 1) / animations.length) * 100,
   }
 }
 
@@ -244,42 +241,42 @@ export function useAnimationController(config = {}) {
     isPlaying: config.autoStart !== false,
     isPaused: false,
     iterations: 0,
-    startTime: Date.now()
+    startTime: Date.now(),
   })
 
   const animationRef = useRef(null)
 
   const play = useCallback(() => {
-    setAnimationState((prev) => ({
+    setAnimationState(prev => ({
       ...prev,
       isPlaying: true,
       isPaused: false,
-      startTime: Date.now()
+      startTime: Date.now(),
     }))
   }, [])
 
   const pause = useCallback(() => {
-    setAnimationState((prev) => ({
+    setAnimationState(prev => ({
       ...prev,
       isPlaying: false,
-      isPaused: true
+      isPaused: true,
     }))
   }, [])
 
   const stop = useCallback(() => {
-    setAnimationState((prev) => ({
+    setAnimationState(prev => ({
       ...prev,
       isPlaying: false,
       isPaused: false,
-      iterations: 0
+      iterations: 0,
     }))
   }, [])
 
   const reset = useCallback(() => {
-    setAnimationState((prev) => ({
+    setAnimationState(prev => ({
       ...prev,
       iterations: 0,
-      startTime: Date.now()
+      startTime: Date.now(),
     }))
   }, [])
 
@@ -297,7 +294,7 @@ export function useAnimationController(config = {}) {
     ref: animationRef,
     getElapsedTime,
     duration: config.duration || 1,
-    isComplete: animationState.iterations >= (config.iterations || 1)
+    isComplete: animationState.iterations >= (config.iterations || 1),
   }
 }
 
@@ -329,8 +326,8 @@ export function useParallax(intensity = 0.5) {
   return {
     ref: elementRef,
     style: {
-      transform: `translateY(${offset}px)`
-    }
+      transform: `translateY(${offset}px)`,
+    },
   }
 }
 
@@ -343,23 +340,23 @@ export function useKeyframeAnimation(keyframes, options = {}) {
     duration = 1,
     iterations = Infinity,
     easing = 'easeInOut',
-    delay = 0
+    delay = 0,
   } = options
 
   const animate = {
-    ...keyframes
+    ...keyframes,
   }
 
   const transition = {
     duration,
     repeat: iterations === Infinity ? Infinity : iterations - 1,
     ease: easing,
-    delay
+    delay,
   }
 
   return {
     animate,
-    transition
+    transition,
   }
 }
 
@@ -379,6 +376,10 @@ export function useTapAnimation(options = {}) {
     isTapped,
     onTap: handleTap,
     whileTap: options.whileTap || { scale: 0.95 },
-    transition: options.transition || { type: 'spring', stiffness: 400, damping: 15 }
+    transition: options.transition || {
+      type: 'spring',
+      stiffness: 400,
+      damping: 15,
+    },
   }
 }

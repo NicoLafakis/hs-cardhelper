@@ -61,7 +61,7 @@ export class SettingsService extends BaseService {
     // For now, just check format
     return {
       success: apiKey && apiKey.length > 0,
-      error: apiKey ? null : 'Invalid API key'
+      error: apiKey ? null : 'Invalid API key',
     }
   }
 
@@ -73,7 +73,7 @@ export class SettingsService extends BaseService {
     // For now, just check format
     return {
       success: apiKey && apiKey.startsWith('sk-'),
-      error: apiKey?.startsWith('sk-') ? null : 'Invalid API key format'
+      error: apiKey?.startsWith('sk-') ? null : 'Invalid API key format',
     }
   }
 }

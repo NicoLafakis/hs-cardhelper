@@ -25,7 +25,7 @@ export const services = {
   settings: settingsService,
   hubspot: hubspotService,
   ai: aiService,
-  featureFlags: featureFlagsService
+  featureFlags: featureFlagsService,
 }
 
 export default services

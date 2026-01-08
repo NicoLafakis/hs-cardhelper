@@ -11,37 +11,77 @@ const FORMULA_FUNCTIONS = [
   {
     category: 'Math',
     functions: [
-      { name: 'SUM', description: 'Add numbers together', example: 'SUM(10, 20, 30)' },
-      { name: 'AVG', description: 'Calculate average', example: 'AVG(10, 20, 30)' },
-      { name: 'MAX', description: 'Find maximum value', example: 'MAX(10, 20, 30)' },
-      { name: 'MIN', description: 'Find minimum value', example: 'MIN(10, 20, 30)' },
-      { name: 'ROUND', description: 'Round to decimals', example: 'ROUND(3.14159, 2)' },
-      { name: 'ABS', description: 'Absolute value', example: 'ABS(-50)' }
-    ]
+      {
+        name: 'SUM',
+        description: 'Add numbers together',
+        example: 'SUM(10, 20, 30)',
+      },
+      {
+        name: 'AVG',
+        description: 'Calculate average',
+        example: 'AVG(10, 20, 30)',
+      },
+      {
+        name: 'MAX',
+        description: 'Find maximum value',
+        example: 'MAX(10, 20, 30)',
+      },
+      {
+        name: 'MIN',
+        description: 'Find minimum value',
+        example: 'MIN(10, 20, 30)',
+      },
+      {
+        name: 'ROUND',
+        description: 'Round to decimals',
+        example: 'ROUND(3.14159, 2)',
+      },
+      { name: 'ABS', description: 'Absolute value', example: 'ABS(-50)' },
+    ],
   },
   {
     category: 'Text',
     functions: [
-      { name: 'CONCAT', description: 'Combine text', example: 'CONCAT("Hello", " ", "World")' },
-      { name: 'UPPER', description: 'Convert to uppercase', example: 'UPPER("hello")' },
-      { name: 'LOWER', description: 'Convert to lowercase', example: 'LOWER("HELLO")' },
-      { name: 'LEN', description: 'Get text length', example: 'LEN("Hello")' }
-    ]
+      {
+        name: 'CONCAT',
+        description: 'Combine text',
+        example: 'CONCAT("Hello", " ", "World")',
+      },
+      {
+        name: 'UPPER',
+        description: 'Convert to uppercase',
+        example: 'UPPER("hello")',
+      },
+      {
+        name: 'LOWER',
+        description: 'Convert to lowercase',
+        example: 'LOWER("HELLO")',
+      },
+      { name: 'LEN', description: 'Get text length', example: 'LEN("Hello")' },
+    ],
   },
   {
     category: 'Logic',
     functions: [
-      { name: 'IF', description: 'Conditional logic', example: 'IF(${amount} > 100, "High", "Low")' },
-      { name: 'COUNT', description: 'Count items', example: 'COUNT(1, 2, 3, 4)' }
-    ]
-  }
+      {
+        name: 'IF',
+        description: 'Conditional logic',
+        example: 'IF(${amount} > 100, "High", "Low")',
+      },
+      {
+        name: 'COUNT',
+        description: 'Count items',
+        example: 'COUNT(1, 2, 3, 4)',
+      },
+    ],
+  },
 ]
 
 export function FormulaBuilder({
   value = '',
   onChange,
   availableFields = [],
-  onTest
+  onTest,
 }) {
   const [mode, setMode] = useState('ai') // 'ai', 'visual', 'code'
   const [aiInput, setAiInput] = useState('')
@@ -60,12 +100,12 @@ export function FormulaBuilder({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
           description: aiInput,
-          availableFields: availableFields.map(f => f.value)
-        })
+          availableFields: availableFields.map(f => f.value),
+        }),
       })
 
       const data = await response.json()
@@ -75,28 +115,29 @@ export function FormulaBuilder({
         setTestResult({
           success: true,
           message: 'Formula generated successfully!',
-          explanation: data.explanation
+          explanation: data.explanation,
         })
       }
     } catch (error) {
       setTestResult({
         success: false,
-        message: 'Failed to generate formula. Please try again.'
+        message: 'Failed to generate formula. Please try again.',
       })
     } finally {
       setIsGenerating(false)
     }
   }
 
-  const insertFunction = (funcName) => {
-    const example = FORMULA_FUNCTIONS
-      .flatMap(cat => cat.functions)
-      .find(f => f.name === funcName)?.example || `${funcName}()`
+  const insertFunction = funcName => {
+    const example =
+      FORMULA_FUNCTIONS.flatMap(cat => cat.functions).find(
+        f => f.name === funcName
+      )?.example || `${funcName}()`
 
     onChange(value + (value ? ' + ' : '') + example)
   }
 
-  const insertField = (fieldValue) => {
+  const insertField = fieldValue => {
     onChange(value + (value ? ' + ' : '') + `\${${fieldValue}}`)
   }
 
@@ -104,7 +145,7 @@ export function FormulaBuilder({
     if (!onTest) {
       setTestResult({
         success: false,
-        message: 'Test function not available'
+        message: 'Test function not available',
       })
       return
     }
@@ -152,7 +193,7 @@ export function FormulaBuilder({
                 className="ai-input"
                 placeholder="Example: Calculate the total price with 10% discount if the amount is over $100, otherwise apply 5% discount"
                 value={aiInput}
-                onChange={(e) => setAiInput(e.target.value)}
+                onChange={e => setAiInput(e.target.value)}
                 rows={3}
               />
               <button
@@ -177,14 +218,26 @@ export function FormulaBuilder({
             <div className="ai-examples">
               <p className="examples-title">Example prompts:</p>
               <ul>
-                <li onClick={() => setAiInput('Calculate commission as 10% of deal value')}>
-                  "Calculate commission as 10% of deal value"
+                <li
+                  onClick={() =>
+                    setAiInput('Calculate commission as 10% of deal value')
+                  }
+                >
+                  &quot;Calculate commission as 10% of deal value&quot;
                 </li>
-                <li onClick={() => setAiInput('Combine first name and last name with a space')}>
-                  "Combine first name and last name with a space"
+                <li
+                  onClick={() =>
+                    setAiInput('Combine first name and last name with a space')
+                  }
+                >
+                  &quot;Combine first name and last name with a space&quot;
                 </li>
-                <li onClick={() => setAiInput('Calculate days until deadline from today')}>
-                  "Calculate days until deadline from today"
+                <li
+                  onClick={() =>
+                    setAiInput('Calculate days until deadline from today')
+                  }
+                >
+                  &quot;Calculate days until deadline from today&quot;
                 </li>
               </ul>
             </div>
@@ -216,8 +269,12 @@ export function FormulaBuilder({
                             >
                               {func.name}
                             </button>
-                            <p className="function-description">{func.description}</p>
-                            <code className="function-example">{func.example}</code>
+                            <p className="function-description">
+                              {func.description}
+                            </p>
+                            <code className="function-example">
+                              {func.example}
+                            </code>
                           </div>
                         ))}
                       </div>
@@ -250,7 +307,7 @@ export function FormulaBuilder({
           <textarea
             className="formula-input"
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value)}
             placeholder="Your formula will appear here..."
             rows={3}
           />
@@ -264,13 +321,11 @@ export function FormulaBuilder({
 
         {/* Test Result */}
         {testResult && (
-          <div className={`test-result ${testResult.success ? 'success' : 'error'}`}>
+          <div
+            className={`test-result ${testResult.success ? 'success' : 'error'}`}
+          >
             <div className="result-header">
-              {testResult.success ? (
-                <Check size={20} />
-              ) : (
-                <X size={20} />
-              )}
+              {testResult.success ? <Check size={20} /> : <X size={20} />}
               <span>{testResult.message}</span>
             </div>
             {testResult.explanation && (
@@ -288,10 +343,23 @@ export function FormulaBuilder({
         <div className="formula-help">
           <h4>How to use:</h4>
           <ul>
-            <li>Reference fields with <code>${'{fieldName}'}</code></li>
-            <li>Use functions like <code>SUM(10, 20)</code></li>
-            <li>Combine with operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></li>
-            <li>Example: <code>IF(${'${amount}'} &gt; 100, ${'${amount}'} * 0.9, ${'${amount}'})</code></li>
+            <li>
+              Reference fields with <code>${'{fieldName}'}</code>
+            </li>
+            <li>
+              Use functions like <code>SUM(10, 20)</code>
+            </li>
+            <li>
+              Combine with operators: <code>+</code>, <code>-</code>,{' '}
+              <code>*</code>, <code>/</code>
+            </li>
+            <li>
+              Example:{' '}
+              <code>
+                IF(${'${amount}'} &gt; 100, ${'${amount}'} * 0.9, ${'${amount}'}
+                )
+              </code>
+            </li>
           </ul>
         </div>
       </div>

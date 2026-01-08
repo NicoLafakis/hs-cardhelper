@@ -15,7 +15,7 @@ export function Table({
   config = {},
   data = [],
   columns = [],
-  onRowClick = null
+  onRowClick = null,
 }) {
   const {
     sortable = true,
@@ -25,7 +25,7 @@ export function Table({
     striped = true,
     hover = true,
     bordered = false,
-    dense = false
+    dense = false,
   } = config
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
@@ -64,13 +64,17 @@ export function Table({
     return sortedData.slice(start, start + rowsPerPage)
   }, [sortedData, paginated, currentPage, rowsPerPage])
 
-  const handleSort = useCallback((key) => {
-    if (!sortable) return
-    setSortConfig(prev => ({
-      key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
-    }))
-  }, [sortable])
+  const handleSort = useCallback(
+    key => {
+      if (!sortable) return
+      setSortConfig(prev => ({
+        key,
+        direction:
+          prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+      }))
+    },
+    [sortable]
+  )
 
   const totalPages = paginated ? Math.ceil(sortedData.length / rowsPerPage) : 1
 
@@ -82,7 +86,7 @@ export function Table({
             type="text"
             placeholder="Filter table..."
             value={filterText}
-            onChange={(e) => {
+            onChange={e => {
               setFilterText(e.target.value)
               setCurrentPage(1)
             }}
@@ -91,7 +95,9 @@ export function Table({
         </div>
       )}
 
-      <table className={`table ${striped ? 'table-striped' : ''} ${hover ? 'table-hover' : ''} ${bordered ? 'table-bordered' : ''} ${dense ? 'table-dense' : ''}`}>
+      <table
+        className={`table ${striped ? 'table-striped' : ''} ${hover ? 'table-hover' : ''} ${bordered ? 'table-bordered' : ''} ${dense ? 'table-dense' : ''}`}
+      >
         <thead>
           <tr>
             {columns.map(col => (
@@ -120,7 +126,9 @@ export function Table({
             >
               {columns.map(col => (
                 <td key={col.key}>
-                  {typeof col.render === 'function' ? col.render(row[col.key], row) : row[col.key]}
+                  {typeof col.render === 'function'
+                    ? col.render(row[col.key], row)
+                    : row[col.key]}
                 </td>
               ))}
             </tr>
@@ -137,11 +145,21 @@ export function Table({
 
       {paginated && totalPages > 1 && (
         <div className="table-pagination">
-          <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} type="button">
+          <button
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            type="button"
+          >
             Previous
           </button>
-          <span>{currentPage} / {totalPages}</span>
-          <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} type="button">
+          <span>
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            type="button"
+          >
             Next
           </button>
         </div>
@@ -154,17 +172,13 @@ export function Table({
  * List Component
  * Vertical list with icons, avatars, actions
  */
-export function List({
-  config = {},
-  items = [],
-  onItemClick = null
-}) {
+export function List({ config = {}, items = [], onItemClick = null }) {
   const {
     variant = 'simple', // 'simple' | 'detailed'
     separators = true,
     interactive = false,
     maxHeight = null,
-    animate = true
+    animate = true,
   } = config
 
   return (
@@ -185,7 +199,9 @@ export function List({
           {item.icon && <span className="list-icon">{item.icon}</span>}
           <div className="list-content">
             <div className="list-title">{item.title}</div>
-            {item.subtitle && <div className="list-subtitle">{item.subtitle}</div>}
+            {item.subtitle && (
+              <div className="list-subtitle">{item.subtitle}</div>
+            )}
             {item.description && variant === 'detailed' && (
               <div className="list-description">{item.description}</div>
             )}
@@ -194,9 +210,7 @@ export function List({
           {item.action && <div className="list-action">{item.action}</div>}
         </motion.li>
       ))}
-      {items.length === 0 && (
-        <li className="list-empty">No items</li>
-      )}
+      {items.length === 0 && <li className="list-empty">No items</li>}
     </motion.ul>
   )
 }
@@ -209,7 +223,7 @@ export function StatCard({
   config = {},
   value = 0,
   label = 'Stat',
-  change = null
+  change = null,
 }) {
   const {
     icon = null,
@@ -218,7 +232,7 @@ export function StatCard({
     size = 'md', // 'sm' | 'md' | 'lg'
     showTrend = change !== null,
     animated = true,
-    onClick = null
+    onClick = null,
   } = config
 
   const colorClasses = {
@@ -226,13 +240,13 @@ export function StatCard({
     blue: 'stat-blue',
     green: 'stat-green',
     red: 'stat-red',
-    purple: 'stat-purple'
+    purple: 'stat-purple',
   }
 
   const sizeClasses = {
     sm: 'stat-sm',
     md: 'stat-md',
-    lg: 'stat-lg'
+    lg: 'stat-lg',
   }
 
   // Format value
@@ -245,9 +259,20 @@ export function StatCard({
     displayValue = value.toLocaleString()
   }
 
-  const trend = change ? (change > 0 ? 'up' : change < 0 ? 'down' : 'neutral') : null
+  const trend = change
+    ? change > 0
+      ? 'up'
+      : change < 0
+        ? 'down'
+        : 'neutral'
+    : null
   const trendIcon = trend === 'up' ? '📈' : trend === 'down' ? '📉' : '→'
-  const trendColor = trend === 'up' ? 'trend-up' : trend === 'down' ? 'trend-down' : 'trend-neutral'
+  const trendColor =
+    trend === 'up'
+      ? 'trend-up'
+      : trend === 'down'
+        ? 'trend-down'
+        : 'trend-neutral'
 
   return (
     <motion.div
@@ -256,7 +281,10 @@ export function StatCard({
       style={{ cursor: onClick ? 'pointer' : 'default' }}
       whileHover={onClick ? { scale: 1.02 } : {}}
       animate={animated ? { y: [0, -2, 0] } : {}}
-      transition={{ duration: 3, repeat: animated ? Number.POSITIVE_INFINITY : 0 }}
+      transition={{
+        duration: 3,
+        repeat: animated ? Number.POSITIVE_INFINITY : 0,
+      }}
     >
       <div className="stat-header">
         {icon && <span className="stat-icon">{icon}</span>}

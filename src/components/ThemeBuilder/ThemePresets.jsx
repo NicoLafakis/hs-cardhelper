@@ -12,12 +12,9 @@ export function ThemePresets({ onThemeSelect, onOpenEditor }) {
   const { currentTheme, customThemes, setTheme } = useThemeStore()
   const [hoveredTheme, setHoveredTheme] = useState(null)
 
-  const allThemes = [
-    ...Object.values(THEME_TEMPLATES),
-    ...customThemes
-  ]
+  const allThemes = [...Object.values(THEME_TEMPLATES), ...customThemes]
 
-  const handleThemeClick = (theme) => {
+  const handleThemeClick = theme => {
     setTheme(theme)
     onThemeSelect?.(theme)
   }
@@ -76,7 +73,7 @@ export function ThemePresets({ onThemeSelect, onOpenEditor }) {
                   >
                     <button
                       className="action-btn edit-btn"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         setTheme(theme)
                         onOpenEditor?.()
