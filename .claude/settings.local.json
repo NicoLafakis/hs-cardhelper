@@ -7,7 +7,11 @@
       "Bash(npm run custodian:*)",
       "Bash(npx eslint:*)",
       "Bash(npx prettier:*)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Skill(ralph-loop:ralph-loop)",
+      "Bash(npm run build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd 5 major features: templates, styling, forms, search, and card states\n\n- Expand card templates from 10 to 23 professional designs\n- Add 3 new QuickStart templates \\(Lead Score, Support Ticket, Pipeline Widget\\)\n- Create AdvancedStyling module: GradientEditor, ContrastChecker \\(WCAG\\), TypographyScale\n- Create FormBuilder module: FormContainer, MultiSelect, Combobox, DateRangePicker, TagInput, SliderInput, RatingInput, ValidationRuleBuilder\n- Create SmartSearch module: SmartSearchBar with keyboard nav, FilterPanel with 5 filter types\n- Create CardStates module: StateManager, ConditionalLogic with 14 operators\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
