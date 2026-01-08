@@ -364,11 +364,13 @@ npm start
 
 ## Documentation
 
-Comprehensive documentation is available:
+Comprehensive documentation is available in the [docs/](docs/) folder:
 
-- **[FEATURES.md](./FEATURES.md)** - Detailed feature documentation with examples
-- **[USER_GUIDE.md](./USER_GUIDE.md)** - Step-by-step user instructions
-- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - Complete HubSpot deployment guide
+- **[FEATURES.md](docs/FEATURES.md)** - Detailed feature documentation with examples
+- **[USER_GUIDE.md](docs/USER_GUIDE.md)** - Step-by-step user instructions
+- **[DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md)** - Complete HubSpot deployment guide
+- **[TESTING.md](docs/TESTING.md)** - Vitest unit tests and Playwright E2E testing
+- **[CUSTODIAN.md](docs/CUSTODIAN.md)** - Automated code quality checks
 - **[API Documentation](./server/routes/)** - REST API endpoint reference
 
 ## Usage Workflows
@@ -462,7 +464,7 @@ hs-cardhelper/
 
 - 📧 **Email**: support@cardhelper.dev
 - 💬 **Issues**: [GitHub Issues](https://github.com/yourusername/hs-cardhelper/issues)
-- 📚 **Documentation**: See [FEATURES.md](./FEATURES.md) and [USER_GUIDE.md](./USER_GUIDE.md)
+- 📚 **Documentation**: See [docs/FEATURES.md](docs/FEATURES.md) and [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
 - 🎥 **Video Tutorials**: Coming soon
 
 ## Contributing
