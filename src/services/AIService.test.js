@@ -3,29 +3,29 @@
  * Tests for the AIService class
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
-import aiService from './AIService'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { AIService } from './AIService'
 
-// Mock the fetch API
-const mockFetch = vi.fn()
-global.fetch = mockFetch
+// Create mock api
+const mockApi = {
+  post: vi.fn(),
+  get: vi.fn(),
+}
 
 describe('AIService', () => {
+  let aiService
+
   beforeEach(() => {
     vi.clearAllMocks()
-  })
-
-  afterEach(() => {
-    vi.restoreAllMocks()
+    // Create fresh instance with mocked api
+    aiService = new AIService()
+    aiService.api = mockApi
   })
 
   describe('chat', () => {
     it('should send chat request with correct parameters', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          data: { message: 'Hello, I can help you build cards!' }
-        })
+      mockApi.post.mockResolvedValueOnce({
+        data: { message: 'Hello, I can help you build cards!' },
       })
 
       await aiService.chat(
@@ -36,53 +36,48 @@ describe('AIService', () => {
       )
 
       // Verify the request was made correctly
-      expect(mockFetch).toHaveBeenCalled()
-      const [url, options] = mockFetch.mock.calls[0]
-      expect(url).toContain('/ai/chat')
-      const body = JSON.parse(options.body)
-      expect(body.message).toBe('Create a contact card')
-      expect(body.context).toBe('HubSpot context')
-      expect(body.recordType).toBe('contact')
-      expect(body.currentComponents).toBe(5)
+      expect(mockApi.post).toHaveBeenCalledWith(
+        '/ai/chat',
+        {
+          message: 'Create a contact card',
+          context: 'HubSpot context',
+          recordType: 'contact',
+          currentComponents: 5,
+        },
+        {}
+      )
     })
   })
 
   describe('getSuggestions', () => {
     it('should send suggestions request with prompt and properties', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          data: { suggestions: [] }
-        })
+      mockApi.post.mockResolvedValueOnce({
+        data: { suggestions: [] },
       })
 
-      await aiService.getSuggestions(
-        'Create a deal card',
-        'deal',
-        ['dealname', 'amount']
-      )
+      await aiService.getSuggestions('Create a deal card', 'deal', [
+        'dealname',
+        'amount',
+      ])
 
-      expect(mockFetch).toHaveBeenCalled()
-      const [url, options] = mockFetch.mock.calls[0]
-      expect(url).toContain('/ai/suggest')
-      const body = JSON.parse(options.body)
-      expect(body.prompt).toBe('Create a deal card')
-      expect(body.objectType).toBe('deal')
-      expect(body.properties).toEqual(['dealname', 'amount'])
+      expect(mockApi.post).toHaveBeenCalledWith(
+        '/ai/suggest',
+        {
+          prompt: 'Create a deal card',
+          objectType: 'deal',
+          properties: ['dealname', 'amount'],
+        },
+        {}
+      )
     })
   })
 
   describe('generateTableConfig', () => {
     it('should request table configuration generation', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          data: {
-            columns: [
-              { property: 'firstname', label: 'First Name' }
-            ]
-          }
-        })
+      mockApi.post.mockResolvedValueOnce({
+        data: {
+          columns: [{ property: 'firstname', label: 'First Name' }],
+        },
       })
 
       await aiService.generateTableConfig(
@@ -91,49 +86,45 @@ describe('AIService', () => {
         ['firstname', 'lastname', 'email']
       )
 
-      expect(mockFetch).toHaveBeenCalled()
-      const [url, options] = mockFetch.mock.calls[0]
-      expect(url).toContain('/ai/table-wizard')
-      const body = JSON.parse(options.body)
-      expect(body.description).toBe('Show contacts with name and email')
-      expect(body.objectType).toBe('contact')
-      expect(body.availableProperties).toContain('firstname')
+      expect(mockApi.post).toHaveBeenCalledWith(
+        '/ai/table-wizard',
+        {
+          description: 'Show contacts with name and email',
+          objectType: 'contact',
+          availableProperties: ['firstname', 'lastname', 'email'],
+        },
+        {}
+      )
     })
   })
 
   describe('generateLayout', () => {
     it('should generate layout suggestions', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          data: { layout: {} }
-        })
+      mockApi.post.mockResolvedValueOnce({
+        data: { layout: {} },
       })
 
       await aiService.generateLayout('company', ['name', 'industry', 'revenue'])
 
-      expect(mockFetch).toHaveBeenCalled()
-      const body = JSON.parse(mockFetch.mock.calls[0][1].body)
-      expect(body.prompt).toContain('company')
-      expect(body.prompt).toContain('name')
+      expect(mockApi.post).toHaveBeenCalled()
+      const callArgs = mockApi.post.mock.calls[0]
+      expect(callArgs[1].prompt).toContain('company')
+      expect(callArgs[1].prompt).toContain('name')
     })
   })
 
   describe('suggestComponents', () => {
     it('should suggest components based on purpose', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({
-          data: { suggestions: [] }
-        })
+      mockApi.post.mockResolvedValueOnce({
+        data: { suggestions: [] },
       })
 
       await aiService.suggestComponents('ticket', 'track support cases')
 
-      expect(mockFetch).toHaveBeenCalled()
-      const body = JSON.parse(mockFetch.mock.calls[0][1].body)
-      expect(body.prompt).toContain('ticket')
-      expect(body.prompt).toContain('track support cases')
+      expect(mockApi.post).toHaveBeenCalled()
+      const callArgs = mockApi.post.mock.calls[0]
+      expect(callArgs[1].prompt).toContain('ticket')
+      expect(callArgs[1].prompt).toContain('track support cases')
     })
   })
 
@@ -143,10 +134,10 @@ describe('AIService', () => {
         success: true,
         data: {
           columns: [
-            { property: 'firstname', label: 'First Name', type: 'text' }
+            { property: 'firstname', label: 'First Name', type: 'text' },
           ],
-          config: { sortBy: 'firstname' }
-        }
+          config: { sortBy: 'firstname' },
+        },
       }
 
       const result = aiService.parseTableWizardResponse(response)
@@ -180,7 +171,7 @@ describe('AIService', () => {
         objectType: 'contact',
         purpose: 'Display key contact information',
         dataPoints: ['firstname', 'email', 'phone'],
-        style: 'professional'
+        style: 'professional',
       }
 
       const prompt = aiService.buildCardPrompt(requirements)
@@ -195,7 +186,7 @@ describe('AIService', () => {
       const requirements = {
         objectType: 'deal',
         purpose: 'Track deals',
-        dataPoints: ['dealname', 'amount']
+        dataPoints: ['dealname', 'amount'],
       }
 
       const prompt = aiService.buildCardPrompt(requirements)

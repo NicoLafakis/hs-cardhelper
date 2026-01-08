@@ -397,16 +397,18 @@ if (allLargeFiles.length > 0) {
 log('yellow', '\n📋 Step 6: Running ESLint with auto-fix...')
 
 try {
-  execSync('npx eslint src --ext js,jsx --fix', { 
-    cwd: projectRoot, 
+  execSync('npx eslint src server --ext js,jsx --fix', {
+    cwd: projectRoot,
     encoding: 'utf8',
     stdio: 'pipe'
   })
   log('green', '   ✓ ESLint passed (auto-fixed where possible)')
 } catch (error) {
   // ESLint returns non-zero if there are unfixable errors
-  const output = error.stdout || ''
-  const errorCount = (output.match(/error/gi) || []).length
+  const output = error.stdout || error.stderr || ''
+  // Count actual error lines (not the word 'error' in paths)
+  const errorLines = output.split('\n').filter(line => /^\s+\d+:\d+\s+error\s/.test(line))
+  const errorCount = errorLines.length
   if (errorCount > 0) {
     log('red', `   ❌ ESLint found ${errorCount} unfixable errors`)
     issuesRemaining += errorCount
@@ -416,9 +418,29 @@ try {
 }
 
 // ============================================================
-// STEP 7: Run Prettier
+// STEP 7: Run Unit Tests
 // ============================================================
-log('yellow', '\n📋 Step 7: Running Prettier to format code...')
+log('yellow', '\n📋 Step 7: Running unit tests...')
+
+try {
+  execSync('npm run test -- --run', {
+    cwd: projectRoot,
+    encoding: 'utf8',
+    stdio: 'pipe'
+  })
+  log('green', '   ✓ All unit tests passed')
+} catch (error) {
+  const output = error.stdout || error.stderr || ''
+  const failedMatch = output.match(/(\d+) failed/)
+  const failedCount = failedMatch ? parseInt(failedMatch[1]) : 1
+  log('red', `   ❌ ${failedCount} unit test(s) failed`)
+  issuesRemaining += failedCount
+}
+
+// ============================================================
+// STEP 8: Run Prettier
+// ============================================================
+log('yellow', '\n📋 Step 8: Running Prettier to format code...')
 
 try {
   execSync('npx prettier --write "src/**/*.{js,jsx}" --log-level error', { 

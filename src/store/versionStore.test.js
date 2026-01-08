@@ -5,15 +5,17 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import useVersionStore from './versionStore.js'
+
+// eslint-disable-next-line no-unused-vars -- required for vi.mock
 import useAuthStore from './authStore.js'
 
 // Mock the auth store
 vi.mock('./authStore.js', () => ({
   default: {
     getState: vi.fn(() => ({
-      user: { id: 'test-user', name: 'Test User', email: 'test@example.com' }
-    }))
-  }
+      user: { id: 'test-user', name: 'Test User', email: 'test@example.com' },
+    })),
+  },
 }))
 
 describe('versionStore', () => {
@@ -30,14 +32,12 @@ describe('versionStore', () => {
   describe('createSnapshot', () => {
     it('should create a snapshot with provided name and description', () => {
       const components = [
-        { id: 1, type: 'text', x: 0, y: 0, width: 100, height: 50 }
+        { id: 1, type: 'text', x: 0, y: 0, width: 100, height: 50 },
       ]
 
-      const snapshot = useVersionStore.getState().createSnapshot(
-        'Test Snapshot',
-        'Test description',
-        components
-      )
+      const snapshot = useVersionStore
+        .getState()
+        .createSnapshot('Test Snapshot', 'Test description', components)
 
       const { snapshots } = useVersionStore.getState()
       expect(snapshots).toHaveLength(1)
@@ -49,14 +49,12 @@ describe('versionStore', () => {
     it('should generate thumbnail for components', () => {
       const components = [
         { id: 1, type: 'text', x: 10, y: 10, width: 100, height: 50 },
-        { id: 2, type: 'button', x: 10, y: 70, width: 100, height: 40 }
+        { id: 2, type: 'button', x: 10, y: 70, width: 100, height: 40 },
       ]
 
-      const snapshot = useVersionStore.getState().createSnapshot(
-        'Thumbnail Test',
-        '',
-        components
-      )
+      const snapshot = useVersionStore
+        .getState()
+        .createSnapshot('Thumbnail Test', '', components)
 
       expect(snapshot.thumbnail).not.toBeNull()
       expect(snapshot.thumbnail).toContain('data:image/svg+xml;base64,')
@@ -65,23 +63,23 @@ describe('versionStore', () => {
     it('should include createdBy from auth store', () => {
       const components = [{ id: 1, type: 'text', x: 0, y: 0 }]
 
-      const snapshot = useVersionStore.getState().createSnapshot(
-        'Auth Test',
-        '',
-        components
-      )
+      const snapshot = useVersionStore
+        .getState()
+        .createSnapshot('Auth Test', '', components)
 
       expect(snapshot.createdBy).toEqual({
         id: 'test-user',
         name: 'Test User',
-        email: 'test@example.com'
+        email: 'test@example.com',
       })
     })
 
     it('should set active snapshot to newly created one', () => {
       const components = [{ id: 1, type: 'text' }]
 
-      const snapshot = useVersionStore.getState().createSnapshot('Test', '', components)
+      const snapshot = useVersionStore
+        .getState()
+        .createSnapshot('Test', '', components)
 
       expect(useVersionStore.getState().activeSnapshotId).toBe(snapshot.id)
     })
@@ -111,7 +109,7 @@ describe('versionStore', () => {
 
       useVersionStore.getState().updateSnapshot(snapshotId, {
         name: 'Updated Name',
-        description: 'Updated description'
+        description: 'Updated description',
       })
 
       const updated = useVersionStore.getState().snapshots[0]
@@ -134,7 +132,7 @@ describe('versionStore', () => {
 
     it('should clear activeSnapshotId when deleting active snapshot', () => {
       useVersionStore.getState().createSnapshot('Active', '', [])
-      const { snapshots, activeSnapshotId } = useVersionStore.getState()
+      const { activeSnapshotId } = useVersionStore.getState()
 
       useVersionStore.getState().deleteSnapshot(activeSnapshotId)
 
@@ -162,19 +160,18 @@ describe('versionStore', () => {
 
   describe('compareSnapshots', () => {
     it('should identify added components', () => {
-      useVersionStore.getState().createSnapshot('v1', '', [
-        { id: 1, type: 'text' }
-      ])
+      useVersionStore
+        .getState()
+        .createSnapshot('v1', '', [{ id: 1, type: 'text' }])
       useVersionStore.getState().createSnapshot('v2', '', [
         { id: 1, type: 'text' },
-        { id: 2, type: 'button' }
+        { id: 2, type: 'button' },
       ])
 
       const { snapshots } = useVersionStore.getState()
-      const comparison = useVersionStore.getState().compareSnapshots(
-        snapshots[1].id,
-        snapshots[0].id
-      )
+      const comparison = useVersionStore
+        .getState()
+        .compareSnapshots(snapshots[1].id, snapshots[0].id)
 
       expect(comparison.changes.added).toHaveLength(1)
       expect(comparison.changes.added[0].id).toBe(2)
@@ -183,35 +180,33 @@ describe('versionStore', () => {
     it('should identify removed components', () => {
       useVersionStore.getState().createSnapshot('v1', '', [
         { id: 1, type: 'text' },
-        { id: 2, type: 'button' }
+        { id: 2, type: 'button' },
       ])
-      useVersionStore.getState().createSnapshot('v2', '', [
-        { id: 1, type: 'text' }
-      ])
+      useVersionStore
+        .getState()
+        .createSnapshot('v2', '', [{ id: 1, type: 'text' }])
 
       const { snapshots } = useVersionStore.getState()
-      const comparison = useVersionStore.getState().compareSnapshots(
-        snapshots[1].id,
-        snapshots[0].id
-      )
+      const comparison = useVersionStore
+        .getState()
+        .compareSnapshots(snapshots[1].id, snapshots[0].id)
 
       expect(comparison.changes.removed).toHaveLength(1)
       expect(comparison.changes.removed[0].id).toBe(2)
     })
 
     it('should identify modified components', () => {
-      useVersionStore.getState().createSnapshot('v1', '', [
-        { id: 1, type: 'text', x: 0 }
-      ])
-      useVersionStore.getState().createSnapshot('v2', '', [
-        { id: 1, type: 'text', x: 100 }
-      ])
+      useVersionStore
+        .getState()
+        .createSnapshot('v1', '', [{ id: 1, type: 'text', x: 0 }])
+      useVersionStore
+        .getState()
+        .createSnapshot('v2', '', [{ id: 1, type: 'text', x: 100 }])
 
       const { snapshots } = useVersionStore.getState()
-      const comparison = useVersionStore.getState().compareSnapshots(
-        snapshots[1].id,
-        snapshots[0].id
-      )
+      const comparison = useVersionStore
+        .getState()
+        .compareSnapshots(snapshots[1].id, snapshots[0].id)
 
       expect(comparison.changes.modified).toHaveLength(1)
       expect(comparison.changes.modified[0].before.x).toBe(0)
@@ -219,10 +214,9 @@ describe('versionStore', () => {
     })
 
     it('should return null for invalid snapshot ids', () => {
-      const comparison = useVersionStore.getState().compareSnapshots(
-        'invalid1',
-        'invalid2'
-      )
+      const comparison = useVersionStore
+        .getState()
+        .compareSnapshots('invalid1', 'invalid2')
 
       expect(comparison).toBeNull()
     })
@@ -242,7 +236,7 @@ describe('versionStore', () => {
 
     it('should import snapshots from JSON string', () => {
       const importData = JSON.stringify([
-        { id: 999, name: 'Imported', components: [] }
+        { id: 999, name: 'Imported', components: [] },
       ])
 
       const result = useVersionStore.getState().importSnapshots(importData)

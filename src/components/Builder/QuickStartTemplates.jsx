@@ -7,8 +7,6 @@ import {
   BarChart3,
   Table,
   Layout,
-  MessageSquare,
-  FileText,
   Sparkles,
   ChevronRight,
   X,
@@ -548,8 +546,6 @@ export default function QuickStartTemplates({ onApply, onClose }) {
       onApply(template)
     }
   }
-
-  const categories = [...new Set(QUICK_START_TEMPLATES.map(t => t.category))]
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
