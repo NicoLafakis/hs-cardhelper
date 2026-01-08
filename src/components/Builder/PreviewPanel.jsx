@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import React, { useState } from 'react'
 import {
   Monitor,
@@ -16,8 +17,6 @@ import {
   Upload,
   Play,
   Image as ImageIcon,
-  CheckSquare,
-  Circle
 } from 'lucide-react'
 import { useMockData } from '../../contexts/MockDataContext'
 import useBuilderStore from '../../store/builderStore'
@@ -25,15 +24,31 @@ import useBuilderStore from '../../store/builderStore'
 const DEVICE_SIZES = {
   desktop: { width: '100%', label: 'Desktop', icon: Monitor },
   tablet: { width: '768px', label: 'Tablet', icon: Tablet },
-  mobile: { width: '375px', label: 'Mobile', icon: Smartphone }
+  mobile: { width: '375px', label: 'Mobile', icon: Smartphone },
 }
 
 const RECORD_TYPE_CONFIG = {
   contact: { label: 'Contact', icon: User, color: 'bg-blue-100 text-blue-700' },
-  company: { label: 'Company', icon: Building2, color: 'bg-purple-100 text-purple-700' },
-  deal: { label: 'Deal', icon: DollarSign, color: 'bg-green-100 text-green-700' },
-  ticket: { label: 'Ticket', icon: Ticket, color: 'bg-orange-100 text-orange-700' },
-  engagement: { label: 'Meeting', icon: Mail, color: 'bg-pink-100 text-pink-700' }
+  company: {
+    label: 'Company',
+    icon: Building2,
+    color: 'bg-purple-100 text-purple-700',
+  },
+  deal: {
+    label: 'Deal',
+    icon: DollarSign,
+    color: 'bg-green-100 text-green-700',
+  },
+  ticket: {
+    label: 'Ticket',
+    icon: Ticket,
+    color: 'bg-orange-100 text-orange-700',
+  },
+  engagement: {
+    label: 'Meeting',
+    icon: Mail,
+    color: 'bg-pink-100 text-pink-700',
+  },
 }
 
 // Badge color variants
@@ -49,7 +64,11 @@ const BADGE_COLORS = {
 // Button style variants
 const BUTTON_STYLES = {
   primary: { bg: '#ff7a59', text: '#ffffff', border: 'none' },
-  secondary: { bg: 'transparent', text: '#ff7a59', border: '1px solid #ff7a59' },
+  secondary: {
+    bg: 'transparent',
+    text: '#ff7a59',
+    border: '1px solid #ff7a59',
+  },
   danger: { bg: '#f2545b', text: '#ffffff', border: 'none' },
   success: { bg: '#00bda5', text: '#ffffff', border: 'none' },
   link: { bg: 'transparent', text: '#0091ae', border: 'none' },
@@ -57,7 +76,8 @@ const BUTTON_STYLES = {
 
 export default function PreviewPanel() {
   const [deviceSize, setDeviceSize] = useState('desktop')
-  const { recordType, setRecordType, getProperties, getRecordTypes } = useMockData()
+  const { recordType, setRecordType, getProperties, getRecordTypes } =
+    useMockData()
   const { components } = useBuilderStore()
 
   // Get bound property value with actual mock data
@@ -69,7 +89,7 @@ export default function PreviewPanel() {
     return fallback
   }
 
-  const renderComponent = (component) => {
+  const renderComponent = component => {
     const props = component.defaultProps || {}
 
     const baseStyle = {
@@ -78,15 +98,23 @@ export default function PreviewPanel() {
       top: `${component.y}px`,
       width: `${component.width}px`,
       height: `${component.height}px`,
-      zIndex: component.zIndex
+      zIndex: component.zIndex,
     }
 
     // Render different component types
     switch (component.type) {
       // ============ BASIC COMPONENTS ============
       case 'text':
-        const textContent = getBoundValue(component, props.content || 'Text field')
-        const fontWeightMap = { normal: 400, medium: 500, semibold: 600, bold: 700 }
+        const textContent = getBoundValue(
+          component,
+          props.content || 'Text field'
+        )
+        const fontWeightMap = {
+          normal: 400,
+          medium: 500,
+          semibold: 600,
+          bold: 700,
+        }
         return (
           <div key={component.id} style={baseStyle} className="p-2">
             <div
@@ -103,7 +131,8 @@ export default function PreviewPanel() {
         )
 
       case 'button':
-        const buttonStyle = BUTTON_STYLES[props.variant] || BUTTON_STYLES.primary
+        const buttonStyle =
+          BUTTON_STYLES[props.variant] || BUTTON_STYLES.primary
         return (
           <div key={component.id} style={baseStyle} className="p-2">
             <button
@@ -163,7 +192,11 @@ export default function PreviewPanel() {
 
       case 'link':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex items-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex items-center"
+          >
             <a
               href={props.url || '#'}
               className="text-sm hover:underline cursor-pointer"
@@ -178,7 +211,11 @@ export default function PreviewPanel() {
 
       case 'divider':
         return (
-          <div key={component.id} style={baseStyle} className="flex items-center px-2">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="flex items-center px-2"
+          >
             <div
               className="w-full"
               style={{
@@ -193,9 +230,15 @@ export default function PreviewPanel() {
       // ============ FORM COMPONENTS ============
       case 'input':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-1">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-1">
+                {props.label}
+              </label>
             )}
             <input
               type={props.inputType || 'text'}
@@ -208,9 +251,15 @@ export default function PreviewPanel() {
 
       case 'textarea':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-1">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-1">
+                {props.label}
+              </label>
             )}
             <textarea
               placeholder={props.placeholder || 'Enter text...'}
@@ -223,19 +272,29 @@ export default function PreviewPanel() {
 
       case 'checkbox':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex items-center gap-2">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex items-center gap-2"
+          >
             <input
               type="checkbox"
               defaultChecked={props.checked}
               className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
             />
-            <span className="text-sm text-gray-700">{props.label || 'Checkbox'}</span>
+            <span className="text-sm text-gray-700">
+              {props.label || 'Checkbox'}
+            </span>
           </div>
         )
 
       case 'toggle':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex items-center gap-3">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex items-center gap-3"
+          >
             <button
               className={`w-10 h-6 rounded-full relative transition-colors ${props.checked ? 'bg-primary' : 'bg-gray-300'}`}
             >
@@ -243,24 +302,36 @@ export default function PreviewPanel() {
                 className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${props.checked ? 'right-1' : 'left-1'}`}
               />
             </button>
-            <span className="text-sm text-gray-700">{props.label || 'Toggle'}</span>
+            <span className="text-sm text-gray-700">
+              {props.label || 'Toggle'}
+            </span>
           </div>
         )
 
       case 'select':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-1">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-1">
+                {props.label}
+              </label>
             )}
             <div className="relative">
               <select
                 className="w-full px-3 py-2 border border-gray-300 rounded text-sm appearance-none bg-white pr-8 focus:outline-none focus:ring-2 focus:ring-primary"
                 defaultValue=""
               >
-                <option value="">{props.placeholder || 'Select an option...'}</option>
+                <option value="">
+                  {props.placeholder || 'Select an option...'}
+                </option>
                 {(props.options || []).map((opt, i) => (
-                  <option key={i} value={opt}>{opt}</option>
+                  <option key={i} value={opt}>
+                    {opt}
+                  </option>
                 ))}
               </select>
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
@@ -270,13 +341,22 @@ export default function PreviewPanel() {
 
       case 'radio':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-2">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-2">
+                {props.label}
+              </label>
             )}
             <div className="space-y-2">
               {(props.options || ['Option 1', 'Option 2']).map((opt, i) => (
-                <label key={i} className="flex items-center gap-2 cursor-pointer">
+                <label
+                  key={i}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
                   <input
                     type="radio"
                     name={`radio-${component.id}`}
@@ -292,9 +372,15 @@ export default function PreviewPanel() {
 
       case 'datepicker':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-1">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-1">
+                {props.label}
+              </label>
             )}
             <div className="relative">
               <input
@@ -308,13 +394,21 @@ export default function PreviewPanel() {
 
       case 'fileupload':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             {props.label && (
-              <label className="text-xs font-medium text-gray-700 mb-1">{props.label}</label>
+              <label className="text-xs font-medium text-gray-700 mb-1">
+                {props.label}
+              </label>
             )}
             <div className="border-2 border-dashed border-gray-300 rounded p-4 text-center hover:border-primary transition-colors cursor-pointer">
               <Upload className="w-6 h-6 text-gray-400 mx-auto mb-1" />
-              <span className="text-xs text-gray-500">Click or drag to upload</span>
+              <span className="text-xs text-gray-500">
+                Click or drag to upload
+              </span>
               {props.accept !== '*' && (
                 <p className="text-xs text-gray-400 mt-1">{props.accept}</p>
               )}
@@ -327,30 +421,49 @@ export default function PreviewPanel() {
         const properties = getProperties()
         const columns = props.columns || [
           { label: 'Column 1', property: '' },
-          { label: 'Column 2', property: '' }
+          { label: 'Column 2', property: '' },
         ]
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col overflow-hidden">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col overflow-hidden"
+          >
             {props.title && (
-              <div className="font-semibold text-sm mb-2 text-gray-800">{props.title}</div>
+              <div className="font-semibold text-sm mb-2 text-gray-800">
+                {props.title}
+              </div>
             )}
-            <div className={`flex-1 overflow-auto ${props.bordered !== false ? 'border border-gray-200 rounded' : ''}`}>
+            <div
+              className={`flex-1 overflow-auto ${props.bordered !== false ? 'border border-gray-200 rounded' : ''}`}
+            >
               <table className="w-full text-xs">
                 <thead className="bg-gray-50 sticky top-0">
                   <tr>
                     {columns.map((col, i) => (
-                      <th key={i} className={`text-left font-semibold text-gray-700 ${props.compact ? 'p-1' : 'p-2'} ${props.bordered !== false ? 'border-b border-gray-200' : ''}`}>
+                      <th
+                        key={i}
+                        className={`text-left font-semibold text-gray-700 ${props.compact ? 'p-1' : 'p-2'} ${props.bordered !== false ? 'border-b border-gray-200' : ''}`}
+                      >
                         {col.label || `Column ${i + 1}`}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {[0, 1, 2].map((rowIdx) => (
-                    <tr key={rowIdx} className={`${props.striped && rowIdx % 2 === 1 ? 'bg-gray-50' : ''} hover:bg-gray-50`}>
+                  {[0, 1, 2].map(rowIdx => (
+                    <tr
+                      key={rowIdx}
+                      className={`${props.striped && rowIdx % 2 === 1 ? 'bg-gray-50' : ''} hover:bg-gray-50`}
+                    >
                       {columns.map((col, colIdx) => (
-                        <td key={colIdx} className={`text-gray-600 ${props.compact ? 'p-1' : 'p-2'} ${props.bordered !== false ? 'border-b border-gray-200' : ''}`}>
-                          {col.property ? (properties[col.property] || `No ${col.property}`) : `Data ${colIdx + 1}`}
+                        <td
+                          key={colIdx}
+                          className={`text-gray-600 ${props.compact ? 'p-1' : 'p-2'} ${props.bordered !== false ? 'border-b border-gray-200' : ''}`}
+                        >
+                          {col.property
+                            ? properties[col.property] || `No ${col.property}`
+                            : `Data ${colIdx + 1}`}
                         </td>
                       ))}
                     </tr>
@@ -362,11 +475,14 @@ export default function PreviewPanel() {
         )
 
       case 'list':
-        const items = props.items?.length > 0 ? props.items : ['Item 1', 'Item 2', 'Item 3']
+        const items =
+          props.items?.length > 0 ? props.items : ['Item 1', 'Item 2', 'Item 3']
         const ListTag = props.style === 'ordered' ? 'ol' : 'ul'
         return (
           <div key={component.id} style={baseStyle} className="p-2">
-            <ListTag className={`text-sm text-gray-700 ${props.style === 'ordered' ? 'list-decimal' : props.style === 'none' ? 'list-none' : 'list-disc'} pl-5 space-y-1`}>
+            <ListTag
+              className={`text-sm text-gray-700 ${props.style === 'ordered' ? 'list-decimal' : props.style === 'none' ? 'list-none' : 'list-disc'} pl-5 space-y-1`}
+            >
               {items.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
@@ -375,9 +491,17 @@ export default function PreviewPanel() {
         )
 
       case 'stat':
-        const trendColor = props.trend?.startsWith('+') ? 'text-green-600' : props.trend?.startsWith('-') ? 'text-red-600' : 'text-gray-500'
+        const trendColor = props.trend?.startsWith('+')
+          ? 'text-green-600'
+          : props.trend?.startsWith('-')
+            ? 'text-red-600'
+            : 'text-gray-500'
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
               {props.label || 'Metric'}
             </div>
@@ -398,10 +522,17 @@ export default function PreviewPanel() {
       case 'badge':
         const badgeColors = BADGE_COLORS[props.variant] || BADGE_COLORS.primary
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex items-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex items-center"
+          >
             <span
               className="px-2 py-1 rounded text-xs font-medium"
-              style={{ backgroundColor: badgeColors.bg, color: badgeColors.text }}
+              style={{
+                backgroundColor: badgeColors.bg,
+                color: badgeColors.text,
+              }}
             >
               {getBoundValue(component, props.text || 'Badge')}
             </span>
@@ -412,13 +543,19 @@ export default function PreviewPanel() {
         const maxStars = props.max || 5
         const ratingValue = props.value || 0
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex items-center gap-1">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex items-center gap-1"
+          >
             {Array.from({ length: maxStars }).map((_, i) => (
               <Star
                 key={i}
                 className="w-5 h-5 cursor-pointer transition-colors hover:scale-110"
                 style={{ color: props.color || '#f5c26b' }}
-                fill={i < ratingValue ? (props.color || '#f5c26b') : 'transparent'}
+                fill={
+                  i < ratingValue ? props.color || '#f5c26b' : 'transparent'
+                }
               />
             ))}
           </div>
@@ -427,11 +564,19 @@ export default function PreviewPanel() {
       case 'progress':
         const progressValue = Math.min(100, Math.max(0, props.value || 0))
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col justify-center"
+          >
             <div className="flex justify-between items-center mb-1">
-              {props.label && <span className="text-xs text-gray-600">{props.label}</span>}
+              {props.label && (
+                <span className="text-xs text-gray-600">{props.label}</span>
+              )}
               {props.showLabel !== false && (
-                <span className="text-xs font-medium text-gray-700">{progressValue}%</span>
+                <span className="text-xs font-medium text-gray-700">
+                  {progressValue}%
+                </span>
               )}
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -439,7 +584,7 @@ export default function PreviewPanel() {
                 className="h-full rounded-full transition-all"
                 style={{
                   width: `${progressValue}%`,
-                  backgroundColor: props.color || '#ff7a59'
+                  backgroundColor: props.color || '#ff7a59',
                 }}
               />
             </div>
@@ -449,9 +594,15 @@ export default function PreviewPanel() {
       // ============ CHART COMPONENTS ============
       case 'barchart':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col"
+          >
             {props.title && (
-              <div className="text-sm font-semibold text-gray-800 mb-2">{props.title}</div>
+              <div className="text-sm font-semibold text-gray-800 mb-2">
+                {props.title}
+              </div>
             )}
             <div className="flex-1 flex items-end gap-2 pb-4">
               {[40, 70, 55, 85, 60].map((h, i) => (
@@ -470,12 +621,22 @@ export default function PreviewPanel() {
 
       case 'linechart':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col"
+          >
             {props.title && (
-              <div className="text-sm font-semibold text-gray-800 mb-2">{props.title}</div>
+              <div className="text-sm font-semibold text-gray-800 mb-2">
+                {props.title}
+              </div>
             )}
             <div className="flex-1 relative">
-              <svg className="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
+              <svg
+                className="w-full h-full"
+                viewBox="0 0 100 50"
+                preserveAspectRatio="none"
+              >
                 <polyline
                   points="0,40 20,25 40,35 60,15 80,20 100,10"
                   fill="none"
@@ -489,7 +650,7 @@ export default function PreviewPanel() {
                   { x: 40, y: 35 },
                   { x: 60, y: 15 },
                   { x: 80, y: 20 },
-                  { x: 100, y: 10 }
+                  { x: 100, y: 10 },
                 ].map((point, i) => (
                   <circle
                     key={i}
@@ -506,13 +667,32 @@ export default function PreviewPanel() {
 
       case 'piechart':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col items-center justify-center">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col items-center justify-center"
+          >
             {props.title && (
-              <div className="text-sm font-semibold text-gray-800 mb-2">{props.title}</div>
+              <div className="text-sm font-semibold text-gray-800 mb-2">
+                {props.title}
+              </div>
             )}
-            <div className="relative" style={{ width: Math.min(component.width - 20, component.height - 40), height: Math.min(component.width - 20, component.height - 40) }}>
+            <div
+              className="relative"
+              style={{
+                width: Math.min(component.width - 20, component.height - 40),
+                height: Math.min(component.width - 20, component.height - 40),
+              }}
+            >
               <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15.9"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  strokeWidth="3"
+                />
                 <circle
                   cx="18"
                   cy="18"
@@ -549,16 +729,40 @@ export default function PreviewPanel() {
 
       case 'areachart':
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col"
+          >
             {props.title && (
-              <div className="text-sm font-semibold text-gray-800 mb-2">{props.title}</div>
+              <div className="text-sm font-semibold text-gray-800 mb-2">
+                {props.title}
+              </div>
             )}
             <div className="flex-1 relative">
-              <svg className="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
+              <svg
+                className="w-full h-full"
+                viewBox="0 0 100 50"
+                preserveAspectRatio="none"
+              >
                 <defs>
-                  <linearGradient id={`areaGradient-${component.id}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={props.color || '#ff7a59'} stopOpacity="0.4" />
-                    <stop offset="100%" stopColor={props.color || '#ff7a59'} stopOpacity="0" />
+                  <linearGradient
+                    id={`areaGradient-${component.id}`}
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor={props.color || '#ff7a59'}
+                      stopOpacity="0.4"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={props.color || '#ff7a59'}
+                      stopOpacity="0"
+                    />
                   </linearGradient>
                 </defs>
                 <polygon
@@ -579,7 +783,12 @@ export default function PreviewPanel() {
 
       // ============ LAYOUT COMPONENTS ============
       case 'container':
-        const paddingMap = { none: '0', small: '8px', medium: '16px', large: '24px' }
+        const paddingMap = {
+          none: '0',
+          small: '8px',
+          medium: '16px',
+          large: '24px',
+        }
         return (
           <div
             key={component.id}
@@ -587,7 +796,12 @@ export default function PreviewPanel() {
               ...baseStyle,
               padding: paddingMap[props.padding] || '16px',
               backgroundColor: props.backgroundColor || 'transparent',
-              border: props.border === 'solid' ? '1px solid #cbd6e2' : props.border === 'dashed' ? '1px dashed #cbd6e2' : 'none',
+              border:
+                props.border === 'solid'
+                  ? '1px solid #cbd6e2'
+                  : props.border === 'dashed'
+                    ? '1px dashed #cbd6e2'
+                    : 'none',
               borderRadius: '4px',
             }}
           >
@@ -612,7 +826,10 @@ export default function PreviewPanel() {
             }}
           >
             {Array.from({ length: colCount }).map((_, i) => (
-              <div key={i} className="bg-gray-50 border border-gray-200 rounded p-4 flex items-center justify-center">
+              <div
+                key={i}
+                className="bg-gray-50 border border-gray-200 rounded p-4 flex items-center justify-center"
+              >
                 <span className="text-xs text-gray-400">Column {i + 1}</span>
               </div>
             ))}
@@ -633,7 +850,10 @@ export default function PreviewPanel() {
             }}
           >
             {Array.from({ length: Math.min(gridCols * 2, 6) }).map((_, i) => (
-              <div key={i} className="bg-gray-50 border border-gray-200 rounded aspect-square flex items-center justify-center">
+              <div
+                key={i}
+                className="bg-gray-50 border border-gray-200 rounded aspect-square flex items-center justify-center"
+              >
                 <span className="text-xs text-gray-400">{i + 1}</span>
               </div>
             ))}
@@ -641,15 +861,19 @@ export default function PreviewPanel() {
         )
 
       case 'tabs':
-        const tabs = props.tabs?.length > 0 ? props.tabs : ['Tab 1', 'Tab 2', 'Tab 3']
-        const [activeTab, setActiveTab] = useState(props.defaultTab || 0)
+        const tabs =
+          props.tabs?.length > 0 ? props.tabs : ['Tab 1', 'Tab 2', 'Tab 3']
+        const activeTab = props.defaultTab || 0
         return (
-          <div key={component.id} style={baseStyle} className="p-2 flex flex-col">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 flex flex-col"
+          >
             <div className="flex border-b border-gray-200">
               {tabs.map((tab, i) => (
-                <button
+                <div
                   key={i}
-                  onClick={() => setActiveTab(i)}
                   className={`px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
                     i === activeTab
                       ? 'text-primary border-primary'
@@ -657,33 +881,46 @@ export default function PreviewPanel() {
                   }`}
                 >
                   {tab}
-                </button>
+                </div>
               ))}
             </div>
             <div className="flex-1 p-3 bg-gray-50 rounded-b">
-              <span className="text-sm text-gray-600">Content for {tabs[activeTab]}</span>
+              <span className="text-sm text-gray-600">
+                Content for {tabs[activeTab]}
+              </span>
             </div>
           </div>
         )
 
       case 'accordion':
-        const accordionItems = props.items?.length > 0 ? props.items : [{ title: 'Section 1' }, { title: 'Section 2' }]
-        const [openSection, setOpenSection] = useState(0)
+        const accordionItems =
+          props.items?.length > 0
+            ? props.items
+            : [{ title: 'Section 1' }, { title: 'Section 2' }]
+        const openSection = 0 // Static preview - first section open
         return (
-          <div key={component.id} style={baseStyle} className="p-2 space-y-1 overflow-auto">
+          <div
+            key={component.id}
+            style={baseStyle}
+            className="p-2 space-y-1 overflow-auto"
+          >
             {accordionItems.map((item, i) => (
-              <div key={i} className="border border-gray-200 rounded overflow-hidden">
-                <button
-                  onClick={() => setOpenSection(openSection === i ? -1 : i)}
+              <div
+                key={i}
+                className="border border-gray-200 rounded overflow-hidden"
+              >
+                <div
                   className="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-gray-50 transition-colors"
                 >
-                  <span className="text-sm font-medium text-gray-700">{item.title || item}</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    {item.title || item}
+                  </span>
                   {openSection === i ? (
                     <ChevronDown className="w-4 h-4 text-gray-400" />
                   ) : (
                     <ChevronRight className="w-4 h-4 text-gray-400" />
                   )}
-                </button>
+                </div>
                 {openSection === i && (
                   <div className="px-3 pb-3 text-sm text-gray-600">
                     {item.content || 'Accordion section content goes here...'}
@@ -708,7 +945,8 @@ export default function PreviewPanel() {
   }
 
   const sortedComponents = [...components].sort((a, b) => a.zIndex - b.zIndex)
-  const currentRecordConfig = RECORD_TYPE_CONFIG[recordType] || RECORD_TYPE_CONFIG.contact
+  const currentRecordConfig =
+    RECORD_TYPE_CONFIG[recordType] || RECORD_TYPE_CONFIG.contact
 
   return (
     <div className="flex flex-col h-full bg-gray-50">
@@ -731,7 +969,7 @@ export default function PreviewPanel() {
             Preview Record Type
           </label>
           <div className="flex gap-2 flex-wrap">
-            {getRecordTypes().map((type) => {
+            {getRecordTypes().map(type => {
               const config = RECORD_TYPE_CONFIG[type]
               const Icon = config?.icon || User
               const isActive = recordType === type
@@ -789,7 +1027,7 @@ export default function PreviewPanel() {
           style={{
             width: DEVICE_SIZES[deviceSize].width,
             maxWidth: '100%',
-            transition: 'width 0.3s ease'
+            transition: 'width 0.3s ease',
           }}
         >
           {/* HubSpot Card Container */}
@@ -797,11 +1035,17 @@ export default function PreviewPanel() {
             {/* HubSpot Card Header */}
             <div className="bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 px-4 py-3">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${currentRecordConfig.color}`}>
-                  {React.createElement(currentRecordConfig.icon, { className: 'w-5 h-5' })}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center ${currentRecordConfig.color}`}
+                >
+                  {React.createElement(currentRecordConfig.icon, {
+                    className: 'w-5 h-5',
+                  })}
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-800">Custom Card Preview</h4>
+                  <h4 className="text-sm font-semibold text-gray-800">
+                    Custom Card Preview
+                  </h4>
                   <p className="text-xs text-gray-500">
                     Viewing as {currentRecordConfig.label} record
                   </p>
@@ -816,7 +1060,8 @@ export default function PreviewPanel() {
                   <Monitor className="w-16 h-16 mb-4 text-gray-300" />
                   <p className="text-sm font-medium mb-1">No components yet</p>
                   <p className="text-xs text-center max-w-xs">
-                    Add components from the palette to see them previewed here with live HubSpot data
+                    Add components from the palette to see them previewed here
+                    with live HubSpot data
                   </p>
                 </div>
               ) : (
@@ -835,19 +1080,26 @@ export default function PreviewPanel() {
               </h4>
             </div>
             <div className="p-4 grid grid-cols-2 gap-2">
-              {Object.entries(getProperties()).slice(0, 8).map(([key, value]) => (
-                <div key={key} className="flex text-xs">
-                  <span className="font-medium text-gray-500 w-28 truncate">{key}:</span>
-                  <span className="text-gray-800 truncate flex-1">
-                    {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                  </span>
-                </div>
-              ))}
+              {Object.entries(getProperties())
+                .slice(0, 8)
+                .map(([key, value]) => (
+                  <div key={key} className="flex text-xs">
+                    <span className="font-medium text-gray-500 w-28 truncate">
+                      {key}:
+                    </span>
+                    <span className="text-gray-800 truncate flex-1">
+                      {typeof value === 'object'
+                        ? JSON.stringify(value)
+                        : String(value)}
+                    </span>
+                  </div>
+                ))}
             </div>
             {Object.keys(getProperties()).length > 8 && (
               <div className="px-4 pb-3">
                 <span className="text-xs text-gray-400">
-                  + {Object.keys(getProperties()).length - 8} more properties available
+                  + {Object.keys(getProperties()).length - 8} more properties
+                  available
                 </span>
               </div>
             )}

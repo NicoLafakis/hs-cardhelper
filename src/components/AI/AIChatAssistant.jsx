@@ -1,14 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import {
-  MessageSquare,
   Send,
   Sparkles,
   X,
   Loader2,
   Lightbulb,
   Wand2,
-  Layout,
   Table,
   BarChart3,
   User,
@@ -16,11 +14,8 @@ import {
   DollarSign,
   Ticket,
   ChevronRight,
-  Copy,
   Check,
-  RefreshCw,
-  Maximize2,
-  Minimize2
+  Minimize2,
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 import { useMockData } from '../../contexts/MockDataContext'
@@ -33,53 +28,59 @@ const QUICK_TEMPLATES = [
     label: 'Contact Summary Card',
     icon: User,
     description: 'Display key contact info with photo and actions',
-    prompt: 'Create a contact summary card with name, email, phone, and a call button'
+    prompt:
+      'Create a contact summary card with name, email, phone, and a call button',
   },
   {
     id: 'deal-pipeline',
     label: 'Deal Overview',
     icon: DollarSign,
     description: 'Show deal value, stage, and close date',
-    prompt: 'Create a deal overview card with deal name, amount, stage progress bar, and close date'
+    prompt:
+      'Create a deal overview card with deal name, amount, stage progress bar, and close date',
   },
   {
     id: 'company-profile',
     label: 'Company Profile',
     icon: Building2,
     description: 'Company info with revenue and employees',
-    prompt: 'Create a company profile card with name, industry, employee count stat, and revenue stat'
+    prompt:
+      'Create a company profile card with name, industry, employee count stat, and revenue stat',
   },
   {
     id: 'ticket-status',
     label: 'Ticket Dashboard',
     icon: Ticket,
     description: 'Ticket status with priority badge',
-    prompt: 'Create a ticket status card with subject, status badge, priority badge, and created date'
+    prompt:
+      'Create a ticket status card with subject, status badge, priority badge, and created date',
   },
   {
     id: 'activity-table',
     label: 'Activity Table',
     icon: Table,
     description: 'Recent activities in table format',
-    prompt: 'Create a table showing recent activities with columns for date, type, and description'
+    prompt:
+      'Create a table showing recent activities with columns for date, type, and description',
   },
   {
     id: 'metrics-dashboard',
     label: 'Metrics Dashboard',
     icon: BarChart3,
     description: 'Key metrics with charts',
-    prompt: 'Create a metrics dashboard with 3 stat cards for total deals, conversion rate, and average deal size, plus a bar chart'
-  }
+    prompt:
+      'Create a metrics dashboard with 3 stat cards for total deals, conversion rate, and average deal size, plus a bar chart',
+  },
 ]
 
 // Suggestion prompts based on context
 const SUGGESTION_PROMPTS = [
   "Add a button that links to the contact's LinkedIn profile",
-  "Create a table showing associated deals with name and amount",
-  "Add a progress bar showing deal completion percentage",
+  'Create a table showing associated deals with name and amount',
+  'Add a progress bar showing deal completion percentage',
   "Show the contact's lifecycle stage as a colored badge",
-  "Add a stat showing total revenue from this customer",
-  "Create an accordion with sections for Notes, Timeline, and Tasks"
+  'Add a stat showing total revenue from this customer',
+  'Create an accordion with sections for Notes, Timeline, and Tasks',
 ]
 
 // HubSpot-specific context for the AI
@@ -167,17 +168,22 @@ Example response for "Create a contact card with name and email":
 Always respond with valid JSON when asked to create components. Keep designs clean and HubSpot-styled.
 `
 
-export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimized }) {
+export default function AIChatAssistant({
+  isOpen,
+  onClose,
+  onMinimize,
+  isMinimized,
+}) {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm your AI card builder. Describe what you need or pick a template below to get started!"
-    }
+      content:
+        "Hi! I'm your AI card builder. Describe what you need or pick a template below to get started!",
+    },
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showTemplates, setShowTemplates] = useState(true)
-  const [copiedId, setCopiedId] = useState(null)
   const messagesEndRef = useRef(null)
 
   const { addComponent, clearCanvas, components } = useBuilderStore()
@@ -187,7 +193,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const parseAndAddComponents = (response) => {
+  const parseAndAddComponents = response => {
     try {
       // Find JSON array in the response
       const jsonMatch = response.match(/\[[\s\S]*\]/)
@@ -207,7 +213,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
           ...comp,
           id: Date.now() + index + Math.random(),
           zIndex: index + 1,
-          defaultProps: comp.defaultProps || {}
+          defaultProps: comp.defaultProps || {},
         }
         addComponent(component)
       })
@@ -219,7 +225,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
     }
   }
 
-  const sendMessage = async (messageText) => {
+  const sendMessage = async messageText => {
     const userMessage = messageText || input.trim()
     if (!userMessage) return
 
@@ -234,7 +240,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
         message: userMessage,
         context: HUBSPOT_CONTEXT,
         recordType,
-        currentComponents: components.length
+        currentComponents: components.length,
       })
 
       const assistantMessage = response.data.message || response.data.response
@@ -246,42 +252,47 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
       let displayMessage = assistantMessage
       if (componentsAdded) {
         // Remove the JSON from the displayed message for cleaner UX
-        displayMessage = assistantMessage.replace(/```json[\s\S]*?```/g, '').replace(/\[[\s\S]*\]/g, '').trim()
+        displayMessage = assistantMessage
+          .replace(/```json[\s\S]*?```/g, '')
+          .replace(/\[[\s\S]*\]/g, '')
+          .trim()
         if (!displayMessage) {
-          displayMessage = "I've added the components to your canvas! You can now see them in the design area. Feel free to drag, resize, and customize them as needed."
+          displayMessage =
+            "I've added the components to your canvas! You can now see them in the design area. Feel free to drag, resize, and customize them as needed."
         }
       }
 
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: displayMessage,
-        componentsAdded
-      }])
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: displayMessage,
+          componentsAdded,
+        },
+      ])
     } catch (error) {
       console.error('AI chat error:', error)
 
       // Provide helpful fallback response
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: "I apologize, but I'm having trouble connecting to the AI service right now. Here are some things you can try:\n\n1. Use one of the quick templates below\n2. Drag components from the palette on the left\n3. Check that your API keys are configured in settings\n\nWould you like me to suggest some components based on your request?"
-      }])
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content:
+            "I apologize, but I'm having trouble connecting to the AI service right now. Here are some things you can try:\n\n1. Use one of the quick templates below\n2. Drag components from the palette on the left\n3. Check that your API keys are configured in settings\n\nWould you like me to suggest some components based on your request?",
+        },
+      ])
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleTemplateClick = (template) => {
+  const handleTemplateClick = template => {
     sendMessage(template.prompt)
   }
 
-  const handleSuggestionClick = (suggestion) => {
+  const handleSuggestionClick = suggestion => {
     setInput(suggestion)
-  }
-
-  const copyToClipboard = (text, id) => {
-    navigator.clipboard.writeText(text)
-    setCopiedId(id)
-    setTimeout(() => setCopiedId(null), 2000)
   }
 
   if (!isOpen) return null
@@ -289,10 +300,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
   // Minimized view
   if (isMinimized) {
     return (
-      <div
-        className="fixed bottom-4 right-4 z-50"
-        onClick={onMinimize}
-      >
+      <div className="fixed bottom-4 right-4 z-50" onClick={onMinimize}>
         <button className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-full shadow-lg transition-all hover:scale-105">
           <Sparkles className="w-5 h-5" />
           <span className="font-medium">AI Assistant</span>
@@ -350,19 +358,49 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
               {message.role === 'user' ? (
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
               ) : (
-                <div className={`text-sm prose prose-sm max-w-none ${message.role === 'user' ? 'prose-invert' : ''}`}>
+                <div
+                  className={`text-sm prose prose-sm max-w-none ${message.role === 'user' ? 'prose-invert' : ''}`}
+                >
                   <ReactMarkdown
                     components={{
-                      p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                      ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                      ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
-                      li: ({ children }) => <li className="text-sm">{children}</li>,
-                      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                      em: ({ children }) => <em className="italic">{children}</em>,
-                      code: ({ children }) => <code className="bg-gray-200 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
-                      h1: ({ children }) => <h1 className="text-base font-bold mb-2">{children}</h1>,
-                      h2: ({ children }) => <h2 className="text-sm font-bold mb-2">{children}</h2>,
-                      h3: ({ children }) => <h3 className="text-sm font-semibold mb-1">{children}</h3>,
+                      p: ({ children }) => (
+                        <p className="mb-2 last:mb-0">{children}</p>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="list-disc list-inside mb-2 space-y-1">
+                          {children}
+                        </ul>
+                      ),
+                      ol: ({ children }) => (
+                        <ol className="list-decimal list-inside mb-2 space-y-1">
+                          {children}
+                        </ol>
+                      ),
+                      li: ({ children }) => (
+                        <li className="text-sm">{children}</li>
+                      ),
+                      strong: ({ children }) => (
+                        <strong className="font-semibold">{children}</strong>
+                      ),
+                      em: ({ children }) => (
+                        <em className="italic">{children}</em>
+                      ),
+                      code: ({ children }) => (
+                        <code className="bg-gray-200 px-1 py-0.5 rounded text-xs font-mono">
+                          {children}
+                        </code>
+                      ),
+                      h1: ({ children }) => (
+                        <h1 className="text-base font-bold mb-2">{children}</h1>
+                      ),
+                      h2: ({ children }) => (
+                        <h2 className="text-sm font-bold mb-2">{children}</h2>
+                      ),
+                      h3: ({ children }) => (
+                        <h3 className="text-sm font-semibold mb-1">
+                          {children}
+                        </h3>
+                      ),
                     }}
                   >
                     {message.content}
@@ -372,7 +410,9 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
               {message.componentsAdded && (
                 <div className="mt-2 pt-2 border-t border-white/20 flex items-center gap-2 text-xs">
                   <Check className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-600">Components added to canvas!</span>
+                  <span className="text-gray-600">
+                    Components added to canvas!
+                  </span>
                 </div>
               )}
             </div>
@@ -385,7 +425,9 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
             <div className="bg-gray-100 rounded-2xl rounded-bl-md px-4 py-3">
               <div className="flex items-center gap-2">
                 <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                <span className="text-sm text-gray-600">Generating your card...</span>
+                <span className="text-sm text-gray-600">
+                  Generating your card...
+                </span>
               </div>
             </div>
           </div>
@@ -399,7 +441,7 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
               Quick Start Templates
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {QUICK_TEMPLATES.map((template) => {
+              {QUICK_TEMPLATES.map(template => {
                 const Icon = template.icon
                 return (
                   <button
@@ -409,9 +451,13 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <Icon className="w-4 h-4 text-primary" />
-                      <span className="text-xs font-medium text-gray-800">{template.label}</span>
+                      <span className="text-xs font-medium text-gray-800">
+                        {template.label}
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-500 line-clamp-2">{template.description}</p>
+                    <p className="text-xs text-gray-500 line-clamp-2">
+                      {template.description}
+                    </p>
                     <ChevronRight className="w-4 h-4 text-gray-400 self-end mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                 )
@@ -434,7 +480,9 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
                   onClick={() => handleSuggestionClick(suggestion)}
                   className="text-xs px-3 py-1.5 bg-gray-100 hover:bg-primary/10 text-gray-700 hover:text-primary rounded-full transition-colors"
                 >
-                  {suggestion.length > 40 ? suggestion.slice(0, 40) + '...' : suggestion}
+                  {suggestion.length > 40
+                    ? suggestion.slice(0, 40) + '...'
+                    : suggestion}
                 </button>
               ))}
             </div>
@@ -451,8 +499,8 @@ export default function AIChatAssistant({ isOpen, onClose, onMinimize, isMinimiz
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && !isLoading && sendMessage()}
+              onChange={e => setInput(e.target.value)}
+              onKeyPress={e => e.key === 'Enter' && !isLoading && sendMessage()}
               placeholder="Describe what you want to build..."
               className="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
               disabled={isLoading}

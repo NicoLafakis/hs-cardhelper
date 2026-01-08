@@ -10,10 +10,19 @@ import AIChatAssistant from '../components/AI/AIChatAssistant'
 import QuickStartTemplates from '../components/Builder/QuickStartTemplates'
 import WelcomeBanner from '../plugins/welcome-banner/components/WelcomeBanner'
 import { MockDataProvider } from '../contexts/MockDataContext'
-import { Eye, Layout, Sparkles, MessageSquare, Keyboard, Undo2, Redo2, LayoutTemplate } from 'lucide-react'
+import {
+  Eye,
+  Layout,
+  Sparkles,
+  Keyboard,
+  Undo2,
+  Redo2,
+  LayoutTemplate,
+} from 'lucide-react'
 
 export default function BuilderPage() {
-  const { cardId } = useParams()
+  // Note: cardId available for future card-specific features
+  useParams()
   const { undo, redo, canUndo, canRedo, components } = useBuilderStore()
   const [viewMode, setViewMode] = useState('design') // 'design' or 'preview' or 'split'
   const [showAIAssistant, setShowAIAssistant] = useState(false)
@@ -32,10 +41,10 @@ export default function BuilderPage() {
       }, 500)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [components.length, hasSeenTemplates])
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
       // Ctrl+Z or Cmd+Z for undo
       if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
         e.preventDefault()
@@ -142,7 +151,8 @@ export default function BuilderPage() {
 
             {/* Component count */}
             <span className="text-xs text-gray-500">
-              {components.length} {components.length === 1 ? 'component' : 'components'}
+              {components.length}{' '}
+              {components.length === 1 ? 'component' : 'components'}
             </span>
           </div>
 
@@ -183,36 +193,54 @@ export default function BuilderPage() {
 
               {showShortcuts && (
                 <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 p-4 z-50">
-                  <h4 className="font-semibold text-gray-800 mb-3">Keyboard Shortcuts</h4>
+                  <h4 className="font-semibold text-gray-800 mb-3">
+                    Keyboard Shortcuts
+                  </h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Undo</span>
                       <div className="flex gap-1">
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl</kbd>
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Z</kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          Ctrl
+                        </kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          Z
+                        </kbd>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Redo</span>
                       <div className="flex gap-1">
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl</kbd>
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Y</kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          Ctrl
+                        </kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          Y
+                        </kbd>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">AI Assistant</span>
                       <div className="flex gap-1">
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl</kbd>
-                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">K</kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          Ctrl
+                        </kbd>
+                        <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                          K
+                        </kbd>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Snap to grid</span>
-                      <span className="text-gray-500 text-xs">Hold Shift to disable</span>
+                      <span className="text-gray-500 text-xs">
+                        Hold Shift to disable
+                      </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Delete component</span>
-                      <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Delete</kbd>
+                      <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">
+                        Delete
+                      </kbd>
                     </div>
                   </div>
                 </div>
@@ -231,7 +259,9 @@ export default function BuilderPage() {
               </div>
 
               {/* Canvas - Full width on mobile */}
-              <div className={`flex-1 overflow-hidden ${viewMode === 'split' ? 'border-r border-gray-200' : ''}`}>
+              <div
+                className={`flex-1 overflow-hidden ${viewMode === 'split' ? 'border-r border-gray-200' : ''}`}
+              >
                 <AdvancedCanvas />
               </div>
 
@@ -246,7 +276,13 @@ export default function BuilderPage() {
 
           {/* Preview View */}
           {(viewMode === 'preview' || viewMode === 'split') && (
-            <div className={viewMode === 'split' ? 'flex-1 overflow-hidden' : 'flex-1 overflow-hidden'}>
+            <div
+              className={
+                viewMode === 'split'
+                  ? 'flex-1 overflow-hidden'
+                  : 'flex-1 overflow-hidden'
+              }
+            >
               <PreviewPanel />
             </div>
           )}
@@ -263,7 +299,7 @@ export default function BuilderPage() {
         {/* Quick Start Templates Modal */}
         {showTemplates && (
           <QuickStartTemplates
-            onApply={(template) => {
+            onApply={() => {
               setShowTemplates(false)
             }}
             onClose={() => setShowTemplates(false)}

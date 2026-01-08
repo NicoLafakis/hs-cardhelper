@@ -21,14 +21,12 @@ import {
   Box,
   Grid,
   Layers,
-  AlignLeft,
   Columns,
   Link,
   Minus,
   Activity,
-  Clock,
+  GripVertical,
   Zap,
-  GripVertical
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 
@@ -45,7 +43,7 @@ const COMPONENT_CATEGORIES = [
         icon: Type,
         description: 'Display static or dynamic text',
         defaultProps: { content: 'Enter text here', fontSize: '14px' },
-        preview: 'text'
+        preview: 'text',
       },
       {
         type: 'button',
@@ -53,7 +51,7 @@ const COMPONENT_CATEGORIES = [
         icon: MousePointer,
         description: 'Clickable action button',
         defaultProps: { label: 'Click me', variant: 'primary' },
-        preview: 'button'
+        preview: 'button',
       },
       {
         type: 'image',
@@ -61,7 +59,7 @@ const COMPONENT_CATEGORIES = [
         icon: Image,
         description: 'Display an image',
         defaultProps: { src: '', alt: 'Image' },
-        preview: 'image'
+        preview: 'image',
       },
       {
         type: 'video',
@@ -69,7 +67,7 @@ const COMPONENT_CATEGORIES = [
         icon: Video,
         description: 'Embed video content',
         defaultProps: { src: '', autoplay: false },
-        preview: 'video'
+        preview: 'video',
       },
       {
         type: 'link',
@@ -77,7 +75,7 @@ const COMPONENT_CATEGORIES = [
         icon: Link,
         description: 'Clickable hyperlink',
         defaultProps: { text: 'Click here', url: '#', color: '#0091ae' },
-        preview: 'link'
+        preview: 'link',
       },
       {
         type: 'divider',
@@ -85,9 +83,9 @@ const COMPONENT_CATEGORIES = [
         icon: Minus,
         description: 'Horizontal separator line',
         defaultProps: { style: 'solid', color: '#cbd6e2' },
-        preview: 'divider'
-      }
-    ]
+        preview: 'divider',
+      },
+    ],
   },
   {
     name: 'Forms',
@@ -100,7 +98,7 @@ const COMPONENT_CATEGORIES = [
         icon: Type,
         description: 'Single-line text field',
         defaultProps: { placeholder: 'Enter text...', label: 'Label' },
-        preview: 'input'
+        preview: 'input',
       },
       {
         type: 'textarea',
@@ -108,7 +106,7 @@ const COMPONENT_CATEGORIES = [
         icon: FileText,
         description: 'Multi-line text field',
         defaultProps: { placeholder: 'Enter text...', rows: 4 },
-        preview: 'textarea'
+        preview: 'textarea',
       },
       {
         type: 'checkbox',
@@ -116,7 +114,7 @@ const COMPONENT_CATEGORIES = [
         icon: CheckSquare,
         description: 'Single checkbox option',
         defaultProps: { label: 'Option', checked: false },
-        preview: 'checkbox'
+        preview: 'checkbox',
       },
       {
         type: 'toggle',
@@ -124,23 +122,30 @@ const COMPONENT_CATEGORIES = [
         icon: ToggleLeft,
         description: 'On/off switch',
         defaultProps: { label: 'Enable', checked: false },
-        preview: 'toggle'
+        preview: 'toggle',
       },
       {
         type: 'select',
         label: 'Dropdown',
         icon: List,
         description: 'Selection dropdown',
-        defaultProps: { label: 'Select', placeholder: 'Choose...', options: ['Option 1', 'Option 2'] },
-        preview: 'select'
+        defaultProps: {
+          label: 'Select',
+          placeholder: 'Choose...',
+          options: ['Option 1', 'Option 2'],
+        },
+        preview: 'select',
       },
       {
         type: 'radio',
         label: 'Radio Group',
         icon: CheckSquare,
         description: 'Single-choice options',
-        defaultProps: { label: 'Choose one', options: ['Option A', 'Option B'] },
-        preview: 'radio'
+        defaultProps: {
+          label: 'Choose one',
+          options: ['Option A', 'Option B'],
+        },
+        preview: 'radio',
       },
       {
         type: 'datepicker',
@@ -148,7 +153,7 @@ const COMPONENT_CATEGORIES = [
         icon: Calendar,
         description: 'Date selection field',
         defaultProps: { label: 'Select date' },
-        preview: 'datepicker'
+        preview: 'datepicker',
       },
       {
         type: 'fileupload',
@@ -156,9 +161,9 @@ const COMPONENT_CATEGORIES = [
         icon: Upload,
         description: 'File upload area',
         defaultProps: { label: 'Upload file', accept: '*' },
-        preview: 'fileupload'
-      }
-    ]
+        preview: 'fileupload',
+      },
+    ],
   },
   {
     name: 'Data Display',
@@ -171,18 +176,24 @@ const COMPONENT_CATEGORIES = [
         icon: Table,
         description: 'Display data in rows/columns',
         defaultProps: {
-          columns: [{ label: 'Name', property: 'firstname' }, { label: 'Email', property: 'email' }],
-          title: 'Table'
+          columns: [
+            { label: 'Name', property: 'firstname' },
+            { label: 'Email', property: 'email' },
+          ],
+          title: 'Table',
         },
-        preview: 'table'
+        preview: 'table',
       },
       {
         type: 'list',
         label: 'List',
         icon: List,
         description: 'Bullet or numbered list',
-        defaultProps: { items: ['Item 1', 'Item 2', 'Item 3'], style: 'unordered' },
-        preview: 'list'
+        defaultProps: {
+          items: ['Item 1', 'Item 2', 'Item 3'],
+          style: 'unordered',
+        },
+        preview: 'list',
       },
       {
         type: 'stat',
@@ -190,7 +201,7 @@ const COMPONENT_CATEGORIES = [
         icon: Activity,
         description: 'Key metric display',
         defaultProps: { label: 'Total', value: '$12,345', trend: '+12%' },
-        preview: 'stat'
+        preview: 'stat',
       },
       {
         type: 'badge',
@@ -198,7 +209,7 @@ const COMPONENT_CATEGORIES = [
         icon: Tag,
         description: 'Status indicator',
         defaultProps: { text: 'Active', variant: 'success' },
-        preview: 'badge'
+        preview: 'badge',
       },
       {
         type: 'rating',
@@ -206,7 +217,7 @@ const COMPONENT_CATEGORIES = [
         icon: Star,
         description: 'Star rating display',
         defaultProps: { value: 4, max: 5 },
-        preview: 'rating'
+        preview: 'rating',
       },
       {
         type: 'progress',
@@ -214,9 +225,9 @@ const COMPONENT_CATEGORIES = [
         icon: BarChart2,
         description: 'Progress indicator',
         defaultProps: { value: 65, showLabel: true },
-        preview: 'progress'
-      }
-    ]
+        preview: 'progress',
+      },
+    ],
   },
   {
     name: 'Charts',
@@ -228,16 +239,26 @@ const COMPONENT_CATEGORIES = [
         label: 'Bar Chart',
         icon: BarChart2,
         description: 'Vertical bar visualization',
-        defaultProps: { data: [], xKey: 'name', yKey: 'value', color: '#ff7a59' },
-        preview: 'barchart'
+        defaultProps: {
+          data: [],
+          xKey: 'name',
+          yKey: 'value',
+          color: '#ff7a59',
+        },
+        preview: 'barchart',
       },
       {
         type: 'linechart',
         label: 'Line Chart',
         icon: Activity,
         description: 'Trend line visualization',
-        defaultProps: { data: [], xKey: 'name', yKey: 'value', color: '#ff7a59' },
-        preview: 'linechart'
+        defaultProps: {
+          data: [],
+          xKey: 'name',
+          yKey: 'value',
+          color: '#ff7a59',
+        },
+        preview: 'linechart',
       },
       {
         type: 'piechart',
@@ -245,17 +266,22 @@ const COMPONENT_CATEGORIES = [
         icon: PieChart,
         description: 'Proportional segments',
         defaultProps: { data: [], valueKey: 'value', nameKey: 'name' },
-        preview: 'piechart'
+        preview: 'piechart',
       },
       {
         type: 'areachart',
         label: 'Area Chart',
         icon: BarChart2,
         description: 'Filled line chart',
-        defaultProps: { data: [], xKey: 'name', yKey: 'value', color: '#ff7a59' },
-        preview: 'areachart'
-      }
-    ]
+        defaultProps: {
+          data: [],
+          xKey: 'name',
+          yKey: 'value',
+          color: '#ff7a59',
+        },
+        preview: 'areachart',
+      },
+    ],
   },
   {
     name: 'Layout',
@@ -268,7 +294,7 @@ const COMPONENT_CATEGORIES = [
         icon: Box,
         description: 'Group components together',
         defaultProps: { padding: 'medium', backgroundColor: 'transparent' },
-        preview: 'container'
+        preview: 'container',
       },
       {
         type: 'columns',
@@ -276,7 +302,7 @@ const COMPONENT_CATEGORIES = [
         icon: Columns,
         description: 'Multi-column layout',
         defaultProps: { count: 2, gap: 'medium' },
-        preview: 'columns'
+        preview: 'columns',
       },
       {
         type: 'grid',
@@ -284,7 +310,7 @@ const COMPONENT_CATEGORIES = [
         icon: Grid,
         description: 'Grid-based layout',
         defaultProps: { columns: 3, gap: 'medium' },
-        preview: 'grid'
+        preview: 'grid',
       },
       {
         type: 'tabs',
@@ -292,86 +318,255 @@ const COMPONENT_CATEGORIES = [
         icon: Layers,
         description: 'Tabbed content sections',
         defaultProps: { tabs: ['Tab 1', 'Tab 2', 'Tab 3'] },
-        preview: 'tabs'
+        preview: 'tabs',
       },
       {
         type: 'accordion',
         label: 'Accordion',
         icon: List,
         description: 'Collapsible sections',
-        defaultProps: { items: [{ title: 'Section 1' }, { title: 'Section 2' }] },
-        preview: 'accordion'
-      }
-    ]
-  }
+        defaultProps: {
+          items: [{ title: 'Section 1' }, { title: 'Section 2' }],
+        },
+        preview: 'accordion',
+      },
+    ],
+  },
 ]
 
 // Mini preview renderers for components
 function ComponentPreview({ type }) {
   switch (type) {
     case 'text':
-      return <div className="text-[8px] text-gray-600 truncate">Sample text</div>
+      return (
+        <div className="text-[8px] text-gray-600 truncate">Sample text</div>
+      )
     case 'button':
-      return <div className="bg-primary text-white text-[7px] px-2 py-0.5 rounded">Button</div>
+      return (
+        <div className="bg-primary text-white text-[7px] px-2 py-0.5 rounded">
+          Button
+        </div>
+      )
     case 'image':
-      return <div className="w-8 h-6 bg-gray-200 rounded flex items-center justify-center"><Image className="w-3 h-3 text-gray-400" /></div>
+      return (
+        <div className="w-8 h-6 bg-gray-200 rounded flex items-center justify-center">
+          <Image className="w-3 h-3 text-gray-400" />
+        </div>
+      )
     case 'video':
-      return <div className="w-8 h-6 bg-gray-800 rounded flex items-center justify-center"><Video className="w-3 h-3 text-white" /></div>
+      return (
+        <div className="w-8 h-6 bg-gray-800 rounded flex items-center justify-center">
+          <Video className="w-3 h-3 text-white" />
+        </div>
+      )
     case 'link':
       return <div className="text-[8px] text-blue-500 underline">Link text</div>
     case 'divider':
       return <div className="w-full h-px bg-gray-300 my-1" />
     case 'input':
-      return <div className="w-12 h-3 border border-gray-300 rounded text-[6px] px-1 text-gray-400">Input</div>
+      return (
+        <div className="w-12 h-3 border border-gray-300 rounded text-[6px] px-1 text-gray-400">
+          Input
+        </div>
+      )
     case 'textarea':
       return <div className="w-12 h-5 border border-gray-300 rounded" />
     case 'checkbox':
-      return <div className="flex items-center gap-1"><div className="w-2 h-2 border border-gray-400 rounded-sm" /><span className="text-[6px]">Opt</span></div>
+      return (
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 border border-gray-400 rounded-sm" />
+          <span className="text-[6px]">Opt</span>
+        </div>
+      )
     case 'toggle':
-      return <div className="w-5 h-2.5 bg-primary rounded-full relative"><div className="absolute right-0.5 top-0.5 w-1.5 h-1.5 bg-white rounded-full" /></div>
+      return (
+        <div className="w-5 h-2.5 bg-primary rounded-full relative">
+          <div className="absolute right-0.5 top-0.5 w-1.5 h-1.5 bg-white rounded-full" />
+        </div>
+      )
     case 'select':
-      return <div className="w-12 h-3 border border-gray-300 rounded flex items-center justify-between px-1"><span className="text-[6px] text-gray-400">Select</span><ChevronDown className="w-2 h-2" /></div>
+      return (
+        <div className="w-12 h-3 border border-gray-300 rounded flex items-center justify-between px-1">
+          <span className="text-[6px] text-gray-400">Select</span>
+          <ChevronDown className="w-2 h-2" />
+        </div>
+      )
     case 'radio':
-      return <div className="flex flex-col gap-0.5"><div className="flex items-center gap-0.5"><div className="w-2 h-2 border border-primary rounded-full bg-primary" /><span className="text-[5px]">A</span></div></div>
+      return (
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-0.5">
+            <div className="w-2 h-2 border border-primary rounded-full bg-primary" />
+            <span className="text-[5px]">A</span>
+          </div>
+        </div>
+      )
     case 'datepicker':
-      return <div className="w-12 h-3 border border-gray-300 rounded flex items-center justify-between px-1"><span className="text-[6px] text-gray-400">Date</span><Calendar className="w-2 h-2" /></div>
+      return (
+        <div className="w-12 h-3 border border-gray-300 rounded flex items-center justify-between px-1">
+          <span className="text-[6px] text-gray-400">Date</span>
+          <Calendar className="w-2 h-2" />
+        </div>
+      )
     case 'fileupload':
-      return <div className="w-12 h-5 border border-dashed border-gray-300 rounded flex items-center justify-center"><Upload className="w-2.5 h-2.5 text-gray-400" /></div>
+      return (
+        <div className="w-12 h-5 border border-dashed border-gray-300 rounded flex items-center justify-center">
+          <Upload className="w-2.5 h-2.5 text-gray-400" />
+        </div>
+      )
     case 'table':
       return (
         <div className="w-12">
-          <div className="flex text-[5px] bg-gray-100 rounded-t"><div className="flex-1 px-0.5">A</div><div className="flex-1 px-0.5">B</div></div>
-          <div className="flex text-[5px]"><div className="flex-1 px-0.5">1</div><div className="flex-1 px-0.5">2</div></div>
+          <div className="flex text-[5px] bg-gray-100 rounded-t">
+            <div className="flex-1 px-0.5">A</div>
+            <div className="flex-1 px-0.5">B</div>
+          </div>
+          <div className="flex text-[5px]">
+            <div className="flex-1 px-0.5">1</div>
+            <div className="flex-1 px-0.5">2</div>
+          </div>
         </div>
       )
     case 'list':
-      return <div className="text-[5px] text-gray-600"><div>• Item 1</div><div>• Item 2</div></div>
+      return (
+        <div className="text-[5px] text-gray-600">
+          <div>• Item 1</div>
+          <div>• Item 2</div>
+        </div>
+      )
     case 'stat':
-      return <div><div className="text-[5px] text-gray-400">Label</div><div className="text-[9px] font-bold text-gray-700">123</div></div>
+      return (
+        <div>
+          <div className="text-[5px] text-gray-400">Label</div>
+          <div className="text-[9px] font-bold text-gray-700">123</div>
+        </div>
+      )
     case 'badge':
-      return <div className="bg-green-500 text-white text-[6px] px-1 py-0.5 rounded">Active</div>
+      return (
+        <div className="bg-green-500 text-white text-[6px] px-1 py-0.5 rounded">
+          Active
+        </div>
+      )
     case 'rating':
-      return <div className="flex"><Star className="w-2 h-2 text-yellow-400 fill-yellow-400" /><Star className="w-2 h-2 text-yellow-400 fill-yellow-400" /><Star className="w-2 h-2 text-gray-300" /></div>
+      return (
+        <div className="flex">
+          <Star className="w-2 h-2 text-yellow-400 fill-yellow-400" />
+          <Star className="w-2 h-2 text-yellow-400 fill-yellow-400" />
+          <Star className="w-2 h-2 text-gray-300" />
+        </div>
+      )
     case 'progress':
-      return <div className="w-12 h-1.5 bg-gray-200 rounded-full"><div className="w-8 h-full bg-primary rounded-full" /></div>
+      return (
+        <div className="w-12 h-1.5 bg-gray-200 rounded-full">
+          <div className="w-8 h-full bg-primary rounded-full" />
+        </div>
+      )
     case 'barchart':
-      return <div className="flex items-end gap-0.5 h-4"><div className="w-1.5 bg-primary rounded-t" style={{height:'40%'}} /><div className="w-1.5 bg-primary rounded-t" style={{height:'70%'}} /><div className="w-1.5 bg-primary rounded-t" style={{height:'55%'}} /></div>
+      return (
+        <div className="flex items-end gap-0.5 h-4">
+          <div
+            className="w-1.5 bg-primary rounded-t"
+            style={{ height: '40%' }}
+          />
+          <div
+            className="w-1.5 bg-primary rounded-t"
+            style={{ height: '70%' }}
+          />
+          <div
+            className="w-1.5 bg-primary rounded-t"
+            style={{ height: '55%' }}
+          />
+        </div>
+      )
     case 'linechart':
-      return <svg className="w-12 h-4" viewBox="0 0 20 10"><polyline points="0,8 5,4 10,6 15,2 20,3" fill="none" stroke="#ff7a59" strokeWidth="1" /></svg>
+      return (
+        <svg className="w-12 h-4" viewBox="0 0 20 10">
+          <polyline
+            points="0,8 5,4 10,6 15,2 20,3"
+            fill="none"
+            stroke="#ff7a59"
+            strokeWidth="1"
+          />
+        </svg>
+      )
     case 'piechart':
-      return <svg className="w-5 h-5" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="#e5e7eb" strokeWidth="4" /><circle cx="10" cy="10" r="8" fill="none" stroke="#ff7a59" strokeWidth="4" strokeDasharray="30 50" transform="rotate(-90 10 10)" /></svg>
+      return (
+        <svg className="w-5 h-5" viewBox="0 0 20 20">
+          <circle
+            cx="10"
+            cy="10"
+            r="8"
+            fill="none"
+            stroke="#e5e7eb"
+            strokeWidth="4"
+          />
+          <circle
+            cx="10"
+            cy="10"
+            r="8"
+            fill="none"
+            stroke="#ff7a59"
+            strokeWidth="4"
+            strokeDasharray="30 50"
+            transform="rotate(-90 10 10)"
+          />
+        </svg>
+      )
     case 'areachart':
-      return <svg className="w-12 h-4" viewBox="0 0 20 10"><polygon points="0,10 0,8 5,4 10,6 15,2 20,3 20,10" fill="#ff7a59" fillOpacity="0.3" /><polyline points="0,8 5,4 10,6 15,2 20,3" fill="none" stroke="#ff7a59" strokeWidth="1" /></svg>
+      return (
+        <svg className="w-12 h-4" viewBox="0 0 20 10">
+          <polygon
+            points="0,10 0,8 5,4 10,6 15,2 20,3 20,10"
+            fill="#ff7a59"
+            fillOpacity="0.3"
+          />
+          <polyline
+            points="0,8 5,4 10,6 15,2 20,3"
+            fill="none"
+            stroke="#ff7a59"
+            strokeWidth="1"
+          />
+        </svg>
+      )
     case 'container':
-      return <div className="w-10 h-5 border-2 border-dashed border-gray-300 rounded" />
+      return (
+        <div className="w-10 h-5 border-2 border-dashed border-gray-300 rounded" />
+      )
     case 'columns':
-      return <div className="flex gap-0.5 w-10"><div className="flex-1 h-4 bg-gray-200 rounded" /><div className="flex-1 h-4 bg-gray-200 rounded" /></div>
+      return (
+        <div className="flex gap-0.5 w-10">
+          <div className="flex-1 h-4 bg-gray-200 rounded" />
+          <div className="flex-1 h-4 bg-gray-200 rounded" />
+        </div>
+      )
     case 'grid':
-      return <div className="grid grid-cols-3 gap-0.5 w-10"><div className="h-2 bg-gray-200 rounded" /><div className="h-2 bg-gray-200 rounded" /><div className="h-2 bg-gray-200 rounded" /></div>
+      return (
+        <div className="grid grid-cols-3 gap-0.5 w-10">
+          <div className="h-2 bg-gray-200 rounded" />
+          <div className="h-2 bg-gray-200 rounded" />
+          <div className="h-2 bg-gray-200 rounded" />
+        </div>
+      )
     case 'tabs':
-      return <div><div className="flex gap-0.5 text-[5px] mb-0.5"><span className="text-primary border-b border-primary px-0.5">Tab 1</span><span className="text-gray-400 px-0.5">Tab 2</span></div><div className="w-10 h-3 bg-gray-100 rounded" /></div>
+      return (
+        <div>
+          <div className="flex gap-0.5 text-[5px] mb-0.5">
+            <span className="text-primary border-b border-primary px-0.5">
+              Tab 1
+            </span>
+            <span className="text-gray-400 px-0.5">Tab 2</span>
+          </div>
+          <div className="w-10 h-3 bg-gray-100 rounded" />
+        </div>
+      )
     case 'accordion':
-      return <div className="space-y-0.5"><div className="flex items-center text-[5px] bg-gray-100 rounded px-0.5"><ChevronDown className="w-1.5 h-1.5" />Section</div></div>
+      return (
+        <div className="space-y-0.5">
+          <div className="flex items-center text-[5px] bg-gray-100 rounded px-0.5">
+            <ChevronDown className="w-1.5 h-1.5" />
+            Section
+          </div>
+        </div>
+      )
     default:
       return null
   }
@@ -380,7 +575,10 @@ function ComponentPreview({ type }) {
 export default function ComponentPalette() {
   const addComponent = useBuilderStore(state => state.addComponent)
   const [searchQuery, setSearchQuery] = useState('')
-  const [expandedCategories, setExpandedCategories] = useState(['Basic', 'Data Display'])
+  const [expandedCategories, setExpandedCategories] = useState([
+    'Basic',
+    'Data Display',
+  ])
   const [isPaletteCollapsed, setIsPaletteCollapsed] = useState(false)
   const [hoveredComponent, setHoveredComponent] = useState(null)
 
@@ -389,7 +587,7 @@ export default function ComponentPalette() {
     e.dataTransfer.effectAllowed = 'copy'
   }
 
-  const toggleCategory = (categoryName) => {
+  const toggleCategory = categoryName => {
     setExpandedCategories(prev =>
       prev.includes(categoryName)
         ? prev.filter(name => name !== categoryName)
@@ -399,11 +597,12 @@ export default function ComponentPalette() {
 
   const filteredCategories = COMPONENT_CATEGORIES.map(category => ({
     ...category,
-    components: category.components.filter(component =>
-      component.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      component.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      component.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    components: category.components.filter(
+      component =>
+        component.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        component.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    ),
   })).filter(category => category.components.length > 0)
 
   if (isPaletteCollapsed) {
@@ -462,7 +661,7 @@ export default function ComponentPalette() {
             type="text"
             placeholder="Search components..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
           />
         </div>
@@ -473,12 +672,16 @@ export default function ComponentPalette() {
         {filteredCategories.length === 0 ? (
           <div className="text-center py-12 px-4">
             <Search className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-            <p className="text-sm font-medium text-gray-500">No components found</p>
-            <p className="text-xs text-gray-400 mt-1">Try a different search term</p>
+            <p className="text-sm font-medium text-gray-500">
+              No components found
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Try a different search term
+            </p>
           </div>
         ) : (
           <div className="py-2">
-            {filteredCategories.map((category) => {
+            {filteredCategories.map(category => {
               const CategoryIcon = category.icon
               const isExpanded = expandedCategories.includes(category.name)
 
@@ -510,24 +713,26 @@ export default function ComponentPalette() {
                   {/* Category Components */}
                   {isExpanded && (
                     <div className="px-4 pb-3 grid grid-cols-2 gap-2">
-                      {category.components.map((component) => {
-                        const Icon = component.icon
+                      {category.components.map(component => {
                         const isHovered = hoveredComponent === component.type
 
                         return (
                           <div
                             key={component.type}
                             draggable
-                            onDragStart={(e) => handleDragStart(e, component)}
+                            onDragStart={e => handleDragStart(e, component)}
                             onClick={() => addComponent(component)}
-                            onMouseEnter={() => setHoveredComponent(component.type)}
+                            onMouseEnter={() =>
+                              setHoveredComponent(component.type)
+                            }
                             onMouseLeave={() => setHoveredComponent(null)}
                             className={`
                               relative flex flex-col items-center p-3 rounded-xl cursor-grab
                               border-2 transition-all duration-150 group
-                              ${isHovered
-                                ? 'bg-primary/5 border-primary shadow-sm scale-[1.02]'
-                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                              ${
+                                isHovered
+                                  ? 'bg-primary/5 border-primary shadow-sm scale-[1.02]'
+                                  : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                               }
                             `}
                             title={component.description}
@@ -539,11 +744,15 @@ export default function ComponentPalette() {
 
                             {/* Mini Preview */}
                             <div className="h-8 flex items-center justify-center mb-2">
-                              <ComponentPreview type={component.preview || component.type} />
+                              <ComponentPreview
+                                type={component.preview || component.type}
+                              />
                             </div>
 
                             {/* Label */}
-                            <span className={`text-xs font-medium transition-colors ${isHovered ? 'text-primary' : 'text-gray-700'}`}>
+                            <span
+                              className={`text-xs font-medium transition-colors ${isHovered ? 'text-primary' : 'text-gray-700'}`}
+                            >
                               {component.label}
                             </span>
                           </div>
@@ -569,7 +778,11 @@ export default function ComponentPalette() {
               Drag to canvas or click to add
             </p>
             <p className="text-xs text-gray-500 mt-0.5">
-              Hold <kbd className="px-1 py-0.5 bg-gray-200 rounded text-[10px]">Shift</kbd> to disable grid snap
+              Hold{' '}
+              <kbd className="px-1 py-0.5 bg-gray-200 rounded text-[10px]">
+                Shift
+              </kbd>{' '}
+              to disable grid snap
             </p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { useState } from 'react'
 import useBuilderStore from '../../store/builderStore'
 import { useMockData } from '../../contexts/MockDataContext'
@@ -8,15 +9,11 @@ import {
   Link2,
   Palette,
   Type,
-  Plus,
   Trash2,
-  GripVertical,
   ChevronDown,
   ChevronRight,
-  AlertCircle,
   Sparkles,
   Eye,
-  EyeOff
 } from 'lucide-react'
 
 // Color presets for quick selection
@@ -138,14 +135,14 @@ function ColorPicker({ label, value, onChange }) {
         <input
           type="color"
           value={value || '#33475b'}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           className="w-10 h-10 rounded cursor-pointer border border-gray-300"
         />
         <div className="flex-1 relative">
           <input
             type="text"
             value={value || '#33475b'}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value)}
             className="input-field text-sm font-mono"
             placeholder="#ff7a59"
           />
@@ -180,8 +177,9 @@ function ColorPicker({ label, value, onChange }) {
 // Property binding selector
 function PropertyBindingSection({ component, onUpdate }) {
   const { recordType } = useMockData()
-  const [isExpanded, setIsExpanded] = useState(!!component.propertyBinding)
-  const properties = HUBSPOT_PROPERTIES[recordType] || HUBSPOT_PROPERTIES.contact
+  const isExpanded = !!component.propertyBinding
+  const properties =
+    HUBSPOT_PROPERTIES[recordType] || HUBSPOT_PROPERTIES.contact
 
   return (
     <Section title="HubSpot Data Binding" icon={Link2} defaultOpen={isExpanded}>
@@ -192,11 +190,13 @@ function PropertyBindingSection({ component, onUpdate }) {
 
         <select
           value={component.propertyBinding || ''}
-          onChange={(e) => onUpdate({ propertyBinding: e.target.value || null })}
+          onChange={e => onUpdate({ propertyBinding: e.target.value || null })}
           className="input-field text-sm"
         >
           <option value="">No binding (static content)</option>
-          <optgroup label={`${recordType.charAt(0).toUpperCase() + recordType.slice(1)} Properties`}>
+          <optgroup
+            label={`${recordType.charAt(0).toUpperCase() + recordType.slice(1)} Properties`}
+          >
             {properties.map(prop => (
               <option key={prop.name} value={prop.name}>
                 {prop.label} ({prop.name})
@@ -209,7 +209,10 @@ function PropertyBindingSection({ component, onUpdate }) {
           <div className="p-2 bg-green-50 border border-green-200 rounded flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-green-600" />
             <span className="text-xs text-green-700">
-              Will display: <code className="font-mono bg-green-100 px-1 rounded">{'{' + component.propertyBinding + '}'}</code>
+              Will display:{' '}
+              <code className="font-mono bg-green-100 px-1 rounded">
+                {'{' + component.propertyBinding + '}'}
+              </code>
             </span>
           </div>
         )}
@@ -219,7 +222,14 @@ function PropertyBindingSection({ component, onUpdate }) {
 }
 
 export default function PropertyPanel() {
-  const { components, selectedComponentId, updateComponent, moveComponent, resizeComponent, removeComponent } = useBuilderStore()
+  const {
+    components,
+    selectedComponentId,
+    updateComponent,
+    moveComponent,
+    resizeComponent,
+    removeComponent,
+  } = useBuilderStore()
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   if (!selectedComponent) {
@@ -250,12 +260,12 @@ export default function PropertyPanel() {
     updateComponent(selectedComponentId, {
       defaultProps: {
         ...selectedComponent.defaultProps,
-        [key]: value
-      }
+        [key]: value,
+      },
     })
   }
 
-  const handleUpdate = (updates) => {
+  const handleUpdate = updates => {
     updateComponent(selectedComponentId, updates)
   }
 
@@ -271,9 +281,19 @@ export default function PropertyPanel() {
   const handleSizeChange = (dimension, value) => {
     const numValue = parseInt(value) || 50
     if (dimension === 'width') {
-      resizeComponent(selectedComponentId, numValue, selectedComponent.height, false)
+      resizeComponent(
+        selectedComponentId,
+        numValue,
+        selectedComponent.height,
+        false
+      )
     } else {
-      resizeComponent(selectedComponentId, selectedComponent.width, numValue, false)
+      resizeComponent(
+        selectedComponentId,
+        selectedComponent.width,
+        numValue,
+        false
+      )
     }
   }
 
@@ -287,10 +307,12 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Text Content</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Text Content
+              </label>
               <textarea
                 value={props.content || ''}
-                onChange={(e) => handlePropertyChange('content', e.target.value)}
+                onChange={e => handlePropertyChange('content', e.target.value)}
                 className="input-field text-sm"
                 rows={3}
                 placeholder="Enter your text here..."
@@ -298,22 +320,32 @@ export default function PropertyPanel() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Font Size</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">
+                  Font Size
+                </label>
                 <select
                   value={props.fontSize || '14px'}
-                  onChange={(e) => handlePropertyChange('fontSize', e.target.value)}
+                  onChange={e =>
+                    handlePropertyChange('fontSize', e.target.value)
+                  }
                   className="input-field text-sm"
                 >
                   {FONT_SIZES.map(size => (
-                    <option key={size.value} value={size.value}>{size.label}</option>
+                    <option key={size.value} value={size.value}>
+                      {size.label}
+                    </option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Font Weight</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">
+                  Font Weight
+                </label>
                 <select
                   value={props.fontWeight || 'normal'}
-                  onChange={(e) => handlePropertyChange('fontWeight', e.target.value)}
+                  onChange={e =>
+                    handlePropertyChange('fontWeight', e.target.value)
+                  }
                   className="input-field text-sm"
                 >
                   <option value="normal">Normal</option>
@@ -326,10 +358,12 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Text Color"
               value={props.color || '#33475b'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Text Alignment</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Text Alignment
+              </label>
               <div className="flex gap-1">
                 {['left', 'center', 'right'].map(align => (
                   <button
@@ -353,33 +387,41 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Button Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Button Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Click me"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Button Style</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Button Style
+              </label>
               <select
                 value={props.variant || 'primary'}
-                onChange={(e) => handlePropertyChange('variant', e.target.value)}
+                onChange={e => handlePropertyChange('variant', e.target.value)}
                 className="input-field text-sm"
               >
                 {BUTTON_STYLES.map(style => (
-                  <option key={style.value} value={style.value}>{style.label}</option>
+                  <option key={style.value} value={style.value}>
+                    {style.label}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Action URL (optional)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Action URL (optional)
+              </label>
               <input
                 type="url"
                 value={props.url || ''}
-                onChange={(e) => handlePropertyChange('url', e.target.value)}
+                onChange={e => handlePropertyChange('url', e.target.value)}
                 className="input-field text-sm"
                 placeholder="https://example.com"
               />
@@ -389,10 +431,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="fullWidth"
                 checked={props.fullWidth || false}
-                onChange={(e) => handlePropertyChange('fullWidth', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('fullWidth', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="fullWidth" className="text-xs text-gray-600">Full width button</label>
+              <label htmlFor="fullWidth" className="text-xs text-gray-600">
+                Full width button
+              </label>
             </div>
           </>
         )
@@ -401,30 +447,38 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Image URL</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Image URL
+              </label>
               <input
                 type="url"
                 value={props.src || ''}
-                onChange={(e) => handlePropertyChange('src', e.target.value)}
+                onChange={e => handlePropertyChange('src', e.target.value)}
                 className="input-field text-sm"
                 placeholder="https://example.com/image.jpg"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Alt Text</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Alt Text
+              </label>
               <input
                 type="text"
                 value={props.alt || ''}
-                onChange={(e) => handlePropertyChange('alt', e.target.value)}
+                onChange={e => handlePropertyChange('alt', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Image description"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Object Fit</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Object Fit
+              </label>
               <select
                 value={props.objectFit || 'cover'}
-                onChange={(e) => handlePropertyChange('objectFit', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('objectFit', e.target.value)
+                }
                 className="input-field text-sm"
               >
                 <option value="cover">Cover</option>
@@ -434,10 +488,14 @@ export default function PropertyPanel() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Border Radius</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Border Radius
+              </label>
               <select
                 value={props.borderRadius || '0'}
-                onChange={(e) => handlePropertyChange('borderRadius', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('borderRadius', e.target.value)
+                }
                 className="input-field text-sm"
               >
                 <option value="0">None</option>
@@ -454,11 +512,13 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Video URL</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Video URL
+              </label>
               <input
                 type="url"
                 value={props.src || ''}
-                onChange={(e) => handlePropertyChange('src', e.target.value)}
+                onChange={e => handlePropertyChange('src', e.target.value)}
                 className="input-field text-sm"
                 placeholder="https://youtube.com/watch?v=..."
               />
@@ -469,30 +529,40 @@ export default function PropertyPanel() {
                   type="checkbox"
                   id="autoplay"
                   checked={props.autoplay || false}
-                  onChange={(e) => handlePropertyChange('autoplay', e.target.checked)}
+                  onChange={e =>
+                    handlePropertyChange('autoplay', e.target.checked)
+                  }
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="autoplay" className="text-xs text-gray-600">Autoplay</label>
+                <label htmlFor="autoplay" className="text-xs text-gray-600">
+                  Autoplay
+                </label>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id="controls"
                   checked={props.controls !== false}
-                  onChange={(e) => handlePropertyChange('controls', e.target.checked)}
+                  onChange={e =>
+                    handlePropertyChange('controls', e.target.checked)
+                  }
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="controls" className="text-xs text-gray-600">Show controls</label>
+                <label htmlFor="controls" className="text-xs text-gray-600">
+                  Show controls
+                </label>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id="loop"
                   checked={props.loop || false}
-                  onChange={(e) => handlePropertyChange('loop', e.target.checked)}
+                  onChange={e => handlePropertyChange('loop', e.target.checked)}
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="loop" className="text-xs text-gray-600">Loop video</label>
+                <label htmlFor="loop" className="text-xs text-gray-600">
+                  Loop video
+                </label>
               </div>
             </div>
           </>
@@ -502,21 +572,25 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Link Text</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Link Text
+              </label>
               <input
                 type="text"
                 value={props.text || ''}
-                onChange={(e) => handlePropertyChange('text', e.target.value)}
+                onChange={e => handlePropertyChange('text', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Click here"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">URL</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                URL
+              </label>
               <input
                 type="url"
                 value={props.url || ''}
-                onChange={(e) => handlePropertyChange('url', e.target.value)}
+                onChange={e => handlePropertyChange('url', e.target.value)}
                 className="input-field text-sm"
                 placeholder="https://example.com"
               />
@@ -524,17 +598,21 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Link Color"
               value={props.color || '#0091ae'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 id="openNewTab"
                 checked={props.openNewTab || false}
-                onChange={(e) => handlePropertyChange('openNewTab', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('openNewTab', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="openNewTab" className="text-xs text-gray-600">Open in new tab</label>
+              <label htmlFor="openNewTab" className="text-xs text-gray-600">
+                Open in new tab
+              </label>
             </div>
           </>
         )
@@ -543,10 +621,12 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Style</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Style
+              </label>
               <select
                 value={props.style || 'solid'}
-                onChange={(e) => handlePropertyChange('style', e.target.value)}
+                onChange={e => handlePropertyChange('style', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="solid">Solid</option>
@@ -557,13 +637,17 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Divider Color"
               value={props.color || '#cbd6e2'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Thickness</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Thickness
+              </label>
               <select
                 value={props.thickness || '1px'}
-                onChange={(e) => handlePropertyChange('thickness', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('thickness', e.target.value)
+                }
                 className="input-field text-sm"
               >
                 <option value="1px">Thin (1px)</option>
@@ -579,30 +663,40 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Field Label"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Placeholder</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Placeholder
+              </label>
               <input
                 type="text"
                 value={props.placeholder || ''}
-                onChange={(e) => handlePropertyChange('placeholder', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('placeholder', e.target.value)
+                }
                 className="input-field text-sm"
                 placeholder="Enter placeholder text..."
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Input Type</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Input Type
+              </label>
               <select
                 value={props.inputType || 'text'}
-                onChange={(e) => handlePropertyChange('inputType', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('inputType', e.target.value)
+                }
                 className="input-field text-sm"
               >
                 <option value="text">Text</option>
@@ -618,10 +712,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="required"
                 checked={props.required || false}
-                onChange={(e) => handlePropertyChange('required', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('required', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="required" className="text-xs text-gray-600">Required field</label>
+              <label htmlFor="required" className="text-xs text-gray-600">
+                Required field
+              </label>
             </div>
           </>
         )
@@ -630,31 +728,41 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Field Label"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Placeholder</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Placeholder
+              </label>
               <input
                 type="text"
                 value={props.placeholder || ''}
-                onChange={(e) => handlePropertyChange('placeholder', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('placeholder', e.target.value)
+                }
                 className="input-field text-sm"
                 placeholder="Enter placeholder text..."
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Rows</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Rows
+              </label>
               <input
                 type="number"
                 value={props.rows || 4}
-                onChange={(e) => handlePropertyChange('rows', parseInt(e.target.value) || 4)}
+                onChange={e =>
+                  handlePropertyChange('rows', parseInt(e.target.value) || 4)
+                }
                 className="input-field text-sm"
                 min={2}
                 max={20}
@@ -667,11 +775,13 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Option label"
               />
@@ -681,10 +791,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="defaultChecked"
                 checked={props.checked || false}
-                onChange={(e) => handlePropertyChange('checked', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('checked', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="defaultChecked" className="text-xs text-gray-600">Checked by default</label>
+              <label htmlFor="defaultChecked" className="text-xs text-gray-600">
+                Checked by default
+              </label>
             </div>
           </>
         )
@@ -693,11 +807,13 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Toggle label"
               />
@@ -707,10 +823,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="defaultOn"
                 checked={props.checked || false}
-                onChange={(e) => handlePropertyChange('checked', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('checked', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="defaultOn" className="text-xs text-gray-600">On by default</label>
+              <label htmlFor="defaultOn" className="text-xs text-gray-600">
+                On by default
+              </label>
             </div>
           </>
         )
@@ -719,30 +839,43 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Select Label"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Placeholder</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Placeholder
+              </label>
               <input
                 type="text"
                 value={props.placeholder || ''}
-                onChange={(e) => handlePropertyChange('placeholder', e.target.value)}
+                onChange={e =>
+                  handlePropertyChange('placeholder', e.target.value)
+                }
                 className="input-field text-sm"
                 placeholder="Select an option..."
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Options (one per line)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Options (one per line)
+              </label>
               <textarea
                 value={(props.options || []).join('\n')}
-                onChange={(e) => handlePropertyChange('options', e.target.value.split('\n').filter(Boolean))}
+                onChange={e =>
+                  handlePropertyChange(
+                    'options',
+                    e.target.value.split('\n').filter(Boolean)
+                  )
+                }
                 className="input-field text-sm font-mono"
                 rows={5}
                 placeholder="Option 1&#10;Option 2&#10;Option 3"
@@ -755,20 +888,29 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Group Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Group Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Choose one"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Options (one per line)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Options (one per line)
+              </label>
               <textarea
                 value={(props.options || []).join('\n')}
-                onChange={(e) => handlePropertyChange('options', e.target.value.split('\n').filter(Boolean))}
+                onChange={e =>
+                  handlePropertyChange(
+                    'options',
+                    e.target.value.split('\n').filter(Boolean)
+                  )
+                }
                 className="input-field text-sm font-mono"
                 rows={5}
                 placeholder="Option 1&#10;Option 2&#10;Option 3"
@@ -781,20 +923,24 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Select date"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Date Format</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Date Format
+              </label>
               <select
                 value={props.format || 'MM/DD/YYYY'}
-                onChange={(e) => handlePropertyChange('format', e.target.value)}
+                onChange={e => handlePropertyChange('format', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="MM/DD/YYYY">MM/DD/YYYY</option>
@@ -809,20 +955,24 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Upload file"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Accepted File Types</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Accepted File Types
+              </label>
               <select
                 value={props.accept || '*'}
-                onChange={(e) => handlePropertyChange('accept', e.target.value)}
+                onChange={e => handlePropertyChange('accept', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="*">All files</option>
@@ -837,10 +987,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="multiple"
                 checked={props.multiple || false}
-                onChange={(e) => handlePropertyChange('multiple', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('multiple', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="multiple" className="text-xs text-gray-600">Allow multiple files</label>
+              <label htmlFor="multiple" className="text-xs text-gray-600">
+                Allow multiple files
+              </label>
             </div>
           </>
         )
@@ -850,24 +1004,36 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Table Title</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Table Title
+              </label>
               <input
                 type="text"
                 value={props.title || ''}
-                onChange={(e) => handlePropertyChange('title', e.target.value)}
+                onChange={e => handlePropertyChange('title', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Data Table"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Columns (one per line: label|property)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Columns (one per line: label|property)
+              </label>
               <textarea
-                value={(props.columns || []).map(c => `${c.label}|${c.property || ''}`).join('\n')}
-                onChange={(e) => {
-                  const columns = e.target.value.split('\n').filter(Boolean).map(line => {
-                    const [label, property] = line.split('|')
-                    return { label: label?.trim() || '', property: property?.trim() || '' }
-                  })
+                value={(props.columns || [])
+                  .map(c => `${c.label}|${c.property || ''}`)
+                  .join('\n')}
+                onChange={e => {
+                  const columns = e.target.value
+                    .split('\n')
+                    .filter(Boolean)
+                    .map(line => {
+                      const [label, property] = line.split('|')
+                      return {
+                        label: label?.trim() || '',
+                        property: property?.trim() || '',
+                      }
+                    })
                   handlePropertyChange('columns', columns)
                 }}
                 className="input-field text-sm font-mono"
@@ -877,7 +1043,10 @@ export default function PropertyPanel() {
             </div>
             <div className="p-3 bg-blue-50 rounded border border-blue-200">
               <p className="text-xs text-blue-700">
-                Format: <code className="bg-blue-100 px-1 rounded">Label|property_name</code>
+                Format:{' '}
+                <code className="bg-blue-100 px-1 rounded">
+                  Label|property_name
+                </code>
                 <br />
                 Properties will pull from HubSpot record data.
               </p>
@@ -888,30 +1057,42 @@ export default function PropertyPanel() {
                   type="checkbox"
                   id="striped"
                   checked={props.striped || false}
-                  onChange={(e) => handlePropertyChange('striped', e.target.checked)}
+                  onChange={e =>
+                    handlePropertyChange('striped', e.target.checked)
+                  }
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="striped" className="text-xs text-gray-600">Striped rows</label>
+                <label htmlFor="striped" className="text-xs text-gray-600">
+                  Striped rows
+                </label>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id="bordered"
                   checked={props.bordered !== false}
-                  onChange={(e) => handlePropertyChange('bordered', e.target.checked)}
+                  onChange={e =>
+                    handlePropertyChange('bordered', e.target.checked)
+                  }
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="bordered" className="text-xs text-gray-600">Show borders</label>
+                <label htmlFor="bordered" className="text-xs text-gray-600">
+                  Show borders
+                </label>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id="compact"
                   checked={props.compact || false}
-                  onChange={(e) => handlePropertyChange('compact', e.target.checked)}
+                  onChange={e =>
+                    handlePropertyChange('compact', e.target.checked)
+                  }
                   className="rounded border-gray-300"
                 />
-                <label htmlFor="compact" className="text-xs text-gray-600">Compact mode</label>
+                <label htmlFor="compact" className="text-xs text-gray-600">
+                  Compact mode
+                </label>
               </div>
             </div>
           </>
@@ -921,20 +1102,29 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">List Items (one per line)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                List Items (one per line)
+              </label>
               <textarea
                 value={(props.items || []).join('\n')}
-                onChange={(e) => handlePropertyChange('items', e.target.value.split('\n').filter(Boolean))}
+                onChange={e =>
+                  handlePropertyChange(
+                    'items',
+                    e.target.value.split('\n').filter(Boolean)
+                  )
+                }
                 className="input-field text-sm"
                 rows={5}
                 placeholder="Item 1&#10;Item 2&#10;Item 3"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">List Style</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                List Style
+              </label>
               <select
                 value={props.style || 'unordered'}
-                onChange={(e) => handlePropertyChange('style', e.target.value)}
+                onChange={e => handlePropertyChange('style', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="unordered">Bullet points</option>
@@ -949,31 +1139,37 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Label
+              </label>
               <input
                 type="text"
                 value={props.label || ''}
-                onChange={(e) => handlePropertyChange('label', e.target.value)}
+                onChange={e => handlePropertyChange('label', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Metric Name"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Value</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Value
+              </label>
               <input
                 type="text"
                 value={props.value || ''}
-                onChange={(e) => handlePropertyChange('value', e.target.value)}
+                onChange={e => handlePropertyChange('value', e.target.value)}
                 className="input-field text-sm"
                 placeholder="$12,345"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Trend (optional)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Trend (optional)
+              </label>
               <input
                 type="text"
                 value={props.trend || ''}
-                onChange={(e) => handlePropertyChange('trend', e.target.value)}
+                onChange={e => handlePropertyChange('trend', e.target.value)}
                 className="input-field text-sm"
                 placeholder="+12%"
               />
@@ -981,7 +1177,7 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Value Color"
               value={props.valueColor || '#33475b'}
-              onChange={(v) => handlePropertyChange('valueColor', v)}
+              onChange={v => handlePropertyChange('valueColor', v)}
             />
           </>
         )
@@ -990,22 +1186,28 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Badge Text</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Badge Text
+              </label>
               <input
                 type="text"
                 value={props.text || ''}
-                onChange={(e) => handlePropertyChange('text', e.target.value)}
+                onChange={e => handlePropertyChange('text', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Status"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Variant</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Variant
+              </label>
               <div className="grid grid-cols-3 gap-2">
                 {BADGE_VARIANTS.map(variant => (
                   <button
                     key={variant.value}
-                    onClick={() => handlePropertyChange('variant', variant.value)}
+                    onClick={() =>
+                      handlePropertyChange('variant', variant.value)
+                    }
                     className={`py-2 text-xs rounded transition-all ${
                       (props.variant || 'primary') === variant.value
                         ? 'ring-2 ring-offset-1 ring-primary'
@@ -1025,11 +1227,15 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Rating Value</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Rating Value
+              </label>
               <input
                 type="number"
                 value={props.value || 0}
-                onChange={(e) => handlePropertyChange('value', parseFloat(e.target.value) || 0)}
+                onChange={e =>
+                  handlePropertyChange('value', parseFloat(e.target.value) || 0)
+                }
                 className="input-field text-sm"
                 min={0}
                 max={props.max || 5}
@@ -1037,11 +1243,15 @@ export default function PropertyPanel() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Max Stars</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Max Stars
+              </label>
               <input
                 type="number"
                 value={props.max || 5}
-                onChange={(e) => handlePropertyChange('max', parseInt(e.target.value) || 5)}
+                onChange={e =>
+                  handlePropertyChange('max', parseInt(e.target.value) || 5)
+                }
                 className="input-field text-sm"
                 min={1}
                 max={10}
@@ -1050,7 +1260,7 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Star Color"
               value={props.color || '#f5c26b'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
           </>
         )
@@ -1059,11 +1269,15 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Progress Value (%)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Progress Value (%)
+              </label>
               <input
                 type="number"
                 value={props.value || 0}
-                onChange={(e) => handlePropertyChange('value', parseInt(e.target.value) || 0)}
+                onChange={e =>
+                  handlePropertyChange('value', parseInt(e.target.value) || 0)
+                }
                 className="input-field text-sm"
                 min={0}
                 max={100}
@@ -1080,15 +1294,19 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="showLabel"
                 checked={props.showLabel !== false}
-                onChange={(e) => handlePropertyChange('showLabel', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('showLabel', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="showLabel" className="text-xs text-gray-600">Show percentage label</label>
+              <label htmlFor="showLabel" className="text-xs text-gray-600">
+                Show percentage label
+              </label>
             </div>
             <ColorPicker
               label="Progress Color"
               value={props.color || '#ff7a59'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
           </>
         )
@@ -1100,31 +1318,37 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Chart Title</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Chart Title
+              </label>
               <input
                 type="text"
                 value={props.title || ''}
-                onChange={(e) => handlePropertyChange('title', e.target.value)}
+                onChange={e => handlePropertyChange('title', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Chart Title"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">X-Axis Property</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                X-Axis Property
+              </label>
               <input
                 type="text"
                 value={props.xKey || ''}
-                onChange={(e) => handlePropertyChange('xKey', e.target.value)}
+                onChange={e => handlePropertyChange('xKey', e.target.value)}
                 className="input-field text-sm"
                 placeholder="name"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Y-Axis Property</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Y-Axis Property
+              </label>
               <input
                 type="text"
                 value={props.yKey || ''}
-                onChange={(e) => handlePropertyChange('yKey', e.target.value)}
+                onChange={e => handlePropertyChange('yKey', e.target.value)}
                 className="input-field text-sm"
                 placeholder="value"
               />
@@ -1132,17 +1356,21 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Chart Color"
               value={props.color || '#ff7a59'}
-              onChange={(v) => handlePropertyChange('color', v)}
+              onChange={v => handlePropertyChange('color', v)}
             />
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Sample Data (JSON)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Sample Data (JSON)
+              </label>
               <textarea
                 value={props.data ? JSON.stringify(props.data, null, 2) : ''}
-                onChange={(e) => {
+                onChange={e => {
                   try {
                     const data = JSON.parse(e.target.value)
                     handlePropertyChange('data', data)
-                  } catch {}
+                  } catch {
+                    // Ignore JSON parse errors while user is typing
+                  }
                 }}
                 className="input-field text-sm font-mono"
                 rows={5}
@@ -1156,31 +1384,37 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Chart Title</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Chart Title
+              </label>
               <input
                 type="text"
                 value={props.title || ''}
-                onChange={(e) => handlePropertyChange('title', e.target.value)}
+                onChange={e => handlePropertyChange('title', e.target.value)}
                 className="input-field text-sm"
                 placeholder="Chart Title"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Name Property</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Name Property
+              </label>
               <input
                 type="text"
                 value={props.nameKey || ''}
-                onChange={(e) => handlePropertyChange('nameKey', e.target.value)}
+                onChange={e => handlePropertyChange('nameKey', e.target.value)}
                 className="input-field text-sm"
                 placeholder="name"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Value Property</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Value Property
+              </label>
               <input
                 type="text"
                 value={props.valueKey || ''}
-                onChange={(e) => handlePropertyChange('valueKey', e.target.value)}
+                onChange={e => handlePropertyChange('valueKey', e.target.value)}
                 className="input-field text-sm"
                 placeholder="value"
               />
@@ -1190,10 +1424,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="showLabels"
                 checked={props.showLabels !== false}
-                onChange={(e) => handlePropertyChange('showLabels', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('showLabels', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="showLabels" className="text-xs text-gray-600">Show labels</label>
+              <label htmlFor="showLabels" className="text-xs text-gray-600">
+                Show labels
+              </label>
             </div>
           </>
         )
@@ -1204,14 +1442,17 @@ export default function PropertyPanel() {
           <>
             <div className="p-3 bg-blue-50 rounded border border-blue-200">
               <p className="text-xs text-blue-700">
-                Containers help group components. Drag other components inside to organize your layout.
+                Containers help group components. Drag other components inside
+                to organize your layout.
               </p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Padding</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Padding
+              </label>
               <select
                 value={props.padding || 'medium'}
-                onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                onChange={e => handlePropertyChange('padding', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="none">None</option>
@@ -1223,13 +1464,15 @@ export default function PropertyPanel() {
             <ColorPicker
               label="Background Color"
               value={props.backgroundColor || 'transparent'}
-              onChange={(v) => handlePropertyChange('backgroundColor', v)}
+              onChange={v => handlePropertyChange('backgroundColor', v)}
             />
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Border</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Border
+              </label>
               <select
                 value={props.border || 'none'}
-                onChange={(e) => handlePropertyChange('border', e.target.value)}
+                onChange={e => handlePropertyChange('border', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="none">None</option>
@@ -1244,10 +1487,14 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Number of Columns</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Number of Columns
+              </label>
               <select
                 value={props.count || 2}
-                onChange={(e) => handlePropertyChange('count', parseInt(e.target.value))}
+                onChange={e =>
+                  handlePropertyChange('count', parseInt(e.target.value))
+                }
                 className="input-field text-sm"
               >
                 <option value={2}>2 Columns</option>
@@ -1256,10 +1503,12 @@ export default function PropertyPanel() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Gap Size</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Gap Size
+              </label>
               <select
                 value={props.gap || 'medium'}
-                onChange={(e) => handlePropertyChange('gap', e.target.value)}
+                onChange={e => handlePropertyChange('gap', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="small">Small (8px)</option>
@@ -1274,21 +1523,27 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Columns</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Columns
+              </label>
               <input
                 type="number"
                 value={props.columns || 3}
-                onChange={(e) => handlePropertyChange('columns', parseInt(e.target.value) || 3)}
+                onChange={e =>
+                  handlePropertyChange('columns', parseInt(e.target.value) || 3)
+                }
                 className="input-field text-sm"
                 min={1}
                 max={6}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Gap Size</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Gap Size
+              </label>
               <select
                 value={props.gap || 'medium'}
-                onChange={(e) => handlePropertyChange('gap', e.target.value)}
+                onChange={e => handlePropertyChange('gap', e.target.value)}
                 className="input-field text-sm"
               >
                 <option value="small">Small (8px)</option>
@@ -1303,21 +1558,35 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Tab Labels (one per line)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Tab Labels (one per line)
+              </label>
               <textarea
                 value={(props.tabs || []).join('\n')}
-                onChange={(e) => handlePropertyChange('tabs', e.target.value.split('\n').filter(Boolean))}
+                onChange={e =>
+                  handlePropertyChange(
+                    'tabs',
+                    e.target.value.split('\n').filter(Boolean)
+                  )
+                }
                 className="input-field text-sm"
                 rows={4}
                 placeholder="Tab 1&#10;Tab 2&#10;Tab 3"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Default Tab (index)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Default Tab (index)
+              </label>
               <input
                 type="number"
                 value={props.defaultTab || 0}
-                onChange={(e) => handlePropertyChange('defaultTab', parseInt(e.target.value) || 0)}
+                onChange={e =>
+                  handlePropertyChange(
+                    'defaultTab',
+                    parseInt(e.target.value) || 0
+                  )
+                }
                 className="input-field text-sm"
                 min={0}
               />
@@ -1329,14 +1598,19 @@ export default function PropertyPanel() {
         return (
           <>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Section Titles (one per line)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Section Titles (one per line)
+              </label>
               <textarea
                 value={(props.items || []).map(i => i.title || i).join('\n')}
-                onChange={(e) => {
-                  const items = e.target.value.split('\n').filter(Boolean).map(title => ({
-                    title,
-                    content: 'Section content here'
-                  }))
+                onChange={e => {
+                  const items = e.target.value
+                    .split('\n')
+                    .filter(Boolean)
+                    .map(title => ({
+                      title,
+                      content: 'Section content here',
+                    }))
                   handlePropertyChange('items', items)
                 }}
                 className="input-field text-sm"
@@ -1349,10 +1623,14 @@ export default function PropertyPanel() {
                 type="checkbox"
                 id="allowMultiple"
                 checked={props.allowMultiple || false}
-                onChange={(e) => handlePropertyChange('allowMultiple', e.target.checked)}
+                onChange={e =>
+                  handlePropertyChange('allowMultiple', e.target.checked)
+                }
                 className="rounded border-gray-300"
               />
-              <label htmlFor="allowMultiple" className="text-xs text-gray-600">Allow multiple open</label>
+              <label htmlFor="allowMultiple" className="text-xs text-gray-600">
+                Allow multiple open
+              </label>
             </div>
           </>
         )
@@ -1393,7 +1671,9 @@ export default function PropertyPanel() {
             {selectedComponent.type}
           </span>
           {selectedComponent.label && (
-            <span className="text-xs text-gray-400">• {selectedComponent.label}</span>
+            <span className="text-xs text-gray-400">
+              • {selectedComponent.label}
+            </span>
           )}
         </div>
       </div>
@@ -1404,20 +1684,24 @@ export default function PropertyPanel() {
         <Section title="Position" icon={Move}>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">X</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                X
+              </label>
               <input
                 type="number"
                 value={selectedComponent.x || 0}
-                onChange={(e) => handlePositionChange('x', e.target.value)}
+                onChange={e => handlePositionChange('x', e.target.value)}
                 className="input-field text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Y</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Y
+              </label>
               <input
                 type="number"
                 value={selectedComponent.y || 0}
-                onChange={(e) => handlePositionChange('y', e.target.value)}
+                onChange={e => handlePositionChange('y', e.target.value)}
                 className="input-field text-sm"
               />
             </div>
@@ -1428,20 +1712,24 @@ export default function PropertyPanel() {
         <Section title="Size" icon={Maximize2}>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Width</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Width
+              </label>
               <input
                 type="number"
                 value={selectedComponent.width || 200}
-                onChange={(e) => handleSizeChange('width', e.target.value)}
+                onChange={e => handleSizeChange('width', e.target.value)}
                 className="input-field text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Height</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Height
+              </label>
               <input
                 type="number"
                 value={selectedComponent.height || 100}
-                onChange={(e) => handleSizeChange('height', e.target.value)}
+                onChange={e => handleSizeChange('height', e.target.value)}
                 className="input-field text-sm"
               />
             </div>
@@ -1466,17 +1754,21 @@ export default function PropertyPanel() {
               type="checkbox"
               id="visible"
               checked={selectedComponent.visible !== false}
-              onChange={(e) => handleUpdate({ visible: e.target.checked })}
+              onChange={e => handleUpdate({ visible: e.target.checked })}
               className="rounded border-gray-300"
             />
-            <label htmlFor="visible" className="text-xs text-gray-600">Visible</label>
+            <label htmlFor="visible" className="text-xs text-gray-600">
+              Visible
+            </label>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Conditional Display</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              Conditional Display
+            </label>
             <input
               type="text"
               value={selectedComponent.condition || ''}
-              onChange={(e) => handleUpdate({ condition: e.target.value })}
+              onChange={e => handleUpdate({ condition: e.target.value })}
               className="input-field text-sm"
               placeholder="e.g., {{dealstage}} == 'closed'"
             />
