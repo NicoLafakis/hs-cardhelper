@@ -11,6 +11,18 @@ export class AIService extends BaseService {
   }
 
   /**
+   * Send chat message to AI assistant
+   */
+  async chat(message, context, recordType, currentComponents) {
+    return await this.post('/chat', {
+      message,
+      context,
+      recordType,
+      currentComponents,
+    })
+  }
+
+  /**
    * Get AI suggestions based on prompt
    */
   async getSuggestions(prompt, objectType, properties) {

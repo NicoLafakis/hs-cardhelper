@@ -18,7 +18,7 @@ class BulkOperationsService {
     try {
       const jobId = `job_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
-      const [result] = await this.db.execute(
+      await this.db.execute(
         `INSERT INTO bulk_operation_jobs
          (job_id, user_id, operation_type, total_records, status, config, created_at)
          VALUES (?, ?, ?, ?, 'pending', ?, NOW())`,

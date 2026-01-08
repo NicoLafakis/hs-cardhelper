@@ -19,7 +19,7 @@ import {
 } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'
 import { useMockData } from '../../contexts/MockDataContext'
-import api from '../../api/api'
+import aiService from '../../services/AIService'
 
 // Predefined card templates for quick generation
 const QUICK_TEMPLATES = [
@@ -235,13 +235,13 @@ export default function AIChatAssistant({
     setIsLoading(true)
 
     try {
-      // Call AI endpoint
-      const response = await api.post('/ai/chat', {
-        message: userMessage,
-        context: HUBSPOT_CONTEXT,
+      // Call AI service
+      const response = await aiService.chat(
+        userMessage,
+        HUBSPOT_CONTEXT,
         recordType,
-        currentComponents: components.length,
-      })
+        components.length
+      )
 
       const assistantMessage = response.data.message || response.data.response
 

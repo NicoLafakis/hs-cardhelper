@@ -1,9 +1,64 @@
 import { create } from 'zustand'
+import useAuthStore from './authStore'
 
 /**
  * Version Control Store
  * Manages snapshots, branches, and version history for card designs
  */
+
+/**
+ * Generate a simple thumbnail representation of components
+ * Returns a data URL for a miniature preview
+ */
+const generateThumbnail = components => {
+  if (!components || components.length === 0) return null
+
+  // Create a simple SVG thumbnail representation
+  const width = 120
+  const height = 80
+  const scale = 0.1 // Scale factor for component positions
+
+  const componentRects = components
+    .slice(0, 20)
+    .map((comp, index) => {
+      const x = Math.min((comp.x || index * 20) * scale, width - 15)
+      const y = Math.min((comp.y || index * 10) * scale, height - 10)
+      const w = Math.min((comp.width || 80) * scale, 15)
+      const h = Math.min((comp.height || 40) * scale, 10)
+
+      // Different colors for different component types
+      const colors = {
+        text: '#3B82F6',
+        button: '#10B981',
+        image: '#8B5CF6',
+        input: '#F59E0B',
+        container: '#6B7280',
+        default: '#94A3B8',
+      }
+      const color = colors[comp.type] || colors.default
+
+      return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}" rx="1" opacity="0.8"/>`
+    })
+    .join('')
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+    <rect width="${width}" height="${height}" fill="#F1F5F9" rx="4"/>
+    ${componentRects}
+    <text x="4" y="${height - 4}" font-size="6" fill="#64748B">${components.length} components</text>
+  </svg>`
+
+  return `data:image/svg+xml;base64,${btoa(svg)}`
+}
+
+/**
+ * Get current user from auth store
+ */
+const getCurrentUser = () => {
+  const { user } = useAuthStore.getState()
+  return user
+    ? { id: user.id, name: user.name, email: user.email }
+    : { id: 'anonymous', name: 'Anonymous User' }
+}
 
 const useVersionStore = create((set, get) => ({
   // Snapshots
@@ -12,14 +67,15 @@ const useVersionStore = create((set, get) => ({
 
   // Create a new snapshot
   createSnapshot: (name, description, components) => {
+    const currentUser = getCurrentUser()
     const snapshot = {
       id: Date.now() + Math.random(),
       name: name || `Snapshot ${new Date().toLocaleString()}`,
       description: description || '',
       components: JSON.parse(JSON.stringify(components)), // Deep clone
       createdAt: new Date().toISOString(),
-      createdBy: 'current-user', // TODO: Get from auth store
-      thumbnail: null, // TODO: Generate thumbnail
+      createdBy: currentUser,
+      thumbnail: generateThumbnail(components),
     }
 
     set(state => ({

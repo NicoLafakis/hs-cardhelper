@@ -14,14 +14,6 @@ const AI_MODELS = {
   OPUS: 'claude-opus-4-5-20251101'        // Most powerful - debugging, major changes
 }
 
-// Task complexity classification
-const TASK_TIER = {
-  CHAT: 'HAIKU',           // Quick Q&A, chatbot interactions
-  BUILD: 'SONNET',         // Creating new cards, generating components
-  DEBUG: 'OPUS',           // Debugging, complex analysis
-  MAJOR_CHANGE: 'OPUS'     // Large layout changes, refactoring
-}
-
 // Get Claude API key (primary)
 function getClaudeKey() {
   const claudeKey = process.env.ANTHROPIC_API_KEY || process.env.CLAUDE_API_KEY
@@ -146,63 +138,6 @@ async function callTieredAI(systemPrompt, userPrompt, userId, options = {}) {
     }
     
     throw error
-  }
-}
-
-// Legacy wrapper for backward compatibility - uses HAIKU by default
-async function callAIProvider(systemPrompt, userPrompt, userId) {
-  let claudeError = null
-  let openaiError = null
-
-  // Try Claude Haiku first
-  try {
-    const claudeKey = getClaudeKey()
-    const client = new Anthropic({ apiKey: claudeKey })
-
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 2048,
-      system: systemPrompt,
-      messages: [
-        {
-          role: 'user',
-          content: userPrompt
-        }
-      ]
-    })
-
-    return {
-      content: response.content[0].type === 'text' ? response.content[0].text : '',
-      provider: 'claude-haiku'
-    }
-  } catch (error) {
-    claudeError = error
-    console.warn('Claude Haiku request failed, attempting fallback to GPT-5 Mini:', error.message)
-  }
-
-  // Fallback to GPT-5 Mini
-  try {
-    const openaiKey = await getOpenAIKey(userId)
-    const client = new OpenAI({ apiKey: openaiKey })
-
-    const completion = await client.chat.completions.create({
-      model: 'gpt-5-mini-2025-08-07',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 2048
-    })
-
-    return {
-      content: completion.choices[0].message.content,
-      provider: 'gpt-5-mini-fallback'
-    }
-  } catch (error) {
-    openaiError = error
-    console.error('Both Claude and GPT-5 Mini failed:', { claudeError: claudeError?.message, openaiError: openaiError?.message })
-    throw new Error(`AI provider failed: Claude - ${claudeError?.message}, GPT-5 Mini - ${openaiError?.message}`)
   }
 }
 

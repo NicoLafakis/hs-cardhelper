@@ -909,9 +909,7 @@ export default function PreviewPanel() {
                 key={i}
                 className="border border-gray-200 rounded overflow-hidden"
               >
-                <div
-                  className="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-gray-50 transition-colors"
-                >
+                <div className="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-gray-50 transition-colors">
                   <span className="text-sm font-medium text-gray-700">
                     {item.title || item}
                   </span>

@@ -48,7 +48,8 @@ import { AnimationBuilder } from '../Animations/AnimationBuilder'
 export default function Header() {
   const navigate = useNavigate()
   useParams() // cardId available but not currently used
-  const { canUndo, canRedo, undo, redo } = useBuilderStore()
+  const { canUndo, canRedo, undo, redo, selectedComponentId, updateComponent } =
+    useBuilderStore()
   const { user, logout } = useAuthStore()
   const [showTemplates, setShowTemplates] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -405,8 +406,12 @@ export default function Header() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
             <AnimationBuilder
-              onAnimationSelect={() => {
-                // TODO: Apply animation to selected component
+              onAnimationSelect={animationConfig => {
+                if (selectedComponentId) {
+                  updateComponent(selectedComponentId, {
+                    animation: animationConfig,
+                  })
+                }
               }}
               onClose={() => setShowAnimationBuilder(false)}
             />

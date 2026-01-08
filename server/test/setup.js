@@ -3,7 +3,7 @@
  * This file runs before all server-side tests
  */
 
-import { vi, beforeAll, afterAll, afterEach } from 'vitest'
+import { vi, afterAll, afterEach } from 'vitest'
 import dotenv from 'dotenv'
 
 // Load test environment variables

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"echo $env:USERPROFILE\")",
+      "Bash(powershell -Command \"[Environment]::GetFolderPath\\(''UserProfile''\\)\")",
+      "Bash(powershell -Command:*)",
+      "Bash(npm run custodian:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npm run test:*)"
+    ]
+  }
+}
