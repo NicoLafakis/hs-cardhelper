@@ -37,16 +37,16 @@
 ### Architecture & Design
 | File | Location | Description |
 |------|----------|-------------|
-| Phase 1 Architecture | `PHASE1_ARCHITECTURE.md` | Plugin system, service layer |
-| Phase 2 Features | `PHASE2_FEATURES.md` | Extended capabilities |
-| Features Overview | `FEATURES.md` | Complete feature list |
-| Capabilities Analysis | `CAPABILITIES_ANALYSIS_DETAILED.md` | Deep-dive on all features |
+| Phase 1 Architecture | `docs/PHASE1_ARCHITECTURE.md` | Plugin system, service layer |
+| Phase 2 Features | `docs/PHASE2_FEATURES.md` | Extended capabilities |
+| Features Overview | `docs/FEATURES.md` | Complete feature list |
+| Capabilities Analysis | `docs/CAPABILITIES_ANALYSIS_DETAILED.md` | Deep-dive on all features |
 
 ### Deployment & Operations
 | File | Location | Description |
 |------|----------|-------------|
-| Deployment Guide | `DEPLOYMENT_GUIDE.md` | Production deployment |
-| User Guide | `USER_GUIDE.md` | End-user documentation |
+| Deployment Guide | `docs/DEPLOYMENT_GUIDE.md` | Production deployment |
+| User Guide | `docs/USER_GUIDE.md` | End-user documentation |
 | README | `README.md` | Project overview |
 
 ---
