@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Remote Cursor React component
+ * @module src/components/Collaboration/RemoteCursor
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Remote Cursor Component
  * Displays live cursor positions of other collaborators
  */

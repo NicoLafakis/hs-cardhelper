@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Auth Store Zustand state store
+ * @module src/store/authStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { create } from 'zustand'
 
 const useAuthStore = create(set => ({

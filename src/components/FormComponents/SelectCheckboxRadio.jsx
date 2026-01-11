@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Select Checkbox Radio React component
+ * @module src/components/FormComponents/SelectCheckboxRadio
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Select & Checkbox & Radio Components
  * Dropdown selection, boolean choices, multi-select
  */

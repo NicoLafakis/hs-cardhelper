@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Card React component
+ * @module src/components/ui/atoms/Card
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Card Atom
  * Basic card container component
  */

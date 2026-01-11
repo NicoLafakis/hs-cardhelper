@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Bulk Operations Panel React component
+ * @module src/components/BulkOperations/BulkOperationsPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Bulk Operations Panel
  * No-code interface for batch operations and CSV import/export
  */

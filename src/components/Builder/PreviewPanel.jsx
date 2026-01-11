@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Preview Panel React component
+ * @module src/components/Builder/PreviewPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 /* eslint-disable no-case-declarations */
 import React, { useState } from 'react'
 import {

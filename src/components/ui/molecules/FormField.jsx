@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Form Field React component
+ * @module src/components/ui/molecules/FormField
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * FormField Molecule
  * Combination of Label + Input + Error message
  */

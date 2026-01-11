@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Setup Server test setup
+ * @module server/test/setup
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Vitest Setup File for Server Tests
  * This file runs before all server-side tests
  */

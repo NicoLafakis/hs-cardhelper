@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Template Preview React component
+ * @module src/components/Templates/TemplatePreview
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { motion, AnimatePresence } from 'framer-motion'
 import DOMPurify from 'dompurify'
 import './TemplatePreview.css'

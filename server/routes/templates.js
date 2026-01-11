@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Templates API route handler
+ * @module server/routes/templates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import express from 'express'
 import pool from '../utils/database.js'
 import { authenticateToken } from '../middleware/auth.js'

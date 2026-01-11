@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Gallery Component Plugin module
+ * @module src/plugins/advanced-components/components/GalleryComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Gallery Component
  * Displays images in a grid gallery
  */

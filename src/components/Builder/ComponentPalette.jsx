@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Component Palette React component
+ * @module src/components/Builder/ComponentPalette
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState } from 'react'
 import {
   Table,

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Version Control Panel React component
+ * @module src/components/VersionControl/VersionControlPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import {
   X,

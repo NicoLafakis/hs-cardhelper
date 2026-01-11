@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 003_analytics_tables Database migration
+ * @module server/migrations/003_analytics_tables
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration 003: Analytics Tables
  * Creates tables for tracking events, component usage, and performance metrics
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Data Bindings React hook
+ * @module src/hooks/useDataBindings
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Bindings React Hooks
  * Manage and evaluate data bindings in React components
  */

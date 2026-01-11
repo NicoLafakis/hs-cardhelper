@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Natural Language Builder Plugin module
+ * @module src/plugins/advanced-ai/components/NaturalLanguageBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Natural Language Builder Component
  * Build cards using natural language descriptions
  */

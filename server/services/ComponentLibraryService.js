@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Component Library Service Business logic service
+ * @module server/services/ComponentLibraryService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Component Library Service
  * Manages component creation, usage, analytics, and marketplace
  */

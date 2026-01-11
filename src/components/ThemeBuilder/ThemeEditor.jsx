@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Editor React component
+ * @module src/components/ThemeBuilder/ThemeEditor
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Professional Theme Editor
  * Real-time theme customization with live preview
  */

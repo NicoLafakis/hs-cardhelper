@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Text Input React component
+ * @module src/components/FormComponents/TextInput
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * TextInput Form Component
  * Advanced text input with validation, formatting, conditions, and actions
  * Users configure everything via UI - no code needed

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview AI Wizard Modal React component
+ * @module src/components/AI/AIWizardModal
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState, useEffect } from 'react'
 import { hubspotAPI, aiAPI } from '../../api/api'
 import { X, Wand2, AlertCircle, Loader, Copy, CheckCircle } from 'lucide-react'

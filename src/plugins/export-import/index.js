@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/export-import/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Export/Import Plugin
  * Adds ability to export and import templates as JSON files
  */

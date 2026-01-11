@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Run Premium Migration Server utility
+ * @module server/utils/runPremiumMigration
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Dashboard Page component
+ * @module src/pages/Dashboard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { templatesAPI } from '../api/api'

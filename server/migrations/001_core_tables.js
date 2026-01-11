@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 001_core_tables Database migration
+ * @module server/migrations/001_core_tables
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration 001: Core Tables
  * Creates the foundational tables for the application:
  * - users (authentication)

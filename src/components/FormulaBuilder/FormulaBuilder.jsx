@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Formula Builder React component
+ * @module src/components/FormulaBuilder/FormulaBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Formula Builder with AI
  * No-code interface for creating formulas with natural language support
  */

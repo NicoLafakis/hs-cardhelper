@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Test-db-connection Module
+ * @module server/test-db-connection
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import pool from './utils/database.js'
 
 async function testConnection() {

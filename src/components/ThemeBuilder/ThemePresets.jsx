@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Presets React component
+ * @module src/components/ThemeBuilder/ThemePresets
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Presets Component
  * Pre-built theme templates and custom theme management
  */

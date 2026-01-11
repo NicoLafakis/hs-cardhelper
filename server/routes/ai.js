@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Ai API route handler
+ * @module server/routes/ai
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import express from 'express'
 import Anthropic from '@anthropic-ai/sdk'
 import OpenAI from 'openai'

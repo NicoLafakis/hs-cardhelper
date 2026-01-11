@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Builder Business logic service
+ * @module server/services/SmartBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AI-Powered Smart Builder
  * Uses Claude Haiku to generate card layouts from natural language
  */

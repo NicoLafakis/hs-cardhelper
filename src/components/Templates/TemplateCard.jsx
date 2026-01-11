@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Template Card React component
+ * @module src/components/Templates/TemplateCard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { motion } from 'framer-motion'
 import './TemplateCard.css'
 

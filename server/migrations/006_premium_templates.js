@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 006_premium_templates Database migration
+ * @module server/migrations/006_premium_templates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration: Premium Card Templates System
  * Tables for template management, cloning, versions, ratings
  */

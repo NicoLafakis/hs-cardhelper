@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Builder Store Zustand state store
+ * @module src/store/builderStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { create } from 'zustand'
 
 const useBuilderStore = create((set, get) => ({

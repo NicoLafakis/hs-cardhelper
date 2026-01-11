@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Builder Page Page component
+ * @module src/pages/BuilderPage
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useBuilderStore from '../store/builderStore'

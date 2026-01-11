@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Signup React component
+ * @module src/components/Auth/Signup
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authAPI } from '../../api/api'

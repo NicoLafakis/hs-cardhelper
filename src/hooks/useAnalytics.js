@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Analytics React hook
+ * @module src/hooks/useAnalytics
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics React Hooks
  * Frontend integration for analytics and metrics
  */

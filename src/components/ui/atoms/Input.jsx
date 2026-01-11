@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Input React component
+ * @module src/components/ui/atoms/Input
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Input Atom
  * Basic input component with different types
  */

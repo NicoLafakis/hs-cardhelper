@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Deployment Wizard React component
+ * @module src/components/Deployment/DeploymentWizard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import {
   X,

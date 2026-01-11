@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Property Panel React component
+ * @module src/components/Builder/PropertyPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 /* eslint-disable no-case-declarations */
 import { useState } from 'react'
 import useBuilderStore from '../../store/builderStore'

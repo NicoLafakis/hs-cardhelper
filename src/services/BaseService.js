@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Base Service Frontend service
+ * @module src/services/BaseService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Base Service Class
  * Provides common functionality for all services
  */

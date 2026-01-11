@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Templates Modal React component
+ * @module src/components/Templates/TemplatesModal
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState, useEffect } from 'react'
 import { templatesAPI } from '../../api/api'
 import useBuilderStore from '../../store/builderStore'

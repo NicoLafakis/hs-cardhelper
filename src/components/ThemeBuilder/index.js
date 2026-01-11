@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/ThemeBuilder/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Builder Components Export
  */
 

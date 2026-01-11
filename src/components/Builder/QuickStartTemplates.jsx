@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Quick Start Templates React component
+ * @module src/components/Builder/QuickStartTemplates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState } from 'react'
 import {
   User,

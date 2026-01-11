@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Timeline Component Plugin module
+ * @module src/plugins/advanced-components/components/TimelineComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Timeline Component
  * Displays events in a timeline format
  */

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Header React component
+ * @module src/components/Builder/Header
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useBuilderStore from '../../store/builderStore'

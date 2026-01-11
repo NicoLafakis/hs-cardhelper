@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Typography Scale React component
+ * @module src/components/AdvancedStyling/TypographyScale
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * TypographyScale - Advanced typography scale generator
  * Part of Color & Styling Superpowers feature
  */

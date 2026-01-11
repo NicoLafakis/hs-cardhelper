@@ -1,3 +1,10 @@
+/**
+ * @fileoverview API client with auth token management
+ * @module src/api/api
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import axios from 'axios'
 import useAuthStore from '../store/authStore'
 

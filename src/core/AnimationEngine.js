@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Animation Engine Core system module
+ * @module src/core/AnimationEngine
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Animation Engine
  * Core animation definitions, presets, and utility functions
  */

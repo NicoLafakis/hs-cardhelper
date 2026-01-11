@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/keyboard-shortcuts/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Keyboard Shortcuts Plugin
  * Adds advanced keyboard shortcuts to the app
  */

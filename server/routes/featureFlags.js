@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Feature Flags API route handler
+ * @module server/routes/featureFlags
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Feature Flags Routes
  * API endpoints for managing feature flags
  */

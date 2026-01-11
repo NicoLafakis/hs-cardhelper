@@ -1,4 +1,11 @@
 /**
+ * @fileoverview AI Assistant Plugin module
+ * @module src/plugins/advanced-ai/components/AIAssistant
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AI Assistant Component
  * Interactive AI assistant for card building
  */

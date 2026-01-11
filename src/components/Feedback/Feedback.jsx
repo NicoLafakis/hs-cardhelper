@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Feedback React component
+ * @module src/components/Feedback/Feedback
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Feedback Components
  * Alert, Toast, Tooltip, Popover, Modal, Skeleton
  */

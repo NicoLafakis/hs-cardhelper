@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Animation React hook
+ * @module src/hooks/useAnimation
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Animation React Hooks
  * Easy integration of animations into components
  */

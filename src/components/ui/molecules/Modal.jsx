@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Modal React component
+ * @module src/components/ui/molecules/Modal
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Modal Molecule
  * Reusable modal component
  */

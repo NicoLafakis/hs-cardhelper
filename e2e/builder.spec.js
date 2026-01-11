@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Builder.spec E2E test suite
+ * @module e2e/builder.spec
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * E2E Test: Builder Canvas
  * Tests the card builder functionality
  */

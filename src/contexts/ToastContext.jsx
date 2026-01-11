@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Toast Context React context provider
+ * @module src/contexts/ToastContext
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { createContext, useContext, useState, useCallback } from 'react'
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 

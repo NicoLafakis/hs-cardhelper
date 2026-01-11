@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Builder Store.test Zustand state store
+ * @module src/store/builderStore.test
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Builder Store Tests
  * Tests for the Zustand builder store
  */

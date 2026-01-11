@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Switcher React component
+ * @module src/components/ThemeBuilder/ThemeSwitcher
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Switcher
  * Quick access theme selector for the toolbar
  */

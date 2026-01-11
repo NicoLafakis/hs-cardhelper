@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 002_feature_flags Database migration
+ * @module server/migrations/002_feature_flags
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration 002: Feature Flags
  * Creates the feature_flags table for managing feature toggles per user
  */

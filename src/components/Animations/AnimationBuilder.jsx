@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Animation Builder React component
+ * @module src/components/Animations/AnimationBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Animation Builder Component
  * Visual animation editor and builder UI
  */

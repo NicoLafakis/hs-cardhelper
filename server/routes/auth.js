@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Auth API route handler
+ * @module server/routes/auth
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'

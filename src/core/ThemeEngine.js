@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Engine Core system module
+ * @module src/core/ThemeEngine
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Professional Theme Engine
  * Complete theme system with pre-built templates, color generation, and customization
  */

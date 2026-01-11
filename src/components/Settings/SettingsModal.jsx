@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Settings Modal React component
+ * @module src/components/Settings/SettingsModal
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState, useEffect } from 'react'
 import { settingsAPI } from '../../api/api'
 import {

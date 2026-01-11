@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/CardStates/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * CardStates Components - Multi-state Card Behaviors feature
  *
  * This module provides state management and conditional logic for cards:

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Layout Engine Core system module
+ * @module src/core/LayoutEngine
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Advanced Card Layout Engine
  * Handles grid-based layouts, responsive breakpoints, and CSS customization
  */

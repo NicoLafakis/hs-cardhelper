@@ -1,4 +1,11 @@
 /**
+ * @fileoverview React Generator Utility module
+ * @module src/utils/exportGenerators/reactGenerator
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Generate React UI Extension code from card components
  * Compatible with HubSpot UI Extensions SDK (2025+)
  */

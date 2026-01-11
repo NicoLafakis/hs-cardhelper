@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Data Bindings Service Business logic service
+ * @module server/services/DataBindingsService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Bindings Service
  * Conditional rendering, computed properties, formulas, lookups, and dependencies
  */

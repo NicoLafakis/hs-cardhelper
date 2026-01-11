@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Condition Builder React component
+ * @module src/components/ConditionalLogic/ConditionBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Visual Conditional Logic Builder
  * No-code interface for creating complex if-then-else logic
  */

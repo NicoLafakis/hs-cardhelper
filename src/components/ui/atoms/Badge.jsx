@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Badge React component
+ * @module src/components/ui/atoms/Badge
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Badge Atom
  * Basic badge/tag component
  */

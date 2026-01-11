@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Version Store Zustand state store
+ * @module src/store/versionStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { create } from 'zustand'
 import useAuthStore from './authStore'
 

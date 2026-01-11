@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Smart Builder React hook
+ * @module src/hooks/useSmartBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Builder React Hooks
  * Frontend integration for AI-powered card generation
  */

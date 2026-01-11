@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Advanced Form Controls React component
+ * @module src/components/FormBuilder/AdvancedFormControls
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AdvancedFormControls - Enhanced form input components
  * Part of Advanced Form Controls & Validation feature
  */

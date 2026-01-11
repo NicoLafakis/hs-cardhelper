@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Suggestions Plugin module
+ * @module src/plugins/advanced-ai/components/SmartSuggestions
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Suggestions Component
  * Provides AI-powered suggestions for improving cards
  */

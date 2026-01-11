@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Contrast Checker React component
+ * @module src/components/AdvancedStyling/ContrastChecker
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * ContrastChecker - WCAG accessibility contrast validation
  * Part of Color & Styling Superpowers feature
  */

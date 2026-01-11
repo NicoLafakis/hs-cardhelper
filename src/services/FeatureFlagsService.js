@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Feature Flags Service Frontend service
+ * @module src/services/FeatureFlagsService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Feature Flags Service
  * Handles feature flag management
  */

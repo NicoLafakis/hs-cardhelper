@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Express server entry point
+ * @module server
+ * @description Main server file configuring Express, middleware, routes, and WebSocket
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'

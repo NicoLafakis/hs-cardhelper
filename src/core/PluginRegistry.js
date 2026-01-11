@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Plugin Registry Core system module
+ * @module src/core/PluginRegistry
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Plugin Registry - Central hub for managing all plugins
  * Handles plugin registration, initialization, and lifecycle
  */

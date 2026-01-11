@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Version Store.test Zustand state store
+ * @module src/store/versionStore.test
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Version Store Tests
  * Tests for the Zustand version control store
  */

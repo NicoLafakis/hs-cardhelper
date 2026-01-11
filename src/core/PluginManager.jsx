@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Plugin Manager Core system module
+ * @module src/core/PluginManager
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Plugin Manager - React integration for the plugin system
  * Provides hooks and components for working with plugins
  */

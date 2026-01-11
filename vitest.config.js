@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Vitest test configuration for frontend tests
+ * @module vitest.config
+ * @description Configures Vitest test runner, coverage, and DOM testing environment
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'

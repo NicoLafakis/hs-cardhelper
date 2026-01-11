@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Component Library React hook
+ * @module src/hooks/useComponentLibrary
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Component Library React Hooks
  * Hooks for managing component creation, usage, and manipulation
  */

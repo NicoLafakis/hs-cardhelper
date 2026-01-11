@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Analytics Service Business logic service
+ * @module server/services/AnalyticsService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Service
  * Comprehensive metrics tracking, aggregation, and analysis
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Premium Templates React hook
+ * @module src/hooks/usePremiumTemplates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Premium Templates React Hooks
  * Custom hooks for template operations
  */

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Validation Suite React component
+ * @module src/components/Validation/ValidationSuite
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState, useEffect } from 'react'
 import {
   X,

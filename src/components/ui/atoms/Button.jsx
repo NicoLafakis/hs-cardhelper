@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Button React component
+ * @module src/components/ui/atoms/Button
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Button Atom
  * Basic button component with different variants
  */

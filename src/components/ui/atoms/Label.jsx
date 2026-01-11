@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Label React component
+ * @module src/components/ui/atoms/Label
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Label Atom
  * Basic label component
  */

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview AI Design Suggestions React component
+ * @module src/components/AIDesignSuggestions/AIDesignSuggestions
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState, useEffect } from 'react'
 import {
   X,

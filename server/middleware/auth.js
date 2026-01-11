@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Auth Express middleware
+ * @module server/middleware/auth
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import jwt from 'jsonwebtoken'
 
 if (!process.env.JWT_SECRET) {

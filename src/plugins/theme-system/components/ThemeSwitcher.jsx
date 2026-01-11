@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Switcher Plugin module
+ * @module src/plugins/theme-system/components/ThemeSwitcher
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Switcher Component
  * Allows users to switch between themes
  */

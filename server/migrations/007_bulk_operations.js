@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 007_bulk_operations Database migration
+ * @module server/migrations/007_bulk_operations
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration 007: Bulk Operations
  * Creates tables for tracking bulk operation jobs and their progress
  */

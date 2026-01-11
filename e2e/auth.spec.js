@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Auth.spec E2E test suite
+ * @module e2e/auth.spec
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * E2E Test: Authentication Flow
  * Tests the complete login/signup/logout user journey
  */

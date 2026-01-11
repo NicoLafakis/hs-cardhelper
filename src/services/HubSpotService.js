@@ -1,4 +1,11 @@
 /**
+ * @fileoverview HubSpot Service Frontend service
+ * @module src/services/HubSpotService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * HubSpot Service
  * Handles HubSpot API integration
  */

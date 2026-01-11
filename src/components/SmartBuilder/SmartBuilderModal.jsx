@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Builder Modal React component
+ * @module src/components/SmartBuilder/SmartBuilderModal
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Builder Modal Wrapper
  * Integrates smart builder into the application
  */

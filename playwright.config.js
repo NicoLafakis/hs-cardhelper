@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Playwright E2E test configuration
+ * @module playwright.config
+ * @description Configures Playwright for end-to-end testing across browsers
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { defineConfig, devices } from '@playwright/test'
 
 /**

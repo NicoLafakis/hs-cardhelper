@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Express server entry point
+ * @module server/websocket/server
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * WebSocket Server Setup
  * Socket.io configuration for real-time collaboration
  */

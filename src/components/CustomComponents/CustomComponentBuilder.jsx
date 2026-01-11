@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Custom Component Builder React component
+ * @module src/components/CustomComponents/CustomComponentBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import {
   X,
