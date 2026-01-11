@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Advanced Styling Panel React component
+ * @module src/components/AdvancedStyling/AdvancedStylingPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AdvancedStylingPanel - Main container for Color & Styling Superpowers
  * Combines gradient editor, contrast checker, typography scale, and effects
  */

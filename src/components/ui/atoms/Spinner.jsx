@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Spinner React component
+ * @module src/components/ui/atoms/Spinner
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Spinner Atom
  * Loading spinner component
  */

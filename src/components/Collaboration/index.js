@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/Collaboration/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Collaboration Components Export
  */
 

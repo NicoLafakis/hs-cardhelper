@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Premium Templates Service Business logic service
+ * @module server/services/PremiumTemplatesService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Premium Templates Service
  * Backend business logic for template management
  */

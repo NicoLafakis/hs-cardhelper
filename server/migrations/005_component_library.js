@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 005_component_library Database migration
+ * @module server/migrations/005_component_library
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Component Library Database Migration
  * Creates tables for managing reusable UI components
  */

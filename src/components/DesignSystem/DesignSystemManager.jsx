@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Design System Manager React component
+ * @module src/components/DesignSystem/DesignSystemManager
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import {
   X,

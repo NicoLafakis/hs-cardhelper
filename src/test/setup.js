@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Setup Test utility
+ * @module src/test/setup
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Vitest Setup File for Frontend Tests
  * This file runs before all tests
  */

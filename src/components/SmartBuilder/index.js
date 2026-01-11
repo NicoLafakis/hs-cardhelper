@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/SmartBuilder/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Builder Components Export
  */
 

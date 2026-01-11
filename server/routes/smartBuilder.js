@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Builder API route handler
+ * @module server/routes/smartBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Builder API Routes
  * AI-powered card generation and layout optimization
  */

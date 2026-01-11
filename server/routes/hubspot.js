@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Hubspot API route handler
+ * @module server/routes/hubspot
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import express from 'express'
 import axios from 'axios'
 import pool from '../utils/database.js'

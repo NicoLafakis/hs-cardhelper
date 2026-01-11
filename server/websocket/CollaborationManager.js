@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Collaboration Manager WebSocket handler
+ * @module server/websocket/CollaborationManager
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Real-time Collaboration Manager
  * WebSocket event handling for live multi-user card editing
  */

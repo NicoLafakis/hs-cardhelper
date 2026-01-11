@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Collaborators Panel React component
+ * @module src/components/Collaboration/CollaboratorsPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Collaborators Panel Component
  * Shows active users and their activity in real-time
  */

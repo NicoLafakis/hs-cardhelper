@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Encryption Server utility
+ * @module server/utils/encryption
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import crypto from 'crypto'
 
 const ALGORITHM = 'aes-256-cbc'

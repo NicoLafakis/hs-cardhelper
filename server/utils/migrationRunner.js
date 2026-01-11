@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Migration Runner Server utility
+ * @module server/utils/migrationRunner
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Database Migration Runner
  * Tracks and executes migrations in order
  */

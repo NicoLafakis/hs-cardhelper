@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Property Mapper React component
+ * @module src/components/PropertyMapper/PropertyMapper
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import { X, Search, Link2, UnlinkIcon, Database, Info } from 'lucide-react'
 import { useMockData } from '../../contexts/MockDataContext'

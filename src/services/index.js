@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/services/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Services Index
  * Central export point for all services
  */

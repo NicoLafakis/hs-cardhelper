@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Themes Plugin module
+ * @module src/plugins/theme-system/themes
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Definitions
  * Pre-built themes for the application
  */

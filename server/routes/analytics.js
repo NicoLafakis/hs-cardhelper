@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Analytics API route handler
+ * @module server/routes/analytics
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Routes
  * API endpoints for metrics, tracking, and performance data
  */

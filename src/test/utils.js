@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Utils Test utility
+ * @module src/test/utils
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Test utilities and helpers for CardHelper tests
  */
 

@@ -1,4 +1,12 @@
 /**
+ * @fileoverview Custodian code quality check script
+ * @module scripts/custodian-check
+ * @description Automated code quality validation and maintenance checks
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * CardHelper Custodian Script
  * 
  * Automated code quality checks AND CLEANUP for AI agents.

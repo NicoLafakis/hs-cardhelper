@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Base Service.test Frontend service
+ * @module src/services/BaseService.test
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * BaseService Tests
  * Tests for the service layer base class
  */

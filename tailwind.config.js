@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Tailwind CSS configuration for CardHelper UI
+ * @module tailwind.config
+ * @description Configures Tailwind utility classes, theme extensions, and plugins
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 export default {
   content: [
     "./index.html",

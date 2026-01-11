@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Bulk Operations Service Business logic service
+ * @module server/services/BulkOperationsService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Bulk Operations Service
  * Handles batch operations with progress tracking and error handling
  */

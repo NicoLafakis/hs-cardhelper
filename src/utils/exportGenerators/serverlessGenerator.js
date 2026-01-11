@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Serverless Generator Utility module
+ * @module src/utils/exportGenerators/serverlessGenerator
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Generate HubSpot Serverless Function template
  * These functions run on HubSpot's infrastructure and can be called from UI Extensions
  */

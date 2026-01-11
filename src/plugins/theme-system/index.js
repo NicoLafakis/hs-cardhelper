@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/theme-system/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme System Plugin
  * Provides comprehensive theming capabilities
  */

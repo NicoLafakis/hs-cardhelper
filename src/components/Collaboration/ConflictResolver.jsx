@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Conflict Resolver React component
+ * @module src/components/Collaboration/ConflictResolver
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Conflict Resolution Component
  * UI for handling and resolving concurrent edit conflicts
  */

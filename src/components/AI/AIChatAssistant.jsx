@@ -1,3 +1,10 @@
+/**
+ * @fileoverview A I Chat Assistant React component
+ * @module src/components/AI/AIChatAssistant
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useState, useRef, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import {

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Template Service Frontend service
+ * @module src/services/TemplateService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Template Service
  * Handles template CRUD operations
  */

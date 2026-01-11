@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Conditional Logic React component
+ * @module src/components/CardStates/ConditionalLogic
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * ConditionalLogic - Conditional visibility and behavior rules
  * Part of Multi-state Card Behaviors feature
  */

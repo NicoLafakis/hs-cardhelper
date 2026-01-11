@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Analytics Dashboard Plugin module
+ * @module src/plugins/analytics-dashboard/components/AnalyticsDashboard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Dashboard Component
  * Displays usage metrics and insights
  */

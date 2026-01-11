@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Analytics Dashboard React component
+ * @module src/components/Analytics/AnalyticsDashboard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Dashboard Component
  * Real-time metrics, trends, and performance monitoring
  */

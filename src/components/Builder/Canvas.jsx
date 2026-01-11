@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Canvas React component
+ * @module src/components/Builder/Canvas
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import useBuilderStore from '../../store/builderStore'
 import { Trash2 } from 'lucide-react'
 

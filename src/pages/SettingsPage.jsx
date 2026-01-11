@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Settings Page Page component
+ * @module src/pages/SettingsPage
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, LogOut, Layers } from 'lucide-react'
 import useAuthStore from '../store/authStore'

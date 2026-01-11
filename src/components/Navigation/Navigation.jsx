@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Navigation React component
+ * @module src/components/Navigation/Navigation
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Navigation & Layout Components
  * Tabs, Accordion, Breadcrumb, Stepper with responsive design
  */

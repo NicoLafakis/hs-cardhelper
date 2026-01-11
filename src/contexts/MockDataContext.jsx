@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Mock Data Context React context provider
+ * @module src/contexts/MockDataContext
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { createContext, useContext, useState } from 'react'
 
 const MockDataContext = createContext()

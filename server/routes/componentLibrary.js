@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Component Library API route handler
+ * @module server/routes/componentLibrary
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Component Library API Routes
  * Endpoints for managing components, instances, analytics, and marketplace
  */

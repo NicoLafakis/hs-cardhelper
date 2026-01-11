@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Form Container React component
+ * @module src/components/FormBuilder/FormContainer
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * FormContainer - Form-level component with validation and submission
  * Part of Advanced Form Controls & Validation feature
  */

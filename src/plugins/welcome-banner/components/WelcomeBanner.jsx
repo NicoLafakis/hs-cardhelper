@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Welcome Banner Plugin module
+ * @module src/plugins/welcome-banner/components/WelcomeBanner
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Welcome Banner Component
  * Example component provided by the welcome-banner plugin
  */

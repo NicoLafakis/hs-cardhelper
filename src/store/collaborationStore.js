@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Collaboration Store Zustand state store
+ * @module src/store/collaborationStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Collaboration Store
  * Zustand store for real-time collaboration state
  */

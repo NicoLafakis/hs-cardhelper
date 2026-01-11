@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Main React application component
+ * @module App
+ * @description Root component managing routing, authentication, and global providers
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import useAuthStore from './store/authStore'

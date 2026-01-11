@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Bulk Operations API route handler
+ * @module server/routes/bulkOperations
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Bulk Operations Routes
  * API endpoints for batch operations
  */

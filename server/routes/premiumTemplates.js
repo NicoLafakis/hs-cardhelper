@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Premium Templates API route handler
+ * @module server/routes/premiumTemplates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Premium Templates API Routes
  * REST endpoints for template management
  */

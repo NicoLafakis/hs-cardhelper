@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Chart Component Plugin module
+ * @module src/plugins/advanced-components/components/ChartComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Chart Component
  * Displays various chart types using Recharts
  */

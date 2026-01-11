@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Store Plugin module
+ * @module src/plugins/theme-system/themeStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Store
  * Manages the current theme and applies CSS variables
  */

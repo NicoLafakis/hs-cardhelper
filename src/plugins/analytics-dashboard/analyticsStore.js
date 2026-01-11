@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Analytics Store Plugin module
+ * @module src/plugins/analytics-dashboard/analyticsStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Store
  * Stores and manages analytics data
  */

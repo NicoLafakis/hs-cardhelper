@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Database Server utility
+ * @module server/utils/database
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 import { runMigrations } from './migrationRunner.js'

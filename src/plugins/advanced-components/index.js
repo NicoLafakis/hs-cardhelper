@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/advanced-components/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Advanced Components Plugin
  * Adds powerful new component types to the card builder
  */

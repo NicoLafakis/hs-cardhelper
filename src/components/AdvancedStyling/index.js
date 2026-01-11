@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/AdvancedStyling/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Advanced Styling Components - Color & Styling Superpowers
  *
  * This module provides advanced design tools including:

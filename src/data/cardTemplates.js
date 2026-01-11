@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Card Templates Data module
+ * @module src/data/cardTemplates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Pre-built card templates for HubSpot objects
  * Each template includes component configuration and metadata
  */

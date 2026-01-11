@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Table List Stat Card React component
+ * @module src/components/DataDisplay/TableListStatCard
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Display Components - Complex Tables & Lists
  * Table, List, Stat Card with sorting, filtering, pagination
  */

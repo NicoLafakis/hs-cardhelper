@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Vite build configuration for CardHelper
+ * @module vite.config
+ * @description Configures Vite dev server, build settings, and React plugin
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Json Generator Utility module
+ * @module src/utils/exportGenerators/jsonGenerator
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Generate Legacy JSON CRM Card format
  * Note: This format will be deprecated by October 31, 2026
  * Recommended: Use React UI Extensions instead

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Advanced Grid Layout React component
+ * @module src/components/Builder/AdvancedGridLayout
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AdvancedGridLayout Component
  * React wrapper for the layout engine with drag-drop support
  */

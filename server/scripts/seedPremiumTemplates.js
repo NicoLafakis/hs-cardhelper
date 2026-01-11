@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Seed Premium Templates Server script
+ * @module server/scripts/seedPremiumTemplates
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Seed Premium Templates Database
  * Loads template JSON files into the database
  */

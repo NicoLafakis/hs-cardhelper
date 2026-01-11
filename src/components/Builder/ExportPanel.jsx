@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Export Panel React component
+ * @module src/components/Builder/ExportPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState } from 'react'
 import { Download, Copy, Check, Code, FileJson, Zap, X } from 'lucide-react'
 import useBuilderStore from '../../store/builderStore'

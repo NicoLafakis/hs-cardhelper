@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Use Realtime Collaboration React hook
+ * @module src/hooks/useRealtimeCollaboration
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Real-time Collaboration Hooks
  * React hooks for WebSocket integration
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Gradient Editor React component
+ * @module src/components/AdvancedStyling/GradientEditor
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * GradientEditor - Advanced gradient creation and management
  * Part of Color & Styling Superpowers feature
  */

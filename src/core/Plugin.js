@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Plugin Core system module
+ * @module src/core/Plugin
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Base Plugin Class
  * Provides a template for creating new plugins
  */

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Template Browser React component
+ * @module src/components/Templates/TemplateBrowser
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {

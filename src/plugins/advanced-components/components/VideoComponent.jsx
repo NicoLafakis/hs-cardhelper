@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Video Component Plugin module
+ * @module src/plugins/advanced-components/components/VideoComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Video Component
  * Embeds videos from various sources
  */

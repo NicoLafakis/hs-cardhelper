@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/FormBuilder/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * FormBuilder Components - Advanced Form Controls & Validation
  *
  * This module provides advanced form building tools including:

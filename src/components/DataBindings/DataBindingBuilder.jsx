@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Data Binding Builder React component
+ * @module src/components/DataBindings/DataBindingBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Binding Builder Component
  * UI for creating and managing data bindings
  */

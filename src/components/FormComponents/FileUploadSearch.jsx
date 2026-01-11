@@ -1,4 +1,11 @@
 /**
+ * @fileoverview File Upload Search React component
+ * @module src/components/FormComponents/FileUploadSearch
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * FileUpload & SearchInput Components
  * File upload with drag-drop, search with suggestions
  */

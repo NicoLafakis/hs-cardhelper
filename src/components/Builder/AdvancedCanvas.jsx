@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Advanced Canvas React component
+ * @module src/components/Builder/AdvancedCanvas
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 /* eslint-disable no-case-declarations */
 import { useState, useRef, useEffect } from 'react'
 import useBuilderStore from '../../store/builderStore'

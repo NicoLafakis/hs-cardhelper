@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Badge Tag Progress Rating React component
+ * @module src/components/DataDisplay/BadgeTagProgressRating
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Display Components - Simple Stats
  * Badge, Tag, Progress Bar, Rating (lightweight, configuration-driven)
  */

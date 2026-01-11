@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Settings Service Frontend service
+ * @module src/services/SettingsService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Settings Service
  * Handles API key management and settings
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/SmartSearch/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * SmartSearch Components - Smart Filtering & Search feature
  *
  * This module provides advanced search and filtering tools:

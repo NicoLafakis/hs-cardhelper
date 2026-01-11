@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Plugin Settings React component
+ * @module src/components/Settings/PluginSettings
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Plugin Settings Component
  * Allows users to manage plugins (enable/disable)
  */

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Init Db Server utility
+ * @module server/utils/initDb
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import dotenv from 'dotenv'
 import { initializeDatabase } from './database.js'
 

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Validation Rule Builder React component
+ * @module src/components/FormBuilder/ValidationRuleBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * ValidationRuleBuilder - Visual validation rule configuration
  * Part of Advanced Form Controls & Validation feature
  */

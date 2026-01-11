@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Theme Editor Plugin module
+ * @module src/plugins/theme-system/components/ThemeEditor
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Theme Editor Component
  * Allows users to create and customize themes
  */

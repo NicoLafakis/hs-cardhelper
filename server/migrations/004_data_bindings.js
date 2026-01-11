@@ -1,4 +1,11 @@
 /**
+ * @fileoverview 004_data_bindings Database migration
+ * @module server/migrations/004_data_bindings
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Migration 004: Data Bindings Tables
  * Creates tables for conditional rendering, computed properties, formulas, lookups, and dependencies
  */

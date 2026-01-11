@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Verify Migrations Server utility
+ * @module server/utils/verifyMigrations
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 import mysql from 'mysql2/promise'
 import dotenv from 'dotenv'
 

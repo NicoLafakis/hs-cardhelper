@@ -1,4 +1,11 @@
 /**
+ * @fileoverview A I Service Frontend service
+ * @module src/services/AIService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AI Service
  * Handles AI-powered features using OpenAI
  */

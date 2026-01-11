@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/ui/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * UI Components Index
  * Central export for all UI components
  */

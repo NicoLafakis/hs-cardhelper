@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Custom H T M L Component Plugin module
+ * @module src/plugins/advanced-components/components/CustomHTMLComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Custom HTML Component
  * Renders custom HTML content (sanitized)
  */

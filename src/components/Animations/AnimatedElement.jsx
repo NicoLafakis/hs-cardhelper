@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Animated Element React component
+ * @module src/components/Animations/AnimatedElement
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Animated Element Component
  * Wrapper for applying animations to any element
  */

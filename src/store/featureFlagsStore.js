@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Feature Flags Store Zustand state store
+ * @module src/store/featureFlagsStore
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Feature Flags Store
  * Manages feature flags for toggling plugins and features
  */

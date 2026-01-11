@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Progress Component Plugin module
+ * @module src/plugins/advanced-components/components/ProgressComponent
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Progress Bar Component
  * Displays progress indicators and metrics
  */

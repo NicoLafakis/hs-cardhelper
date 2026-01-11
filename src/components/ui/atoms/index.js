@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/components/ui/atoms/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Atoms Index
  * Export all atomic components
  */

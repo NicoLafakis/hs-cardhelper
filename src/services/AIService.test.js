@@ -1,4 +1,11 @@
 /**
+ * @fileoverview A I Service.test Frontend service
+ * @module src/services/AIService.test
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * AI Service Tests
  * Tests for the AIService class
  */

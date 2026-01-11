@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/analytics-dashboard/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Analytics Dashboard Plugin
  * Provides insights and metrics about card usage
  */

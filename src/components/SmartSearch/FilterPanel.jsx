@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Filter Panel React component
+ * @module src/components/SmartSearch/FilterPanel
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * FilterPanel - Advanced filtering with multiple criteria
  * Part of Smart Filtering & Search feature
  */

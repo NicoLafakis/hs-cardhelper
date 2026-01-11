@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Search Bar React component
+ * @module src/components/SmartSearch/SmartSearchBar
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * SmartSearchBar - Advanced search with filters and suggestions
  * Part of Smart Filtering & Search feature
  */

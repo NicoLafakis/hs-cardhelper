@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Module exports
+ * @module src/plugins/advanced-ai/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Advanced AI Features Plugin
  * Enhances card building with advanced AI capabilities
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Auth Service Frontend service
+ * @module src/services/AuthService
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Authentication Service
  * Handles all authentication-related operations
  */

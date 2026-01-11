@@ -1,4 +1,11 @@
 /**
+ * @fileoverview State Manager React component
+ * @module src/components/CardStates/StateManager
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * StateManager - Multi-state card behavior management
  * Part of Multi-state Card Behaviors feature
  */

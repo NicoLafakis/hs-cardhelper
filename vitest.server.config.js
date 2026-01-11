@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Vitest test configuration for server-side tests
+ * @module vitest.server.config
+ * @description Configures Vitest for testing Express backend and services
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 

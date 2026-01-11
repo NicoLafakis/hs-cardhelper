@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Toggle Date Time Pickers React component
+ * @module src/components/FormComponents/ToggleDateTimePickers
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Toggle & DatePicker & TimePicker Components
  * Switch toggle, date selection, time selection
  */

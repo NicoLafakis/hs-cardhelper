@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Module exports
+ * @module src/components/Templates/index
+ * @license MIT
+ * @author CardHelper Team
+ */
+
 // Template Components
 export { default as TemplateBrowser } from './TemplateBrowser'
 export { default as TemplateCard } from './TemplateCard'

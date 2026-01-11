@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Data Bindings API route handler
+ * @module server/routes/dataBindings
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Data Bindings Routes
  * API endpoints for managing and evaluating data bindings
  */

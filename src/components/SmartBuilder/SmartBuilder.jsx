@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Smart Builder React component
+ * @module src/components/SmartBuilder/SmartBuilder
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Smart Builder UI Component
  * Natural language card generation interface
  */

@@ -1,4 +1,11 @@
 /**
+ * @fileoverview Version History React component
+ * @module src/components/Collaboration/VersionHistory
+ * @license MIT
+ * @author CardHelper Team
+ */
+
+/**
  * Version History Component
  * Timeline view of all changes with rollback capability
  */
