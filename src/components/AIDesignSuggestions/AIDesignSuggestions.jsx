@@ -1,5 +1,5 @@
 /**
- * @fileoverview A I Design Suggestions React component
+ * @fileoverview AI Design Suggestions React component
  * @module src/components/AIDesignSuggestions/AIDesignSuggestions
  * @license MIT
  * @author CardHelper Team

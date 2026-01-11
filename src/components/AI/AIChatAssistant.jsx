@@ -1,5 +1,5 @@
 /**
- * @fileoverview A I Chat Assistant React component
+ * @fileoverview AI Chat Assistant React component
  * @module src/components/AI/AIChatAssistant
  * @license MIT
  * @author CardHelper Team

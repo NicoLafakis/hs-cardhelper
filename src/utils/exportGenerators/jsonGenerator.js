@@ -1,5 +1,5 @@
 /**
- * @fileoverview Json Generator Utility module
+ * @fileoverview JSON Generator Utility module
  * @module src/utils/exportGenerators/jsonGenerator
  * @license MIT
  * @author CardHelper Team

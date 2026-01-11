@@ -1,5 +1,5 @@
 /**
- * @fileoverview A I Service Frontend service
+ * @fileoverview AI Service Frontend service
  * @module src/services/AIService
  * @license MIT
  * @author CardHelper Team

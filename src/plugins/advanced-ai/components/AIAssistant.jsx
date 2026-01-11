@@ -1,5 +1,5 @@
 /**
- * @fileoverview A I Assistant Plugin module
+ * @fileoverview AI Assistant Plugin module
  * @module src/plugins/advanced-ai/components/AIAssistant
  * @license MIT
  * @author CardHelper Team

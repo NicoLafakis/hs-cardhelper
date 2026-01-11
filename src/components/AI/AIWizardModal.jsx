@@ -1,5 +1,5 @@
 /**
- * @fileoverview A I Wizard Modal React component
+ * @fileoverview AI Wizard Modal React component
  * @module src/components/AI/AIWizardModal
  * @license MIT
  * @author CardHelper Team
